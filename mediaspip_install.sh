@@ -17,6 +17,7 @@
 # - ffmpeg
 # - ffmpeg2theora
 
+VERSION="0.1"
 
 # User Editable Variables
 # please edit the following variable if you want to download the source files to somewhere other than below
@@ -31,9 +32,33 @@ SPIP="/var/www/"
 SPIP_VERSION="svn"
 SPIP_SVN=""
 
-###############
+LOGO="
+######################################################################################
+
+
+.___  ___.  _______  _______   __       ___           _______..______    __  .______   
+|   \/   | |   ____||       \ |  |     /   \         /       ||   _  \  |  | |   _  \  
+|  \  /  | |  |__   |  .--.  ||  |    /  ^  \       |   (----\`|  |_)  | |  | |  |_)  | 
+|  |\/|  | |   __|  |  |  |  ||  |   /  /_\  \       \   \    |   ___/  |  | |   ___/  
+|  |  |  | |  |____ |  '--'  ||  |  /  _____  \  .----)   |   |  |      |  | |  |      
+|__|  |__| |_______||_______/ |__| /__/     \__\ |_______/    | _|      |__| | _|     
+
+VERSION ${VERSION}
+
+######################################################################################
+"
+
+MESSAGEAIDE="EXPLICATIONS :
+
+Ce script installera toutes les dépendances logicielles requises pour l'installation de 
+mediaSPIP.
+
+Il installera ensuite le logiciels SPIP (http://www.spip.net) ainsi que les extensions 
+nécessaires dans le répertoire d'installation spécifié.
+"
+##########################################
 # list of all the functions in the script
-###############
+##########################################
 
 # Speed up build time using multpile processor cores.
 NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
@@ -232,7 +257,7 @@ error ()
 # this is the body of the script
 ###############
 
-
+echo "$LOGO"
 #this script must be run as root, so lets check that
 if [ "$(id -u)" != "0" ]; then
 	echo "Erreur. Ce script doit être lancé en tant que root" 1>&2
@@ -243,6 +268,16 @@ if [ ! -r /etc/debian_version ]; then
 	echo "Erreur. Vous ne semblez pas être sur une Distribution Debian" 1>&2
 	exit 1
 fi
+
+while test -n "${1}"; do
+	case "${1}" in
+		--help|-h) echo "$MESSAGEAIDE";
+		exit 0;;
+		--version|-v) echo "MediaSPIP installation v."${VERSION}"";
+		exit 0;;
+	esac
+	shift
+done
 
 # check that the default place to download to and log file location is ok
 echo "Ce script téléchargera les sources des logiciels dans :"
@@ -608,4 +643,5 @@ echo "Les fichiers de MediaSPIP sont installés"
 echo
 echo "That's it, all done."
 echo "exiting now, bye."
+
 exit 
