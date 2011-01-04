@@ -19,19 +19,6 @@
 
 VERSION="0.1"
 
-# User Editable Variables
-# please edit the following variable if you want to download the source files to somewhere other than below
-# the script will have told you about this if you wanted to change the location, that's why your reading this ;)
-INSTALL="/usr/local/src"
-# location of log file
-LOG=/var/log/mediaspip_install.log
-# location of the script's lock file
-LOCK="/var/run/mediaspip_install.pid"
-# location of SPIP
-SPIP="/var/www/"
-SPIP_VERSION="svn"
-SPIP_SVN=""
-
 LOGO="
 ######################################################################################
 
@@ -60,12 +47,68 @@ nécessaires dans le répertoire d'installation spécifié.
 # list of all the functions in the script
 ##########################################
 
+echo "$LOGO"
+
+#########################################
+# Vérifications de base :
+# - doit être lancé par root
+# - doit être sur une debian 
+#
+
+if [ "$(id -u)" != "0" ]; then
+	echo "Erreur. Ce script doit être lancé en tant que root" 1>&2
+	exit 1
+fi
+
+if [ ! -r /etc/debian_version ]; then
+	echo "Erreur. Vous ne semblez pas être sur une Distribution Debian" 1>&2
+	exit 1
+fi
+
+#########################################
+# Variables éditables pour l'utilisateur
+#
+
+# Où sont téléchargées les sources
+INSTALL="/usr/local/src"
+# location of log file
+LOG=/var/log/mediaspip_install.log
+# location of the script's lock file
+LOCK="/var/run/mediaspip_install.pid"
+# Emplacement de SPIP
+SPIP="/var/www/"
+# Version de SPIP (svn ou stable)
+SPIP_VERSION="svn"
+SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-2.1"
+
 # Speed up build time using multpile processor cores.
 NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
 if [ ! "$?" = "0" ]
 then
     NO_OF_CPUCORES=2
 fi
+
+while test -n "${1}"; do
+	case "${1}" in
+		--help|-h) echo "$MESSAGEAIDE"
+		exit 0;;
+		--version|-v) echo "MediaSPIP installation v."${VERSION}""
+		exit 0;;
+		--install|-i) INSTALL="${2}"
+		shift;;
+		--log|-l) LOG="${2}"
+		shift;;
+		--cpus|-c) NO_OF_CPUCORES="${2}"
+		shift;;
+		--spip|-s) SPIP="${2}"
+		shift;;
+		--spip_version|-s_v) SPIP_VERSION="${2}"
+		shift;;
+		--spip_svn|-s_svn) SPIP_VERSION="${2}"
+		shift;;
+	esac
+	shift
+done
 
 # On inclut le fichier de fonctions
 . ./mediaspip_functions.sh
@@ -257,28 +300,6 @@ error ()
 # this is the body of the script
 ###############
 
-echo "$LOGO"
-#this script must be run as root, so lets check that
-if [ "$(id -u)" != "0" ]; then
-	echo "Erreur. Ce script doit être lancé en tant que root" 1>&2
-	exit 1
-fi
-
-if [ ! -r /etc/debian_version ]; then
-	echo "Erreur. Vous ne semblez pas être sur une Distribution Debian" 1>&2
-	exit 1
-fi
-
-while test -n "${1}"; do
-	case "${1}" in
-		--help|-h) echo "$MESSAGEAIDE";
-		exit 0;;
-		--version|-v) echo "MediaSPIP installation v."${VERSION}"";
-		exit 0;;
-	esac
-	shift
-done
-
 # check that the default place to download to and log file location is ok
 echo "Ce script téléchargera les sources des logiciels dans :"
 echo "$INSTALL"
@@ -449,7 +470,7 @@ fi
 if [ ! -d $SPIP/mediaspip ]; then
 	echo "Téléchargement de SPIP"
 	cd $SPIP
-	svn co svn://trac.rezo.net/spip/branches/spip-2.1 mediaspip 2>> $LOG >> $LOG
+	svn co $SPIP_SVN mediaspip 2>> $LOG >> $LOG
 else 
 	echo "Mise à jour de SPIP"
 	cd $SPIP/mediaspip
