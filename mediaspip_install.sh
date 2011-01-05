@@ -54,6 +54,9 @@ nécessaires dans le répertoire d'installation spécifié.
 Les paramètres possibles du scripts sont :
 --install : l'emplacement où les sources des librairies et binaires seront téléchargés
 --cpus : permet de forcer le nombre de cpus à utiliser pour les compilations
+--spip_type : type d'installation de MediaSPIP (ferme|ferme_full|minimal|full|none). Défaut : ferme_full
+--spip_user : utilisateur système (UID) des fichiers de MediaSPIP
+--spip_group : groupe système (GID) des fichiers de MediaSPIP
 "
 ##########################################
 # list of all the functions in the script
@@ -79,6 +82,8 @@ fi
 
 # On inclut le fichier de fonctions
 . ./mediaspip_functions.sh
+# On inclut le fichier d'installation de SPIP et de MediaSPIP
+. ./mediaspip_spip_installation.sh
 
 #########################################
 # Variables éditables pour l'utilisateur
@@ -94,7 +99,11 @@ LOCK="/var/run/mediaspip_install.pid"
 SPIP="/var/www/"
 # Version de SPIP (svn ou stable)
 SPIP_VERSION="svn"
+SPIP_TYPE="ferme_full"
 SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-2.1"
+SPIP_USER="www-data"
+SPIP_GROUP="www-data"
+SPIP_TYPES=(ferme_full ferme minimal full none)
 
 # Speed up build time using multpile processor cores.
 NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
@@ -131,6 +140,18 @@ while test -n "${1}"; do
 		--spip_version|-s_v) SPIP_VERSION="${2}"
 		shift;;
 		--spip_svn|-s_svn) SPIP_VERSION="${2}"
+		shift;;
+		--spip_user) SPIP_USER="${2}"
+		shift;;
+		--spip_group) SPIP_GROUP="${2}"
+		shift;;
+		--spip_type)
+		if in_array ${2} ${SPIP_TYPES[@]};then
+			SPIP_TYPE=${2}
+		else
+			echo "Votre type d'installation de MediaSPIP n'est pas disponible (${2})"
+			exit 0
+		fi
 		shift;;
 	esac
 	shift
@@ -209,7 +230,7 @@ debian_ffmpeg_update ()
 		VERSION=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')  2>> $LOG >> $LOG
 		REVISION_VERSION=SVN-r"$REVISION"
 		if [ "$VERSION" = "$REVISION_VERSION" ];then
-			echo "FFmpeg déja à jour"
+			echo "FFmpeg est déjà à jour"
 		else
 			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> /dev/null
@@ -350,9 +371,13 @@ read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécutio
 
 echo
 echo "Allons y"
-echo "Le script démarre" > $LOG
-echo "Installation des dépendances logicielles"
+echo "Le script démarre" >> $LOG
 echo "Installation des dépendances logicielles" 2>> $LOG >> $LOG
+echo "
+############################################
+# Installation des dépendances logicielles #
+############################################
+"
 debian_dep_install || error "Sorry something went wrong, please check the $LOG file." &
 PID=$!
 #this is a simple progress indicator
@@ -370,6 +395,11 @@ done
 
 echo -e "\bFin de l'installation des dépendances"
 echo
+echo "
+############################################
+#     Installation de libx264 et x264      #
+############################################
+"
 if [ -d "$INSTALL"/x264 ];then
 	echo "Mise à jour, compilation et installation de x264"
 	echo "Mise à jour, compilation et installation de x264" 2>> $LOG >> $LOG
@@ -395,6 +425,11 @@ done
 
 echo -e "\bInstallation de x264 terminée"
 echo
+echo "
+############################################
+#         Installation de FFMpeg           #
+############################################
+"
 if [ -d "$INSTALL"/ffmpeg/.svn ];then
 	echo "Mise à jour, compilation et installation de FFMpeg"
 	echo "Mise à jour, compilation et installation de FFMpeg" 2>> $LOG >> $LOG
@@ -420,6 +455,11 @@ done
 
 echo -e "\bInstallation de FFMpeg terminée"
 echo
+echo "
+############################################
+#      Installation de FFMpeg2Theora       #
+############################################
+"
 if [ -d "$INSTALL"/ffmpeg2theora/.svn ];then
 	echo "Mise à jour, compilation et installation de ffmpeg2theora"
 	echo "Mise à jour, compilation et installation de ffmpeg2theora" 2>> $LOG >> $LOG
@@ -446,6 +486,11 @@ done
 echo -e "\bInstallation de ffmpeg2theora terminée"
 
 echo
+echo "
+############################################
+#       Installation de FFMpeg-php         #
+############################################
+"
 if [ -d "$INSTALL"/ffmpeg-php ];then
 	echo "Mise à jour, compilation et installation de ffmpeg-svn"
 	echo "Mise à jour, compilation et installation de ffmpeg-svn" 2>> $LOG >> $LOG
@@ -469,7 +514,7 @@ while ps |grep $PID &>/dev/null; do
 	sleep 1
 done
 
-echo -e "\bIntallation de FFMpeg-php terminée"
+echo -e "\bInstallation de FFMpeg-php terminée"
 
 # check that the default place to download to and log file location is ok
 if [ -d /var/alterc/exec.usr ]; then
@@ -485,204 +530,16 @@ if [ -d /var/alterc/exec.usr ]; then
 		ln -s /usr/local/bin/ffmpeg2theora 2>> $LOG >> $LOG
 		ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
 		ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
-		echo -e "\bCréation des liens symboliques des binaires terminée"
+		echo -e "\bCréation des liens symboliques des binaires pour AlternC terminée"
 	fi
 fi
 
-# Installation de mediaSPIP
-if [ ! -d $SPIP/mediaspip ]; then
-	echo "Téléchargement de SPIP"
-	cd $SPIP
-	svn co $SPIP_SVN mediaspip 2>> $LOG >> $LOG
-else 
-	echo "Mise à jour de SPIP"
-	cd $SPIP/mediaspip
-	svn up 2>> $LOG >> $LOG
-fi
-
-REVISIONSPIP=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
-echo "SPIP est installé à la révision $REVISIONSPIP"
-
-echo
-echo "Installation des extensions de mediaSPIP"
-
-cd $SPIP/mediaspip/extensions/
-
-if [ ! -d afficher_objets ]; then
-	echo "Téléchargement du plugin Afficher Objets"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/afficher_objets  2>> $LOG >> $LOG
-fi
-if [ ! -d ajaxforms ]; then
-	echo "Téléchargement du plugin ajaxforms"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/ajaxforms 2>> $LOG >> $LOG
-fi
-if [ ! -d auteurs_syndic ]; then
-	echo "Téléchargement du plugin auteurs_syndic"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic 2>> $LOG >> $LOG
-fi
-if [ ! -d cfg2_compat ]; then
-	echo "Téléchargement du plugin cfg2_compat"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/compat cfg2_compat 2>> $LOG >> $LOG
-fi
-if [ ! -d cfg2_core ]; then
-	echo "Téléchargement du plugin cfg2_core"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/core cfg2_core 2>> $LOG >> $LOG
-fi
-if [ ! -d cfg2_interface ]; then
-	echo "Téléchargement du plugin cfg2_interface"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/interface cfg2_interface 2>> $LOG >> $LOG
-fi
-if [ ! -d contact ]; then
-	echo "Téléchargement du plugin contact"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/contact  2>> $LOG >> $LOG
-fi
-if [ ! -d crayons ]; then
-	echo "Téléchargement du plugin crayons"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/crayons  2>> $LOG >> $LOG
-fi
-if [ ! -d diogene ]; then
-	echo "Téléchargement du plugin diogene"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene  2>> $LOG >> $LOG
-fi
-if [ ! -d diogene_gerer_auteurs ]; then
-	echo "Téléchargement du plugin diogene_gerer_auteurs"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs  2>> $LOG >> $LOG
-fi
-if [ ! -d diogene_licence ]; then
-	echo "Téléchargement du plugin diogene_licence"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence  2>> $LOG >> $LOG
-fi
-if [ ! -d diogene_spipicious ]; then
-	echo "Téléchargement du plugin diogene_spipicious"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious  2>> $LOG >> $LOG
-fi
-if [ ! -d emballe_medias ]; then
-	echo "Téléchargement du plugin emballe_medias"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias  2>> $LOG >> $LOG
-fi
-if [ ! -d emballe_medias_spipmotion ]; then
-	echo "Téléchargement du plugin emballe_medias_spipmotion"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion  2>> $LOG >> $LOG
-fi
-if [ ! -d facteur ]; then
-	echo "Téléchargement du plugin facteur"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/facteur  2>> $LOG >> $LOG
-fi
-if [ ! -d fonctions_images ]; then
-	echo "Téléchargement du plugin fonctions_images"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/fonctions_images  2>> $LOG >> $LOG
-fi
-if [ ! -d forum ]; then
-	echo "Téléchargement du plugin forum"
-	svn co svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum  2>> $LOG >> $LOG
-fi
-if [ ! -d getID3 ]; then
-	echo "Téléchargement du plugin getID3"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/getID3 2>> $LOG >> $LOG
-fi
-if [ ! -d html5 ]; then
-	echo "Téléchargement du plugin html5"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/html5 2>> $LOG >> $LOG
-fi
-if [ ! -d job_queue ]; then
-	echo "Téléchargement du plugin job_queue"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/job_queue 2>> $LOG >> $LOG
-fi
-if [ ! -d jquery_ui ]; then
-	echo "Téléchargement du plugin jquery_ui"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/jquery_ui 2>> $LOG >> $LOG
-fi
-if [ ! -d licence ]; then
-	echo "Téléchargement du plugin licence"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/licence 2>> $LOG >> $LOG
-fi
-if [ ! -d mediaspip_config ]; then
-	echo "Téléchargement du plugin mediaspip_config"
-	svn co http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config 2>> $LOG >> $LOG
-fi
-if [ ! -d mediaspip_core ]; then
-	echo "Téléchargement du plugin mediaspip_core"
-	svn co http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core 2>> $LOG >> $LOG
-fi
-if [ ! -d mediaspip_init ]; then
-	echo "Téléchargement du plugin mediaspip_init"
-	svn co http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init 2>> $LOG >> $LOG
-fi
-if [ ! -d menus ]; then
-	echo "Téléchargement du plugin menus"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/menus 2>> $LOG >> $LOG
-fi
-if [ ! -d nospam ]; then
-	echo "Téléchargement du plugin nospam"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/nospam 2>> $LOG >> $LOG
-fi
-if [ ! -d nuage ]; then
-	echo "Téléchargement du plugin nuage"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/nuage 2>> $LOG >> $LOG
-fi
-if [ ! -d palette ]; then
-	echo "Téléchargement du plugin palette"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/palette 2>> $LOG >> $LOG
-fi
-if [ ! -d pcltar ]; then
-	echo "Téléchargement du plugin pcltar"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/pcltar 2>> $LOG >> $LOG
-fi
-if [ ! -d polyhierarchie ]; then
-	echo "Téléchargement du plugin polyhierarchie"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie 2>> $LOG >> $LOG
-fi
-if [ ! -d saisies ]; then
-	echo "Téléchargement du plugin saisies"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/saisies 2>> $LOG >> $LOG
-fi
-if [ ! -d saveauto ]; then
-	echo "Téléchargement du plugin saveauto"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/saveauto/2.1 saveauto 2>> $LOG >> $LOG
-fi
-if [ ! -d selecteur_generique ]; then
-	echo "Téléchargement du plugin selecteur_generique"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique 2>> $LOG >> $LOG
-fi
-if [ ! -d spip-bonux-2 ]; then
-	echo "Téléchargement du plugin spip-bonux-2"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2 2>> $LOG >> $LOG
-fi
-if [ ! -d spipicious_jquery ]; then
-	echo "Téléchargement du plugin spipicious_jquery"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery 2>> $LOG >> $LOG
-fi
-if [ ! -d spipmotion ]; then
-	echo "Téléchargement du plugin spipmotion"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/spipmotion 2>> $LOG >> $LOG
-fi
-if [ ! -d step ]; then
-	echo "Téléchargement du plugin step"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/step 2>> $LOG >> $LOG
-fi
-if [ ! -d swfupload ]; then
-	echo "Téléchargement du plugin swfupload"
-	svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload 2>> $LOG >> $LOG
-fi
-if [ ! -d zen-garden ]; then
-	echo "Téléchargement du plugin zen-garden"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/zen-garden 2>> $LOG >> $LOG
-fi
-if [ ! -d zeroclipboard ]; then
-	echo "Téléchargement du plugin zeroclipboard"
-	svn co svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard 2>> $LOG >> $LOG
-fi
-if [ ! -d zpip ]; then
-	echo "Téléchargement du plugin zpip"
-	svn co svn://zone.spip.org/spip-zone/_squelettes_/zpip 2>> $LOG >> $LOG
-fi
-
-cd $SPIP/mediaspip
-
-echo "Mise à jour des extensions de MediaSPIP"
-svn up extensions/* 2>> $LOG >> /dev/null
-
-echo "Les fichiers de MediaSPIP sont installés"
+echo "
+############################################
+#    Installation de SPIP et MediaSPIP     #
+############################################
+"
+mediaspip_install
 
 echo
 echo "That's it, all done."

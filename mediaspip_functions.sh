@@ -8,6 +8,19 @@ function isNumeric()
 	echo "$@" | grep -q -v "[^0-9]"
 }
 
+in_array(){
+    local i
+    needle=$1
+    shift 1
+    # array() undefined
+    [ -z "$1" ] && return 1
+    for i in $*
+    do
+	    [ "$i" == "$needle" ] && return 0
+    done
+    return 1
+}
+
 debian_flvtool_install()
 {
 	#install flvtool2
