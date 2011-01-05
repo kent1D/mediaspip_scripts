@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# mediaspip_install
+# mediaspip_install.sh
+# © 2010 - kent1 (kent1@arscenic.info)
 # Version 0.1
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
@@ -16,6 +17,8 @@
 # - mediainfo
 # - ffmpeg
 # - ffmpeg2theora
+#
+# Ce script installe également SPIP et l'ensemble des extensions nécessaires à MediaSPIP
 
 VERSION="0.1"
 
@@ -35,13 +38,22 @@ VERSION ${VERSION}
 ######################################################################################
 "
 
-MESSAGEAIDE="EXPLICATIONS :
+MESSAGEAIDE="Copyright (c) 2010 - kent1
+
+Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+Pour plus de détails voir le fichier COPYING.txt.
+
+EXPLICATIONS :
 
 Ce script installera toutes les dépendances logicielles requises pour l'installation de 
 mediaSPIP.
 
 Il installera ensuite le logiciels SPIP (http://www.spip.net) ainsi que les extensions 
 nécessaires dans le répertoire d'installation spécifié.
+
+Les paramètres possibles du scripts sont :
+--install : l'emplacement où les sources des librairies et binaires seront téléchargés
+--cpus : permet de forcer le nombre de cpus à utiliser pour les compilations
 "
 ##########################################
 # list of all the functions in the script
@@ -64,6 +76,9 @@ if [ ! -r /etc/debian_version ]; then
 	echo "Erreur. Vous ne semblez pas être sur une Distribution Debian" 1>&2
 	exit 1
 fi
+
+# On inclut le fichier de fonctions
+. ./mediaspip_functions.sh
 
 #########################################
 # Variables éditables pour l'utilisateur
@@ -98,7 +113,18 @@ while test -n "${1}"; do
 		shift;;
 		--log|-l) LOG="${2}"
 		shift;;
-		--cpus|-c) NO_OF_CPUCORES="${2}"
+		--cpus|-c)
+		if(isNumeric "${2}");then
+			if ((${2} > $NO_OF_CPUCORES));then
+				echo "Erreur : votre machine n'a pas autant de cpus (${2})"
+				exit 0
+			else 
+				NO_OF_CPUCORES="${2}"
+			fi
+		else
+			echo "Erreur : votre option --cpus n'est pas numérique"
+			exit 0
+		fi
 		shift;;
 		--spip|-s) SPIP="${2}"
 		shift;;
@@ -109,9 +135,6 @@ while test -n "${1}"; do
 	esac
 	shift
 done
-
-# On inclut le fichier de fonctions
-. ./mediaspip_functions.sh
 
 debian_dep_install()
 {

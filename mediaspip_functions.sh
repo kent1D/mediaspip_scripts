@@ -3,6 +3,11 @@
 # mediaspip_functions
 # Version 0.1
 
+function isNumeric()
+{
+	echo "$@" | grep -q -v "[^0-9]"
+}
+
 debian_flvtool_install()
 {
 	#install flvtool2
