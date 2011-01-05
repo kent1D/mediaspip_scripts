@@ -517,7 +517,7 @@ done
 echo -e "\bInstallation de FFMpeg-php terminée"
 
 # check that the default place to download to and log file location is ok
-if [ -d /var/alterc/exec.usr ]; then
+if [ -d /var/alternc/exec.usr ]; then
 	echo
 	echo "Utilisez vous AlternC pour MediaSPIP ?"
 	read -p "Yes/No (y/n)?"

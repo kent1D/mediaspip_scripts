@@ -106,7 +106,7 @@ mediaspip_install(){
 		svn co svn://zone.spip.org/spip-zone/_squelettes_/zpip 2>> $LOG >> $LOG
 	fi
 	
-	extensions_normales=(afficher_objets ajaxforms auteurs_syndic contact crayons facteur fonctions_images getID3 job_queue jquery_ui licence menus nospam nuage palette pcltar polyhierarchie saisies selecteur_generique spip-bonux-2 spipicious_jquery spipmotion saisies step zen-garden zeroclipboard)
+	extensions_normales=(afficher_objets ajaxforms auteurs_syndic contact crayons doc2img facteur fonctions_images getID3 job_queue jquery_ui licence menus nospam nuage palette pcltar polyhierarchie saisies selecteur_generique spip-bonux-2 spipicious_jquery spipmotion saisies step zen-garden zeroclipboard)
 	for i in ${extensions_normales[@]}; do
     	if [ ! -d $i ]; then
     		echo "Téléchargement du plugin $i"
@@ -154,13 +154,41 @@ mediaspip_install(){
 			svn up plugins/* 2>> $LOG >> $LOG
 		fi
 		cd plugins
-		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent doc2img fulltext google_analytics gravatar legendes mediabox memoization metadonnees_photo microblog multilang notation notifications openid opensearch pages recommander socialtags sparkstats verifier)
+		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications openid opensearch pages recommander socialtags sparkstats spip_piwik/spip_piwik_2_0 verifier)
 		for i in ${plugins_optionnels[@]}; do
 	    	if [ ! -d $i ]; then
 	    		echo "Téléchargement du plugin $i"
 				svn co svn://zone.spip.org/spip-zone/_plugins_/$i 2>> $LOG >> $LOG
 			fi
 		done
+		if [ ! -d agenda ]; then
+			echo "Téléchargement du plugin agenda"
+			svn co svn://zone.spip.org/spip-zone/_plugins_/agenda/2_1_0 agenda 2>> $LOG >> $LOG
+		fi
+		if [ ! -d cextras2 ]; then
+			echo "Téléchargement du plugin cextras2"
+			svn co svn://zone.spip.org/spip-zone/_plugins_/champs_extras2/core cextras2 2>> $LOG >> $LOG
+		fi
+		if [ ! -d cextras2_interface ]; then
+			echo "Téléchargement du plugin cextras2_interface"
+			svn co svn://zone.spip.org/spip-zone/_plugins_/champs_extras2/extensions/interface cextras2_interface 2>> $LOG >> $LOG
+		fi
+		if [ ! -d diogene_geo ]; then
+			echo "Téléchargement du plugin diogene_geo"
+			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo diogene_geo 2>> $LOG >> $LOG
+		fi
+		if [ ! -d podcast ]; then
+			echo "Téléchargement du plugin podcast"
+			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/podcast podcast 2>> $LOG >> $LOG
+		fi
+		if [ ! -d porte_plume_documents ]; then
+			echo "Téléchargement du plugin porte_plume_documents"
+			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG
+		fi
+		if [ ! -d porte_plume_documents ]; then
+			echo "Téléchargement du plugin porte_plume_documents"
+			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG
+		fi
 		cd ..
 	fi
 	
