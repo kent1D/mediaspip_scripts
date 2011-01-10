@@ -8,6 +8,33 @@ function isNumeric()
 	echo "$@" | grep -q -v "[^0-9]"
 }
 
+function git_log()
+{
+	cd $@
+	# Show various information about this git directory
+	if [ -d .git ]; then
+	  echo "== Remote URL: `git remote -v`"
+	
+	  echo "== Remote Branches: "
+	  git branch -r
+	  echo
+	
+	  echo "== Local Branches:"
+	  git branch
+	  echo
+	
+	  echo "== Configuration (.git/config)"
+	  cat .git/config
+	  echo
+	
+	  echo "== Most Recent Commit"
+	  git --no-pager log --max-count=1
+	  echo
+	else
+	  echo "Not a git repository."
+	fi
+}
+
 in_array(){
     local i
     needle=$1

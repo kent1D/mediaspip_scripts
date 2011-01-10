@@ -193,11 +193,18 @@ debian_x264_update ()
 {
 	apt-get -y remove x264 2>> $LOG >> $LOG
 	cd "$INSTALL"/x264
+	REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 	git pull 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG  >> /dev/null
-	./configure --enable-shared 2>> $LOG  >> /dev/null
-	make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
-	checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG  >> /dev/null
+	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
+	if [ "$REVISION" == "$NEWREVISION" ]; then
+		echo "x264 semble déjà à jour" 
+		echo "x264 semble déjà à jour" 2>> $LOG  >> $LOG
+	else
+		make -j $NO_OF_CPUCORES distclean 2>> $LOG  >> /dev/null
+		./configure --enable-shared 2>> $LOG  >> /dev/null
+		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG  >> /dev/null
+	fi
 }
 
 #install ffmpeg
