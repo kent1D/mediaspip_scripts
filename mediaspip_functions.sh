@@ -1,11 +1,26 @@
 #!/bin/bash
 #
 # mediaspip_functions
-# Version 0.1
+# Version 0.2
+#
+# Diverses fonctions permettant d'installer mediaSPIP
 
 function isNumeric()
 {
 	echo "$@" | grep -q -v "[^0-9]"
+}
+
+in_array(){
+    local i
+    needle=$1
+    shift 1
+    # array() undefined
+    [ -z "$1" ] && return 1
+    for i in $*
+    do
+	    [ "$i" == "$needle" ] && return 0
+    done
+    return 1
 }
 
 function git_log()
@@ -33,19 +48,6 @@ function git_log()
 	else
 	  echo "Not a git repository."
 	fi
-}
-
-in_array(){
-    local i
-    needle=$1
-    shift 1
-    # array() undefined
-    [ -z "$1" ] && return 1
-    for i in $*
-    do
-	    [ "$i" == "$needle" ] && return 0
-    done
-    return 1
 }
 
 debian_flvtool_install()

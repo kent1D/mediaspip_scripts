@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2010 - kent1 (kent1@arscenic.info)
-# Version 0.1
+# Version 0.2
 #
 # Ce script installe MediaSPIP
 # - SPIP
