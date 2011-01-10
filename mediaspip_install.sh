@@ -191,7 +191,6 @@ debian_x264_install ()
 
 debian_x264_update ()
 {
-	apt-get -y remove x264 2>> $LOG >> $LOG
 	cd "$INSTALL"/x264
 	REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 	git pull 2>> $LOG >> $LOG
@@ -200,6 +199,7 @@ debian_x264_update ()
 		echo "x264 semble déjà à jour" 
 		echo "x264 semble déjà à jour" 2>> $LOG  >> $LOG
 	else
+		apt-get -y remove x264 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG  >> /dev/null
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
@@ -219,6 +219,7 @@ debian_ffmpeg_install ()
 	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
 	make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
 	checkinstall --pkgname=ffmpeg --pkgversion "3:0.svn`date +%Y%m%d`-18lenny2" --backup=no --default 2>> $LOG >> $LOG
+	ldconfig
 	cd tools
 	cc qt-faststart.c -o qt-faststart
 	cd ..
