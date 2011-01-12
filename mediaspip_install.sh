@@ -157,180 +157,6 @@ while test -n "${1}"; do
 	shift
 done
 
-debian_dep_install()
-{
-	echo "Mise à jour de la base d'APT" 2>> $LOG >> $LOG
-	apt-get -y update 2>> $LOG >> /dev/null
-	echo "Installation ou mise à jour des paquets via APT" 2>> $LOG  >> $LOG
-	apt-get -y install build-essential subversion git-core checkinstall php5-dev ruby yasm texi2html libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev flac vorbis-tools zlib1g-dev php5-curl php5-gd php5-imagick scons liboggkate-dev libcxxtools-dev 2>> $LOG  >> /dev/null
-	
-	debian_lame_install
-	
-	debian_libopencore_amr_install
-	
-	debian_libtheora_install
-	
-	debian_rtmpdump_install
-	
-	debian_flvtool_install
-	
-	debian_media_info_install
-}
-
-#install x264
-debian_x264_install ()
-{
-	apt-get -y remove x264 libx264-dev 2>> $LOG  >> /dev/null
-	cd $INSTALL
-	git clone git://git.videolan.org/x264.git 2>> $LOG  >> /dev/null
-	cd x264
-	./configure --enable-shared 2>> $LOG  >> /dev/null
-	make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
-	checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG  >> /dev/null
-}
-
-debian_x264_update ()
-{
-	cd "$INSTALL"/x264
-	REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
-	git pull 2>> $LOG >> $LOG
-	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
-	if [ "$REVISION" == "$NEWREVISION" ]; then
-		echo "x264 semble déjà à jour" 
-		echo "x264 semble déjà à jour" 2>> $LOG  >> $LOG
-	else
-		apt-get -y remove x264 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG  >> /dev/null
-		./configure --enable-shared 2>> $LOG  >> /dev/null
-		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG  >> /dev/null
-	fi
-}
-
-#install ffmpeg
-debian_ffmpeg_install ()
-{
-	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
-	cd $INSTALL
-	svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg 2>> $LOG >> $LOG
-	cd ffmpeg
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
-	make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
-	checkinstall --pkgname=ffmpeg --pkgversion "3:0.svn`date +%Y%m%d`-18lenny2" --backup=no --default 2>> $LOG >> $LOG
-	ldconfig
-	cd tools
-	cc qt-faststart.c -o qt-faststart
-	cd ..
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
-	echo
-	echo ffmpeg is at revision $REVISION
-}
-
-debian_ffmpeg_update ()
-{
-	cd $INSTALL/ffmpeg
-	svn up 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
-	#FFMPEG=$(which ffmpeg) 2>> $LOG >> $LOG
-	if [ -x /usr/local/bin/ffmpeg ];then
-		VERSION=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')  2>> $LOG >> $LOG
-		REVISION_VERSION=SVN-r"$REVISION"
-		if [ "$VERSION" = "$REVISION_VERSION" ];then
-			echo "FFmpeg est déjà à jour"
-		else
-			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
-			make -j $NO_OF_CPUCORES clean 2>> $LOG >> /dev/null
-			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> /dev/null
-			./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
-			make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
-			checkinstall --pkgname=ffmpeg --pkgversion "3:0.svn`date +%Y%m%d`-18lenny2" --backup=no --default 2>> $LOG >> /dev/null
-			ldconfig
-			cd tools
-			cc qt-faststart.c -o qt-faststart
-			cp qt-faststart /usr/local/bin
-		fi
-	else
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> /dev/null
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> /dev/null
-		./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
-		make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
-		checkinstall --pkgname=ffmpeg --pkgversion "3:0.svn`date +%Y%m%d`-18lenny2" --backup=no --default 2>> $LOG >> $LOG
-		ldconfig
-		cd tools
-		cc qt-faststart.c -o qt-faststart
-		cp qt-faststart /usr/local/bin
-	fi
-	echo
-	echo "FFMpeg est installé à la révision $REVISION"
-}
-
-debian_ffmpeg2theora_install ()
-{
-	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
-	cd $INSTALL
-	svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
-	cd ffmpeg2theora
-	# Install une version récente de libkate
-	sh ./get_libkate.sh
-	scons install 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
-	echo
-	echo "ffmpeg2theora est installé à la révision $REVISION"
-}
-
-debian_ffmpeg2theora_update ()
-{
-	cd "$INSTALL"/ffmpeg2theora
-	svn up 2>> $LOG >> $LOG
-	scons install 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
-	echo
-	echo "ffmpeg2theora est installé à la révision $REVISION"
-}
-
-#install ffmpeg
-debian_ffmpeg_php_install ()
-{
-	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
-	cd $INSTALL
-	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
-	cd ffmpeg-php/ffmpeg-php
-	phpize
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-	make install
-	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-	/etc/init.d/apache2 force-reload
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
-	echo
-	echo "FFMpeg-php est installé à la révision $REVISION"
-}
-
-debian_ffmpeg_php_update ()
-{
-	cd "$INSTALL"/ffmpeg-php/ffmpeg-php
-	OLDREVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
-	svn up 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
-	#FFMPEG=$(which ffmpeg) 2>> $LOG >> $LOG
-	if [ "$OLDREVISION" = "$REVISION" ];then
-		echo "FFmpeg-php est déja à jour"
-	else
-		phpize
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install
-		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-		/etc/init.d/apache2 force-reload
-	fi
-	echo "FFMpeg-php est installé à la révision $REVISION"
-}
-
-
 #exit function
 die ()
 {
@@ -538,6 +364,7 @@ if [ -d /var/alternc/exec.usr ]; then
 		ln -s /usr/local/bin/ffmpeg2theora 2>> $LOG >> $LOG
 		ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
 		ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
+		ln -s /bin/ps 2>> $LOG >> $LOG
 		echo -e "\bCréation des liens symboliques des binaires pour AlternC terminée"
 	fi
 fi
@@ -550,7 +377,6 @@ echo "
 mediaspip_install
 
 echo
-echo "That's it, all done."
-echo "exiting now, bye."
+echo "L'installation est terminée."
 
 exit 

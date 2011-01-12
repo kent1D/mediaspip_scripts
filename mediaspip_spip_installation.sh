@@ -154,7 +154,7 @@ mediaspip_install(){
 			svn up plugins/* 2>> $LOG >> $LOG
 		fi
 		cd plugins
-		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications openid opensearch pages recommander socialtags sparkstats spip_piwik/spip_piwik_2_0 verifier)
+		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications opensearch pages recommander socialtags sparkstats verifier)
 		for i in ${plugins_optionnels[@]}; do
 	    	if [ ! -d $i ]; then
 	    		echo "Téléchargement du plugin $i"
@@ -189,6 +189,14 @@ mediaspip_install(){
 			echo "Téléchargement du plugin porte_plume_documents"
 			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG
 		fi
+		if [ ! -d openid ]; then
+			echo "Téléchargement du plugin openid"
+			svn co svn://zone.spip.org/spip-zone/_plugins_/authentification/openid openid 2>> $LOG >> $LOG
+		fi
+		if [ ! -d spip_piwik_2_0 ]; then
+			echo "Téléchargement du plugin spip_piwik_2_0"
+			svn co svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0 spip_piwik_2_0 2>> $LOG >> $LOG
+		fi
 		cd ..
 	fi
 	
@@ -202,7 +210,7 @@ mediaspip_install(){
 		fi
 	fi
 	
-	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip 2>> $LOG >> $LOG
+	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip >> /dev/null
 	
 	echo "Les fichiers de MediaSPIP sont installés"
 }
