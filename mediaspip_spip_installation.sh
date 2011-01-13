@@ -208,7 +208,12 @@ mediaspip_install(){
 			echo "Mise à jour du plugin de mutualisation"
 			svn up mutualisation/  2>> $LOG >> $LOG
 		fi
+		if [ ! -d sites ];then
+			mkdir sites && chmod 777 lib/
+		fi
 	fi
+	
+	mkdir lib && chmod 777 lib/
 	
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip >> /dev/null
 	
