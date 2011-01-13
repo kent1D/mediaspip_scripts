@@ -57,7 +57,7 @@ debian_flvtool_install()
 	echo
 	echo "Téléchargement, compilation et installation de flvtool2"
 	echo "Téléchargement, compilation et installation de flvtool2" 2>> $LOG  >> $LOG
-	cd $INSTALL
+	cd $SRC_INSTALL
 	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG  >> /dev/null
 	cd flvtool2
 	sudo ruby setup.rb 2>> $LOG  >> /dev/null
@@ -68,8 +68,8 @@ debian_flvtool_install()
 debian_lame_install()
 {
 	LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }') 2>> $LOG >> $LOG
-	cd $INSTALL
-	if [ ! -e "$INSTALL"/lame-3.98.4.tar.gz ]; then
+	cd $SRC_INSTALL
+	if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
 		echo
 		echo "Téléchargement, compilation et installation de lame version 3.98.4"
 		echo "Téléchargement, compilation et installation de lame version 3.98.4" 2>> $LOG  >> $LOG
@@ -100,8 +100,8 @@ debian_lame_install()
 debian_libopencore_amr_install()
 {
 	LIBOPENCORE=$(dpkg --status libopencore-amr|awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	cd $INSTALL
-	if [ ! -e "$INSTALL"/opencore-amr-0.1.2.tar.gz ];then
+	cd $SRC_INSTALL
+	if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 		echo
 		echo "Téléchargement, compilation et installation de opencore-amr version 0.1.2"
 		echo "Téléchargement, compilation et installation de opencore-amr version 0.1.2" 2>> $LOG >> $LOG
@@ -133,8 +133,8 @@ debian_libtheora_install()
 {
 	apt-get -y install libogg-dev 2>> $LOG  >> /dev/null
 	LIBTHEORAVERSION=$(dpkg --status libtheora|awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	cd $INSTALL
-	if [ ! -e "$INSTALL"/libtheora-1.1.1.tar.gz ];then
+	cd $SRC_INSTALL
+	if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
 		echo
 		echo "Téléchargement, compilation et installation de libtheora version 1.1.1"
 		echo "Téléchargement, compilation et installation de libtheora version 1.1.1" 2>> $LOG >> $LOG
@@ -168,7 +168,7 @@ debian_rtmpdump_install()
 	echo "Téléchargement, compilation et installation de rtmpdump"
 	echo "Téléchargement, compilation et installation de rtmpdump" 2>> $LOG >> $LOG
 	apt-get -y install libssl-dev 2>> $LOG  >> /dev/null
-	cd $INSTALL
+	cd $SRC_INSTALL
 	svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG  >> /dev/null
 	cd rtmpdump
 	make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
@@ -181,11 +181,11 @@ debian_media_info_install()
 {
 	#install mediainfo
 	MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
-	if [ ! -e "$INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
+	if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
 		echo
 		echo "Téléchargement, compilation et installation de mediainfo version 0.7.38"
 		echo "Téléchargement, compilation et installation de mediainfo version 0.7.38" 2>> $LOG >> $LOG
-		cd $INSTALL
+		cd $SRC_INSTALL
 		wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG
 		tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG  >> /dev/null
 		cd MediaInfo_CLI_GNU_FromSource
@@ -198,7 +198,7 @@ debian_media_info_install()
 	else
 		echo "Recompilation et réinstallation de mediainfo version 0.7.38"
 		echo "Recompilation et réinstallation de mediainfo version 0.7.38" 2>> $LOG >> $LOG
-		cd 	"$INSTALL"/MediaInfo_CLI_GNU_FromSource
+		cd 	"$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		sh CLI_Compile.sh 2>> $LOG  >> /dev/null
 		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG  >> /dev/null
 		echo -e "\bInstallation de MediaInfo terminée"
@@ -262,7 +262,7 @@ debian_dep_install()
 debian_x264_install ()
 {
 	apt-get -y remove x264 libx264-dev 2>> $LOG  >> /dev/null
-	cd $INSTALL
+	cd $SRC_INSTALL
 	git clone git://git.videolan.org/x264.git 2>> $LOG  >> /dev/null
 	cd x264
 	./configure --enable-shared 2>> $LOG  >> /dev/null
@@ -272,7 +272,7 @@ debian_x264_install ()
 
 debian_x264_update ()
 {
-	cd "$INSTALL"/x264
+	cd "$SRC_INSTALL"/x264
 	REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 	git pull 2>> $LOG >> $LOG
 	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
@@ -292,7 +292,7 @@ debian_x264_update ()
 debian_ffmpeg_install ()
 {
 	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
-	cd $INSTALL
+	cd $SRC_INSTALL
 	svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg 2>> $LOG >> $LOG
 	cd ffmpeg
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
@@ -311,7 +311,7 @@ debian_ffmpeg_install ()
 
 debian_ffmpeg_update ()
 {
-	cd $INSTALL/ffmpeg
+	cd $SRC_INSTALL/ffmpeg
 	svn up 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
 	if [ -x /usr/local/bin/ffmpeg ];then
@@ -349,7 +349,7 @@ debian_ffmpeg_update ()
 debian_ffmpeg2theora_install ()
 {
 	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
-	cd $INSTALL
+	cd $SRC_INSTALL
 	svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
 	cd ffmpeg2theora
 	# Install une version récente de libkate
@@ -362,7 +362,7 @@ debian_ffmpeg2theora_install ()
 
 debian_ffmpeg2theora_update ()
 {
-	cd "$INSTALL"/ffmpeg2theora
+	cd "$SRC_INSTALL"/ffmpeg2theora
 	svn up 2>> $LOG >> $LOG
 	scons install 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
@@ -374,7 +374,7 @@ debian_ffmpeg2theora_update ()
 debian_ffmpeg_php_install ()
 {
 	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
-	cd $INSTALL
+	cd $SRC_INSTALL
 	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php
 	phpize
@@ -391,7 +391,7 @@ debian_ffmpeg_php_install ()
 
 debian_ffmpeg_php_update ()
 {
-	cd "$INSTALL"/ffmpeg-php/ffmpeg-php
+	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
 	OLDREVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
 	svn up 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG

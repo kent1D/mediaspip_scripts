@@ -20,6 +20,21 @@
 #
 # Ce script installe également SPIP et l'ensemble des extensions nécessaires à MediaSPIP
 
+
+export TEXTDOMAINDIR=./locale
+export TEXTDOMAIN=mediaspip
+
+I18NLIB=/usr/bin/gettext.sh
+
+# source in I18N library - shown above
+if [[ -f $I18NLIB ]]
+then
+        . $I18NLIB
+else
+        echo "ERROR - $I18NLIB NOT FOUND"
+        exit 1
+fi
+
 VERSION="0.2"
 
 LOGO="
@@ -38,26 +53,6 @@ VERSION ${VERSION}
 ######################################################################################
 "
 
-MESSAGEAIDE="Copyright (c) 2010 - kent1
-
-Ce programme est un logiciel libre distribué sous licence GNU/GPL.
-Pour plus de détails voir le fichier COPYING.txt.
-
-EXPLICATIONS :
-
-Ce script installera toutes les dépendances logicielles requises pour l'installation de 
-mediaSPIP.
-
-Il installera ensuite le logiciels SPIP (http://www.spip.net) ainsi que les extensions 
-nécessaires dans le répertoire d'installation spécifié.
-
-Les paramètres possibles du scripts sont :
---install : l'emplacement où les sources des librairies et binaires seront téléchargés
---cpus : permet de forcer le nombre de cpus à utiliser pour les compilations
---spip_type : type d'installation de MediaSPIP (ferme|ferme_full|minimal|full|none). Défaut : ferme_full
---spip_user : utilisateur système (UID) des fichiers de MediaSPIP
---spip_group : groupe système (GID) des fichiers de MediaSPIP
-"
 ##########################################
 # list of all the functions in the script
 ##########################################
@@ -114,11 +109,13 @@ fi
 
 while test -n "${1}"; do
 	case "${1}" in
-		--help|-h) echo "$MESSAGEAIDE"
+		--help|-h) eval_gettext "Help message"
 		exit 0;;
+		--lang|-lang) export LC_ALL="$2_$3.UTF-8"
+		shift;;
 		--version|-v) echo "MediaSPIP installation v."${VERSION}""
 		exit 0;;
-		--install|-i) INSTALL="${2}"
+		--src_install|-src) SRC_INSTALL="${2}"
 		shift;;
 		--log|-l) LOG="${2}"
 		shift;;
@@ -180,7 +177,7 @@ error ()
 
 # check that the default place to download to and log file location is ok
 echo "Ce script téléchargera les sources des logiciels dans :"
-echo "$INSTALL"
+echo "$SRC_INSTALL"
 read -p "Est-ce OK (y/n)?"
 [ "$REPLY" == y ] || die "Erreur. Modifiez la variable INSTALL pour l'emplacement de votre choix."
 echo
@@ -234,7 +231,7 @@ echo "
 #     Installation de libx264 et x264      #
 ############################################
 "
-if [ -d "$INSTALL"/x264 ];then
+if [ -d "$SRC_INSTALL"/x264 ];then
 	echo "Mise à jour, compilation et installation de x264"
 	echo "Mise à jour, compilation et installation de x264" 2>> $LOG >> $LOG
 	debian_x264_update || error "Sorry something went wrong, please check the $LOG file." &
@@ -264,7 +261,7 @@ echo "
 #         Installation de FFMpeg           #
 ############################################
 "
-if [ -d "$INSTALL"/ffmpeg/.svn ];then
+if [ -d "$SRC_INSTALL"/ffmpeg/.svn ];then
 	echo "Mise à jour, compilation et installation de FFMpeg"
 	echo "Mise à jour, compilation et installation de FFMpeg" 2>> $LOG >> $LOG
 	debian_ffmpeg_update || error "Sorry something went wrong, please check the $LOG file." &
@@ -294,7 +291,7 @@ echo "
 #      Installation de FFMpeg2Theora       #
 ############################################
 "
-if [ -d "$INSTALL"/ffmpeg2theora/.svn ];then
+if [ -d "$SRC_INSTALL"/ffmpeg2theora/.svn ];then
 	echo "Mise à jour, compilation et installation de ffmpeg2theora"
 	echo "Mise à jour, compilation et installation de ffmpeg2theora" 2>> $LOG >> $LOG
 	debian_ffmpeg2theora_update || error "Sorry something went wrong, please check the $LOG file." &
@@ -325,7 +322,7 @@ echo "
 #       Installation de FFMpeg-php         #
 ############################################
 "
-if [ -d "$INSTALL"/ffmpeg-php ];then
+if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 	echo "Mise à jour, compilation et installation de ffmpeg-svn"
 	echo "Mise à jour, compilation et installation de ffmpeg-svn" 2>> $LOG >> $LOG
 	debian_ffmpeg_php_update || error "Sorry something went wrong, please check the $LOG file." &
