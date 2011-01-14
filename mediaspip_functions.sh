@@ -23,6 +23,23 @@ in_array(){
     return 1
 }
 
+#exit function
+die ()
+{
+	eval_gettext $@ 
+	exit 1
+}
+
+#error function
+error ()
+{
+	kill "$PID" &>/dev/null 2>> $LOG >> $LOG
+	
+	eval_gettext $1
+	echo $@
+	exit 1
+}
+
 function progress_indicator()
 {
 	#this is a simple progress indicator
