@@ -225,19 +225,8 @@ echo "Installation des dépendances logicielles" 2>> $LOG >> $LOG
 eval_gettext "Titre dependances logicielles"
 
 debian_dep_install || error "Sorry something went wrong, please check the $LOG file." &
-PID=$!
-#this is a simple progress indicator
-while ps |grep $PID &>/dev/null; do
-	echo -n "."
-	echo -en "\b-"
-	sleep 1
-	echo -en "\b\\"
-	sleep 1
-	echo -en "\b|"
-	sleep 1
-	echo -en "\b/"
-	sleep 1
-done
+
+progress_indicator $!
 
 echo -e "\bFin de l'installation des dépendances"
 echo
@@ -253,19 +242,8 @@ else
 	echo "Téléchargement, compilation et installation de x264" 2>> $LOG >> $LOG
 	debian_x264_install || error "Sorry something went wrong, please check the $LOG file." &
 fi
-PID=$!
-#this is a simple progress indicator
-while ps |grep $PID &>/dev/null; do
-	echo -n "."
-	echo -en "\b-"
-	sleep 1
-	echo -en "\b\\"
-	sleep 1
-	echo -en "\b|"
-	sleep 1
-	echo -en "\b/"
-	sleep 1
-done
+
+progress_indicator $!
 
 echo -e "\bInstallation de x264 terminée"
 echo
@@ -281,19 +259,8 @@ else
 	echo "Téléchargement, compilation et installation de FFMpeg" 2>> $LOG >> $LOG
 	debian_ffmpeg_install || error "Sorry something went wrong, please check the $LOG file." &
 fi
-PID=$!
-#this is a simple progress indicator
-while ps |grep $PID &>/dev/null; do
-	echo -n "."
-	echo -en "\b-"
-	sleep 1
-	echo -en "\b\\"
-	sleep 1
-	echo -en "\b|"
-	sleep 1
-	echo -en "\b/"
-	sleep 1
-done
+
+progress_indicator $!
 
 echo -e "\bInstallation de FFMpeg terminée"
 echo
@@ -309,19 +276,8 @@ else
 	echo "Téléchargement, compilation et installation de ffmpeg2theora" 2>> $LOG >> $LOG
 	debian_ffmpeg2theora_install || error "Sorry something went wrong, please check the $LOG file." &
 fi
-PID=$!
-#this is a simple progress indicator
-while ps |grep $PID &>/dev/null; do
-	echo -n "."
-	echo -en "\b-"
-	sleep 1
-	echo -en "\b\\"
-	sleep 1
-	echo -en "\b|"
-	sleep 1
-	echo -en "\b/"
-	sleep 1
-done
+
+progress_indicator $!
 
 echo -e "\bInstallation de ffmpeg2theora terminée"
 
@@ -338,19 +294,8 @@ else
 	echo "Téléchargement, compilation et installation de FFMpeg-svn" 2>> $LOG >> $LOG
 	debian_ffmpeg_php_install || error "Sorry something went wrong, please check the $LOG file." &
 fi
-PID=$!
-#this is a simple progress indicator
-while ps |grep $PID &>/dev/null; do
-	echo -n "."
-	echo -en "\b-"
-	sleep 1
-	echo -en "\b\\"
-	sleep 1
-	echo -en "\b|"
-	sleep 1
-	echo -en "\b/"
-	sleep 1
-done
+
+progress_indicator $!
 
 echo -e "\bInstallation de FFMpeg-php terminée"
 

@@ -23,6 +23,25 @@ in_array(){
     return 1
 }
 
+function progress_indicator()
+{
+	#this is a simple progress indicator
+	while ps |grep $1 &>/dev/null; do
+		echo -n "."
+		echo -en "\b-"
+		sleep 1
+		echo -en "\b\\"
+		sleep 1
+		echo -en "\b|"
+		sleep 1
+		echo -en "\b/"
+		sleep 1
+	done
+}
+
+# Function git_log
+# Equivalent pour git de svn info
+# cf : http://justamemo.com/2009/02/09/git-info-almost-like-svn-info/
 function git_log()
 {
 	cd $@
@@ -55,13 +74,13 @@ debian_flvtool_install()
 {
 	#install flvtool2
 	echo
-	echo "Téléchargement, compilation et installation de flvtool2"
-	echo "Téléchargement, compilation et installation de flvtool2" 2>> $LOG  >> $LOG
+	eval_gettext "Info debut flvtool2"
+	eval_gettext "Info debut flvtool2" 2>> $LOG  >> $LOG
 	cd $SRC_INSTALL
 	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG  >> /dev/null
 	cd flvtool2
 	sudo ruby setup.rb 2>> $LOG  >> /dev/null
-	echo -e "\bInstallation de flvtool2 terminée"
+	eval_gettext "End flvtool2"
 }
 
 # Installation de Lame
@@ -71,28 +90,28 @@ debian_lame_install()
 	cd $SRC_INSTALL
 	if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
 		echo
-		echo "Téléchargement, compilation et installation de lame version 3.98.4"
-		echo "Téléchargement, compilation et installation de lame version 3.98.4" 2>> $LOG  >> $LOG
+		eval_gettext "Info debut lame install" 
+		eval_gettext "Info debut lame" 2>> $LOG  >> $LOG
 		wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
 		tar xvf lame-3.98.4.tar.gz 2>> $LOG  >> /dev/null
 		cd lame-3.98.4
 		./configure 2>> $LOG >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG  >> /dev/null
-		echo -e "\bInstallation de lame terminée"
+		eval_gettext "End lame"
 	elif [ "$LAMEVERSION" == "3.98.4" ]; then
 		echo
-		echo "LAME semble déjà à la version 3.98.4" 
-		echo "LAME semble déjà à la version 3.98.4" 2>> $LOG  >> $LOG
+		eval_gettext "Info a jour lame"
+		eval_gettext "Info a jour lame" 2>> $LOG  >> $LOG
 	else
 		echo
-		echo "Recompilation et réinstallation de lame version 3.98.4"
-		echo "Recompilation et réinstallation de lame version 3.98.4" 2>> $LOG  >> $LOG
+		eval_gettext "Info debut lame update" 
+		eval_gettext "Info debut lame update" 2>> $LOG  >> $LOG
 		cd lame-3.98.4
 		./configure 2>> $LOG >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG  >> /dev/null
-		echo -e "\bInstallation de lame terminée"
+		eval_gettext "End lame"
 	fi
 }
 
@@ -103,28 +122,28 @@ debian_libopencore_amr_install()
 	cd $SRC_INSTALL
 	if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 		echo
-		echo "Téléchargement, compilation et installation de opencore-amr version 0.1.2"
-		echo "Téléchargement, compilation et installation de opencore-amr version 0.1.2" 2>> $LOG >> $LOG
+		eval_gettext "Info debut opencore install"
+		eval_gettext "Info debut opencore install" 2>> $LOG >> $LOG
 		wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG  >> /dev/null
 		cd opencore-amr-0.1.2
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG  >> /dev/null
-		echo -e "\bInstallation de opencore-amr terminée"
+		eval_gettext "End opencore"
 	elif [ "$LIBOPENCORE" == "0.1.2-1" ]; then
 		echo
-		echo "Libopencore-amr semble déjà à la version 0.1.2" 
-		echo "Libopencore-amr semble déjà à la version 0.1.2" 2>> $LOG  >> $LOG
+		eval_gettext "Info a jour opencore"
+		eval_gettext "Info a jour opencore" 2>> $LOG  >> $LOG
 	else
 		echo
-		echo "Recompilation et réinstallation de opencore-amr version 0.1.2"
-		echo "Recompilation et réinstallation de opencore-amr version 0.1.2" 2>> $LOG  >> $LOG
+		eval_gettext "Info debut opencore update"
+		eval_gettext "Info debut opencore update" 2>> $LOG  >> $LOG
 		cd opencore-amr-0.1.2
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG  >> /dev/null
-		echo -e "\bInstallation de opencore-amr terminée"
+		eval_gettext "End opencore"
 	fi
 }
 
@@ -136,28 +155,28 @@ debian_libtheora_install()
 	cd $SRC_INSTALL
 	if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
 		echo
-		echo "Téléchargement, compilation et installation de libtheora version 1.1.1"
-		echo "Téléchargement, compilation et installation de libtheora version 1.1.1" 2>> $LOG >> $LOG
+		eval_gettext "Info debut libtheora install"
+		eval_gettext "Info debut libtheora install" 2>> $LOG >> $LOG
 		wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
 		tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG  >> /dev/null
 		cd libtheora-1.1.1
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> /dev/null
-		echo -e "\bInstallation de libtheora terminée"
+		eval_gettext "End libtheora"
 	elif [ "$LIBTHEORAVERSION" == "1.1.1-1" ]; then
 		echo
-		echo "Libtheora semble déjà à la version 1.1.1" 
-		echo "Libtheora semble déjà à la version 1.1.1" 2>> $LOG  >> $LOG
+		eval_gettext "Info a jour libtheora"
+		eval_gettext "Info a jour libtheora" 2>> $LOG  >> $LOG
 	else
 		echo
-		echo "Recompilation et réinstallation de libtheora version 1.1.1"
-		echo "Recompilation et réinstallation de libtheora version 1.1.1" 2>> $LOG >> $LOG
+		eval_gettext "Info debut libtheora update"
+		eval_gettext "Info debut libtheora update" 2>> $LOG >> $LOG
 		cd libtheora-1.1.1
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> /dev/null
-		echo -e "\bInstallation de libtheora terminée"
+		eval_gettext "End libtheora"
 	fi
 }
 
@@ -165,15 +184,15 @@ debian_libtheora_install()
 debian_rtmpdump_install()
 {
 	echo
-	echo "Téléchargement, compilation et installation de rtmpdump"
-	echo "Téléchargement, compilation et installation de rtmpdump" 2>> $LOG >> $LOG
+	eval_gettext "Info debut rtmpdump install"
+	eval_gettext "Info debut rtmpdump install" 2>> $LOG >> $LOG
 	apt-get -y install libssl-dev 2>> $LOG  >> /dev/null
 	cd $SRC_INSTALL
 	svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG  >> /dev/null
 	cd rtmpdump
 	make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 	make install 2>> $LOG  >> /dev/null
-	echo -e "\bInstallation de rtmpdump terminée"
+	eval_gettext "End rtmpdump"
 }
 
 # Installation de mediainfo
@@ -190,17 +209,18 @@ debian_media_info_install()
 		tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG  >> /dev/null
 		cd MediaInfo_CLI_GNU_FromSource
 		sh CLI_Compile.sh 2>> $LOG  >> /dev/null
-		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG  >> /dev/null
+		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
 		echo -e "\bInstallation de MediaInfo terminée"
 	elif [ "$MEDIAINFOVERSION" == "v0.7.38" ]; then
 		echo
 		echo "MediaInfo semble déjà à la version 0.7.38"
+		echo "MediaInfo semble déjà à la version 0.7.38" 2>> $LOG >> $LOG
 	else
 		echo "Recompilation et réinstallation de mediainfo version 0.7.38"
 		echo "Recompilation et réinstallation de mediainfo version 0.7.38" 2>> $LOG >> $LOG
 		cd 	"$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		sh CLI_Compile.sh 2>> $LOG  >> /dev/null
-		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG  >> /dev/null
+		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
 		echo -e "\bInstallation de MediaInfo terminée"
 	fi
 }
