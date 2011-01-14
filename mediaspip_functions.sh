@@ -306,7 +306,7 @@ debian_ffmpeg_install ()
 	cc qt-faststart.c -o qt-faststart
 	cd ..
 	echo
-	echo ffmpeg is at revision $REVISION
+	echo "FFMpeg est installé à la révision $REVISION"
 }
 
 debian_ffmpeg_update ()
@@ -353,7 +353,7 @@ debian_ffmpeg2theora_install ()
 	svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
 	cd ffmpeg2theora
 	# Install une version récente de libkate
-	sh ./get_libkate.sh
+	sh ./get_libkate.sh 2>> $LOG >> $LOG
 	scons install 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo
@@ -370,20 +370,20 @@ debian_ffmpeg2theora_update ()
 	echo "ffmpeg2theora est installé à la révision $REVISION"
 }
 
-#install ffmpeg
+#install ffmpeg-php
 debian_ffmpeg_php_install ()
 {
 	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php
-	phpize
+	phpize 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 	./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-	make install
+	make install 2>> $LOG >> $LOG
 	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-	/etc/init.d/apache2 force-reload
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo
 	echo "FFMpeg-php est installé à la révision $REVISION"
@@ -403,9 +403,9 @@ debian_ffmpeg_php_update ()
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install
+		make install 2>> $LOG >> $LOG
 		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-		/etc/init.d/apache2 force-reload
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	fi
 	echo "FFMpeg-php est installé à la révision $REVISION"
 }

@@ -85,13 +85,17 @@ fi
 #
 
 # Où sont téléchargées les sources
-INSTALL="/usr/local/src"
+SRC_INSTALL="/usr/local/src"
+
 # location of log file
 LOG=/var/log/mediaspip_install.log
+
 # location of the script's lock file
 LOCK="/var/run/mediaspip_install.pid"
+
 # Emplacement de SPIP
 SPIP="/var/www/"
+
 # Version de SPIP (svn ou stable)
 SPIP_VERSION="svn"
 SPIP_TYPE="ferme_full"
@@ -109,9 +113,22 @@ fi
 
 while test -n "${1}"; do
 	case "${1}" in
-		--help|-h) eval_gettext "Help message"
+		--help|-h) 
+		eval_gettext "Help message"
 		exit 0;;
-		--lang|-lang) export LC_ALL="$2_$3.UTF-8"
+		--lang|-lang) 
+			case "${2}" in
+				en) export LC_ALL="en_GB.UTF-8"
+				shift;;
+				fr) export LC_ALL="fr_FR.UTF-8"
+				shift;;
+				"") eval_gettext "Erreur langue non set"
+				echo
+				exit 0;;
+				*) eval_gettext "Erreur langue inexistante"
+				echo
+				exit 0;;
+			esac
 		shift;;
 		--version|-v) echo "MediaSPIP installation v."${VERSION}""
 		exit 0;;
@@ -176,39 +193,37 @@ error ()
 ###############
 
 # check that the default place to download to and log file location is ok
-echo "Ce script téléchargera les sources des logiciels dans :"
+eval_gettext "Info source installation"
 echo "$SRC_INSTALL"
-read -p "Est-ce OK (y/n)?"
-[ "$REPLY" == y ] || die "Erreur. Modifiez la variable INSTALL pour l'emplacement de votre choix."
+read -p "Est-ce OK (o/n)?"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
 echo
 
 echo "Ce script enregistrera ses logs dans :"
 echo "$LOG"
-read -p "Est-ce OK (y/n)?"
-[ "$REPLY" == y ] || die "Erreur. Modifiez la variable LOG pour l'emplacement de votre choix."
+read -p "Est-ce OK (o/n)?"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable LOG pour l'emplacement de votre choix."
 echo
 
 # Verifie le chemin d'installation de SPIP
 echo "Ce script installera SPIP dans le répertoire :"
 echo "$SPIP"
-read -p "Est-ce OK (y/n)?"
-[ "$REPLY" == y ] || die "Erreur. Modifiez la variable SPIP pour l'emplacement de votre choix."
+read -p "Est-ce OK (o/n)?"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable SPIP pour l'emplacement de votre choix."
 echo
 
 # ok, already, last check before proceeding
 echo "OK, nous sommes prêts à y aller."
-read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (y/n)?"
-[ "$REPLY" == y ] || die "exiting. Bye, did I come on too strong?."
+read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (o/n)?"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 
 echo
 echo "Allons y"
 echo "Le script démarre" >> $LOG
 echo "Installation des dépendances logicielles" 2>> $LOG >> $LOG
-echo "
-############################################
-# Installation des dépendances logicielles #
-############################################
-"
+
+eval_gettext "Titre dependances logicielles"
+
 debian_dep_install || error "Sorry something went wrong, please check the $LOG file." &
 PID=$!
 #this is a simple progress indicator
@@ -226,11 +241,9 @@ done
 
 echo -e "\bFin de l'installation des dépendances"
 echo
-echo "
-############################################
-#     Installation de libx264 et x264      #
-############################################
-"
+
+eval_gettext "Titre x264"
+
 if [ -d "$SRC_INSTALL"/x264 ];then
 	echo "Mise à jour, compilation et installation de x264"
 	echo "Mise à jour, compilation et installation de x264" 2>> $LOG >> $LOG
@@ -256,11 +269,9 @@ done
 
 echo -e "\bInstallation de x264 terminée"
 echo
-echo "
-############################################
-#         Installation de FFMpeg           #
-############################################
-"
+
+eval_gettext "Titre ffmpeg"
+
 if [ -d "$SRC_INSTALL"/ffmpeg/.svn ];then
 	echo "Mise à jour, compilation et installation de FFMpeg"
 	echo "Mise à jour, compilation et installation de FFMpeg" 2>> $LOG >> $LOG
@@ -286,11 +297,9 @@ done
 
 echo -e "\bInstallation de FFMpeg terminée"
 echo
-echo "
-############################################
-#      Installation de FFMpeg2Theora       #
-############################################
-"
+
+eval_gettext "Titre ffmpeg2theora"
+
 if [ -d "$SRC_INSTALL"/ffmpeg2theora/.svn ];then
 	echo "Mise à jour, compilation et installation de ffmpeg2theora"
 	echo "Mise à jour, compilation et installation de ffmpeg2theora" 2>> $LOG >> $LOG
@@ -317,11 +326,9 @@ done
 echo -e "\bInstallation de ffmpeg2theora terminée"
 
 echo
-echo "
-############################################
-#       Installation de FFMpeg-php         #
-############################################
-"
+
+eval_gettext "Titre ffmpegphp"
+
 if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 	echo "Mise à jour, compilation et installation de ffmpeg-svn"
 	echo "Mise à jour, compilation et installation de ffmpeg-svn" 2>> $LOG >> $LOG
@@ -366,11 +373,8 @@ if [ -d /var/alternc/exec.usr ]; then
 	fi
 fi
 
-echo "
-############################################
-#    Installation de SPIP et MediaSPIP     #
-############################################
-"
+eval_gettext "Titre spip mediaspip"
+
 mediaspip_install
 
 echo
