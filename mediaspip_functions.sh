@@ -26,7 +26,7 @@ in_array(){
 #exit function
 die ()
 {
-	eval_gettext $@ 
+	echo $@ 
 	exit 1
 }
 
@@ -34,8 +34,7 @@ die ()
 error ()
 {
 	kill "$PID" &>/dev/null 2>> $LOG >> $LOG
-	
-	eval_gettext $1
+
 	echo $@
 	exit 1
 }
@@ -92,12 +91,15 @@ debian_flvtool_install()
 	#install flvtool2
 	echo
 	eval_gettext "Info debut flvtool2"
+	echo
 	eval_gettext "Info debut flvtool2" 2>> $LOG  >> $LOG
 	cd $SRC_INSTALL
 	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG  >> /dev/null
 	cd flvtool2
 	sudo ruby setup.rb 2>> $LOG  >> /dev/null
+	echo
 	eval_gettext "End flvtool2"
+	echo
 }
 
 # Installation de Lame
@@ -108,7 +110,7 @@ debian_lame_install()
 	if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
 		echo
 		eval_gettext "Info debut lame install" 
-		eval_gettext "Info debut lame" 2>> $LOG  >> $LOG
+		eval_gettext "Info debut lame install" 2>> $LOG  >> $LOG
 		wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
 		tar xvf lame-3.98.4.tar.gz 2>> $LOG  >> /dev/null
 		cd lame-3.98.4
@@ -119,6 +121,7 @@ debian_lame_install()
 	elif [ "$LAMEVERSION" == "3.98.4" ]; then
 		echo
 		eval_gettext "Info a jour lame"
+		echo
 		eval_gettext "Info a jour lame" 2>> $LOG  >> $LOG
 	else
 		echo
@@ -151,10 +154,12 @@ debian_libopencore_amr_install()
 	elif [ "$LIBOPENCORE" == "0.1.2-1" ]; then
 		echo
 		eval_gettext "Info a jour opencore"
+		echo
 		eval_gettext "Info a jour opencore" 2>> $LOG  >> $LOG
 	else
 		echo
 		eval_gettext "Info debut opencore update"
+		echo
 		eval_gettext "Info debut opencore update" 2>> $LOG  >> $LOG
 		cd opencore-amr-0.1.2
 		./configure --enable-shared 2>> $LOG  >> /dev/null
@@ -184,6 +189,7 @@ debian_libtheora_install()
 	elif [ "$LIBTHEORAVERSION" == "1.1.1-1" ]; then
 		echo
 		eval_gettext "Info a jour libtheora"
+		echo
 		eval_gettext "Info a jour libtheora" 2>> $LOG  >> $LOG
 	else
 		echo
@@ -201,6 +207,7 @@ debian_libtheora_install()
 debian_rtmpdump_install()
 {
 	echo
+	echo
 	eval_gettext "Info debut rtmpdump install"
 	eval_gettext "Info debut rtmpdump install" 2>> $LOG >> $LOG
 	apt-get -y install libssl-dev 2>> $LOG  >> /dev/null
@@ -209,36 +216,37 @@ debian_rtmpdump_install()
 	cd rtmpdump
 	make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
 	make install 2>> $LOG  >> /dev/null
+	echo
 	eval_gettext "End rtmpdump"
+	echo
 }
 
 # Installation de mediainfo
 debian_media_info_install()
 {
-	#install mediainfo
 	MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
 		echo
-		echo "Téléchargement, compilation et installation de mediainfo version 0.7.38"
-		echo "Téléchargement, compilation et installation de mediainfo version 0.7.38" 2>> $LOG >> $LOG
+		eval_gettext "Info debut mediainfo install"
+		eval_gettext "Info debut mediainfo install" 2>> $LOG >> $LOG
 		cd $SRC_INSTALL
 		wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG
 		tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG  >> /dev/null
 		cd MediaInfo_CLI_GNU_FromSource
 		sh CLI_Compile.sh 2>> $LOG  >> /dev/null
 		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
-		echo -e "\bInstallation de MediaInfo terminée"
+		eval_gettext "End mediainfo"
 	elif [ "$MEDIAINFOVERSION" == "v0.7.38" ]; then
 		echo
-		echo "MediaInfo semble déjà à la version 0.7.38"
-		echo "MediaInfo semble déjà à la version 0.7.38" 2>> $LOG >> $LOG
+		eval_gettext "Info a jour mediainfo"
+		eval_gettext "Info a jour mediainfo" 2>> $LOG >> $LOG
 	else
-		echo "Recompilation et réinstallation de mediainfo version 0.7.38"
-		echo "Recompilation et réinstallation de mediainfo version 0.7.38" 2>> $LOG >> $LOG
+		eval_gettext "Info debut mediainfo update"
+		eval_gettext "Info debut mediainfo update" 2>> $LOG >> $LOG
 		cd 	"$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		sh CLI_Compile.sh 2>> $LOG  >> /dev/null
 		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
-		echo -e "\bInstallation de MediaInfo terminée"
+		eval_gettext "End mediainfo"
 	fi
 }
 
@@ -251,24 +259,24 @@ debian_phpimagick_install()
 	# Cas de l'installation
 	if [ "$ACTUEL" == "-" ]; then
 		# Installation
-		echo "Installation de php-imagick à la version $LATEST"
-		echo "Installation de php-imagick à la version $LATEST" 2>> $LOG >> $LOG
+		eval_gettext "Info debut php-imagick install"
+		eval_gettext "Info debut php-imagick install" 2>> $LOG >> $LOG
 		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
-		echo -e "\bInstallation de php-imagick terminée"
-		echo -e "\bInstallation de php-imagick terminée" 2>> $LOG >> $LOG
+		eval_gettext "End php-imagick"
+		eval_gettext "End php-imagick" 2>> $LOG >> $LOG
 	# Cas où on a déjà installé la dernière version
 	elif [ "$ACTUEL" == "$LATEST" ]; then
 		# Déjà à jour
-		echo "php-imagick semble déjà à jour (v.$LATEST)"
-		echo "php-imagick semble déjà à jour (v.$LATEST)" 2>> $LOG >> $LOG
+		eval_gettext "Info a jour php-imagick"
+		eval_gettext "Info a jour php-imagick" 2>> $LOG >> $LOG
 	# Cas de la mise à jour
 	else
 		# Mise à jour
-		echo "Mise à jour de php-imagick à la version $LATEST"
-		echo "Mise à jour de php-imagick à la version $LATEST" 2>> $LOG >> $LOG
+		eval_gettext "Info debut php-imagick update"
+		eval_gettext "Info debut php-imagick update" 2>> $LOG >> $LOG
 		pecl upgrade imagick 2>> $LOG >> $LOG
-		echo -e "\bMise à jour de php-imagick terminée"
-		echo -e "\bMise à jour de php-imagick terminée" 2>> $LOG >> $LOG
+		eval_gettext "End php-imagick"
+		eval_gettext "End php-imagick" 2>> $LOG >> $LOG
 	fi
 }
 
@@ -314,13 +322,14 @@ debian_x264_update ()
 	git pull 2>> $LOG >> $LOG
 	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 	if [ "$REVISION" == "$NEWREVISION" ]; then
-		echo "x264 semble déjà à jour" 
-		echo "x264 semble déjà à jour" 2>> $LOG  >> $LOG
+		echo
+		eval_gettext "Info a jour x264"
+		eval_gettext "Info a jour x264" 2>> $LOG  >> $LOG
 	else
-		apt-get -y remove x264 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG  >> /dev/null
 		./configure --enable-shared 2>> $LOG  >> /dev/null
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> /dev/null
+		apt-get -y remove x264 2>> $LOG >> $LOG
 		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG  >> /dev/null
 	fi
 }
@@ -328,7 +337,6 @@ debian_x264_update ()
 #install ffmpeg
 debian_ffmpeg_install ()
 {
-	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg 2>> $LOG >> $LOG
 	cd ffmpeg
@@ -337,6 +345,7 @@ debian_ffmpeg_install ()
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
 	make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
+	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
 	checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
 	ldconfig
 	cd tools
@@ -355,13 +364,14 @@ debian_ffmpeg_update ()
 		VERSION=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')  2>> $LOG >> $LOG
 		REVISION_VERSION=SVN-r"$REVISION"
 		if [ "$VERSION" = "$REVISION_VERSION" ];then
-			echo "FFmpeg est déjà à jour"
+			eval_gettext "Info a jour ffmpeg"
+			eval_gettext "Info a jour ffmpeg" 2>> $LOG >> $LOG
 		else
-			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> /dev/null
 			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> /dev/null
 			./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> /dev/null																															      
 			make -j $NO_OF_CPUCORES 2>> $LOG >> /dev/null
+			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
 			ldconfig
 			cd tools
@@ -434,7 +444,8 @@ debian_ffmpeg_php_update ()
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')  2>> $LOG >> $LOG
 	#FFMPEG=$(which ffmpeg) 2>> $LOG >> $LOG
 	if [ "$OLDREVISION" = "$REVISION" ];then
-		echo "FFmpeg-php est déja à jour"
+		eval_gettext "Info a jour ffmpeg-php"
+		eval_gettext "Info a jour ffmpeg-php" 2>> $LOG >> $LOG
 	else
 		phpize
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
@@ -444,5 +455,6 @@ debian_ffmpeg_php_update ()
 		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
 		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	fi
+	echo
 	echo "FFMpeg-php est installé à la révision $REVISION"
 }

@@ -213,7 +213,9 @@ mediaspip_install(){
 		fi
 	fi
 	
-	mkdir lib && chmod 777 lib/
+	if [ ! -d lib ];then
+		mkdir lib && chmod 777 lib/
+	fi
 	
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip >> /dev/null
 	

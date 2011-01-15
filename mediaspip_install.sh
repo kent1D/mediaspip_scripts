@@ -67,11 +67,15 @@ echo "$LOGO"
 
 if [ "$(id -u)" != "0" ]; then
 	eval_gettext "Erreur script root" 1>&2
+	echo
+	echo
 	exit 1
 fi
 
 if [ ! -r /etc/debian_version ]; then
 	eval_gettext "Erreur script debian" 1>&2
+	echo
+	echo
 	exit 1
 fi
 
@@ -175,38 +179,41 @@ done
 # Suite des fonctions du script
 ###############################
 
+QUESTION_VALID=$(eval_gettext "Question valider")
+
 # Demande de valider l'emplacement des fichiers source des binaires
-# Trois réponses valides possibles :
+# Trois reponses valides possibles :
 # - y
 # - o
 # - return (vide)
 eval_gettext "Info source installation"
-echo "$SRC_INSTALL"
-read -p "Est-ce OK (o/n)?"
-[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
+echo " $SRC_INSTALL"
+read -p "$QUESTION_VALID"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SRC_INSTALL")
 echo
 
 # Demande de valider l'emplacement des fichiers de log
-# Trois réponses valides possibles :
+# Trois reponses valides possibles :
 # - y
 # - o
 # - return (vide)
-echo "Ce script enregistrera ses logs dans :"
-echo "$LOG"
-read -p "Est-ce OK (o/n)?"
-[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable LOG pour l'emplacement de votre choix."
+eval_gettext "Info log installation"
+#echo ""
+echo " $LOG"
+read -p "$QUESTION_VALID"
+[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide LOG")
 echo
 
 # Demande de valider l'emplacement des fichiers de SPIP et MediaSPIP
-# Trois réponses valides possibles :
+# Trois reponses valides possibles :
 # - y
 # - o
 # - return (vide)
 if [ "$SPIP_TYPE" != "none" ];then
-	echo "Ce script installera SPIP dans le répertoire :"
-	echo "$SPIP"
-	read -p "Est-ce OK (o/n)?"
-	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "Erreur. Modifiez la variable SPIP pour l'emplacement de votre choix."
+	eval_gettext "Info SPIP installation"
+	echo " $SPIP"
+	read -p "$QUESTION_VALID"
+	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SPIP")
 	echo
 else
 	eval_gettext "Info MediaSPIP non installe"
@@ -218,108 +225,128 @@ read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécutio
 [ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 
 echo
-echo "Allons y"
 echo "Le script démarre" >> $LOG
 echo "Installation des dépendances logicielles" 2>> $LOG >> $LOG
 
 
-# Installation de plusieurs dépendances 
+# Installation de plusieurs dependances 
 # (librairies et binaires)
 eval_gettext "Titre dependances logicielles"
+echo
+echo
 
-debian_dep_install || error "Erreur installation regarde log" &
+debian_dep_install || error $(eval_gettext "Erreur installation regarde log") &
 
 progress_indicator $!
 
+echo
 echo
 eval_gettext "End dependances"
 echo
 
 # Installation de x264
-# librairie h.264 pour créer des vidéos compatibles html5 (Safari + iphone & co)
-
+# librairie h.264 pour creer des videos compatibles html5 (Safari + iphone & co)
 eval_gettext "Titre x264"
-
+echo
+echo
 if [ -d "$SRC_INSTALL"/x264 ];then
-	echo "Mise à jour, compilation et installation de x264"
-	echo "Mise à jour, compilation et installation de x264" 2>> $LOG >> $LOG
-	debian_x264_update || error "Erreur installation regarde log" &
-else 
-	echo "Téléchargement, compilation et installation de x264"
-	echo "Téléchargement, compilation et installation de x264" 2>> $LOG >> $LOG
-	debian_x264_install || error "Erreur installation regarde log" &
+	eval_gettext "Info debut x264 update"
+	echo
+	eval_gettext "Info debut x264 update" 2>> $LOG >> $LOG
+	debian_x264_update || error $(eval_gettext "Erreur installation regarde log") &
+else
+	eval_gettext "Info debut x264 install"
+	echo
+	eval_gettext "Info debut x264 install" 2>> $LOG >> $LOG
+	debian_x264_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
+echo
 eval_gettext "End x264"
 echo
 
 # Installation de ffmpeg
-# binaire pour encoder vidéo et sons
+# binaire pour encoder videos et sons
 eval_gettext "Titre ffmpeg"
+echo
+echo
 
 if [ -d "$SRC_INSTALL"/ffmpeg/.svn ];then
 	eval_gettext "Info debut ffmpeg update"
+	echo
 	eval_gettext "Info debut ffmpeg update" 2>> $LOG >> $LOG
-	debian_ffmpeg_update || error "Erreur installation regarde log" &
+	debian_ffmpeg_update || error $(eval_gettext "Erreur installation regarde log") &
 else 
 	eval_gettext "Info debut ffmpeg install"
+	echo
 	eval_gettext "Info debut ffmpeg install" 2>> $LOG >> $LOG
-	debian_ffmpeg_install || error "Erreur installation regarde log" &
+	debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
+echo
 eval_gettext "End ffmpeg"
 echo
 
 # Installation de ffmpeg2theora
-# binaire plus simple que ffmpeg pour créer des fichiers ogg/theora
+# binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
 eval_gettext "Titre ffmpeg2theora"
+echo
+echo
 
 if [ -d "$SRC_INSTALL"/ffmpeg2theora/.svn ];then
 	eval_gettext "Info debut ffmpeg2theora update"
+	echo
 	eval_gettext "Info debut ffmpeg2theora update" 2>> $LOG >> $LOG
-	debian_ffmpeg2theora_update || error "Erreur installation regarde log" &
-else 
+	debian_ffmpeg2theora_update || error $(eval_gettext "Erreur installation regarde log") &
+else
 	eval_gettext "Info debut ffmpeg2theora install"
+	echo
 	eval_gettext "Info debut ffmpeg2theora install" 2>> $LOG >> $LOG
-	debian_ffmpeg2theora_install || error "Erreur installation regarde log" &
+	debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
+echo
 eval_gettext "End ffmpeg2theora"
-
 echo
 
 # Installation de ffmpeg-php
 # extension ffmpeg pour php
 eval_gettext "Titre ffmpegphp"
-
+echo
+echo
 if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 	eval_gettext "Info debut ffmpeg-php update"
+	echo
 	eval_gettext "Info debut ffmpeg-php update" 2>> $LOG >> $LOG
-	debian_ffmpeg_php_update || error "Erreur installation regarde log" &
+	debian_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
 else
 	eval_gettext "Info debut ffmpeg-php install"
+	echo
 	eval_gettext "Info debut ffmpeg-php install" 2>> $LOG >> $LOG
-	debian_ffmpeg_php_install || error "Erreur installation regarde log" &
+	debian_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
+echo
 eval_gettext "End ffmpeg-php"
 
 # On vérifie si alternc est sur le système
 # Si oui on demande s'il est utilisé pour MediaSPIP
-# Si oui, on crée des liens symboliques vers le répertoire du safe_mode
+# Si oui, on cree des liens symboliques vers le répertoire du safe_mode
 if [ -d /var/alternc/exec.usr ]; then
 	echo
-	echo "Utilisez vous AlternC pour MediaSPIP ?"
-	read -p "Yes/No (y/n)?"
-	if [ "$REPLY" == y ];then
+	echo
+	eval_gettext "Question alternc"
+	echo
+	read -p "$QUESTION_VALID"
+	if([ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ]);then
 		cd /var/alternc/exec.usr
 		ln -s /usr/bin/vorbiscomment 2>> $LOG >> $LOG
 		ln -s /usr/bin/metaflac 2>> $LOG >> $LOG
@@ -329,15 +356,19 @@ if [ -d /var/alternc/exec.usr ]; then
 		ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
 		ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
 		ln -s /bin/ps 2>> $LOG >> $LOG
-		echo -e "\bCréation des liens symboliques des binaires pour AlternC terminée"
+		echo
+		eval_gettext "End alternc"
 	fi
 fi
 
+echo
 eval_gettext "Titre spip mediaspip"
-
+echo
+echo
 mediaspip_install
 
 echo
-echo "L'installation est terminée."
-
+eval_gettext "End installation generale"
+echo
+echo
 exit 
