@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # mediaspip_install.sh
-# © 2010 - kent1 (kent1@arscenic.info)
+# © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.2
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
@@ -20,8 +20,7 @@
 #
 # Ce script installe également SPIP et l'ensemble des extensions nécessaires à MediaSPIP
 
-
-export TEXTDOMAINDIR=./locale
+export TEXTDOMAINDIR=$(pwd)/locale
 export TEXTDOMAIN=mediaspip
 
 I18NLIB=/usr/bin/gettext.sh
@@ -68,13 +67,11 @@ echo "$LOGO"
 if [ "$(id -u)" != "0" ]; then
 	eval_gettext "Erreur script root" 1>&2
 	echo
-	echo
 	exit 1
 fi
 
 if [ ! -r /etc/debian_version ]; then
 	eval_gettext "Erreur script debian" 1>&2
-	echo
 	echo
 	exit 1
 fi
@@ -83,6 +80,8 @@ fi
 . ./mediaspip_functions.sh
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 . ./mediaspip_spip_installation.sh
+
+CURRENT=$(pwd)
 
 #########################################
 # Variables éditables pour l'utilisateur
@@ -236,12 +235,9 @@ echo
 echo
 
 debian_dep_install || error $(eval_gettext "Erreur installation regarde log") &
-
 progress_indicator $!
 
-echo
-echo
-eval_gettext "End dependances"
+echo $(eval_gettext "End dependances")
 echo
 
 # Installation de x264
@@ -250,21 +246,21 @@ eval_gettext "Titre x264"
 echo
 echo
 if [ -d "$SRC_INSTALL"/x264 ];then
-	eval_gettext "Info debut x264 update"
+	echo $(eval_gettext "Info debut x264 update")
 	echo
-	eval_gettext "Info debut x264 update" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
 	debian_x264_update || error $(eval_gettext "Erreur installation regarde log") &
 else
-	eval_gettext "Info debut x264 install"
+	echo $(eval_gettext "Info debut x264 install")
 	echo
-	eval_gettext "Info debut x264 install" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
 	debian_x264_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
 echo
-eval_gettext "End x264"
+echo $(eval_gettext "End x264")
 echo
 
 # Installation de ffmpeg
@@ -274,45 +270,43 @@ echo
 echo
 
 if [ -d "$SRC_INSTALL"/ffmpeg/.svn ];then
-	eval_gettext "Info debut ffmpeg update"
+	echo $(eval_gettext "Info debut ffmpeg update")
 	echo
-	eval_gettext "Info debut ffmpeg update" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
 	debian_ffmpeg_update || error $(eval_gettext "Erreur installation regarde log") &
 else 
-	eval_gettext "Info debut ffmpeg install"
+	echo $(eval_gettext "Info debut ffmpeg install")
 	echo
-	eval_gettext "Info debut ffmpeg install" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 	debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
 echo
-eval_gettext "End ffmpeg"
+echo $(eval_gettext "End ffmpeg")
 echo
 
 # Installation de ffmpeg2theora
 # binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
 eval_gettext "Titre ffmpeg2theora"
+wait
 echo
 echo
 
 if [ -d "$SRC_INSTALL"/ffmpeg2theora/.svn ];then
-	eval_gettext "Info debut ffmpeg2theora update"
-	echo
-	eval_gettext "Info debut ffmpeg2theora update" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg2theora update")
+	echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
 	debian_ffmpeg2theora_update || error $(eval_gettext "Erreur installation regarde log") &
 else
-	eval_gettext "Info debut ffmpeg2theora install"
-	echo
-	eval_gettext "Info debut ffmpeg2theora install" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg2theora install")
+	echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
 	debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
 fi
 
 progress_indicator $!
 
-echo
-eval_gettext "End ffmpeg2theora"
+echo $(eval_gettext "End ffmpeg2theora")
 echo
 
 # Installation de ffmpeg-php
@@ -321,43 +315,56 @@ eval_gettext "Titre ffmpegphp"
 echo
 echo
 if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
-	eval_gettext "Info debut ffmpeg-php update"
-	echo
-	eval_gettext "Info debut ffmpeg-php update" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg-php update")
+	echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
 	debian_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
+	progress_indicator $!
 else
-	eval_gettext "Info debut ffmpeg-php install"
-	echo
-	eval_gettext "Info debut ffmpeg-php install" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut ffmpeg-php install")
+	echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
 	debian_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
+	progress_indicator $!
 fi
 
-progress_indicator $!
-
+echo $(eval_gettext "End ffmpeg-php")
 echo
-eval_gettext "End ffmpeg-php"
 
 # On vérifie si alternc est sur le système
 # Si oui on demande s'il est utilisé pour MediaSPIP
 # Si oui, on cree des liens symboliques vers le répertoire du safe_mode
 if [ -d /var/alternc/exec.usr ]; then
 	echo
-	echo
-	eval_gettext "Question alternc"
-	echo
+	echo $(eval_gettext "Question alternc")
 	read -p "$QUESTION_VALID"
 	if([ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ]);then
 		cd /var/alternc/exec.usr
-		ln -s /usr/bin/vorbiscomment 2>> $LOG >> $LOG
-		ln -s /usr/bin/metaflac 2>> $LOG >> $LOG
-		ln -s /usr/local/bin/ffmpeg 2>> $LOG >> $LOG
-		ln -s /usr/local/bin/qt-faststart 2>> $LOG >> $LOG
-		ln -s /usr/local/bin/ffmpeg2theora 2>> $LOG >> $LOG
-		ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
-		ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
-		ln -s /bin/ps 2>> $LOG >> $LOG
+		if [ ! -h vorbiscomment ];then
+			ln -s /usr/bin/vorbiscomment 2>> $LOG >> $LOG 
+		fi
+		if [ ! -h metaflac ];then
+			ln -s /usr/bin/metaflac 2>> $LOG >> $LOG
+		fi
+		if [ ! -h ffmpeg ];then
+			ln -s /usr/local/bin/ffmpeg 2>> $LOG >> $LOG
+		fi
+		if [ ! -h qt-faststart ];then
+			ln -s /usr/local/bin/qt-faststart 2>> $LOG >> $LOG
+		fi
+		if [ ! -h ffmpeg2theora ];then
+			ln -s /usr/local/bin/ffmpeg2theora 2>> $LOG >> $LOG
+		fi
+		if [ ! -h flvtool2 ];then
+			ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
+		fi
+		if [ ! -h /var/alternc/exec.usr/mediainfo ];then
+			ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
+		fi
+		if [ ! -h ps ];then
+			ln -s /bin/ps 2>> $LOG >> $LOG
+		fi
+		cd $CURRENT
 		echo
-		eval_gettext "End alternc"
+		echo $(eval_gettext "End alternc")
 	fi
 fi
 
@@ -365,10 +372,11 @@ echo
 eval_gettext "Titre spip mediaspip"
 echo
 echo
-mediaspip_install
+
+mediaspip_install || error $(eval_gettext "Erreur installation regarde log") &
+progress_indicator $!
 
 echo
-eval_gettext "End installation generale"
-echo
+echo $(eval_gettext "End installation generale")
 echo
 exit 
