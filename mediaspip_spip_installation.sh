@@ -8,6 +8,8 @@
 # - SPIP
 # - Les extensions obligatoires au bon fonctionnement
 # - Les plugins compatibles si configuré comme tel
+# - Les répertoires sites/ (si dans un cas de mutu) et lib/
+# - Le htaccess de SPIP
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 mediaspip_install(){
@@ -133,8 +135,8 @@ mediaspip_install(){
 	
 	cd $SPIP/mediaspip
 	
-	echo
 	echo $(eval_gettext "Info SPIP extensions maj")
+	echo
 	svn up extensions/* 2>> $LOG >> $LOG
 	
 	if [ ! -d themes ]; then
@@ -142,6 +144,8 @@ mediaspip_install(){
 	fi
 	
 	cd themes
+	
+	echo $(eval_gettext "Info SPIP themes")
 	
 	if [ ! -d spipeo ]; then
 		i=SPIPeo
@@ -163,10 +167,11 @@ mediaspip_install(){
 	
 	cd $SPIP/mediaspip
 	
-	echo
 	echo $(eval_gettext "Info SPIP themes maj")
 	svn up themes/* 2>> $LOG >> $LOG
 	
+	echo
+	echo $(eval_gettext "Info SPIP plugins")
 	TYPES_FULL=(ferme_full full)
 	if in_array $SPIP_TYPE ${TYPES_FULL[@]};then
 		if [ ! -d plugins ];then
@@ -229,32 +234,39 @@ mediaspip_install(){
 	
 	if in_array $SPIP_TYPE ${TYPES[@]};then
 		if [ ! -d mutualisation ];then
+			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
 			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation 2>> $LOG >> $LOG &
 			wait $!
 		else
+			echo
 			echo $(eval_gettext "Info SPIP maj mutualisation")
 			svn up mutualisation/  2>> $LOG >> /dev/null &
 			wait $!
 		fi
 		if [ ! -d sites ];then
+			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
-			mkdir sites && chmod 777 lib/ 2>> $LOG >> $LOG &
-			wait $!
+			mkdir sites && chmod 777 lib/ 2>> $LOG >> $LOG
 		fi
 	fi
 	
 	if [ ! -d lib ];then
+		echo
 		echo $(eval_gettext "Info SPIP repertoire lib")
 		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG &
 		wait $!
 	fi
 	
+	echo
 	echo $(eval_gettext "Info SPIP copie htaccess")
 	cp htaccess.txt .htaccess
 	
+	echo
+	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip 2>> $LOG >> /dev/null &
 	wait $!
 	
-	echo $(eval_gettext "Info MediaSPIP installe")
+	echo
+	echo_reussite $(eval_gettext "Info MediaSPIP installe")
 }

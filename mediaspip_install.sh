@@ -33,6 +33,16 @@ else
 	exit 1
 fi
 
+# On inclut le fichier de fonctions
+if [[ -f "./mediaspip_functions.sh" ]]; then
+	. ./mediaspip_functions.sh
+else
+	echo $(eval_gettext "Erreur fichier fonctions")
+	exit 1
+fi
+# On inclut le fichier d'installation de SPIP et de MediaSPIP
+. ./mediaspip_spip_installation.sh
+
 VERSION="0.2"
 
 LOGO="
@@ -51,7 +61,16 @@ VERSION ${VERSION}
 ######################################################################################
 "
 
+if [ -d "fun" ];then
+	set -- fun/*
+	length=$#
+	random_num=$(( $RANDOM % ($length + 1) ))
+	. ${!random_num}
+fi
+
+tput setaf 2;
 echo "$LOGO"
+tput sgr0;
 
 #########################################
 # Vérifications de base :
@@ -60,21 +79,14 @@ echo "$LOGO"
 #
 
 if [ "$(id -u)" != "0" ]; then
-	eval_gettext "Erreur script root" 1>&2
-	echo
+	echo_erreur $(eval_gettext "Erreur script root") 1>&2
 	exit 1
 fi
 
 if [ ! -r /etc/debian_version ]; then
-	eval_gettext "Erreur script debian" 1>&2
-	echo
+	echo_erreur $(eval_gettext "Erreur script debian") 1>&2
 	exit 1
 fi
-
-# On inclut le fichier de fonctions
-. ./mediaspip_functions.sh
-# On inclut le fichier d'installation de SPIP et de MediaSPIP
-. ./mediaspip_spip_installation.sh
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -85,7 +97,7 @@ CURRENT=$(pwd)
 PKG_CONFIG=$(which pkg-config)
 
 if [ ! -x $PKG_CONFIG ]; then
-	echo 'pkg-config pas installé'
+	echo_erreur 'pkg-config pas installé'
 	exit 1
 fi
 
@@ -131,10 +143,10 @@ while test -n "${1}"; do
 				shift;;
 				fr) export LC_ALL="fr_FR.UTF-8"
 				shift;;
-				"") echo $(eval_gettext "Erreur langue non set")
+				"") echo_erreur $(eval_gettext "Erreur langue non set")
 				ERROR=oui
 				shift;;
-				*) echo $(eval_gettext "Erreur langue inexistante")
+				*) echo_erreur $(eval_gettext "Erreur langue inexistante")
 				ERROR=oui
 				shift;;
 			esac
@@ -146,17 +158,21 @@ while test -n "${1}"; do
 		--log|-l) LOG="${2}"
 		shift;;
 		--cpus|-c)
-			if(isNumeric "${2}");then
-				echo "cpu numerique"
-				if ((${2} > $NO_OF_CPUCORES));then
-					CPU_NB=${2}
-					echo $(eval_gettext 'Erreur option cpus trop $CPU_NB')  
+			if [ ! -z "${2}" ];then
+				if(isNumeric "${2}");then
+					if ((${2} > $NO_OF_CPUCORES));then
+						CPU_NB=${2}
+						echo_erreur $(eval_gettext 'Erreur option cpus trop $CPU_NB')  
+						ERROR=oui
+					else 
+						NO_OF_CPUCORES="${2}"
+					fi
+				else
+					echo_erreur $(eval_gettext "Erreur option cpus numerique")
 					ERROR=oui
-				else 
-					NO_OF_CPUCORES="${2}"
 				fi
 			else
-				echo $(eval_gettext "Erreur option cpus numerique")
+				echo_erreur $(eval_gettext "Erreur option cpus numerique")
 				ERROR=oui
 			fi
 		shift;;
@@ -175,7 +191,7 @@ while test -n "${1}"; do
 			SPIP_TYPE=${2}
 		else
 			TYPEDEMANDE=${2}
-			echo $(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')
+			echo_erreur $(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')
 			ERROR=oui
 		fi
 		shift;;
@@ -250,7 +266,7 @@ echo
 debian_dep_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
-echo $(eval_gettext "End dependances")
+echo_reussite $(eval_gettext "End dependances")
 echo
 
 # Installation de x264
@@ -273,7 +289,7 @@ fi
 progress_indicator $!
 
 echo
-echo $(eval_gettext "End x264")
+echo_reussite $(eval_gettext "End x264")
 echo
 
 # Installation de ffmpeg
@@ -297,7 +313,7 @@ fi
 progress_indicator $!
 
 echo
-echo $(eval_gettext "End ffmpeg")
+echo_reussite $(eval_gettext "End ffmpeg")
 echo
 
 # Installation de ffmpeg2theora
@@ -318,7 +334,8 @@ fi
 
 progress_indicator $!
 
-echo $(eval_gettext "End ffmpeg2theora")
+echo
+echo_reussite $(eval_gettext "End ffmpeg2theora")
 echo
 
 # Installation de ffmpeg-php
@@ -338,7 +355,8 @@ else
 	progress_indicator $!
 fi
 
-echo $(eval_gettext "End ffmpeg-php")
+echo
+echo_reussite $(eval_gettext "End ffmpeg-php")
 echo
 
 # On vérifie si alternc est sur le système
@@ -376,7 +394,7 @@ if [ -d /var/alternc/exec.usr ]; then
 		fi
 		cd $CURRENT
 		echo
-		echo $(eval_gettext "End alternc")
+		echo_reussite $(eval_gettext "End alternc")
 	fi
 fi
 
@@ -389,6 +407,6 @@ mediaspip_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo
-echo $(eval_gettext "End installation generale")
+echo_reussite $(eval_gettext "End installation generale")
 echo
 exit 

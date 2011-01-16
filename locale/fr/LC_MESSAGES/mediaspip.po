@@ -125,7 +125,7 @@ msgstr "Erreur : aucune langue n'est spécifiée avec l'option --lang"
 #: mediaspip_install.sh:178
 #, sh-format
 msgid "Erreur mediaspip type disponible $TYPEDEMANDE"
-msgstr "Votre type d'installation de MediaSPIP n'est pas disponible ($TYPEDEMANDE)"
+msgstr "Erreur : votre type d'installation de MediaSPIP n'est pas disponible ($TYPEDEMANDE)"
 
 #: mediaspip_install.sh:159
 #, sh-format

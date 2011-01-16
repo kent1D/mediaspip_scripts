@@ -27,10 +27,24 @@ in_array(){
     return 1
 }
 
+function echo_erreur ()
+{
+	tput setaf 1;
+	echo $@
+	tput sgr0;
+}
+
+function echo_reussite ()
+{
+	tput setaf 2;
+	echo $@
+	tput sgr0;
+}
+
 #exit function
 die ()
 {
-	echo $@ 
+	echo_erreur $@ 
 	exit 1
 }
 
@@ -39,9 +53,11 @@ error ()
 {
 	kill "$PID" &>$LOG 2>> $LOG >> $LOG
 
-	echo $@
+	echo_erreur $@
 	exit 1
 }
+
+
 
 function progress_indicator()
 {
@@ -287,7 +303,6 @@ debian_dep_install()
 	wait $!
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG  >> $LOG
-	#echo "Installation ou mise à jour des paquets via APT" 2>> $LOG  >> $LOG
 	apt-get -y remove php5-imagick 2>> $LOG  >> $LOG &
 	wait $!
 	
@@ -296,7 +311,9 @@ debian_dep_install()
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools liboggkate-dev \
 		2>> $LOG  >> $LOG
-
+	
+	echo 
+	
 	debian_lame_install || error $(eval_gettext "Erreur installation regarde log") &
 	wait $!
 	
@@ -364,9 +381,8 @@ debian_ffmpeg_install ()
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+	./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
 		--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-		--disable-ffplay --disable-ffserver \
 		2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
@@ -395,9 +411,9 @@ debian_ffmpeg_update ()
 		else
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-			./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+			./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
 				--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-				--disable-ffplay --disable-ffserver 2>> $LOG >> $LOG
+				2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
@@ -409,9 +425,8 @@ debian_ffmpeg_update ()
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-			--disable-ffplay --disable-ffserver \
 			2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
@@ -482,6 +497,7 @@ debian_ffmpeg_php_update ()
 	svn up 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	if [ "$OLDREVISION" = "$REVISION" ];then
+		echo
 		echo $(eval_gettext "Info a jour ffmpeg-php")
 		echo $(eval_gettext "Info a jour ffmpeg-php") 2>> $LOG >> $LOG
 	else
