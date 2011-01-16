@@ -24,14 +24,13 @@ mediaspip_install(){
 		cd mediaspip
 	else 
 		echo $(eval_gettext "Info SPIP maj")
-		cd $SPIP/mediaspip 
-		#svn up 2>> $LOG >> $LOG
+		cd $SPIP/mediaspip
+		svn up 2>> $LOG >> $LOG
 	fi
 	
 	REVISIONSPIP=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo $(eval_gettext 'Info SPIP install revision $REVISIONSPIP')
 	
-	echo
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
 	
@@ -163,6 +162,7 @@ mediaspip_install(){
 	fi
 	
 	cd $SPIP/mediaspip
+	
 	echo
 	echo $(eval_gettext "Info SPIP themes maj")
 	svn up themes/* 2>> $LOG >> $LOG
@@ -224,7 +224,7 @@ mediaspip_install(){
 			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
 			svn co svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0 spip_piwik_2_0 2>> $LOG >> $LOG
 		fi
-		cd ..
+		cd $SPIP/mediaspip
 	fi
 	
 	if in_array $SPIP_TYPE ${TYPES[@]};then
@@ -249,6 +249,9 @@ mediaspip_install(){
 		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG &
 		wait $!
 	fi
+	
+	echo $(eval_gettext "Info SPIP copie htaccess")
+	cp htaccess.txt .htaccess
 	
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip 2>> $LOG >> /dev/null &
 	wait $!

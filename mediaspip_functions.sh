@@ -141,9 +141,12 @@ debian_libopencore_amr_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	LIBOPENCORE=$(dpkg --status libopencore-amr|awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
+	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
 	cd $SRC_INSTALL
-	if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
+	if [[ "$LIBOPENCORE" > "0.1.1" ]]; then
+		echo $(eval_gettext "Info a jour opencore")
+		echo $(eval_gettext "Info a jour opencore") 2>> $LOG  >> $LOG
+	elif [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 		echo $(eval_gettext "Info debut opencore install")
 		echo $(eval_gettext "Info debut opencore install") 2>> $LOG >> $LOG
 		wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
@@ -153,9 +156,6 @@ debian_libopencore_amr_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG  >> $LOG
 		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG  >> $LOG
 		echo $(eval_gettext "End opencore")
-	elif [ "$LIBOPENCORE" == "0.1.2-1" ]; then
-		echo $(eval_gettext "Info a jour opencore")
-		echo $(eval_gettext "Info a jour opencore") 2>> $LOG  >> $LOG
 	else
 		echo $(eval_gettext "Info debut opencore update")
 		echo $(eval_gettext "Info debut opencore update") 2>> $LOG  >> $LOG
@@ -281,14 +281,21 @@ debian_dep_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	echo "Mise à jour de la base d'APT" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info apt maj base")
+	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
 	apt-get -y update 2>> $LOG >> $LOG &
 	wait $!
-	echo "Installation ou mise à jour des paquets via APT" 2>> $LOG  >> $LOG
+	echo $(eval_gettext "Info apt maj paquets")
+	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG  >> $LOG
+	#echo "Installation ou mise à jour des paquets via APT" 2>> $LOG  >> $LOG
 	apt-get -y remove php5-imagick 2>> $LOG  >> $LOG &
 	wait $!
 	
-	apt-get -y install build-essential subversion git-core checkinstall php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev flac vorbis-tools zlib1g-dev scons liboggkate-dev libcxxtools-dev 2>> $LOG  >> $LOG
+	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev\
+		php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
+		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
+		flac vorbis-tools liboggkate-dev \
+		2>> $LOG  >> $LOG
 
 	debian_lame_install || error $(eval_gettext "Erreur installation regarde log") &
 	wait $!
@@ -357,13 +364,16 @@ debian_ffmpeg_install ()
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> $LOG																															      
+	./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+		--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
+		--disable-ffplay --disable-ffserver \
+		2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
 	checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
 	ldconfig
 	cd tools
-	cc qt-faststart.c -o qt-faststart
+	cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
 	cd ..
 	echo
 	echo $(eval_gettext 'Info ffmpeg revision $REVISION')
@@ -374,8 +384,7 @@ debian_ffmpeg_update ()
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL/ffmpeg
-	svn up 2>> $LOG >> $LOG &
-	wait $!
+	svn up 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	if [ -x /usr/local/bin/ffmpeg ];then
 		VERSION=$(ffmpeg -version  2> $LOG |grep FFmpeg -m 1 |awk '{print $2}')
@@ -386,24 +395,29 @@ debian_ffmpeg_update ()
 		else
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-			./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> $LOG																															      
+			./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+				--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
+				--disable-ffplay --disable-ffserver 2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
 			ldconfig
 			cd tools
-			cc qt-faststart.c -o qt-faststart
+			cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
 			cp qt-faststart /usr/local/bin
 		fi
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> $LOG																															      
+		./configure --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
+			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
+			--disable-ffplay --disable-ffserver \
+			2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
 		ldconfig
 		cd tools
-		cc qt-faststart.c -o qt-faststart
+		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
@@ -465,8 +479,7 @@ debian_ffmpeg_php_update ()
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
 	OLDREVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
-	svn up 2>> $LOG >> $LOG &
-	wait $!
+	svn up 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	if [ "$OLDREVISION" = "$REVISION" ];then
 		echo $(eval_gettext "Info a jour ffmpeg-php")

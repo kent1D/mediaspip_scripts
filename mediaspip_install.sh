@@ -26,12 +26,11 @@ export TEXTDOMAIN=mediaspip
 I18NLIB=/usr/bin/gettext.sh
 
 # source in I18N library - shown above
-if [[ -f $I18NLIB ]]
-then
-        . $I18NLIB
+if [[ -f $I18NLIB ]]; then
+	. $I18NLIB
 else
-        echo "ERROR - $I18NLIB NOT FOUND"
-        exit 1
+	echo "ERROR - $I18NLIB NOT FOUND"
+	exit 1
 fi
 
 VERSION="0.2"
@@ -51,10 +50,6 @@ VERSION ${VERSION}
 
 ######################################################################################
 "
-
-##########################################
-# list of all the functions in the script
-##########################################
 
 echo "$LOGO"
 
@@ -81,7 +76,18 @@ fi
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 . ./mediaspip_spip_installation.sh
 
+# On pose une variable sur le répertoire courant permettant de savoir 
+# d'où le script est lancé
 CURRENT=$(pwd)
+
+# On vérifie que l'on a bien accès au programme pkg-config 
+# Il permet de connaitre les versions des librairies sur le système
+PKG_CONFIG=$(which pkg-config)
+
+if [ ! -x $PKG_CONFIG ]; then
+	echo 'pkg-config pas installé'
+	exit 1
+fi
 
 #########################################
 # Variables éditables pour l'utilisateur
@@ -117,7 +123,7 @@ fi
 while test -n "${1}"; do
 	case "${1}" in
 		--help|-h) 
-		eval_gettext "Help message"
+		echo $(eval_gettext "Help message")
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
@@ -125,32 +131,34 @@ while test -n "${1}"; do
 				shift;;
 				fr) export LC_ALL="fr_FR.UTF-8"
 				shift;;
-				"") eval_gettext "Erreur langue non set"
-				echo
-				exit 0;;
-				*) eval_gettext "Erreur langue inexistante"
-				echo
-				exit 0;;
+				"") echo $(eval_gettext "Erreur langue non set")
+				ERROR=oui
+				shift;;
+				*) echo $(eval_gettext "Erreur langue inexistante")
+				ERROR=oui
+				shift;;
 			esac
 		shift;;
-		--version|-v) echo "MediaSPIP installation v."${VERSION}""
+		--version|-v) echo $(eval_gettext 'Info mediaspip installation $VERSION')  
 		exit 0;;
 		--src_install|-src) SRC_INSTALL="${2}"
 		shift;;
 		--log|-l) LOG="${2}"
 		shift;;
 		--cpus|-c)
-		if(isNumeric "${2}");then
-			if ((${2} > $NO_OF_CPUCORES));then
-				echo "Erreur : votre machine n'a pas autant de cpus (${2})"
-				exit 1
-			else 
-				NO_OF_CPUCORES="${2}"
+			if(isNumeric "${2}");then
+				echo "cpu numerique"
+				if ((${2} > $NO_OF_CPUCORES));then
+					CPU_NB=${2}
+					echo $(eval_gettext 'Erreur option cpus trop $CPU_NB')  
+					ERROR=oui
+				else 
+					NO_OF_CPUCORES="${2}"
+				fi
+			else
+				echo $(eval_gettext "Erreur option cpus numerique")
+				ERROR=oui
 			fi
-		else
-			eval_gettext "Erreur option cpus numerique"
-			exit 1
-		fi
 		shift;;
 		--spip|-s) SPIP="${2}"
 		shift;;
@@ -166,13 +174,18 @@ while test -n "${1}"; do
 		if in_array ${2} ${SPIP_TYPES[@]};then
 			SPIP_TYPE=${2}
 		else
-			echo "Votre type d'installation de MediaSPIP n'est pas disponible (${2})"
-			exit 0
+			TYPEDEMANDE=${2}
+			echo $(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')
+			ERROR=oui
 		fi
 		shift;;
 	esac
 	shift
 done
+
+if [ "$ERROR" == "oui" ]; then
+	exit 1
+fi
 
 ###############################
 # Suite des fonctions du script
@@ -290,7 +303,6 @@ echo
 # Installation de ffmpeg2theora
 # binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
 eval_gettext "Titre ffmpeg2theora"
-wait
 echo
 echo
 

@@ -22,7 +22,6 @@ ou arguments doit inclure le fichier source et le fichier de sortie et éventuel
 * la fréquence d'echantillonnage sonnore ex : --bitrate 22050
 * le chemin vers l'executable ffmpeg (--p). /usr/local/bin/ffmpeg est la valeur par défaut.
 
-
 Exemples :
 ./spipmotion.sh --e fichier-entree.avi --s fichier-sortie.flv --size 320x240 --bitrate 448 --fps 15 --audiobitrate 64kbs --audiofreq 22050 --p /usr/local/bin/ffmpeg
 ./spipmotion.sh --e fichier-entree.wav --s fichier-sortie.mp3 --audiobitrate 64 --audiofreq 22050
