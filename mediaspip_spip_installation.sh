@@ -19,7 +19,7 @@ mediaspip_install(){
 	TYPES=(ferme_full ferme minimal full none)
 
 	# Installation de mediaSPIP
-	if [ ! -d $SPIP ]; then
+	if [ ! -d "$SPIP" ]; then
 		echo $(eval_gettext "Info SPIP telechargement")
 		mkdir -p $SPIP
 		cd $SPIP
@@ -133,7 +133,7 @@ mediaspip_install(){
 		fi
 	done
 	
-	cd $SPIP/mediaspip
+	cd $SPIP
 	
 	echo $(eval_gettext "Info SPIP extensions maj")
 	echo
@@ -165,7 +165,7 @@ mediaspip_install(){
 		svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/arscenic 2>> $LOG >> $LOG
 	fi
 	
-	cd $SPIP/mediaspip
+	cd $SPIP
 	
 	echo $(eval_gettext "Info SPIP themes maj")
 	svn up themes/* 2>> $LOG >> $LOG
@@ -229,7 +229,7 @@ mediaspip_install(){
 			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
 			svn co svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0 spip_piwik_2_0 2>> $LOG >> $LOG
 		fi
-		cd $SPIP/mediaspip
+		cd $SPIP
 	fi
 	
 	if in_array $SPIP_TYPE ${TYPES[@]};then
@@ -264,7 +264,7 @@ mediaspip_install(){
 	
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
-	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP/mediaspip 2>> $LOG >> /dev/null &
+	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null &
 	wait $!
 	
 	echo

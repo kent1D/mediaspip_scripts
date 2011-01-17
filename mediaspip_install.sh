@@ -269,6 +269,19 @@ progress_indicator $!
 echo_reussite $(eval_gettext "End dependances")
 echo
 
+# Préconfiguration basique d'Apache 
+# (différents modules)
+eval_gettext "Titre apache"
+echo
+echo
+
+debian_apache_install || error $(eval_gettext "Erreur installation regarde log") &
+PID=$!
+progress_indicator $PID
+
+echo_reussite $(eval_gettext "End apache")
+echo
+
 # Installation de x264
 # librairie h.264 pour creer des videos compatibles html5 (Safari + iphone & co)
 eval_gettext "Titre x264"

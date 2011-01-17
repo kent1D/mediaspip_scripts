@@ -2,39 +2,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-17 00:47+0100\n"
+"POT-Creation-Date: 2011-01-17 16:49+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@arscenic.tv>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: mediaspip_install.sh:397
+#: mediaspip_install.sh:409
 #, sh-format
 msgid "End alternc"
 msgstr "Création des liens symboliques des binaires pour AlternC terminée"
+
+#: mediaspip_install.sh:281
+#, sh-format
+msgid "End apache"
+msgstr "La préconfiguration d'Apache est terminée"
 
 #: mediaspip_install.sh:269
 #, sh-format
 msgid "End dependances"
 msgstr "Fin de l'installation des dépendances"
 
-#: mediaspip_install.sh:316
+#: mediaspip_install.sh:328
 #, sh-format
 msgid "End ffmpeg"
 msgstr "Installation de FFMpeg terminée"
 
-#: mediaspip_install.sh:359
+#: mediaspip_install.sh:371
 #, sh-format
 msgid "End ffmpeg-php"
 msgstr "Installation de FFMpeg-php terminée"
 
-#: mediaspip_install.sh:338
+#: mediaspip_install.sh:350
 #, sh-format
 msgid "End ffmpeg2theora"
 msgstr "Installation de ffmpeg2theora terminée"
@@ -44,49 +49,43 @@ msgstr "Installation de ffmpeg2theora terminée"
 msgid "End flvtool2"
 msgstr "Installation de Flvtool2 terminée"
 
-#: mediaspip_install.sh:410
+#: mediaspip_install.sh:422
 #, sh-format
 msgid "End installation generale"
 msgstr "L'installation est terminée."
 
-#: mediaspip_functions.sh:139
-#: mediaspip_functions.sh:150
+#: mediaspip_functions.sh:140 mediaspip_functions.sh:151
 #, sh-format
 msgid "End lame"
 msgstr "Installation de lame terminée"
 
-#: mediaspip_functions.sh:204
-#: mediaspip_functions.sh:215
+#: mediaspip_functions.sh:207 mediaspip_functions.sh:218
 #, sh-format
 msgid "End libtheora"
 msgstr "Installation de libtheora terminée"
 
-#: mediaspip_functions.sh:252
-#: mediaspip_functions.sh:262
+#: mediaspip_functions.sh:256 mediaspip_functions.sh:266
 #, sh-format
 msgid "End mediainfo"
 msgstr "Installation de MediaInfo terminée"
 
-#: mediaspip_functions.sh:174
-#: mediaspip_functions.sh:182
+#: mediaspip_functions.sh:176 mediaspip_functions.sh:184
 #, sh-format
 msgid "End opencore"
 msgstr "Installation de opencore-amr terminée"
 
-#: mediaspip_functions.sh:279
-#: mediaspip_functions.sh:280
-#: mediaspip_functions.sh:290
-#: mediaspip_functions.sh:291
+#: mediaspip_functions.sh:283 mediaspip_functions.sh:284
+#: mediaspip_functions.sh:294 mediaspip_functions.sh:295
 #, sh-format
 msgid "End php-imagick"
 msgstr "Installation de php-imagick terminée"
 
-#: mediaspip_functions.sh:233
+#: mediaspip_functions.sh:236
 #, sh-format
 msgid "End rtmpdump"
 msgstr "Installation de rtmpdump terminée"
 
-#: mediaspip_install.sh:292
+#: mediaspip_install.sh:304
 #, sh-format
 msgid "End x264"
 msgstr "Installation de x264 terminée"
@@ -94,28 +93,22 @@ msgstr "Installation de x264 terminée"
 #: mediaspip_install.sh:40
 #, sh-format
 msgid "Erreur fichier fonctions"
-msgstr "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n'est pas disponible."
+msgstr ""
+"Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n'est "
+"pas disponible."
 
-#: mediaspip_functions.sh:317
-#: mediaspip_functions.sh:320
-#: mediaspip_functions.sh:323
-#: mediaspip_functions.sh:326
-#: mediaspip_functions.sh:329
-#: mediaspip_functions.sh:332
-#: mediaspip_functions.sh:335
-#: mediaspip_install.sh:266
-#: mediaspip_install.sh:281
-#: mediaspip_install.sh:286
-#: mediaspip_install.sh:305
-#: mediaspip_install.sh:310
-#: mediaspip_install.sh:328
-#: mediaspip_install.sh:332
-#: mediaspip_install.sh:349
-#: mediaspip_install.sh:354
-#: mediaspip_install.sh:406
+#: mediaspip_functions.sh:321 mediaspip_functions.sh:324
+#: mediaspip_functions.sh:327 mediaspip_functions.sh:330
+#: mediaspip_functions.sh:333 mediaspip_functions.sh:336
+#: mediaspip_functions.sh:339 mediaspip_install.sh:266
+#: mediaspip_install.sh:278 mediaspip_install.sh:293 mediaspip_install.sh:298
+#: mediaspip_install.sh:317 mediaspip_install.sh:322 mediaspip_install.sh:340
+#: mediaspip_install.sh:344 mediaspip_install.sh:361 mediaspip_install.sh:366
+#: mediaspip_install.sh:418
 #, sh-format
 msgid "Erreur installation regarde log"
-msgstr "Erreur : quelquechose s'est mal passé, veuillez consulter le fichier de log."
+msgstr ""
+"Erreur : quelquechose s'est mal passé, veuillez consulter le fichier de log."
 
 #: mediaspip_install.sh:149
 #, sh-format
@@ -130,10 +123,11 @@ msgstr "Erreur : aucune langue n'est spécifiée avec l'option --lang"
 #: mediaspip_install.sh:194
 #, sh-format
 msgid "Erreur mediaspip type disponible $TYPEDEMANDE"
-msgstr "Erreur : votre type d'installation de MediaSPIP n'est pas disponible ($TYPEDEMANDE)"
+msgstr ""
+"Erreur : votre type d'installation de MediaSPIP n'est pas disponible "
+"($TYPEDEMANDE)"
 
-#: mediaspip_install.sh:171
-#: mediaspip_install.sh:175
+#: mediaspip_install.sh:171 mediaspip_install.sh:175
 #, sh-format
 msgid "Erreur option cpus numerique"
 msgstr "Erreur : votre option --cpus n'est pas numérique"
@@ -166,7 +160,8 @@ msgstr "Erreur : modifiez la variable SPIP pour l'emplacement de votre choix."
 #: mediaspip_install.sh:220
 #, sh-format
 msgid "Erreur valide SRC_INSTALL"
-msgstr "Erreur : modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
+msgstr ""
+"Erreur : modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
 
 #: mediaspip_install.sh:138
 #, sh-format
@@ -181,14 +176,19 @@ msgstr ""
 "\n"
 "EXPLICATIONS :\n"
 "\n"
-"Ce script installera toutes les dépendances logicielles requises pour l'installation de MediaSPIP.\n"
+"Ce script installera toutes les dépendances logicielles requises pour "
+"l'installation de MediaSPIP.\n"
 "\n"
-"Il installera ensuite le logiciels SPIP (http://www.spip.net) ainsi que les extensions nécessaires dans le répertoire d'installation spécifié.\n"
+"Il installera ensuite le logiciels SPIP (http://www.spip.net) ainsi que les "
+"extensions nécessaires dans le répertoire d'installation spécifié.\n"
 "\n"
 "Les paramètres possibles du scripts sont :\n"
-"--install : l'emplacement où les sources des librairies et binaires seront téléchargés\n"
-"--cpus : permet de forcer le nombre de cpus à utiliser pour les compilations\n"
-"--spip_type : type d'installation de MediaSPIP (ferme|ferme_full|minimal|full|none). Défaut : ferme_full\n"
+"--install : l'emplacement où les sources des librairies et binaires seront "
+"téléchargés\n"
+"--cpus : permet de forcer le nombre de cpus à utiliser pour les "
+"compilations\n"
+"--spip_type : type d'installation de MediaSPIP (ferme|ferme_full|minimal|"
+"full|none). Défaut : ferme_full\n"
 "--spip_user : utilisateur système (UID) des fichiers de MediaSPIP\n"
 "--spip_group : groupe système (GID) des fichiers de MediaSPIP\n"
 " \n"
@@ -207,7 +207,9 @@ msgstr "MediaSPIP ne sera pas installé"
 #: mediaspip_spip_installation.sh:266
 #, sh-format
 msgid "Info SPIP changement droits $SPIP_USER $SPIP_GROUP"
-msgstr "Modifications des droits des fichiers, utilisateur \"$SPIP_USER\", groupe \"$SPIP_GROUP\""
+msgstr ""
+"Modifications des droits des fichiers, utilisateur \"$SPIP_USER\", groupe "
+"\"$SPIP_GROUP\""
 
 #: mediaspip_spip_installation.sh:262
 #, sh-format
@@ -274,43 +276,29 @@ msgstr "Création du répertoire lib/"
 msgid "Info SPIP repertoire sites"
 msgstr "Création du répertoire sites/"
 
-#: mediaspip_spip_installation.sh:43
-#: mediaspip_spip_installation.sh:48
-#: mediaspip_spip_installation.sh:53
-#: mediaspip_spip_installation.sh:58
-#: mediaspip_spip_installation.sh:63
-#: mediaspip_spip_installation.sh:68
-#: mediaspip_spip_installation.sh:73
-#: mediaspip_spip_installation.sh:78
-#: mediaspip_spip_installation.sh:83
-#: mediaspip_spip_installation.sh:88
-#: mediaspip_spip_installation.sh:93
-#: mediaspip_spip_installation.sh:98
-#: mediaspip_spip_installation.sh:103
-#: mediaspip_spip_installation.sh:108
-#: mediaspip_spip_installation.sh:113
-#: mediaspip_spip_installation.sh:118
-#: mediaspip_spip_installation.sh:123
-#: mediaspip_spip_installation.sh:130
+#: mediaspip_spip_installation.sh:43 mediaspip_spip_installation.sh:48
+#: mediaspip_spip_installation.sh:53 mediaspip_spip_installation.sh:58
+#: mediaspip_spip_installation.sh:63 mediaspip_spip_installation.sh:68
+#: mediaspip_spip_installation.sh:73 mediaspip_spip_installation.sh:78
+#: mediaspip_spip_installation.sh:83 mediaspip_spip_installation.sh:88
+#: mediaspip_spip_installation.sh:93 mediaspip_spip_installation.sh:98
+#: mediaspip_spip_installation.sh:103 mediaspip_spip_installation.sh:108
+#: mediaspip_spip_installation.sh:113 mediaspip_spip_installation.sh:118
+#: mediaspip_spip_installation.sh:123 mediaspip_spip_installation.sh:130
 #, sh-format
 msgid "Info SPIP telecharge extension $i"
 msgstr "Téléchargement de l'extension : $i"
 
-#: mediaspip_spip_installation.sh:188
-#: mediaspip_spip_installation.sh:194
-#: mediaspip_spip_installation.sh:199
-#: mediaspip_spip_installation.sh:204
-#: mediaspip_spip_installation.sh:209
-#: mediaspip_spip_installation.sh:214
-#: mediaspip_spip_installation.sh:219
-#: mediaspip_spip_installation.sh:224
+#: mediaspip_spip_installation.sh:188 mediaspip_spip_installation.sh:194
+#: mediaspip_spip_installation.sh:199 mediaspip_spip_installation.sh:204
+#: mediaspip_spip_installation.sh:209 mediaspip_spip_installation.sh:214
+#: mediaspip_spip_installation.sh:219 mediaspip_spip_installation.sh:224
 #: mediaspip_spip_installation.sh:229
 #, sh-format
 msgid "Info SPIP telecharge plugin $i"
 msgstr "Téléchargement du plugin $i"
 
-#: mediaspip_spip_installation.sh:152
-#: mediaspip_spip_installation.sh:158
+#: mediaspip_spip_installation.sh:152 mediaspip_spip_installation.sh:158
 #: mediaspip_spip_installation.sh:164
 #, sh-format
 msgid "Info SPIP telecharge theme $i"
@@ -331,200 +319,205 @@ msgstr "Installation des thèmes de MediaSPIP"
 msgid "Info SPIP themes maj"
 msgstr "Mise à jour des themes de MediaSPIP"
 
-#: mediaspip_functions.sh:409
-#: mediaspip_functions.sh:410
+#: mediaspip_functions.sh:449 mediaspip_functions.sh:450
 #, sh-format
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg semble déjà à jour"
 
-#: mediaspip_functions.sh:501
-#: mediaspip_functions.sh:502
+#: mediaspip_functions.sh:541 mediaspip_functions.sh:542
 #, sh-format
 msgid "Info a jour ffmpeg-php"
 msgstr "FFmpeg-php semble déjà à jour"
 
-#: mediaspip_functions.sh:141
-#: mediaspip_functions.sh:142
+#: mediaspip_functions.sh:142 mediaspip_functions.sh:143
 #, sh-format
-msgid "Info a jour lame"
-msgstr "LAME semble déjà à la version 3.98.4"
+msgid "Info a jour lame $VERSION"
+msgstr "LAME semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:206
-#: mediaspip_functions.sh:207
+#: mediaspip_functions.sh:209 mediaspip_functions.sh:210
 #, sh-format
-msgid "Info a jour libtheora"
-msgstr "Libtheora semble déjà à la version 1.1.1"
+msgid "Info a jour libtheora $VERSION"
+msgstr "Libtheora semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:254
-#: mediaspip_functions.sh:255
+#: mediaspip_functions.sh:258 mediaspip_functions.sh:259
 #, sh-format
-msgid "Info a jour mediainfo"
-msgstr "MediaInfo semble déjà à la version 0.7.38"
+msgid "Info a jour mediainfo $VERSION"
+msgstr "MediaInfo semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:163
-#: mediaspip_functions.sh:164
+#: mediaspip_functions.sh:165 mediaspip_functions.sh:166
 #, sh-format
-msgid "Info a jour opencore"
-msgstr "Libopencore-amr semble déjà à la version 0.1.2"
+msgid "Info a jour opencore $VERSION"
+msgstr "Libopencore-amr semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:283
-#: mediaspip_functions.sh:284
+#: mediaspip_functions.sh:287 mediaspip_functions.sh:288
 #, sh-format
 msgid "Info a jour php-imagick"
 msgstr "php-imagick semble déjà à jour"
 
-#: mediaspip_functions.sh:362
-#: mediaspip_functions.sh:363
+#: mediaspip_functions.sh:402 mediaspip_functions.sh:403
 #, sh-format
 msgid "Info a jour x264"
 msgstr "x264 semble déjà à jour"
 
-#: mediaspip_functions.sh:300
-#: mediaspip_functions.sh:301
+#: mediaspip_functions.sh:358 mediaspip_functions.sh:359
+#, sh-format
+msgid "Info apache mod deflate"
+msgstr "Activation du mod_deflate"
+
+#: mediaspip_functions.sh:361 mediaspip_functions.sh:362
+#, sh-format
+msgid "Info apache mod deflate fichier"
+msgstr "Installation du fichier de configuration du mod_deflate"
+
+#: mediaspip_functions.sh:366 mediaspip_functions.sh:367
+#, sh-format
+msgid "Info apache mod expires"
+msgstr "Activation du mod_expires"
+
+#: mediaspip_functions.sh:369 mediaspip_functions.sh:370
+#, sh-format
+msgid "Info apache mod expires fichier"
+msgstr "Installation du fichier de configuration du mod_expires"
+
+#: mediaspip_functions.sh:348 mediaspip_functions.sh:349
+#, sh-format
+msgid "Info apache mod headers"
+msgstr "Activation du mod_headers"
+
+#: mediaspip_functions.sh:353 mediaspip_functions.sh:354
+#, sh-format
+msgid "Info apache mod rewrite"
+msgstr "Activation du mod_rewrite"
+
+#: mediaspip_functions.sh:374 mediaspip_functions.sh:375
+#, sh-format
+msgid "Info apache reload"
+msgstr "Rechargement d'Apache"
+
+#: mediaspip_functions.sh:304 mediaspip_functions.sh:305
 #, sh-format
 msgid "Info apt maj base"
 msgstr "Mise à jour de la base d'APT"
 
-#: mediaspip_functions.sh:304
-#: mediaspip_functions.sh:305
+#: mediaspip_functions.sh:308 mediaspip_functions.sh:309
 #, sh-format
 msgid "Info apt maj paquets"
 msgstr "Mise à jour et installation des paquets via APT"
 
-#: mediaspip_install.sh:307
-#: mediaspip_install.sh:309
+#: mediaspip_install.sh:319 mediaspip_install.sh:321
 #, sh-format
 msgid "Info debut ffmpeg install"
 msgstr "Téléchargement, compilation et installation de FFMpeg"
 
-#: mediaspip_install.sh:302
-#: mediaspip_install.sh:304
+#: mediaspip_install.sh:314 mediaspip_install.sh:316
 #, sh-format
 msgid "Info debut ffmpeg update"
 msgstr "Mise à jour, compilation et installation de FFMpeg"
 
-#: mediaspip_install.sh:352
-#: mediaspip_install.sh:353
+#: mediaspip_install.sh:364 mediaspip_install.sh:365
 #, sh-format
 msgid "Info debut ffmpeg-php install"
 msgstr "Téléchargement, compilation et installation de FFMpeg-php"
 
-#: mediaspip_install.sh:347
-#: mediaspip_install.sh:348
+#: mediaspip_install.sh:359 mediaspip_install.sh:360
 #, sh-format
 msgid "Info debut ffmpeg-php update"
 msgstr "Mise à jour, compilation et installation de FFMpeg-php"
 
-#: mediaspip_install.sh:330
-#: mediaspip_install.sh:331
+#: mediaspip_install.sh:342 mediaspip_install.sh:343
 #, sh-format
 msgid "Info debut ffmpeg2theora install"
 msgstr "Téléchargement, compilation et installation de ffmpeg2theora"
 
-#: mediaspip_install.sh:326
-#: mediaspip_install.sh:327
+#: mediaspip_install.sh:338 mediaspip_install.sh:339
 #, sh-format
 msgid "Info debut ffmpeg2theora update"
 msgstr "Mise à jour, compilation et installation de ffmpeg2theora"
 
-#: mediaspip_functions.sh:113
-#: mediaspip_functions.sh:114
+#: mediaspip_functions.sh:113 mediaspip_functions.sh:114
 #, sh-format
 msgid "Info debut flvtool2"
 msgstr "Téléchargement, compilation et installation de flvtool2"
 
-#: mediaspip_functions.sh:131
-#: mediaspip_functions.sh:132
+#: mediaspip_functions.sh:132 mediaspip_functions.sh:133
 #, sh-format
-msgid "Info debut lame install"
-msgstr "Téléchargement, compilation et installation de lame version 3.98.4"
+msgid "Info debut lame install $VERSION"
+msgstr "Téléchargement, compilation et installation de lame version $VERSION"
 
-#: mediaspip_functions.sh:144
-#: mediaspip_functions.sh:145
+#: mediaspip_functions.sh:145 mediaspip_functions.sh:146
 #, sh-format
-msgid "Info debut lame update"
-msgstr "Recompilation et réinstallation de lame version 3.98.4"
+msgid "Info debut lame update $VERSION"
+msgstr "Recompilation et réinstallation de lame version $VERSION"
 
-#: mediaspip_functions.sh:196
-#: mediaspip_functions.sh:197
+#: mediaspip_functions.sh:199 mediaspip_functions.sh:200
 #, sh-format
-msgid "Info debut libtheora install"
-msgstr "Téléchargement, compilation et installation de libtheora version 1.1.1"
+msgid "Info debut libtheora install $VERSION"
+msgstr ""
+"Téléchargement, compilation et installation de libtheora version $VERSION"
 
-#: mediaspip_functions.sh:209
-#: mediaspip_functions.sh:210
+#: mediaspip_functions.sh:212 mediaspip_functions.sh:213
 #, sh-format
-msgid "Info debut libtheora update"
-msgstr "Recompilation et réinstallation de libtheora version 1.1.1"
+msgid "Info debut libtheora update $VERSION"
+msgstr "Recompilation et réinstallation de libtheora version $VERSION"
 
-#: mediaspip_functions.sh:244
-#: mediaspip_functions.sh:245
+#: mediaspip_functions.sh:248 mediaspip_functions.sh:249
 #, sh-format
-msgid "Info debut mediainfo install"
-msgstr "Téléchargement, compilation et installation de mediainfo version 0.7.38"
+msgid "Info debut mediainfo install $VERSION"
+msgstr ""
+"Téléchargement, compilation et installation de mediainfo version $VERSION"
 
-#: mediaspip_functions.sh:257
-#: mediaspip_functions.sh:258
+#: mediaspip_functions.sh:261 mediaspip_functions.sh:262
 #, sh-format
-msgid "Info debut mediainfo update"
-msgstr "Recompilation et réinstallation de mediainfo version 0.7.38"
+msgid "Info debut mediainfo update $VERSION"
+msgstr "Recompilation et réinstallation de mediainfo version $VERSION"
 
-#: mediaspip_functions.sh:166
-#: mediaspip_functions.sh:167
+#: mediaspip_functions.sh:168 mediaspip_functions.sh:169
 #, sh-format
-msgid "Info debut opencore install"
-msgstr "Téléchargement, compilation et installation de opencore-amr version 0.1.2"
+msgid "Info debut opencore install $VERSION"
+msgstr ""
+"Téléchargement, compilation et installation de opencore-amr version $VERSION"
 
-#: mediaspip_functions.sh:176
-#: mediaspip_functions.sh:177
+#: mediaspip_functions.sh:178 mediaspip_functions.sh:179
 #, sh-format
-msgid "Info debut opencore update"
-msgstr "Recompilation et réinstallation de opencore-amr version 0.1.2"
+msgid "Info debut opencore update $VERSION"
+msgstr "Recompilation et réinstallation de opencore-amr version $VERSION"
 
-#: mediaspip_functions.sh:276
-#: mediaspip_functions.sh:277
+#: mediaspip_functions.sh:280 mediaspip_functions.sh:281
 #, sh-format
 msgid "Info debut php-imagick install"
 msgstr "Installation de php-imagick"
 
-#: mediaspip_functions.sh:287
-#: mediaspip_functions.sh:288
+#: mediaspip_functions.sh:291 mediaspip_functions.sh:292
 #, sh-format
 msgid "Info debut php-imagick update"
 msgstr "Mise à jour de php-imagick"
 
-#: mediaspip_functions.sh:225
-#: mediaspip_functions.sh:226
+#: mediaspip_functions.sh:228 mediaspip_functions.sh:229
 #, sh-format
 msgid "Info debut rtmpdump install"
 msgstr "Téléchargement, compilation et installation de rtmpdump"
 
-#: mediaspip_install.sh:283
-#: mediaspip_install.sh:285
+#: mediaspip_install.sh:295 mediaspip_install.sh:297
 #, sh-format
 msgid "Info debut x264 install"
 msgstr "Téléchargement, compilation et installation de x264"
 
-#: mediaspip_install.sh:278
-#: mediaspip_install.sh:280
+#: mediaspip_install.sh:290 mediaspip_install.sh:292
 #, sh-format
 msgid "Info debut x264 update"
 msgstr "Mise à jour, compilation et installation de x264"
 
-#: mediaspip_functions.sh:395
-#: mediaspip_functions.sh:439
+#: mediaspip_functions.sh:435 mediaspip_functions.sh:479
 #, sh-format
 msgid "Info ffmpeg revision $REVISION"
 msgstr "FFMpeg est installé à la révision $REVISION"
 
-#: mediaspip_functions.sh:488
-#: mediaspip_functions.sh:513
+#: mediaspip_functions.sh:528 mediaspip_functions.sh:553
 #, sh-format
 msgid "Info ffmpeg-php revision $REVISION"
 msgstr "FFMpeg-php est installé à la révision $REVISION"
 
-#: mediaspip_functions.sh:455
-#: mediaspip_functions.sh:467
+#: mediaspip_functions.sh:495 mediaspip_functions.sh:507
 #, sh-format
 msgid "Info ffmpeg2theora revision $REVISION"
 msgstr "ffmpeg2theora est installé à la révision $REVISION"
@@ -544,7 +537,7 @@ msgstr "Programme d'installation de MediaSPIP version $VERSION"
 msgid "Info source installation"
 msgstr "Ce script téléchargera les sources des logiciels dans :"
 
-#: mediaspip_install.sh:367
+#: mediaspip_install.sh:379
 #, sh-format
 msgid "Question alternc"
 msgstr "Utilisez vous AlternC pour MediaSPIP ?"
@@ -553,6 +546,15 @@ msgstr "Utilisez vous AlternC pour MediaSPIP ?"
 #, sh-format
 msgid "Question valider"
 msgstr "Oui ou non (o/n) ?"
+
+#: mediaspip_install.sh:274
+#, sh-format
+msgid "Titre apache"
+msgstr ""
+" \n"
+"############################################\n"
+"#        Préconfiguration d'Apache         #\n"
+"############################################"
 
 #: mediaspip_install.sh:262
 #, sh-format
@@ -563,7 +565,7 @@ msgstr ""
 "# Installation des dépendances logicielles #\n"
 "############################################"
 
-#: mediaspip_install.sh:297
+#: mediaspip_install.sh:309
 #, sh-format
 msgid "Titre ffmpeg"
 msgstr ""
@@ -572,7 +574,7 @@ msgstr ""
 "#         Installation de FFMpeg           #\n"
 "############################################"
 
-#: mediaspip_install.sh:321
+#: mediaspip_install.sh:333
 #, sh-format
 msgid "Titre ffmpeg2theora"
 msgstr ""
@@ -581,7 +583,7 @@ msgstr ""
 "#      Installation de FFMpeg2Theora       #\n"
 "############################################"
 
-#: mediaspip_install.sh:343
+#: mediaspip_install.sh:355
 #, sh-format
 msgid "Titre ffmpegphp"
 msgstr ""
@@ -590,7 +592,7 @@ msgstr ""
 "#       Installation de FFMpeg-php         #\n"
 "############################################"
 
-#: mediaspip_install.sh:402
+#: mediaspip_install.sh:414
 #, sh-format
 msgid "Titre spip mediaspip"
 msgstr ""
@@ -599,7 +601,7 @@ msgstr ""
 "#    Installation de SPIP et MediaSPIP     #\n"
 "############################################"
 
-#: mediaspip_install.sh:274
+#: mediaspip_install.sh:286
 #, sh-format
 msgid "Titre x264"
 msgstr ""
@@ -607,4 +609,3 @@ msgstr ""
 "############################################\n"
 "#     Installation de libx264 et x264      #\n"
 "############################################"
-
