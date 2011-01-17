@@ -114,8 +114,8 @@ LOG=/var/log/mediaspip_install.log
 # location of the script's lock file
 LOCK="/var/run/mediaspip_install.pid"
 
-# Emplacement de SPIP
-SPIP="/var/www/"
+# Emplacement final de SPIP et MediaSPIP
+SPIP="/var/www/mediaspip"
 
 # Version de SPIP (svn ou stable)
 SPIP_VERSION="svn"

@@ -115,7 +115,7 @@ msgstr "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n
 #: mediaspip_install.sh:406
 #, sh-format
 msgid "Erreur installation regarde log"
-msgstr "Sorry something went wrong, please check the log file."
+msgstr "Erreur : quelquechose s'est mal passé, veuillez consulter le fichier de log."
 
 #: mediaspip_install.sh:149
 #, sh-format
@@ -146,27 +146,27 @@ msgstr "Erreur : votre serveur n'a pas autant de cpus ($CPU_NB)"
 #: mediaspip_install.sh:87
 #, sh-format
 msgid "Erreur script debian"
-msgstr "Erreur. Vous ne semblez pas être sur une Distribution Debian"
+msgstr "Erreur : vous ne semblez pas être sur une Distribution Debian"
 
 #: mediaspip_install.sh:82
 #, sh-format
 msgid "Erreur script root"
-msgstr "Erreur. Ce script doit être lancé en tant que root"
+msgstr "Erreur : ce script doit être lancé en tant que root"
 
 #: mediaspip_install.sh:232
 #, sh-format
 msgid "Erreur valide LOG"
-msgstr "Erreur. Modifiez la variable LOG pour l'emplacement de votre choix."
+msgstr "Erreur : modifiez la variable LOG pour l'emplacement de votre choix."
 
 #: mediaspip_install.sh:244
 #, sh-format
 msgid "Erreur valide SPIP"
-msgstr "Erreur. Modifiez la variable SPIP pour l'emplacement de votre choix."
+msgstr "Erreur : modifiez la variable SPIP pour l'emplacement de votre choix."
 
 #: mediaspip_install.sh:220
 #, sh-format
 msgid "Erreur valide SRC_INSTALL"
-msgstr "Erreur. Modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
+msgstr "Erreur : modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
 
 #: mediaspip_install.sh:138
 #, sh-format

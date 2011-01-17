@@ -94,7 +94,7 @@ msgstr "x264 installation finished"
 #: mediaspip_install.sh:40
 #, sh-format
 msgid "Erreur fichier fonctions"
-msgstr "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n'est pas disponible."
+msgstr "Error : the functions file of this script is not accessible (mediaspip_functions.sh)."
 
 #: mediaspip_functions.sh:317
 #: mediaspip_functions.sh:320
@@ -115,7 +115,7 @@ msgstr "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n
 #: mediaspip_install.sh:406
 #, sh-format
 msgid "Erreur installation regarde log"
-msgstr "Sorry something went wrong, please check the log file."
+msgstr "Error : something went wrong, please check the log file."
 
 #: mediaspip_install.sh:149
 #, sh-format
@@ -130,7 +130,7 @@ msgstr "Error : no language set with the option --lang"
 #: mediaspip_install.sh:194
 #, sh-format
 msgid "Erreur mediaspip type disponible $TYPEDEMANDE"
-msgstr "Error : Your MediaSPIP installation type is not available ($TYPEDEMANDE)"
+msgstr "Error : your MediaSPIP installation type is not available ($TYPEDEMANDE)"
 
 #: mediaspip_install.sh:171
 #: mediaspip_install.sh:175
@@ -197,7 +197,7 @@ msgstr ""
 #: mediaspip_spip_installation.sh:271
 #, sh-format
 msgid "Info MediaSPIP installe"
-msgstr "The MediaSPIP's files are installes"
+msgstr "The MediaSPIP's files are installed"
 
 #: mediaspip_install.sh:247
 #, sh-format
@@ -347,25 +347,25 @@ msgstr "FFmpeg-php seems to be up to date"
 #: mediaspip_functions.sh:142
 #, sh-format
 msgid "Info a jour lame"
-msgstr "LAME seems to allready be installed at version 3.98.4"
+msgstr "LAME seems to already be installed at version 3.98.4"
 
 #: mediaspip_functions.sh:206
 #: mediaspip_functions.sh:207
 #, sh-format
 msgid "Info a jour libtheora"
-msgstr "Libtheora seems to allready be installed at version 1.1.1"
+msgstr "Libtheora seems to already be installed at version 1.1.1"
 
 #: mediaspip_functions.sh:254
 #: mediaspip_functions.sh:255
 #, sh-format
 msgid "Info a jour mediainfo"
-msgstr "MediaInfo seems to allready be installed at version 0.7.38"
+msgstr "MediaInfo seems to already be installed at version 0.7.38"
 
 #: mediaspip_functions.sh:163
 #: mediaspip_functions.sh:164
 #, sh-format
 msgid "Info a jour opencore"
-msgstr "Libopencore-amr seems to allready be installed at version 0.1.2"
+msgstr "Libopencore-amr seems to already be installed at version 0.1.2"
 
 #: mediaspip_functions.sh:283
 #: mediaspip_functions.sh:284
@@ -383,55 +383,55 @@ msgstr "x264 seems to be up to date"
 #: mediaspip_functions.sh:301
 #, sh-format
 msgid "Info apt maj base"
-msgstr "Mise à jour de la base d'APT"
+msgstr "Update of the APT database"
 
 #: mediaspip_functions.sh:304
 #: mediaspip_functions.sh:305
 #, sh-format
 msgid "Info apt maj paquets"
-msgstr "Mise à jour et installation des paquets via APT"
+msgstr "Update and installation of the APT packages"
 
 #: mediaspip_install.sh:307
 #: mediaspip_install.sh:309
 #, sh-format
 msgid "Info debut ffmpeg install"
-msgstr "Téléchargement, compilation et installation de FFMpeg"
+msgstr "Download, compilation and installation of FFMpeg"
 
 #: mediaspip_install.sh:302
 #: mediaspip_install.sh:304
 #, sh-format
 msgid "Info debut ffmpeg update"
-msgstr "Mise à jour, compilation et installation de FFMpeg"
+msgstr "Update, compilation and installation of FFMpeg"
 
 #: mediaspip_install.sh:352
 #: mediaspip_install.sh:353
 #, sh-format
 msgid "Info debut ffmpeg-php install"
-msgstr "Téléchargement, compilation et installation de FFMpeg-php"
+msgstr "Download, compilation and installation of FFMpeg-php"
 
 #: mediaspip_install.sh:347
 #: mediaspip_install.sh:348
 #, sh-format
 msgid "Info debut ffmpeg-php update"
-msgstr "Mise à jour, compilation et installation de FFMpeg-php"
+msgstr "Update, compilation and installation of FFMpeg-php"
 
 #: mediaspip_install.sh:330
 #: mediaspip_install.sh:331
 #, sh-format
 msgid "Info debut ffmpeg2theora install"
-msgstr "Téléchargement, compilation et installation de ffmpeg2theora"
+msgstr "Download, compilation and installation of ffmpeg2theora"
 
 #: mediaspip_install.sh:326
 #: mediaspip_install.sh:327
 #, sh-format
 msgid "Info debut ffmpeg2theora update"
-msgstr "Mise à jour, compilation et installation de ffmpeg2theora"
+msgstr "Update, compilation and installation of ffmpeg2theora"
 
 #: mediaspip_functions.sh:113
 #: mediaspip_functions.sh:114
 #, sh-format
 msgid "Info debut flvtool2"
-msgstr "Téléchargement, compilation et installation de flvtool2"
+msgstr "Download, compilation and installation of flvtool2"
 
 #: mediaspip_functions.sh:131
 #: mediaspip_functions.sh:132
@@ -473,7 +473,7 @@ msgstr "Recompilation et réinstallation de mediainfo version 0.7.38"
 #: mediaspip_functions.sh:167
 #, sh-format
 msgid "Info debut opencore install"
-msgstr "Téléchargement, compilation et installation de opencore-amr version 0.1.2"
+msgstr "Download, compilation and installation of opencore-amr version 0.1.2"
 
 #: mediaspip_functions.sh:176
 #: mediaspip_functions.sh:177
@@ -485,7 +485,7 @@ msgstr "Recompilation et réinstallation de opencore-amr version 0.1.2"
 #: mediaspip_functions.sh:277
 #, sh-format
 msgid "Info debut php-imagick install"
-msgstr "Installation de php-imagick"
+msgstr "Installation of php-imagick"
 
 #: mediaspip_functions.sh:287
 #: mediaspip_functions.sh:288
@@ -497,13 +497,13 @@ msgstr "Update of php-imagick"
 #: mediaspip_functions.sh:226
 #, sh-format
 msgid "Info debut rtmpdump install"
-msgstr "Téléchargement, compilation et installation de rtmpdump"
+msgstr "Download, compilation and installation of rtmpdump"
 
 #: mediaspip_install.sh:283
 #: mediaspip_install.sh:285
 #, sh-format
 msgid "Info debut x264 install"
-msgstr "Téléchargement, compilation et installation de x264"
+msgstr "Download, compilation and installation of x264"
 
 #: mediaspip_install.sh:278
 #: mediaspip_install.sh:280
@@ -537,7 +537,7 @@ msgstr "This script will save its logs in :"
 #: mediaspip_install.sh:154
 #, sh-format
 msgid "Info mediaspip installation $VERSION"
-msgstr "Programme d'installation de MediaSPIP version $VERSION"
+msgstr "Installation software of MediaSPIP version $VERSION"
 
 #: mediaspip_install.sh:217
 #, sh-format

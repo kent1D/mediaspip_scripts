@@ -19,14 +19,14 @@ mediaspip_install(){
 	TYPES=(ferme_full ferme minimal full none)
 
 	# Installation de mediaSPIP
-	if [ ! -d $SPIP/mediaspip ]; then
+	if [ ! -d $SPIP ]; then
 		echo $(eval_gettext "Info SPIP telechargement")
+		mkdir -p $SPIP
 		cd $SPIP
-		svn co $SPIP_SVN mediaspip 2>> $LOG >> $LOG
-		cd mediaspip
+		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	else 
 		echo $(eval_gettext "Info SPIP maj")
-		cd $SPIP/mediaspip
+		cd $SPIP
 		svn up 2>> $LOG >> $LOG
 	fi
 	
@@ -36,7 +36,7 @@ mediaspip_install(){
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
 	
-	cd $SPIP/mediaspip/extensions/
+	cd $SPIP/extensions/
 
 	if [ ! -d cfg2_compat ]; then
 		i=cfg2_compat
@@ -176,7 +176,7 @@ mediaspip_install(){
 	if in_array $SPIP_TYPE ${TYPES_FULL[@]};then
 		if [ ! -d plugins ];then
 			echo $(eval_gettext "Info SPIP install plugins")
-			mkdir -p $SPIP/mediaspip/plugins 2>> $LOG >> $LOG
+			mkdir -p $SPIP/plugins 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext "Info SPIP maj plugins")
 			svn up plugins/* 2>> $LOG >> $LOG
