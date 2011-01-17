@@ -52,7 +52,7 @@
 	 *
 	 * Il suffit de renseigner l'option url_creer_base, en lui passant les bons parametres :
 	 *
-	 * 'url_creer_base' => 'http://friedrich.arscenic.org/admin/sql_doadd.php?username=user&password=pass_user&dbn='.prefixe_mutualisation($site)
+	 * 'url_creer_base' => 'http://localhost/admin/sql_doadd.php?username=user&password=pass_user&dbn='.prefixe_mutualisation($site)
 	 */
 
 
@@ -99,7 +99,7 @@
 											// C'est la que la mutualisation va ecrire les regles de redirection automatiques pour les images de chaque site
 			'utiliser_panel' => true, // Utiliser une table externe pour recuperer des identifiants ... (code, user, pass) permettant a un utilisateur d'installer le site (false)
 			'annonce' => '', // Texte a afficher en bas du formulaire d'activation de la mutualisation
-			//'url_creer_base' => 'http://friedrich.arscenic.org/admin/sql_doadd.php?username=user&password=pass_user&dbn='.prefixe_mutualisation($site), // Creer la base de donnees via une URL (methode AlternC)
+			//'url_creer_base' => 'http://localhost/admin/sql_doadd.php?username=user&password=pass_user&dbn='.prefixe_mutualisation($site), // Creer la base de donnees via une URL (methode AlternC)
 			'url_hebergeur' => 'http://'._SITES_ADMIN_MUTUALISATION,
 			'url_contact_hebergeur' => 'http://'._SITES_ADMIN_MUTUALISATION.'/spip.php?page=contact'
 		)
