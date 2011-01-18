@@ -217,12 +217,12 @@ mediaspip_install(){
 		if [ ! -d porte_plume_documents ]; then
 			i=porte_plume_documents
 			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG
+			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		fi
 		if [ ! -d openid ]; then
 			i=openid
 			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/authentification/openid openid 2>> $LOG >> $LOG
+			svn co svn://zone.spip.org/spip-zone/_plugins_/authentification/openid openid 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		fi
 		if [ ! -d spip_piwik_2_0 ]; then
 			i=Piwik
@@ -232,30 +232,34 @@ mediaspip_install(){
 		cd $SPIP
 	fi
 	
+	if [ ! -d lib ];then
+		echo
+		echo $(eval_gettext "Info SPIP repertoire lib")
+		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG
+	fi
+	
 	if in_array $SPIP_TYPE ${TYPES[@]};then
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
-			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation 2>> $LOG >> $LOG &
-			wait $!
+			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		else
 			echo
 			echo $(eval_gettext "Info SPIP maj mutualisation")
-			svn up mutualisation/  2>> $LOG >> /dev/null &
-			wait $!
+			svn up mutualisation/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
 		fi
 		if [ ! -d sites ];then
 			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
 			mkdir sites && chmod 777 lib/ 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext "Info SPIP suppression cache images")
+			rm -Rvf $SPIP/sites/*/local/cache-* 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info SPIP suppression cache html")
+			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info SPIP suppression cache plugins")
+			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
 		fi
-	fi
-	
-	if [ ! -d lib ];then
-		echo
-		echo $(eval_gettext "Info SPIP repertoire lib")
-		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG &
-		wait $!
 	fi
 	
 	echo

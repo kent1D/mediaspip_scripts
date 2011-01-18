@@ -62,10 +62,12 @@ VERSION ${VERSION}
 "
 
 if [ -d "fun" ];then
-	set -- fun/*
-	length=$#
-	random_num=$(( $RANDOM % ($length + 1) ))
-	. ${!random_num}
+	files=(./fun/*.sh)        # create an array of the files.
+	N=${#files[@]}          # Number of members in the array
+	((N=RANDOM%N))
+	randomfile=${files[$N]}
+	
+	. $randomfile
 fi
 
 tput setaf 2;
@@ -153,6 +155,8 @@ while test -n "${1}"; do
 		shift;;
 		--version|-v) echo $(eval_gettext 'Info mediaspip installation $VERSION')  
 		exit 0;;
+		--allways_yes|-y) NO_QUESTION="yes"
+		shift;;
 		--src_install|-src) SRC_INSTALL="${2}"
 		shift;;
 		--log|-l) LOG="${2}"
@@ -169,12 +173,16 @@ while test -n "${1}"; do
 					fi
 				else
 					echo_erreur $(eval_gettext "Erreur option cpus numerique")
-					ERROR=oui
+					ERROR="oui"
 				fi
 			else
 				echo_erreur $(eval_gettext "Erreur option cpus numerique")
-				ERROR=oui
+				ERROR="oui"
 			fi
+		shift;;
+		--disable-ffmpeg) DISABLE_FFMPEG="yes"
+		shift;;
+		--disable-mediaspip) DISABLE_MEDIASPIP="yes"
 		shift;;
 		--spip|-s) SPIP="${2}"
 		shift;;
@@ -209,48 +217,54 @@ fi
 
 QUESTION_VALID=$(eval_gettext "Question valider")
 
-# Demande de valider l'emplacement des fichiers source des binaires
-# Trois reponses valides possibles :
-# - y
-# - o
-# - return (vide)
-eval_gettext "Info source installation"
-echo " $SRC_INSTALL"
-read -p "$QUESTION_VALID"
-[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SRC_INSTALL")
-echo
-
-# Demande de valider l'emplacement des fichiers de log
-# Trois reponses valides possibles :
-# - y
-# - o
-# - return (vide)
-eval_gettext "Info log installation"
-#echo ""
-echo " $LOG"
-read -p "$QUESTION_VALID"
-[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide LOG")
-echo
-
-# Demande de valider l'emplacement des fichiers de SPIP et MediaSPIP
-# Trois reponses valides possibles :
-# - y
-# - o
-# - return (vide)
-if [ "$SPIP_TYPE" != "none" ];then
-	eval_gettext "Info SPIP installation"
-	echo " $SPIP"
+# Quelques questions préalables.
+# Il est possible de les passer en ajoutant "-y" ou "--allways_yes" en option au script 
+if [ "$NO_QUESTION" != "yes" ]; then
+	# Demande de valider l'emplacement des fichiers source des binaires
+	# Trois reponses valides possibles :
+	# - y
+	# - o
+	# - return (vide)
+	eval_gettext "Info source installation"
+	echo " $SRC_INSTALL"
 	read -p "$QUESTION_VALID"
-	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SPIP")
+	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SRC_INSTALL")
 	echo
+	
+	# Demande de valider l'emplacement des fichiers de log
+	# Trois reponses valides possibles :
+	# - y
+	# - o
+	# - return (vide)
+	eval_gettext "Info log installation"
+	#echo ""
+	echo " $LOG"
+	read -p "$QUESTION_VALID"
+	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide LOG")
+	echo
+	
+	# Demande de valider l'emplacement des fichiers de SPIP et MediaSPIP
+	# Trois reponses valides possibles :
+	# - y
+	# - o
+	# - return (vide)
+	if [ "$SPIP_TYPE" != "none" ];then
+		eval_gettext "Info SPIP installation"
+		echo " $SPIP"
+		read -p "$QUESTION_VALID"
+		[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SPIP")
+		echo
+	else
+		eval_gettext "Info MediaSPIP non installe"
+	fi
+	
+	# ok, already, last check before proceeding
+	echo "OK, nous sommes prêts à y aller."
+	read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (o/n)?"
+	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 else
-	eval_gettext "Info MediaSPIP non installe"
+	echo $(eval_gettext 'Info options no_question')  
 fi
-
-# ok, already, last check before proceeding
-echo "OK, nous sommes prêts à y aller."
-read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (o/n)?"
-[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 
 echo
 echo "Le script démarre" >> $LOG
@@ -276,8 +290,7 @@ echo
 echo
 
 debian_apache_install || error $(eval_gettext "Erreur installation regarde log") &
-PID=$!
-progress_indicator $PID
+progress_indicator $!
 
 echo_reussite $(eval_gettext "End apache")
 echo
@@ -311,7 +324,7 @@ eval_gettext "Titre ffmpeg"
 echo
 echo
 
-if [ -d "$SRC_INSTALL"/ffmpeg/.svn ];then
+if [ -d "$SRC_INSTALL"/ffmpeg-git/.git ];then
 	echo $(eval_gettext "Info debut ffmpeg update")
 	echo
 	echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG

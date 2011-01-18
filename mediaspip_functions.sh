@@ -98,6 +98,7 @@ function git_log()
 	  echo "== Most Recent Commit"
 	  git --no-pager log --max-count=1
 	  echo
+	  echo "== Short Revision: `git describe --always`"
 	else
 	  echo "Not a git repository."
 	fi
@@ -118,7 +119,28 @@ debian_flvtool_install()
 	echo
 }
 
+# Installation d'une version récente de scons
+# Utilisée pour ffmpeg2theora
+# http://www.scons.org/
+debian_scons_install()
+{
+	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAIN=mediaspip
+	
+	cd $SRC_INSTALL
+	VERSION="2.0.1"
+	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
+		echo $(eval_gettext 'Info debut scons install $VERSION')
+		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG
+		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG
+		cd scons-2.0.1
+		python setup.py install
+		echo $(eval_gettext "End scons")
+	fi
+}
+
 # Installation de Lame
+# http://lame.sourceforge.net/
 debian_lame_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -132,8 +154,11 @@ debian_lame_install()
 		wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
 		tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
 		cd lame-3.98.4
+		echo $(eval_gettext "Info compilation configure")
 		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End lame")
 	elif [ "$LAMEVERSION" == "3.98.4" ]; then
@@ -143,8 +168,11 @@ debian_lame_install()
 		echo $(eval_gettext 'Info debut lame update $VERSION')
 		echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
 		cd lame-3.98.4
+		echo $(eval_gettext "Info compilation configure")
 		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End lame")
 	fi
@@ -152,6 +180,7 @@ debian_lame_install()
 }
 
 # Installation de libopencore-amr
+# http://opencore-amr.sourceforge.net/
 debian_libopencore_amr_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -168,16 +197,22 @@ debian_libopencore_amr_install()
 		wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		cd opencore-amr-0.1.2
+		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End opencore")
 	else
 		echo $(eval_gettext 'Info debut opencore update $VERSION')
 		echo $(eval_gettext 'Info debut opencore update $VERSION') 2>> $LOG >> $LOG
 		cd opencore-amr-0.1.2
+		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End opencore")
 	fi
@@ -185,6 +220,7 @@ debian_libopencore_amr_install()
 }
 
 # Installation de libtheora
+# http://www.theora.org/downloads/
 debian_libtheora_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -199,8 +235,11 @@ debian_libtheora_install()
 		wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
 		tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
 		cd libtheora-1.1.1
+		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
 	elif [ "$LIBTHEORAVERSION" == "1.1.1-1" ]; then
@@ -210,8 +249,11 @@ debian_libtheora_install()
 		echo $(eval_gettext 'Info debut libtheora update $VERSION')
 		echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
 		cd libtheora-1.1.1
+		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> $LOG
 		echo -n $(eval_gettext "End libtheora")
 	fi
@@ -219,6 +261,7 @@ debian_libtheora_install()
 }
 
 # Installation de rtmpdump pour librtmp
+# http://rtmpdump.mplayerhq.hu/
 debian_rtmpdump_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -229,6 +272,7 @@ debian_rtmpdump_install()
 	cd $SRC_INSTALL
 	svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG >> $LOG
 	cd rtmpdump
+	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 	make install 2>> $LOG >> $LOG
 	echo $(eval_gettext "End rtmpdump")
@@ -236,6 +280,7 @@ debian_rtmpdump_install()
 }
 
 # Installation de mediainfo
+# http://mediainfo.sourceforge.net/fr
 debian_media_info_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -267,6 +312,7 @@ debian_media_info_install()
 }
 
 # Installation de php-imagick via pecl
+# http://pecl.php.net/package/imagick
 debian_phpimagick_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -295,6 +341,7 @@ debian_phpimagick_install()
 	echo
 }
 
+# Installation de diverses dépendances
 debian_dep_install()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -308,13 +355,20 @@ debian_dep_install()
 	apt-get -y remove php5-imagick 2>> $LOG >> $LOG &
 	wait $!
 	
-	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev\
+	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
 		php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools liboggkate-dev \
 		2>> $LOG >> $LOG
 	
 	echo 
+	
+	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
+	echo $SCONS_VERSION
+	if [[ $SCONS_VERSION < "v1.2" ]]; then
+		debian_scons_install || error $(eval_gettext "Erreur installation regarde log") &
+		wait $!
+	fi 
 	
 	debian_lame_install || error $(eval_gettext "Erreur installation regarde log") &
 	wait $!
@@ -338,44 +392,45 @@ debian_dep_install()
 	wait $!
 }
 
-#préconfiguration basique d'Apache
+# Préconfiguration basique d'Apache
 debian_apache_install ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG
+	a2enmod headers 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG
+	a2enmod rewrite 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG
+	a2enmod deflate 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG
+	a2enmod expires 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo
 }
 
-#install x264
+# Installation de x264
+# http://www.videolan.org/developers/x264.html
 debian_x264_install ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -383,12 +438,17 @@ debian_x264_install ()
 	cd $SRC_INSTALL
 	git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG
 	cd x264
+	echo $(eval_gettext "Info compilation configure")
 	./configure --enable-shared 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation make")
+	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	apt-get -y remove x264 libx264-dev 2>> $LOG >> $LOG
-	checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation install")
+	checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 }
 
+# Mise à jour de x264
+# http://www.videolan.org/developers/x264.html
 debian_x264_update ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -402,60 +462,71 @@ debian_x264_update ()
 		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		apt-get -y remove x264 2>> $LOG >> $LOG
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	fi
 }
 
-#install ffmpeg
+# Installation de FFMpeg
+# http://www.ffmpeg.org
 debian_ffmpeg_install ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg 2>> $LOG >> $LOG
-	cd ffmpeg
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
+	git clone git://git.videolan.org/ffmpeg ffmpeg-git 2>> $LOG >> $LOG
+	cd ffmpeg-git
+	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation configure")
 	./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-		--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-		2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation make")
+	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
-	checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation install")
+	checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	ldconfig
 	cd tools
-	cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
+	cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	cd ..
 	echo
 	echo $(eval_gettext 'Info ffmpeg revision $REVISION')
 }
 
+# Mise à jour de FFMpeg
+# http://www.ffmpeg.org
 debian_ffmpeg_update ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	cd $SRC_INSTALL/ffmpeg
-	svn up 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
+	cd $SRC_INSTALL/ffmpeg-git
+	git pull 2>> $LOG >> $LOG
+	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	if [ -x /usr/local/bin/ffmpeg ];then
 		VERSION=$(ffmpeg -version  2> $LOG |grep FFmpeg -m 1 |awk '{print $2}')
-		REVISION_VERSION=SVN-r"$REVISION"
+		REVISION_VERSION=git-"$REVISION"
 		if [ "$VERSION" = "$REVISION_VERSION" ];then
 			echo $(eval_gettext "Info a jour ffmpeg")
 			echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
 		else
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation configure")
 			./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
 				--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
 				2>> $LOG >> $LOG
-			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation make")
+			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
-			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation install")
+			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 			ldconfig
 			cd tools
 			cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
@@ -464,20 +535,25 @@ debian_ffmpeg_update ()
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
 			2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.svn$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		ldconfig
 		cd tools
-		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
+		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg revision $REVISION')
 }
 
+# Installation de ffmpeg2theora
+# http://www.v2v.cc/~j/ffmpeg2theora/
 debian_ffmpeg2theora_install ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -488,25 +564,28 @@ debian_ffmpeg2theora_install ()
 	cd ffmpeg2theora
 	# Install une version récente de libkate
 	sh ./get_libkate.sh 2>> $LOG >> $LOG
-	scons install 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
+	scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	REVISION=$(svnversion) 2>> $LOG >> $LOG
 	echo
 	echo $(eval_gettext 'Info ffmpeg2theora revision $REVISION')
 }
 
+# Mise à jour de ffmpeg2theora
+# http://www.v2v.cc/~j/ffmpeg2theora/
 debian_ffmpeg2theora_update ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg2theora
 	svn up 2>> $LOG >> $LOG
-	scons install 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
+	scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	REVISION=$(svnversion)
 	echo
 	echo $(eval_gettext 'Info ffmpeg2theora revision $REVISION')
 }
 
-#install ffmpeg-php
+# Installation de ffmpeg-php
+# http://ffmpeg-php.sourceforge.net/
 debian_ffmpeg_php_install ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
@@ -518,8 +597,11 @@ debian_ffmpeg_php_install ()
 	phpize 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-	make install 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation configure")
+	./configure 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation make")
+	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+	make install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
@@ -527,14 +609,16 @@ debian_ffmpeg_php_install ()
 	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
 }
 
+# Mise à jour de ffmpeg-php
+# http://ffmpeg-php.sourceforge.net/
 debian_ffmpeg_php_update ()
 {
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
-	OLDREVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
+	OLDREVISION=$(svnversion)
 	svn up 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
+	REVISION=$(svnversion)
 	if [ "$OLDREVISION" = "$REVISION" ];then
 		echo
 		echo $(eval_gettext "Info a jour ffmpeg-php")
@@ -543,8 +627,11 @@ debian_ffmpeg_php_update ()
 		phpize 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		./configure && make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		make install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
 		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	fi
