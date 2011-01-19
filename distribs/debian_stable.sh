@@ -35,7 +35,6 @@ debian_rtmpdump_install()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3-lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		echo $(eval_gettext "End rtmpdump")
-		echo
 	else
 		cd rtmpdump-2.3
 		echo $(eval_gettext "Info compilation make")
@@ -43,8 +42,8 @@ debian_rtmpdump_install()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3-lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		echo $(eval_gettext "End rtmpdump")
-		echo
 	fi
+	echo
 }
 
 # Installation de ffmpeg2theora

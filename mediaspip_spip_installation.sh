@@ -187,6 +187,8 @@ mediaspip_install(){
 		echo $(eval_gettext "Info SPIP themes maj")
 		svn up themes/* 2>> $LOG >> $LOG
 		
+		echo 
+		echo $(eval_gettext "Info SPIP plugins")
 		if [ ! -d plugins ];then
 			echo $(eval_gettext "Info SPIP install plugins")
 			mkdir -p $SPIP/plugins 2>> $LOG >> $LOG
@@ -194,9 +196,6 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP maj plugins")
 			svn up plugins/* 2>> $LOG >> $LOG
 		fi
-		
-		echo 
-		echo $(eval_gettext "Info SPIP plugins")
 		
 		cd plugins
 		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications opensearch pages recommander socialtags sparkstats verifier)
