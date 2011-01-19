@@ -25,10 +25,11 @@ mediaspip_install(){
 		cd $SPIP
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	elif [ -d $SPIP/.svn ];then
+		cd $SPIP
 		# cas de changement de dépot
 		if [ $(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }') != "$SPIP_SVN" ];then
 			echo $(eval_gettext 'Info SPIP change depot $SPIP_SVN')
-			svn sw $SPIP_SVN ./ 2>> $LOG >> $LOG
+			svn sw $SPIP_SVN ./ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
 		fi
 	# cas d'une simple mise à jour		
 	else
