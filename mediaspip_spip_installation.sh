@@ -256,7 +256,7 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP suppression cache images")
 			rm -Rvf $SPIP/sites/*/local/cache-* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache html")
-			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites/*/tmp/cache/meta_cache.php 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache plugins")
 			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
 		fi
