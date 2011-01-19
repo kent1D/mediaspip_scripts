@@ -125,7 +125,7 @@ fi
 SRC_INSTALL="/usr/local/src"
 
 # location of log file
-LOG=/var/log/mediaspip_install.log
+LOG="/var/log/mediaspip_install.log"
 
 # location of the script's lock file
 LOCK="/var/run/mediaspip_install.pid"
