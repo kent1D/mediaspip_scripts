@@ -34,7 +34,7 @@ if [[ -f $I18NLIB ]]; then
 else
 	echo "ERROR - $I18NLIB NOT FOUND"
 	echo "Please install the gettext package via the command:"
-	echo "apt-get -y install gettext"
+	echo "apt-get -y install gettext gettext-base"
 	exit 1
 fi
 
