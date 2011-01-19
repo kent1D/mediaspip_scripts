@@ -30,6 +30,10 @@ mediaspip_install(){
 		if [ $(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }') != "$SPIP_SVN" ];then
 			echo $(eval_gettext 'Info SPIP change depot $SPIP_SVN')
 			svn sw $SPIP_SVN ./ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
+		else
+			echo $(eval_gettext "Info SPIP maj")
+			cd $SPIP
+			svn up 2>> $LOG >> $LOG
 		fi
 	# cas d'une simple mise à jour		
 	else
@@ -147,9 +151,6 @@ mediaspip_install(){
 	echo
 	svn up extensions/* 2>> $LOG >> $LOG
 	
-	echo
-	echo $(eval_gettext "Info SPIP plugins")
-	
 	TYPES_FULL=(ferme_full full)
 	# Si on est dans un type full on installe les plugins et thèmes dits compatibles
 	# par défaut
@@ -193,6 +194,10 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP maj plugins")
 			svn up plugins/* 2>> $LOG >> $LOG
 		fi
+		
+		echo 
+		echo $(eval_gettext "Info SPIP plugins")
+		
 		cd plugins
 		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications opensearch pages recommander socialtags sparkstats verifier)
 		for i in ${plugins_optionnels[@]}; do
@@ -271,6 +276,7 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP repertoire sites")
 			mkdir sites && chmod 755 sites/ 2>> $LOG >> $LOG
 		else
+			echo 
 			echo $(eval_gettext "Info SPIP suppression cache css")
 			rm -Rvf $SPIP/sites/*/local/cache-css/* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache js")
@@ -282,6 +288,7 @@ mediaspip_install(){
 		fi
 	# Sinon on ne vide que le cache du site courant
 	else
+		echo
 		echo $(eval_gettext "Info SPIP suppression cache css")
 		rm -Rvf $SPIP/local/cache-css/* 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info SPIP suppression cache js")

@@ -381,7 +381,6 @@ fi
 
 echo
 echo_reussite $(eval_gettext "End ffmpeg-php")
-echo
 
 # On vérifie si alternc est sur le système
 # Si oui on demande s'il est utilisé pour MediaSPIP
