@@ -139,41 +139,45 @@ mediaspip_install(){
 	echo
 	svn up extensions/* 2>> $LOG >> $LOG
 	
-	if [ ! -d themes ]; then
-		mkdir themes
-	fi
-	
-	cd themes
-	
-	echo $(eval_gettext "Info SPIP themes")
-	
-	if [ ! -d spipeo ]; then
-		i=SPIPeo
-		echo $(eval_gettext 'Info SPIP telecharge theme $i')
-		svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/spipeo 2>> $LOG >> $LOG
-	fi
-	
-	if [ ! -d brazil ]; then
-		i=Brazil
-		echo $(eval_gettext 'Info SPIP telecharge theme $i')
-		svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/brazil 2>> $LOG >> $LOG
-	fi
-	
-	if [ ! -d arscenic ]; then
-		i=Arscenic
-		echo $(eval_gettext 'Info SPIP telecharge theme $i')
-		svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/arscenic 2>> $LOG >> $LOG
-	fi
-	
-	cd $SPIP
-	
-	echo $(eval_gettext "Info SPIP themes maj")
-	svn up themes/* 2>> $LOG >> $LOG
-	
 	echo
 	echo $(eval_gettext "Info SPIP plugins")
+	
 	TYPES_FULL=(ferme_full full)
+	# Si on est dans un type full on installe les plugins et thèmes dits compatibles
+	# par défaut
 	if in_array $SPIP_TYPE ${TYPES_FULL[@]};then
+		
+		if [ ! -d themes ]; then
+			mkdir -p $SPIP/themes
+		fi
+		
+		cd $SPIP/themes
+		
+		echo $(eval_gettext "Info SPIP themes")
+		
+		if [ ! -d spipeo ]; then
+			i=SPIPeo
+			echo $(eval_gettext 'Info SPIP telecharge theme $i')
+			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/spipeo 2>> $LOG >> $LOG
+		fi
+		
+		if [ ! -d brazil ]; then
+			i=Brazil
+			echo $(eval_gettext 'Info SPIP telecharge theme $i')
+			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/brazil 2>> $LOG >> $LOG
+		fi
+		
+		if [ ! -d arscenic ]; then
+			i=Arscenic
+			echo $(eval_gettext 'Info SPIP telecharge theme $i')
+			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/arscenic 2>> $LOG >> $LOG
+		fi
+		
+		cd $SPIP
+		
+		echo $(eval_gettext "Info SPIP themes maj")
+		svn up themes/* 2>> $LOG >> $LOG
+		
 		if [ ! -d plugins ];then
 			echo $(eval_gettext "Info SPIP install plugins")
 			mkdir -p $SPIP/plugins 2>> $LOG >> $LOG
@@ -238,7 +242,13 @@ mediaspip_install(){
 		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG
 	fi
 	
-	if in_array $SPIP_TYPE ${TYPES[@]};then
+	TYPES_MUTU=(ferme_full ferme)
+	# Si on est dans un type mutu on :
+	# - installe le plugin de mutualisation
+	# - crée le répertoire site si non existant
+	# - vide les caches de l'ensemble des sites
+	# par défaut
+	if in_array $SPIP_TYPE ${TYPES_MUTU[@]};then
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
@@ -262,6 +272,16 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP suppression cache plugins")
 			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
 		fi
+	# Sinon on ne vide que le cache du site courant
+	else
+		echo $(eval_gettext "Info SPIP suppression cache css")
+		rm -Rvf $SPIP/local/cache-css/* 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info SPIP suppression cache js")
+		rm -Rvf $SPIP/local/cache-js/* 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info SPIP suppression cache html")
+		rm -Rvf $SPIP/tmp/cache/meta_cache.php 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info SPIP suppression cache plugins")
+		rm -Rvf $SPIP/tmp/cache/* 2>> $LOG >> $LOG
 	fi
 	
 	echo
