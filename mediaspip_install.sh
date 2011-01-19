@@ -19,6 +19,9 @@
 # - ffmpeg2theora
 #
 # Ce script installe également SPIP et l'ensemble des extensions nécessaires à MediaSPIP
+#
+# Ce script nécessite l'ajout du dépôts debian-multimedia dans le sources.list d'APT :
+# deb http://www.debian-multimedia.org lenny main non-free
 
 export TEXTDOMAINDIR=$(pwd)/locale
 export TEXTDOMAIN=mediaspip
@@ -44,6 +47,14 @@ else
 fi
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 . ./mediaspip_spip_installation.sh
+
+# On vérifie que l'on a bien accès au protocole svn://
+svn info svn://trac.rezo.net/spip/branches/spip-2.1 2>> /dev/null >> /dev/null
+if [[ $? != "0" ]]; then
+	echo_erreur $(eval_gettext "Erreur script protocole svn") 1>&2
+	exit 1
+fi
+
 
 VERSION="0.2"
 
@@ -117,6 +128,9 @@ LOG=/var/log/mediaspip_install.log
 
 # location of the script's lock file
 LOCK="/var/run/mediaspip_install.pid"
+
+# Type d'installation des dépendances stable|dev
+DEP_VERSION="dev"
 
 # Emplacement final de SPIP et MediaSPIP
 SPIP="/var/www/mediaspip"
@@ -213,6 +227,12 @@ if [ "$ERROR" == "oui" ]; then
 	exit 1
 fi
 
+if [ "$DEP_VERSION" == "stable" ]; then
+	. ./distribs/debian_stable.sh	
+else
+	. ./distribs/debian_dev.sh
+fi
+
 ###############################
 # Suite des fonctions du script
 ###############################
@@ -302,18 +322,8 @@ echo
 eval_gettext "Titre x264"
 echo
 echo
-if [ -d "$SRC_INSTALL"/x264 ];then
-	echo $(eval_gettext "Info debut x264 update")
-	echo
-	echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
-	debian_x264_update || error $(eval_gettext "Erreur installation regarde log") &
-else
-	echo $(eval_gettext "Info debut x264 install")
-	echo
-	echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
-	debian_x264_install || error $(eval_gettext "Erreur installation regarde log") &
-fi
 
+debian_x264_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo
@@ -326,18 +336,7 @@ eval_gettext "Titre ffmpeg"
 echo
 echo
 
-if [ -d "$SRC_INSTALL"/ffmpeg-git/.git ];then
-	echo $(eval_gettext "Info debut ffmpeg update")
-	echo
-	echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
-	debian_ffmpeg_update || error $(eval_gettext "Erreur installation regarde log") &
-else 
-	echo $(eval_gettext "Info debut ffmpeg install")
-	echo
-	echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
-	debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
-fi
-
+debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo

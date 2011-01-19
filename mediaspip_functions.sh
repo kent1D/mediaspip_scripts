@@ -52,7 +52,9 @@ die ()
 error ()
 {
 	echo_erreur $@
-	echo
+	if [ ! -z "$PID" ];then
+		kill "$PID" 2>> $LOG >> $LOG
+	fi
 	kill "$$" 2>> $LOG >> $LOG	
 	exit 1
 }
@@ -107,10 +109,11 @@ function git_log()
 # Installation de flvtool2
 debian_flvtool_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info debut flvtool2")
-	eval_gettext "Info debut flvtool2" 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info debut flvtool2") 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG
 	cd flvtool2
@@ -124,6 +127,7 @@ debian_flvtool_install()
 # http://www.scons.org/
 debian_scons_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	
@@ -134,7 +138,7 @@ debian_scons_install()
 		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG
 		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG
 		cd scons-2.0.1
-		python setup.py install
+		python setup.py install 2>> $LOG >> $LOG
 		echo $(eval_gettext "End scons")
 	fi
 }
@@ -143,12 +147,18 @@ debian_scons_install()
 # http://lame.sourceforge.net/
 debian_lame_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
+	if [ -x /usr/local/bin/lame ];then
+		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
+	fi
 	cd $SRC_INSTALL
 	VERSION="3.98.4"
-	if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
+	if [ "$LAMEVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour lame $VERSION')
+		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
+	elif [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
 		echo $(eval_gettext 'Info debut lame install $VERSION')
 		echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
 		wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
@@ -159,11 +169,8 @@ debian_lame_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="$VERSION" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End lame")
-	elif [ "$LAMEVERSION" == "3.98.4" ]; then
-		echo $(eval_gettext 'Info a jour lame $VERSION')
-		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
 	else
 		echo $(eval_gettext 'Info debut lame update $VERSION')
 		echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
@@ -173,7 +180,7 @@ debian_lame_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="3.98.4" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="$VERSION" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End lame")
 	fi
 	echo
@@ -183,12 +190,13 @@ debian_lame_install()
 # http://opencore-amr.sourceforge.net/
 debian_libopencore_amr_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="0.1.2"
-	if [[ "$LIBOPENCORE" > "0.1.1" ]]; then
+	if [ "$LIBOPENCORE" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour opencore $VERSION')
 		echo $(eval_gettext 'Info a jour opencore $VERSION') 2>> $LOG >> $LOG
 	elif [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
@@ -223,13 +231,17 @@ debian_libopencore_amr_install()
 # http://www.theora.org/downloads/
 debian_libtheora_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y install libogg-dev 2>> $LOG >> $LOG
-	LIBTHEORAVERSION=$(dpkg --status libtheora|awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
+	LIBTHEORAVERSION=$(pkg-config --modversion theora) 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
-	if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
+	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour libtheora $VERSION')
+		echo $(eval_gettext 'Info a jour libtheora $VERSION') 2>> $LOG >> $LOG
+	elif [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
 		echo $(eval_gettext 'Info debut libtheora install $VERSION')
 		echo $(eval_gettext 'Info debut libtheora install $VERSION') 2>> $LOG >> $LOG
 		wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
@@ -242,9 +254,6 @@ debian_libtheora_install()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
-	elif [ "$LIBTHEORAVERSION" == "1.1.1-1" ]; then
-		echo $(eval_gettext 'Info a jour libtheora $VERSION')
-		echo $(eval_gettext 'Info a jour libtheora $VERSION') 2>> $LOG >> $LOG
 	else
 		echo $(eval_gettext 'Info debut libtheora update $VERSION')
 		echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
@@ -260,34 +269,21 @@ debian_libtheora_install()
 	echo
 }
 
-# Installation de rtmpdump pour librtmp
-# http://rtmpdump.mplayerhq.hu/
-debian_rtmpdump_install()
-{
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info debut rtmpdump install")
-	echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-	apt-get -y install libssl-dev 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG >> $LOG
-	cd rtmpdump
-	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-	make install 2>> $LOG >> $LOG
-	echo $(eval_gettext "End rtmpdump")
-	echo
-}
-
 # Installation de mediainfo
 # http://mediainfo.sourceforge.net/fr
 debian_media_info_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
+	if [ -x /usr/local/bin/mediainfo ]; then
+		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
+	fi
 	VERSION="0.7.38"
-	if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
+	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
+		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
+	elif [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
 		echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 		echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 		cd $SRC_INSTALL
@@ -297,9 +293,6 @@ debian_media_info_install()
 		sh CLI_Compile.sh 2>> $LOG >> $LOG
 		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
 		echo $(eval_gettext "End mediainfo")
-	elif [ "$MEDIAINFOVERSION" == "v0.7.38" ]; then
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
 		echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 		echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
@@ -315,6 +308,7 @@ debian_media_info_install()
 # http://pecl.php.net/package/imagick
 debian_phpimagick_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
@@ -344,6 +338,7 @@ debian_phpimagick_install()
 # Installation de diverses dépendances
 debian_dep_install()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apt maj base")
@@ -354,17 +349,18 @@ debian_dep_install()
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	apt-get -y remove php5-imagick 2>> $LOG >> $LOG &
 	wait $!
-	
 	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
 		php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
-		flac vorbis-tools liboggkate-dev \
-		2>> $LOG >> $LOG
-	
+		flac vorbis-tools \
+		2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
+	wait $!
 	echo 
 	
-	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
-	echo $SCONS_VERSION
+	if [ -x scons ];then
+		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
+	fi
+
 	if [[ $SCONS_VERSION < "v1.2" ]]; then
 		debian_scons_install || error $(eval_gettext "Erreur installation regarde log") &
 		wait $!
@@ -395,6 +391,7 @@ debian_dep_install()
 # Préconfiguration basique d'Apache
 debian_apache_install ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
@@ -433,29 +430,28 @@ debian_apache_install ()
 # http://www.videolan.org/developers/x264.html
 debian_x264_install ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
-	cd $SRC_INSTALL
-	git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG
-	cd x264
-	echo $(eval_gettext "Info compilation configure")
-	./configure --enable-shared 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	apt-get -y remove x264 libx264-dev 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation install")
-	checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-}
-
-# Mise à jour de x264
-# http://www.videolan.org/developers/x264.html
-debian_x264_update ()
-{
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"/x264
-	REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
-	git pull 2>> $LOG >> $LOG
+	cd "$SRC_INSTALL"
+	
+	# Si on a déjà les sources, on ne fait que les mettre à jour
+	if [ -d "$SRC_INSTALL"/x264/.git ];then
+		echo $(eval_gettext "Info debut x264 update")
+		echo
+		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
+		cd $SRC_INSTALL/x264
+		REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
+		git pull 2>> $LOG >> $LOG
+	# Sinon on les récupère
+	else
+		echo $(eval_gettext "Info debut x264 install")
+		echo
+		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
+		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG
+		cd $SRC_INSTALL/x264
+	fi
+	
 	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 	if [ "$REVISION" == "$NEWREVISION" ]; then
 		echo $(eval_gettext "Info a jour x264")
@@ -472,90 +468,11 @@ debian_x264_update ()
 	fi
 }
 
-# Installation de FFMpeg
-# http://www.ffmpeg.org
-debian_ffmpeg_install ()
-{
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	cd $SRC_INSTALL
-	git clone git://git.videolan.org/ffmpeg ffmpeg-git 2>> $LOG >> $LOG
-	cd ffmpeg-git
-	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation configure")
-	./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-		--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	apt-get -y remove ffmpeg 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation install")
-	checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	ldconfig
-	cd tools
-	cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	cd ..
-	echo
-	echo $(eval_gettext 'Info ffmpeg revision $REVISION')
-}
-
-# Mise à jour de FFMpeg
-# http://www.ffmpeg.org
-debian_ffmpeg_update ()
-{
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	cd $SRC_INSTALL/ffmpeg-git
-	git pull 2>> $LOG >> $LOG
-	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
-	if [ -x /usr/local/bin/ffmpeg ];then
-		VERSION=$(ffmpeg -version  2> $LOG |grep FFmpeg -m 1 |awk '{print $2}')
-		REVISION_VERSION=git-"$REVISION"
-		if [ "$VERSION" = "$REVISION_VERSION" ];then
-			echo $(eval_gettext "Info a jour ffmpeg")
-			echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
-		else
-			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation configure")
-			./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-				--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-				2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation make")
-			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-			apt-get -y remove ffmpeg  2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation install")
-			checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-			ldconfig
-			cd tools
-			cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
-			cp qt-faststart /usr/local/bin
-		fi
-	else
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-			2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION-18lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		ldconfig
-		cd tools
-		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		cp qt-faststart /usr/local/bin
-	fi
-	echo
-	echo $(eval_gettext 'Info ffmpeg revision $REVISION')
-}
-
 # Installation de ffmpeg2theora
 # http://www.v2v.cc/~j/ffmpeg2theora/
 debian_ffmpeg2theora_install ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
@@ -574,6 +491,7 @@ debian_ffmpeg2theora_install ()
 # http://www.v2v.cc/~j/ffmpeg2theora/
 debian_ffmpeg2theora_update ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg2theora
@@ -588,6 +506,7 @@ debian_ffmpeg2theora_update ()
 # http://ffmpeg-php.sourceforge.net/
 debian_ffmpeg_php_install ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
@@ -613,6 +532,7 @@ debian_ffmpeg_php_install ()
 # http://ffmpeg-php.sourceforge.net/
 debian_ffmpeg_php_update ()
 {
+	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
