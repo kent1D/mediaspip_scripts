@@ -18,10 +18,10 @@ debian_rtmpdump_install()
 	cd $SRC_INSTALL
 	
 	VERSION="v2.3"
-	if [ -x "rtmpdump" ];then
+	if [ -x /usr/local/bin/rtmpdump ];then
 		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
 	fi
-	if [ "$RTMPDUMPVERSION" == "$VERSION" ];then
+	if [ "$RTMPDUMPVERSION" = "$VERSION" ];then
 		echo $(eval_gettext 'Info a jour rtmpdump $VERSION')
 		echo $(eval_gettext 'Info a jour rtmpdump $VERSION') 2>> $LOG >> $LOG
 	elif [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
@@ -43,6 +43,45 @@ debian_rtmpdump_install()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3-lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		echo $(eval_gettext "End rtmpdump")
+		echo
+	fi
+}
+
+# Installation de ffmpeg2theora
+# http://www.v2v.cc/~j/ffmpeg2theora/
+debian_ffmpeg2theora_install()
+{
+	PID=$!
+	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAIN=mediaspip
+	
+	cd $SRC_INSTALL
+	
+	VERSION="0.27"
+	if [ -x /usr/local/bin/ffmpeg2theora ];then
+		FFMPEG2THEORAVERSION=$(ffmpeg2theora --help |awk '/^ffmpeg2theora/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	if [ "$FFMPEG2THEORAVERSION" = "$VERSION" ];then
+		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION')
+		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION') 2>> $LOG >> $LOG
+	elif [ ! -e "$SRC_INSTALL"/ffmpeg2theora-0.27.tar.bz2 ];then
+		echo $(eval_gettext "Info debut ffmpeg2theora install")
+		echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
+		wget http://v2v.cc/~j/ffmpeg2theora/downloads/ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
+		cd ffmpeg2theora-0.27
+		sh ./get_libkate.sh
+		scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		echo
+		echo $(eval_gettext 'Info ffmpeg2theora version $REVISION')
+		echo
+	else
+		cd ffmpeg2theora-0.27
+		echo $(eval_gettext "Info debut ffmpeg2theora update")
+		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
+		scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		echo
+		echo $(eval_gettext 'Info ffmpeg2theora version $REVISION')
 		echo
 	fi
 }

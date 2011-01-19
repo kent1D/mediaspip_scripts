@@ -468,40 +468,6 @@ debian_x264_install ()
 	fi
 }
 
-# Installation de ffmpeg2theora
-# http://www.v2v.cc/~j/ffmpeg2theora/
-debian_ffmpeg2theora_install ()
-{
-	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
-	cd ffmpeg2theora
-	# Install une version récente de libkate
-	sh ./get_libkate.sh 2>> $LOG >> $LOG
-	scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	REVISION=$(svnversion) 2>> $LOG >> $LOG
-	echo
-	echo $(eval_gettext 'Info ffmpeg2theora revision $REVISION')
-}
-
-# Mise à jour de ffmpeg2theora
-# http://www.v2v.cc/~j/ffmpeg2theora/
-debian_ffmpeg2theora_update ()
-{
-	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"/ffmpeg2theora
-	svn up 2>> $LOG >> $LOG
-	scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-	REVISION=$(svnversion)
-	echo
-	echo $(eval_gettext 'Info ffmpeg2theora revision $REVISION')
-}
-
 # Installation de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
 debian_ffmpeg_php_install ()

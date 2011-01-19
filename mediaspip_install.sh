@@ -349,16 +349,7 @@ eval_gettext "Titre ffmpeg2theora"
 echo
 echo
 
-if [ -d "$SRC_INSTALL"/ffmpeg2theora/.svn ];then
-	echo $(eval_gettext "Info debut ffmpeg2theora update")
-	echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
-	debian_ffmpeg2theora_update || error $(eval_gettext "Erreur installation regarde log") &
-else
-	echo $(eval_gettext "Info debut ffmpeg2theora install")
-	echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
-	debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
-fi
-
+debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo

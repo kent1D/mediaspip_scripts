@@ -24,7 +24,7 @@ debian_rtmpdump_install()
 	fi
 	REVISION=$(svnversion $SRC_INSTALL/rtmpdump/) 2>> $LOG >> $LOG
 	
-	if [ "$ACTUEL" == "$REVISION" ];then
+	if [ "$ACTUEL" = "$REVISION" ];then
 		echo $(eval_gettext "Info a jour rtmpdump $REVISION")
 		echo $(eval_gettext "Info a jour rtmpdump $REVISION") 2>> $LOG >> $LOG
 	else
@@ -37,6 +37,34 @@ debian_rtmpdump_install()
 		echo $(eval_gettext "End rtmpdump")
 	fi
 	echo
+}
+
+# Installation de ffmpeg2theora
+# http://www.v2v.cc/~j/ffmpeg2theora/
+debian_ffmpeg2theora_install ()
+{
+	PID=$!
+	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAIN=mediaspip
+	cd $SRC_INSTALL
+	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
+	if [ ! -d ffmpeg2theora ];then
+		echo $(eval_gettext "Info debut ffmpeg2theora install")
+		echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
+		svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
+		cd ffmpeg2theora
+		# Install une version récente de libkate
+		sh ./get_libkate.sh 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut ffmpeg2theora update")
+		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
+		cd ffmpeg2theora
+		svn up 2>> $LOG >> $LOG
+	fi
+	scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	REVISION=$(svnversion) 2>> $LOG >> $LOG
+	echo
+	echo $(eval_gettext 'Info ffmpeg2theora revision $REVISION')
 }
 
 # Installation de FFMpeg
