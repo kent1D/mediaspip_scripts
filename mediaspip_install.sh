@@ -416,6 +416,9 @@ if [ -d /var/alternc/exec.usr ]; then
 		if [ ! -h ps ];then
 			ln -s /bin/ps 2>> $LOG >> $LOG
 		fi
+		
+		cp configs/spipmotion/spipmotion.sh /var/alternc/exec.usr/ 2>> $LOG >> $LOG
+		
 		cd $CURRENT
 		echo
 		echo_reussite $(eval_gettext "End alternc")
