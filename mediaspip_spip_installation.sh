@@ -253,8 +253,10 @@ mediaspip_install(){
 			echo $(eval_gettext "Info SPIP repertoire sites")
 			mkdir sites && chmod 777 lib/ 2>> $LOG >> $LOG
 		else
-			echo $(eval_gettext "Info SPIP suppression cache images")
-			rm -Rvf $SPIP/sites/*/local/cache-* 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info SPIP suppression cache css")
+			rm -Rvf $SPIP/sites/*/local/cache-css/* 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info SPIP suppression cache js")
+			rm -Rvf $SPIP/sites/*/local/cache-js/* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache html")
 			rm -Rvf $SPIP/sites/*/tmp/cache/meta_cache.php 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache plugins")
