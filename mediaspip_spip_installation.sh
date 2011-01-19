@@ -239,7 +239,7 @@ mediaspip_install(){
 	if [ ! -d lib ];then
 		echo
 		echo $(eval_gettext "Info SPIP repertoire lib")
-		mkdir lib && chmod 777 lib/ 2>> $LOG >> $LOG
+		mkdir lib && chmod 755 lib/ 2>> $LOG >> $LOG
 	fi
 	
 	TYPES_MUTU=(ferme_full ferme)
@@ -261,7 +261,7 @@ mediaspip_install(){
 		if [ ! -d sites ];then
 			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
-			mkdir sites && chmod 777 lib/ 2>> $LOG >> $LOG
+			mkdir sites && chmod 755 sites/ 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext "Info SPIP suppression cache css")
 			rm -Rvf $SPIP/sites/*/local/cache-css/* 2>> $LOG >> $LOG
