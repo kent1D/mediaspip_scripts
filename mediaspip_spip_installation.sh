@@ -24,7 +24,7 @@ mediaspip_install(){
 		mkdir -p $SPIP
 		cd $SPIP
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
-	else if [ -d $SPIP/.svn ];then
+	elif [ -d $SPIP/.svn ];then
 		# cas de changement de dépot
 		if [ $(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }') != "$SPIP_SVN" ];then
 			echo $(eval_gettext 'Info SPIP change depot $SPIP_SVN')
@@ -302,4 +302,5 @@ mediaspip_install(){
 	
 	echo
 	echo_reussite $(eval_gettext "Info MediaSPIP installe")
+	
 }

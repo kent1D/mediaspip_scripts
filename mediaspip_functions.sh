@@ -305,6 +305,8 @@ debian_media_info_install()
 }
 
 # Installation de php-imagick via pecl
+# On n'utilise pas la version des dépots officiels car trop ancienne
+# et bugguée avec safe_mode php
 # http://pecl.php.net/package/imagick
 debian_phpimagick_install()
 {
@@ -441,8 +443,8 @@ debian_x264_install ()
 		echo
 		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
-		REVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
 		git pull 2>> $LOG >> $LOG
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
 		echo $(eval_gettext "Info debut x264 install")
@@ -450,9 +452,10 @@ debian_x264_install ()
 		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	fi
 	
-	NEWREVISION=$(git_log ./ | awk '/^commit/ { print $2 }') 2>> $LOG >> $LOG
+	REVISION=$(pkg-config --modversion x264 | awk '{ print $2 }') 2>> $LOG >> $LOG
 	if [ "$REVISION" == "$NEWREVISION" ]; then
 		echo $(eval_gettext "Info a jour x264")
 		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
