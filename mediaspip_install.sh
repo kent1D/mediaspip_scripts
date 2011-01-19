@@ -18,7 +18,7 @@
 # - ffmpeg
 # - ffmpeg2theora
 #
-# Ce script installe également SPIP et l'ensemble des extensions nécessaires à MediaSPIP
+# Ce script installe également SPIP et l'ensemble des extensions et plugins nécessaires à MediaSPIP
 #
 # Ce script nécessite l'ajout du dépôts debian-multimedia dans le sources.list d'APT :
 # deb http://www.debian-multimedia.org lenny main non-free
@@ -74,15 +74,16 @@ VERSION ${VERSION}
 ######################################################################################
 "
 
+# Inclusion d'un logo aléatoire ;)
 if [ -d "fun" ];then
-	files=(./fun/*.sh)        # create an array of the files.
-	N=${#files[@]}          # Number of members in the array
+	files=(./fun/*.sh)		# create an array of the files.
+	N=${#files[@]}			# Number of members in the array
 	((N=RANDOM%N))
 	randomfile=${files[$N]}
-	
 	. $randomfile
 fi
 
+# On affiche le logo ... en vert
 tput setaf 2;
 echo "$LOGO"
 tput sgr0;
@@ -112,7 +113,7 @@ CURRENT=$(pwd)
 PKG_CONFIG=$(which pkg-config)
 
 if [ ! -x $PKG_CONFIG ]; then
-	echo_erreur 'pkg-config pas installé'
+	echo_erreur $(eval_gettext "Erreur script pkg-config") 1>&2
 	exit 1
 fi
 
@@ -148,6 +149,11 @@ NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
 if [ ! "$?" = "0" ]
 then
     NO_OF_CPUCORES=2
+fi
+
+# On insère un fichier de modification de ces variables si présent
+if [ -r /etc/default/mediaspip ]; then
+	. /etc/default/mediaspip
 fi
 
 while test -n "${1}"; do
