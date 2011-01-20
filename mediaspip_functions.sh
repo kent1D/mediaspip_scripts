@@ -133,10 +133,10 @@ debian_scons_install()
 	VERSION="2.0.1"
 	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
 		echo $(eval_gettext 'Info debut scons install $VERSION')
-		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG
+		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG || return 1
 		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG
 		cd scons-2.0.1
-		python setup.py install 2>> $LOG >> $LOG
+		python setup.py install 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End scons")
 	fi
 }
@@ -159,7 +159,7 @@ debian_lame_install()
 		if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
 			echo $(eval_gettext 'Info debut lame install $VERSION')
 			echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
+			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG || return 1
 			tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext 'Info debut lame update $VERSION')
@@ -167,11 +167,11 @@ debian_lame_install()
 		fi
 		cd lame-3.98.4
 		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG
+		./configure 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End lame")
 	fi
 	echo
@@ -193,7 +193,7 @@ debian_libopencore_amr_install()
 		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 			echo $(eval_gettext 'Info debut opencore install $VERSION')
 			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-			wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
+			wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
 			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext 'Info debut opencore update $VERSION')
