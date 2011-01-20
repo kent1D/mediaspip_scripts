@@ -416,10 +416,11 @@ if [ -d /var/alternc/exec.usr ]; then
 			ln -s /bin/ps 2>> $LOG >> $LOG
 		fi
 		
+		cd $CURRENT
+		
 		cp configs/spipmotion/spipmotion.sh /var/alternc/exec.usr/ 2>> $LOG >> $LOG
 		chmod +x /var/alternc/exec.usr/spipmotion.sh
 		
-		cd $CURRENT
 		echo
 		echo_reussite $(eval_gettext "End alternc")
 	fi
