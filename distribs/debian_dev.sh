@@ -10,7 +10,7 @@
 # http://rtmpdump.mplayerhq.hu/
 debian_rtmpdump_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	if [ -d $SRC_INSTALL/rtmpdump/.svn ];then
 		ACTUEL=$(svnversion $SRC_INSTALL/rtmpdump/) 2>> $LOG >> $LOG
@@ -43,7 +43,7 @@ debian_rtmpdump_install()
 debian_ffmpeg2theora_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
 	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
@@ -71,7 +71,7 @@ debian_ffmpeg2theora_install ()
 debian_ffmpeg_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
 	if [ -d "$SRC_INSTALL"/ffmpeg-git/.git ];then

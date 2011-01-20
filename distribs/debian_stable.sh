@@ -10,7 +10,7 @@
 # http://rtmpdump.mplayerhq.hu/
 debian_rtmpdump_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
 	apt-get -y install libssl-dev 2>> $LOG >> $LOG
@@ -45,7 +45,7 @@ debian_rtmpdump_install()
 debian_ffmpeg2theora_install()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
 	cd $SRC_INSTALL
@@ -84,7 +84,7 @@ debian_ffmpeg2theora_install()
 debian_ffmpeg_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
 	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.6.1.tar.bz2 ];then
