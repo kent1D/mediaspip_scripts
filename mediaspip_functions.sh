@@ -109,8 +109,10 @@ function git_log()
 	fi
 }
 
-if [ "$0" == "mediaspip_functions.sh" ];then
-	
+# Planter l'appel si on appelle ce script directement
+# On explique que c'est uniquement un fichier de fonctions
+if [[ "$0" == *mediaspip_functions.sh ]];then
+
 	echo "
 ######################################
 MediaSPIP functions $VERSION_FUNCTIONS

@@ -8,6 +8,29 @@
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
+
+VERSION_DEBIAN_STABLE=0.2
+
+# Ce script lancé tout seul ne sert à rien
+# On s'arrête dès son appel
+if [[ "$0" == *debian_stable.sh ]];then
+	
+	echo "
+######################################
+MediaSPIP Debian stable functions v$VERSION_DEBIAN_STABLE
+######################################
+"
+	echo "This file is only usefull for its functions"
+	tput setaf 1;
+	echo "
+This file doesn't work standalone.
+
+Please have a look to mediaspip_install.sh
+"
+	tput sgr0; 
+	exit 1 
+fi
+
 debian_rtmpdump_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
