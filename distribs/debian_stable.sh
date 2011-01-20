@@ -27,12 +27,12 @@ debian_rtmpdump_install()
 		if [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
 			echo $(eval_gettext "Info debut rtmpdump install")
 			echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG
-			tar xvz rtmpdump-2.3.tgz 2>> $LOG >> $LOG
+			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
+			tar xvzf rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
 		fi
 		cd rtmpdump-2.3
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End rtmpdump")

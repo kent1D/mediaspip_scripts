@@ -18,7 +18,7 @@ debian_rtmpdump_install()
 		svn up 2>> $LOG >> $LOG
 	else
 		cd $SRC_INSTALL
-		svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG >> $LOG
+		svn co svn://svn.mplayerhq.hu/rtmpdump/trunk rtmpdump 2>> $LOG >> $LOG || return 1
 		cd rtmpdump
 	fi
 	REVISION=$(svnversion $SRC_INSTALL/rtmpdump/) 2>> $LOG >> $LOG
@@ -29,7 +29,7 @@ debian_rtmpdump_install()
 	else
 		echo $(eval_gettext "Info debut rtmpdump install")
 		echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-		apt-get -y install libssl-dev 2>> $LOG >> $LOG
+		apt-get -y install libssl-dev 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3.svn$REVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
@@ -50,7 +50,7 @@ debian_ffmpeg2theora_install ()
 	if [ ! -d ffmpeg2theora ];then
 		echo $(eval_gettext "Info debut ffmpeg2theora install")
 		echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
-		svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG
+		svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG || return 1
 		cd ffmpeg2theora
 		# Install une version récente de libkate
 		sh ./get_libkate.sh 2>> $LOG >> $LOG
@@ -58,7 +58,7 @@ debian_ffmpeg2theora_install ()
 		echo $(eval_gettext "Info debut ffmpeg2theora update")
 		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
 		cd ffmpeg2theora
-		svn up 2>> $LOG >> $LOG
+		svn up 2>> $LOG >> $LOG || return 1
 	fi
 	scons install 2>> $LOG >> $LOG || return 1
 	REVISION=$(svnversion) 2>> $LOG >> $LOG
@@ -79,13 +79,13 @@ debian_ffmpeg_install ()
 		echo
 		echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git
-		git pull 2>> $LOG >> $LOG
+		git pull 2>> $LOG >> $LOG || return 1
 	else
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		git clone git://git.ffmpeg.org/ffmpeg.git ffmpeg-git 2>> $LOG >> $LOG
-		cd $SRC_INSTALL/ffmpeg-git
+		cd $SRC_INSTALL/ffmpeg-git || return 1
 	fi
 	
 	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
@@ -103,7 +103,7 @@ debian_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-			2>> $LOG >> $LOG
+			2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y remove ffmpeg  2>> $LOG >> $LOG
