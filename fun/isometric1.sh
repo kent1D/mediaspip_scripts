@@ -30,16 +30,19 @@ VERSION ${VERSION}
 
 # Planter l'appel si on appelle ce script directement
 if [[ "$0" == *isometric1.sh ]];then
-
-	echo "
+	if [ "$1" == "-f" ]; then
+		echo "$LOGO"
+	else
+		echo "
 ######################################
 MediaSPIP fun
 ######################################
 "
 	
-	tput setaf 1;
-	echo "Ce script ne sert à rien... quoique 
+		tput setaf 1;
+		echo "Ce script ne sert à rien... quoique 
 "
-	tput sgr0; 
-	exit 1
+		tput sgr0; 
+		exit 1
+	fi
 fi
