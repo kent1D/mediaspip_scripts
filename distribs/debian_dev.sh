@@ -53,7 +53,7 @@ debian_ffmpeg2theora_install ()
 		svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG || return 1
 		cd ffmpeg2theora
 		# Install une version récente de libkate
-		sh ./get_libkate.sh 2>> $LOG >> $LOG
+		sh ./get_libkate.sh 2>> $LOG >> $LOG || return 1
 	else
 		echo $(eval_gettext "Info debut ffmpeg2theora update")
 		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG

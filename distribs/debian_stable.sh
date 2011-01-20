@@ -60,10 +60,10 @@ debian_ffmpeg2theora_install()
 	elif [ ! -e "$SRC_INSTALL"/ffmpeg2theora-0.27.tar.bz2 ];then
 		echo $(eval_gettext "Info debut ffmpeg2theora install")
 		echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
-		wget http://v2v.cc/~j/ffmpeg2theora/downloads/ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
+		wget http://v2v.cc/~j/ffmpeg2theora/downloads/ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG || return 1
 		tar xvjf ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
 		cd ffmpeg2theora-0.27
-		sh ./get_libkate.sh
+		sh ./get_libkate.sh 2>> $LOG >> $LOG || return 1
 		scons install 2>> $LOG >> $LOG || return 1
 		echo
 		echo $(eval_gettext 'Info ffmpeg2theora version $REVISION')
