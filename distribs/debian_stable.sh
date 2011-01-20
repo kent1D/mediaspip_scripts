@@ -10,7 +10,6 @@
 # http://rtmpdump.mplayerhq.hu/
 debian_rtmpdump_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	
