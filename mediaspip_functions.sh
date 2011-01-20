@@ -117,7 +117,7 @@ debian_flvtool_install()
 	cd $SRC_INSTALL
 	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG
 	cd flvtool2
-	sudo ruby setup.rb 2>> $LOG >> $LOG
+	ruby setup.rb 2>> $LOG >> $LOG
 	echo $(eval_gettext "End flvtool2")
 	echo
 }
