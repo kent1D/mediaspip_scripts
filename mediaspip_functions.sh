@@ -249,7 +249,7 @@ debian_libtheora_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y install libogg-dev 2>> $LOG >> $LOG
-	LIBTHEORAVERSION=$(pkg-config --modversion theora) 2>> $LOG >> $LOG
+	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG >> $LOG)
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
 	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
@@ -290,24 +290,25 @@ debian_media_info_install()
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
-	elif [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
-		echo $(eval_gettext 'Info debut mediainfo install $VERSION')
-		echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
-		cd $SRC_INSTALL
-		wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG
-		tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG
-		cd MediaInfo_CLI_GNU_FromSource
-		sh CLI_Compile.sh 2>> $LOG >> $LOG
-		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
+			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
+			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
+			cd $SRC_INSTALL
+			wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+		else
+			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
+			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
+		echo $(eval_gettext 'Info mediainfo compil install')
+		echo $(eval_gettext 'Info mediainfo compil install') 2>> $LOG >> $LOG
+		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
+		cd MediaInfo/Project/GNU/CLI
+		make install 2>> $LOG >> $LOG ||return 1  
 		echo $(eval_gettext "End mediainfo")
 	else
-		echo $(eval_gettext 'Info debut mediainfo update $VERSION')
-		echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
-		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
-		sh CLI_Compile.sh 2>> $LOG >> $LOG
-		cd MediaInfo/Project/GNU/CLI && make install 2>> $LOG >> $LOG
-		echo -n $(eval_gettext "End mediainfo")
-	fi
 	echo
 }
 
