@@ -2,12 +2,14 @@
 #
 # mediaspip_functions
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3
 #
 # Diverses fonctions permettant d'installer mediaSPIP
 
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
+
+VERSION_FUNCTIONS=0.3
 
 function isNumeric()
 {
@@ -45,6 +47,7 @@ function echo_reussite ()
 die ()
 {
 	echo_erreur $@ 
+	echo
 	exit 1
 }
 
@@ -105,6 +108,20 @@ function git_log()
 	  echo "Not a git repository."
 	fi
 }
+
+if [ "$0" == "mediaspip_functions.sh" ];then
+	
+	echo "
+######################################
+MediaSPIP functions $VERSION_FUNCTIONS
+######################################
+	"
+	echo "This file is only usefull for its functions
+	"
+	echo_erreur "This file doesn't work standalone."
+	echo
+	die  "Please have a look to mediaspip_install.sh"
+fi
 
 # Installation de flvtool2
 debian_flvtool_install()
