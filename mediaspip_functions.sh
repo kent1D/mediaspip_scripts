@@ -346,7 +346,6 @@ debian_phpimagick_install()
 # Installation de diverses dépendances
 debian_dep_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apt maj base")
