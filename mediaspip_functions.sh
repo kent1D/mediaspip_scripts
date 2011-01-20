@@ -237,9 +237,9 @@ debian_libvpx_install()
 
 	cd $SRC_INSTALL
 	VERSION="0.9.5"
+	echo $(eval_gettext 'Info debut libvpx install $VERSION')
+	echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
 	if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.5.tar.bz2 ];then
-		echo $(eval_gettext 'Info debut libvpx install $VERSION')
-		echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
 		wget http://webm.googlecode.com/files/libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
 		tar xvjf libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
 	elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.5 ]; then
