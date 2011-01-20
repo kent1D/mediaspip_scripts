@@ -109,7 +109,7 @@ function git_log()
 # Installation de flvtool2
 debian_flvtool_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info debut flvtool2")
 	echo $(eval_gettext "Info debut flvtool2") 2>> $LOG >> $LOG
@@ -126,7 +126,7 @@ debian_flvtool_install()
 # http://www.scons.org/
 debian_scons_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
 	cd $SRC_INSTALL
@@ -181,7 +181,7 @@ debian_lame_install()
 # http://opencore-amr.sourceforge.net/
 debian_libopencore_amr_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
 	cd $SRC_INSTALL
@@ -216,7 +216,7 @@ debian_libopencore_amr_install()
 # http://code.google.com/p/webm/
 debian_libvpx_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
@@ -246,7 +246,7 @@ debian_libvpx_install()
 # http://www.theora.org/downloads/
 debian_libtheora_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y install libogg-dev 2>> $LOG >> $LOG
 	LIBTHEORAVERSION=$(pkg-config --modversion theora) 2>> $LOG >> $LOG
@@ -281,7 +281,7 @@ debian_libtheora_install()
 # http://mediainfo.sourceforge.net/fr
 debian_media_info_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	if [ -x /usr/local/bin/mediainfo ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
@@ -317,7 +317,7 @@ debian_media_info_install()
 # http://pecl.php.net/package/imagick
 debian_phpimagick_install()
 {
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
 	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
@@ -347,7 +347,7 @@ debian_phpimagick_install()
 debian_dep_install()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apt maj base")
 	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
@@ -391,7 +391,7 @@ debian_dep_install()
 debian_apache_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
@@ -430,7 +430,7 @@ debian_apache_install ()
 debian_x264_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"
 	
@@ -473,7 +473,7 @@ debian_x264_install ()
 debian_ffmpeg_php_install ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
@@ -499,7 +499,7 @@ debian_ffmpeg_php_install ()
 debian_ffmpeg_php_update ()
 {
 	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
 	OLDREVISION=$(svnversion)
