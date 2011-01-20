@@ -134,11 +134,14 @@ debian_scons_install()
 	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
 		echo $(eval_gettext 'Info debut scons install $VERSION')
 		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG || return 1
-		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG
-		cd scons-2.0.1
-		python setup.py install 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End scons")
+		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG || return 1
+	else
+		echo $(eval_gettext 'Info debut scons update $VERSION')
 	fi
+	cd scons-2.0.1
+	python setup.py install 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "End scons")
+	echo
 }
 
 # Installation de Lame
