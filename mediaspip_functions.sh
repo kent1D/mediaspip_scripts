@@ -440,26 +440,26 @@ debian_x264_install ()
 		echo
 		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
-		git pull 2>> $LOG >> $LOG
+		git pull 2>> $LOG >> $LOG || return 1
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
 		echo $(eval_gettext "Info debut x264 install")
 		echo
 		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
-		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG
+		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
 		cd $SRC_INSTALL/x264
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	fi
 	
-	REVISION=$(pkg-config --modversion x264 | awk '{ print $2 }') 2>> $LOG >> $LOG
+	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
 	if [ "$REVISION" == "$NEWREVISION" ]; then
 		echo $(eval_gettext "Info a jour x264")
 		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
+		./configure --enable-shared 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y remove x264 2>> $LOG >> $LOG
