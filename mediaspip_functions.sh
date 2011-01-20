@@ -109,7 +109,6 @@ function git_log()
 # Installation de flvtool2
 debian_flvtool_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info debut flvtool2")
@@ -127,7 +126,6 @@ debian_flvtool_install()
 # http://www.scons.org/
 debian_scons_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	
@@ -147,8 +145,7 @@ debian_scons_install()
 # http://lame.sourceforge.net/
 debian_lame_install()
 {
-	PID=$!
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	if [ -x /usr/local/bin/lame ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
@@ -184,7 +181,6 @@ debian_lame_install()
 # http://opencore-amr.sourceforge.net/
 debian_libopencore_amr_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
@@ -220,7 +216,6 @@ debian_libopencore_amr_install()
 # http://code.google.com/p/webm/
 debian_libvpx_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 
@@ -251,7 +246,6 @@ debian_libvpx_install()
 # http://www.theora.org/downloads/
 debian_libtheora_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y install libogg-dev 2>> $LOG >> $LOG
@@ -287,7 +281,6 @@ debian_libtheora_install()
 # http://mediainfo.sourceforge.net/fr
 debian_media_info_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	if [ -x /usr/local/bin/mediainfo ]; then
@@ -324,7 +317,6 @@ debian_media_info_install()
 # http://pecl.php.net/package/imagick
 debian_phpimagick_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$(pwd)/locale
 	export TEXTDOMAIN=mediaspip
 	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
