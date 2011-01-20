@@ -115,9 +115,9 @@ debian_flvtool_install()
 	echo $(eval_gettext "Info debut flvtool2")
 	echo $(eval_gettext "Info debut flvtool2") 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
-	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG
+	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG  || return 1
 	cd flvtool2
-	ruby setup.rb 2>> $LOG >> $LOG
+	ruby setup.rb 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "End flvtool2")
 	echo
 }
@@ -241,7 +241,7 @@ debian_libvpx_install()
 	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 	echo $(eval_gettext "Info compilation install")
-	apt-get remove libvpx 2>> $LOG >> $LOG
+	apt-get -y remove libvpx 2>> $LOG >> $LOG
 	checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 	echo $(eval_gettext "End libvpx")
 	echo
@@ -359,18 +359,15 @@ debian_dep_install()
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apt maj base")
 	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
-	apt-get -y update 2>> $LOG >> $LOG &
-	wait $!
+	apt-get -y update 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	apt-get -y remove php5-imagick 2>> $LOG >> $LOG &
-	wait $!
+	apt-get -y remove php5-imagick 2>> $LOG >> $LOG || return 1
 	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
 		php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools \
-		2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+		2>> $LOG >> $LOG || return 1
 	echo 
 	
 	if [ -x scons ];then
@@ -378,33 +375,24 @@ debian_dep_install()
 	fi
 
 	if [[ $SCONS_VERSION < "v1.2" ]]; then
-		debian_scons_install || error $(eval_gettext "Erreur installation regarde log") &
-		wait $!
+		debian_scons_install || return 1
 	fi 
 	
-	debian_lame_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_lame_install || return 1
 	
-	debian_libopencore_amr_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_libopencore_amr_install || return 1
 	
-	debian_libtheora_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_libtheora_install || return 1
 	
-	debian_libvpx_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_libvpx_install || return 1
 	
-	debian_rtmpdump_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_rtmpdump_install || return 1
 	
-	debian_flvtool_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_flvtool_install || return 1
 	
-	debian_media_info_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_media_info_install || return 1
 	
-	debian_phpimagick_install || error $(eval_gettext "Erreur installation regarde log") &
-	wait $!
+	debian_phpimagick_install || return 1
 }
 
 # Préconfiguration basique d'Apache
@@ -415,33 +403,33 @@ debian_apache_install ()
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	a2enmod headers 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	a2enmod rewrite 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	a2enmod deflate 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	a2enmod expires 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
 	echo
 }
 
@@ -481,10 +469,10 @@ debian_x264_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
@@ -505,8 +493,8 @@ debian_ffmpeg_php_install ()
 	echo $(eval_gettext "Info compilation configure")
 	./configure 2>> $LOG >> $LOG
 	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-	make install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+	make install 2>> $LOG >> $LOG || return 1
 	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
@@ -537,7 +525,7 @@ debian_ffmpeg_php_update ()
 		./configure 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		make install 2>> $LOG >> $LOG || return 1
 		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
 		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	fi

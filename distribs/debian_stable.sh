@@ -35,7 +35,7 @@ debian_rtmpdump_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End rtmpdump")
 	fi
 	echo
@@ -65,7 +65,7 @@ debian_ffmpeg2theora_install()
 		tar xvjf ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
 		cd ffmpeg2theora-0.27
 		sh ./get_libkate.sh
-		scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		scons install 2>> $LOG >> $LOG || return 1
 		echo
 		echo $(eval_gettext 'Info ffmpeg2theora version $REVISION')
 		echo
@@ -73,7 +73,7 @@ debian_ffmpeg2theora_install()
 		cd ffmpeg2theora-0.27
 		echo $(eval_gettext "Info debut ffmpeg2theora update")
 		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
-		scons install 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		scons install 2>> $LOG >> $LOG || return 1
 		echo
 		echo $(eval_gettext 'Info ffmpeg2theora version $REVISION')
 		echo
@@ -116,10 +116,10 @@ debian_ffmpeg_install ()
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
 			2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
