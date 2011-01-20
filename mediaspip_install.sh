@@ -417,6 +417,7 @@ if [ -d /var/alternc/exec.usr ]; then
 		fi
 		
 		cp configs/spipmotion/spipmotion.sh /var/alternc/exec.usr/ 2>> $LOG >> $LOG
+		chmod +x /var/alternc/exec.usr/spipmotion.sh
 		
 		cd $CURRENT
 		echo

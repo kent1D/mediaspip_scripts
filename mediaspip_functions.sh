@@ -227,6 +227,36 @@ debian_libopencore_amr_install()
 	echo
 }
 
+# Installation de libvpx
+# http://code.google.com/p/webm/
+debian_libvpx_install()
+{
+	PID=$!
+	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAIN=mediaspip
+
+	cd $SRC_INSTALL
+	VERSION="0.9.5"
+	if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.5.tar.bz2 ];then
+		echo $(eval_gettext 'Info debut libvpx install $VERSION')
+		echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
+		wget http://webm.googlecode.com/files/libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
+	elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.5 ]; then
+		tar xvjf libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
+	fi
+	cd libvpx-v0.9.5
+	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation configure")
+	./configure --enable-shared 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation make")
+	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info compilation install")
+	checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="0.9.5" --backup=no --default 2>> $LOG >> $LOG
+	echo $(eval_gettext "End libvpx")
+	echo
+}
+
 # Installation de libtheora
 # http://www.theora.org/downloads/
 debian_libtheora_install()
@@ -375,6 +405,9 @@ debian_dep_install()
 	wait $!
 	
 	debian_libtheora_install || error $(eval_gettext "Erreur installation regarde log") &
+	wait $!
+	
+	debian_libvpx_install || error $(eval_gettext "Erreur installation regarde log") &
 	wait $!
 	
 	debian_rtmpdump_install || error $(eval_gettext "Erreur installation regarde log") &
