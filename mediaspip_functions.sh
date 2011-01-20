@@ -158,29 +158,23 @@ debian_lame_install()
 	if [ "$LAMEVERSION" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour lame $VERSION')
 		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
-	elif [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
-		echo $(eval_gettext 'Info debut lame install $VERSION')
-		echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
-		wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
-		tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
-		cd lame-3.98.4
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="$VERSION" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End lame")
 	else
-		echo $(eval_gettext 'Info debut lame update $VERSION')
-		echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
+			echo $(eval_gettext 'Info debut lame install $VERSION')
+			echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG
+			tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut lame update $VERSION')
+			echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
+		fi
 		cd lame-3.98.4
 		echo $(eval_gettext "Info compilation configure")
 		./configure 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame" --pkgversion="$VERSION" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End lame")
 	fi
 	echo
@@ -199,29 +193,24 @@ debian_libopencore_amr_install()
 	if [ "$LIBOPENCORE" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour opencore $VERSION')
 		echo $(eval_gettext 'Info a jour opencore $VERSION') 2>> $LOG >> $LOG
-	elif [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
-		echo $(eval_gettext 'Info debut opencore install $VERSION')
-		echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-		wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
-		tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
-		cd opencore-amr-0.1.2
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End opencore")
 	else
-		echo $(eval_gettext 'Info debut opencore update $VERSION')
-		echo $(eval_gettext 'Info debut opencore update $VERSION') 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
+			echo $(eval_gettext 'Info debut opencore install $VERSION')
+			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
+			wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
+			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut opencore update $VERSION')
+			echo $(eval_gettext 'Info debut opencore update $VERSION') 2>> $LOG >> $LOG
+		fi
 		cd opencore-amr-0.1.2
 		echo $(eval_gettext "Info compilation configure")
+		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		./configure --enable-shared 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="0.1.2" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End opencore")
 	fi
 	echo
@@ -252,7 +241,8 @@ debian_libvpx_install()
 	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 	echo $(eval_gettext "Info compilation install")
-	checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="0.9.5" --backup=no --default 2>> $LOG >> $LOG
+	apt-get remove libvpx 2>> $LOG >> $LOG
+	checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 	echo $(eval_gettext "End libvpx")
 	echo
 }
@@ -271,30 +261,24 @@ debian_libtheora_install()
 	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour libtheora $VERSION')
 		echo $(eval_gettext 'Info a jour libtheora $VERSION') 2>> $LOG >> $LOG
-	elif [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
-		echo $(eval_gettext 'Info debut libtheora install $VERSION')
-		echo $(eval_gettext 'Info debut libtheora install $VERSION') 2>> $LOG >> $LOG
-		wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
-		tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
-		cd libtheora-1.1.1
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libtheora")
 	else
-		echo $(eval_gettext 'Info debut libtheora update $VERSION')
-		echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
+			echo $(eval_gettext 'Info debut libtheora install $VERSION')
+			echo $(eval_gettext 'Info debut libtheora install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
+			tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut libtheora update $VERSION')
+			echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
+		fi
 		cd libtheora-1.1.1
 		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libtheora --pkgversion "1.1.1" --backup=no --default 2>> $LOG >> $LOG
-		echo -n $(eval_gettext "End libtheora")
+		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		echo $(eval_gettext "End libtheora")
 	fi
 	echo
 }
@@ -500,7 +484,7 @@ debian_x264_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		apt-get -y remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`-0.0lenny2" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 	fi
 }
 
