@@ -308,7 +308,7 @@ debian_media_info_install()
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
 		echo $(eval_gettext "End mediainfo")
-	else
+	fi
 	echo
 }
 
