@@ -158,8 +158,8 @@ fi
 
 while test -n "${1}"; do
 	case "${1}" in
-		--help|-h) 
-		echo $(eval_gettext "Help message")
+		--help|-h) HELP=$(eval_gettext "Help message")
+		echo "$HELP"
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
@@ -175,7 +175,8 @@ while test -n "${1}"; do
 				shift;;
 			esac
 		shift;;
-		--version|-v) echo $(eval_gettext 'Info mediaspip installation $VERSION')  
+		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION')
+		echo "$VERSION_AFFICHER"  
 		exit 0;;
 		--allways_yes|-y) NO_QUESTION="yes"
 		shift;;
