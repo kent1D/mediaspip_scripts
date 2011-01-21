@@ -441,6 +441,11 @@ debian_apache_install ()
 	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
+	echo $(eval_gettext "Info apache mime fichier")
+	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
