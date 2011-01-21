@@ -40,7 +40,7 @@ debian_rtmpdump_install()
 	cd $SRC_INSTALL
 	
 	VERSION="2.3"
-	if [ -x /usr/local/bin/rtmpdump ];then
+	if [ -x $(which rtmpdump) ];then
 		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
 	fi
 	if [ "$RTMPDUMPVERSION" = "v$VERSION" ];then
@@ -74,7 +74,7 @@ debian_ffmpeg2theora_install()
 	cd $SRC_INSTALL
 	
 	VERSION="0.27"
-	if [ -x /usr/local/bin/ffmpeg2theora ];then
+	if [ -x $(which ffmpeg2theora) ];then
 		FFMPEG2THEORAVERSION=$(ffmpeg2theora --help |awk '/^ffmpeg2theora/ { print $2 }') 2>> $LOG >> $LOG
 	fi
 	if [ "$FFMPEG2THEORAVERSION" = "$VERSION" ];then
@@ -119,7 +119,7 @@ debian_ffmpeg_install ()
 	fi
 	
 	VERSION="0.6.1" 2>> $LOG >> $LOG
-	if [ -x /usr/local/bin/ffmpeg ];then
+	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
 	fi
 	

@@ -169,7 +169,7 @@ debian_lame_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x /usr/local/bin/lame ];then
+	if [ -x $(which lame) ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
 	fi
 	cd $SRC_INSTALL
@@ -271,7 +271,7 @@ debian_libtheora_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y install libogg-dev 2>> $LOG >> $LOG
-	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG >> $LOG)
+	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
 	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
@@ -305,7 +305,7 @@ debian_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x /usr/local/bin/mediainfo ]; then
+	if [ -x $(which mediainfo) ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
 	VERSION="0.7.38"
@@ -384,10 +384,10 @@ debian_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
-	if [ -x scons ];then
+	if [ -x $(which scons) ];then
 		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	fi
-
+	
 	if [[ $SCONS_VERSION < "v1.2" ]]; then
 		debian_scons_install || return 1
 	fi 
