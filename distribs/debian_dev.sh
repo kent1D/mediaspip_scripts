@@ -46,8 +46,8 @@ debian_rtmpdump_install()
 	REVISION=$(svnversion $SRC_INSTALL/rtmpdump/) 2>> $LOG >> $LOG
 	
 	if [ "$ACTUEL" = "$REVISION" ];then
-		echo $(eval_gettext "Info a jour rtmpdump $REVISION")
-		echo $(eval_gettext "Info a jour rtmpdump $REVISION") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour rtmpdump $REVISION')
+		echo $(eval_gettext 'Info a jour rtmpdump $REVISION') 2>> $LOG >> $LOG
 	else
 		echo $(eval_gettext "Info debut rtmpdump install")
 		echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG

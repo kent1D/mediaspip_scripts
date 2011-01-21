@@ -56,7 +56,7 @@ if [[ $? != "0" ]]; then
 fi
 
 
-VERSION="0.2"
+VERSION_INSTALL="0.2"
 
 LOGO="
 ######################################################################################
@@ -69,7 +69,7 @@ LOGO="
 |  |  |  | |  |____ |  '--'  ||  |  /  _____  \  .----)   |   |  |      |  | |  |      
 |__|  |__| |_______||_______/ |__| /__/     \__\ |_______/    | _|      |__| | _|     
 
-VERSION ${VERSION}
+VERSION ${VERSION_INSTALL}
 
 ######################################################################################
 "
@@ -127,10 +127,15 @@ SRC_INSTALL="/usr/local/src"
 # location of log file
 LOG="/var/log/mediaspip_install.log"
 
-# location of the script's lock file
-LOCK="/var/run/mediaspip_install.pid"
+# On récupère le nombre de cores de la machine pour les utiliser lors des compilations
+NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
+if [ ! "$?" = "0" ]
+then
+    NO_OF_CPUCORES=2
+fi
 
-# Type d'installation des dépendances stable|dev
+# Type d'installation des dépendances 
+# valeurs : stable|dev
 DEP_VERSION="dev"
 
 # Emplacement final de SPIP et MediaSPIP
@@ -144,46 +149,40 @@ SPIP_USER="www-data"
 SPIP_GROUP="www-data"
 SPIP_TYPES=(ferme_full ferme minimal full none)
 
-# On récupère le nombre de cores de la machine pour les utiliser lors des compilations
-NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
-if [ ! "$?" = "0" ]
-then
-    NO_OF_CPUCORES=2
-fi
-
 # On insère un fichier de modification de ces variables si présent
 if [ -r /etc/default/mediaspip ]; then
 	. /etc/default/mediaspip
 fi
 
-while test -n "${1}"; do
-	case "${1}" in
+while [[ $1 = -* ]]; do
+	case $1 in
 		--help|-h) HELP=$(eval_gettext "Help message")
 		echo "$HELP"
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
 				en) export LC_ALL="en_GB.UTF-8"
-				shift;;
+				shift 2;;
 				fr) export LC_ALL="fr_FR.UTF-8"
-				shift;;
+				shift 2;;
 				"") echo_erreur $(eval_gettext "Erreur langue non set")
 				ERROR=oui
-				shift;;
+				shift 2;;
 				*) echo_erreur $(eval_gettext "Erreur langue inexistante")
 				ERROR=oui
 				shift;;
 			esac
 		shift;;
-		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION')
+		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
 		echo "$VERSION_AFFICHER"  
 		exit 0;;
 		--allways_yes|-y) NO_QUESTION="yes"
+		echo $(eval_gettext 'Info options no_question')
 		shift;;
 		--src_install|-src) SRC_INSTALL="${2}"
-		shift;;
+		shift 2;;
 		--log|-l) LOG="${2}"
-		shift;;
+		shift 2;;
 		--cpus|-c)
 			if [ ! -z "${2}" ];then
 				if(isNumeric "${2}");then
@@ -202,21 +201,31 @@ while test -n "${1}"; do
 				echo_erreur $(eval_gettext "Erreur option cpus numerique")
 				ERROR="oui"
 			fi
+		shift 2;;
+		--dep-version) DEP_VERSION="${2}"
+		shift 2;;
+		--disable-alternc) DISABLE_ALTERNC="yes"
+		echo $(eval_gettext 'Info options disable_alternc')
+		shift;;
+		--disable-apache) DISABLE_APACHE="yes"
+		echo $(eval_gettext 'Info options disable_apache')
 		shift;;
 		--disable-ffmpeg) DISABLE_FFMPEG="yes"
+		echo $(eval_gettext 'Info options disable_ffmpeg')
 		shift;;
 		--disable-mediaspip) DISABLE_MEDIASPIP="yes"
+		echo $(eval_gettext 'Info options disable_mediaspip')
 		shift;;
 		--spip|-s) SPIP="${2}"
-		shift;;
+		shift 2;;
 		--spip_version|-s_v) SPIP_VERSION="${2}"
-		shift;;
+		shift 2;;
 		--spip_svn|-s_svn) SPIP_VERSION="${2}"
-		shift;;
+		shift 2;;
 		--spip_user) SPIP_USER="${2}"
-		shift;;
+		shift 2;;
 		--spip_group) SPIP_GROUP="${2}"
-		shift;;
+		shift 2;;
 		--spip_type)
 		if in_array ${2} ${SPIP_TYPES[@]};then
 			SPIP_TYPE=${2}
@@ -225,9 +234,8 @@ while test -n "${1}"; do
 			echo_erreur $(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')
 			ERROR=oui
 		fi
-		shift;;
+		shift 2;;
 	esac
-	shift
 done
 
 if [ "$ERROR" == "oui" ]; then
@@ -291,11 +299,9 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	echo "OK, nous sommes prêts à y aller."
 	read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (o/n)?"
 	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
-else
-	echo $(eval_gettext 'Info options no_question')  
+	echo
 fi
 
-echo
 echo "Le script démarre" >> $LOG
 echo "Installation des dépendances logicielles" 2>> $LOG >> $LOG
 
@@ -314,15 +320,19 @@ echo
 
 # Préconfiguration basique d'Apache 
 # (différents modules)
-eval_gettext "Titre apache"
-echo
-echo
 
-debian_apache_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
+# Si on demande en option de ne pas configurer Apache, on ne le fait pas
+if [ "$DISABLE_APACHE" != "yes" ];then
+	eval_gettext "Titre apache"
+	echo
+	echo
 
-echo_reussite $(eval_gettext "End apache")
-echo
+	debian_apache_install || error $(eval_gettext "Erreur installation regarde log") &
+	progress_indicator $!
+	
+	echo_reussite $(eval_gettext "End apache")
+	echo
+fi
 
 # Installation de x264
 # librairie h.264 pour creer des videos compatibles html5 (Safari + iphone & co)
@@ -337,56 +347,64 @@ echo
 echo_reussite $(eval_gettext "End x264")
 echo
 
-# Installation de ffmpeg
-# binaire pour encoder videos et sons
-eval_gettext "Titre ffmpeg"
-echo
-echo
+# Si on demande à ne pas installer FFMpeg, plusieurs autres logiciels ne seront pas installés :
+# - FFMpeg lui-même
+# - FFMpeg2theora
+# - FFMpeg-php
 
-debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
+if [ "$DISABLE_FFMPEG" != "yes" ];then
 
-echo
-echo_reussite $(eval_gettext "End ffmpeg")
-echo
-
-# Installation de ffmpeg2theora
-# binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
-eval_gettext "Titre ffmpeg2theora"
-echo
-echo
-
-debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
-
-echo
-echo_reussite $(eval_gettext "End ffmpeg2theora")
-echo
-
-# Installation de ffmpeg-php
-# extension ffmpeg pour php
-eval_gettext "Titre ffmpegphp"
-echo
-echo
-if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
-	echo $(eval_gettext "Info debut ffmpeg-php update")
-	echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
-	debian_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
+	# Installation de ffmpeg
+	# binaire pour encoder videos et sons
+	eval_gettext "Titre ffmpeg"
+	echo
+	echo
+	
+	debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
 	progress_indicator $!
-else
-	echo $(eval_gettext "Info debut ffmpeg-php install")
-	echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
-	debian_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
+	
+	echo
+	echo_reussite $(eval_gettext "End ffmpeg")
+	echo
+	
+	# Installation de ffmpeg2theora
+	# binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
+	eval_gettext "Titre ffmpeg2theora"
+	echo
+	echo
+	
+	debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
 	progress_indicator $!
+	
+	echo
+	echo_reussite $(eval_gettext "End ffmpeg2theora")
+	echo
+	
+	# Installation de ffmpeg-php
+	# extension ffmpeg pour php
+	eval_gettext "Titre ffmpegphp"
+	echo
+	echo
+	if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
+		echo $(eval_gettext "Info debut ffmpeg-php update")
+		echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
+		debian_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
+		progress_indicator $!
+	else
+		echo $(eval_gettext "Info debut ffmpeg-php install")
+		echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
+		debian_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
+		progress_indicator $!
+	fi
+	
+	echo
+	echo_reussite $(eval_gettext "End ffmpeg-php")
 fi
-
-echo
-echo_reussite $(eval_gettext "End ffmpeg-php")
 
 # On vérifie si alternc est sur le système
 # Si oui on demande s'il est utilisé pour MediaSPIP
 # Si oui, on cree des liens symboliques vers le répertoire du safe_mode
-if [ -d /var/alternc/exec.usr ]; then
+if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 	echo
 	echo $(eval_gettext "Question alternc")
 	read -p "$QUESTION_VALID"
@@ -427,13 +445,15 @@ if [ -d /var/alternc/exec.usr ]; then
 	fi
 fi
 
-echo
-eval_gettext "Titre spip mediaspip"
-echo
-echo
-
-mediaspip_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
+if [ "$DISABLE_MEDIASPIP" != "yes" ];then
+	echo
+	eval_gettext "Titre spip mediaspip"
+	echo
+	echo
+	
+	mediaspip_install || error $(eval_gettext "Erreur installation regarde log") &
+	progress_indicator $!
+fi
 
 echo
 echo_reussite $(eval_gettext "End installation generale")
