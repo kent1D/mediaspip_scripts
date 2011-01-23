@@ -1,20 +1,20 @@
 #!/bin/bash
 #
-# debian_dev
+# ubuntu_lucid_dev
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.2
 #
-# Installation des dépendances en version de développement pour debian
+# Installation des dépendances en version de développement pour Ubuntu lucid
 
-VERSION_DEBIAN_DEV=0.2
+VERSION_UBUNTU_DEV=0.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *debian_dev.sh ]];then
+if [[ "$0" == *ubuntu_lucid_dev.sh ]];then
 	
 	echo "
 ######################################
-MediaSPIP Debian devel functions v$VERSION_DEBIAN_DEV
+MediaSPIP Ubuntu devel functions v$VERSION_UBUNTU_DEV
 ######################################
 "
 	echo "This file is only usefull for its functions"
@@ -30,7 +30,7 @@ fi
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
-debian_rtmpdump_install()
+ubuntu_lucid_rtmpdump_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -62,7 +62,7 @@ debian_rtmpdump_install()
 
 # Installation de ffmpeg2theora
 # http://www.v2v.cc/~j/ffmpeg2theora/
-debian_ffmpeg2theora_install ()
+ubuntu_lucid_ffmpeg2theora_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -90,7 +90,7 @@ debian_ffmpeg2theora_install ()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-debian_ffmpeg_install ()
+ubuntu_lucid_ffmpeg_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale

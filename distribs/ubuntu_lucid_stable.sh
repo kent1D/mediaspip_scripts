@@ -1,23 +1,23 @@
 #!/bin/bash
 #
-# debian_stable
+# ubuntu_lucid_stable
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.2
 #
-# Installation des dépendances de manière stable pour debian
+# Installation des dépendances de manière stable pour Ubuntu Lucid
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_DEBIAN_STABLE=0.2
+VERSION_UBUNTU_STABLE=0.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *debian_stable.sh ]];then
+if [[ "$0" == *ubuntu_lucid_stable.sh ]];then
 	
 	echo "
 ######################################
-MediaSPIP Debian stable functions v$VERSION_DEBIAN_STABLE
+MediaSPIP Ubuntu stable functions v$VERSION_UBUNTU_STABLE
 ######################################
 "
 	echo "This file is only usefull for its functions"
@@ -31,7 +31,7 @@ Please have a look to mediaspip_install.sh
 	exit 1 
 fi
 
-debian_rtmpdump_install()
+ubuntu_lucid_rtmpdump_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -65,7 +65,7 @@ debian_rtmpdump_install()
 
 # Installation de ffmpeg2theora
 # http://www.v2v.cc/~j/ffmpeg2theora/
-debian_ffmpeg2theora_install()
+ubuntu_lucid_ffmpeg2theora_install()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -102,7 +102,7 @@ debian_ffmpeg2theora_install()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-debian_ffmpeg_install ()
+ubuntu_lucid_ffmpeg_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
