@@ -157,6 +157,8 @@ fi
 while [[ $1 = -* ]]; do
 	case $1 in
 		--help|-h) HELP=$(eval_gettext "Help message")
+		VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
+		echo "$VERSION_AFFICHER"
 		echo "$HELP"
 		exit 0;;
 		--lang|-lang) 
@@ -176,7 +178,7 @@ while [[ $1 = -* ]]; do
 		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
 		echo "$VERSION_AFFICHER"  
 		exit 0;;
-		--allways_yes|-y) NO_QUESTION="yes"
+		--allways-yes|-y) NO_QUESTION="yes"
 		echo $(eval_gettext 'Info options no_question')
 		shift;;
 		--src_install|-src) SRC_INSTALL="${2}"
