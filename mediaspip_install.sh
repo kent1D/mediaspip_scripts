@@ -220,7 +220,7 @@ while [[ $1 = -* ]]; do
 		shift 2;;
 		--spip_version|-s_v) SPIP_VERSION="${2}"
 		shift 2;;
-		--spip_svn|-s_svn) SPIP_VERSION="${2}"
+		--spip_svn|-s_svn) SPIP_SVN="${2}"
 		shift 2;;
 		--spip_user) SPIP_USER="${2}"
 		shift 2;;
@@ -428,7 +428,7 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 		if [ ! -h flvtool2 ];then
 			ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG
 		fi
-		if [ ! -h /var/alternc/exec.usr/mediainfo ];then
+		if [ ! -h mediainfo ];then
 			ln -s /usr/local/bin/mediainfo 2>> $LOG >> $LOG
 		fi
 		if [ ! -h ps ];then
