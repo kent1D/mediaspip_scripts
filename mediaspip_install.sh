@@ -416,9 +416,6 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 		if [ ! -h metaflac ];then
 			ln -s /usr/bin/metaflac 2>> $LOG >> $LOG
 		fi
-		if [ ! -h ffmpeg ];then
-			ln -s /usr/local/bin/ffmpeg 2>> $LOG >> $LOG
-		fi
 		if [ ! -h qt-faststart ];then
 			ln -s /usr/local/bin/qt-faststart 2>> $LOG >> $LOG
 		fi
