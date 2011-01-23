@@ -103,8 +103,21 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-if [ ! -r /etc/debian_version ]; then
-	echo_erreur $(eval_gettext "Erreur script debian") 1>&2
+if [ -r /etc/lsb-release ];then
+	DISTRIB=$(cat /etc/lsb-release | grep ID | cut -c 12- | tr '[A-Z]' '[a-z]')
+	DISTRO=$(cat /etc/lsb-release | grep CODE | cut -c 18- | tr '[A-Z]' '[a-z]')
+elif [ -r /etc/debian_version ]; then
+	DISTRIB="debian"
+	DISTRO="lenny"
+else
+	echo_erreur $(eval_gettext "Erreur script distro inconnue") 1>&2
+	exit 1
+fi
+
+OKDISTRO="lenny lucid"
+
+if [[ ! $(grep $DISTRO <<< $OKDISTRO) ]]; then
+	echo_erreur $(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO') 1>&2
 	exit 1
 fi
 
@@ -244,10 +257,12 @@ if [ "$ERROR" == "oui" ]; then
 	exit 1
 fi
 
+. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	
+
 if [ "$DEP_VERSION" == "stable" ]; then
-	. ./distribs/debian_stable.sh	
+	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	
 else
-	. ./distribs/debian_dev.sh
+	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh
 fi
 
 LANGUES_COMPAT=(en fr)
@@ -262,8 +277,11 @@ fi
 
 QUESTION_VALID=$(eval_gettext "Question valider")
 
+echo $(eval_gettext 'Info distro version $DISTRIB $DISTRO') 1>&2
+echo
+
 # Quelques questions préalables.
-# Il est possible de les passer en ajoutant "-y" ou "--allways_yes" en option au script 
+# Il est possible de les passer en ajoutant "-y" ou "--allways-yes" en option au script 
 if [ "$NO_QUESTION" != "yes" ]; then
 	# Demande de valider l'emplacement des fichiers source des binaires
 	# Trois reponses valides possibles :
@@ -320,7 +338,7 @@ eval_gettext "Titre dependances logicielles"
 echo
 echo
 
-debian_dep_install || error $(eval_gettext "Erreur installation regarde log") &
+"$DISTRIB"_"$DISTRO"_dep_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo_reussite $(eval_gettext "End dependances")
@@ -335,7 +353,7 @@ if [ "$DISABLE_APACHE" != "yes" ];then
 	echo
 	echo
 
-	debian_apache_install || error $(eval_gettext "Erreur installation regarde log") &
+	"$DISTRIB"_"$DISTRO"_apache_install || error $(eval_gettext "Erreur installation regarde log") &
 	progress_indicator $!
 	
 	echo_reussite $(eval_gettext "End apache")
@@ -348,7 +366,7 @@ eval_gettext "Titre x264"
 echo
 echo
 
-debian_x264_install || error $(eval_gettext "Erreur installation regarde log") &
+"$DISTRIB"_"$DISTRO"_x264_install || error $(eval_gettext "Erreur installation regarde log") &
 progress_indicator $!
 
 echo
@@ -368,7 +386,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	debian_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
+	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
 	progress_indicator $!
 	
 	echo
@@ -381,7 +399,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	debian_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
+	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
 	progress_indicator $!
 	
 	echo
@@ -396,12 +414,12 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 		echo $(eval_gettext "Info debut ffmpeg-php update")
 		echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
-		debian_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
 		progress_indicator $!
 	else
 		echo $(eval_gettext "Info debut ffmpeg-php install")
 		echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
-		debian_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
 		progress_indicator $!
 	fi
 	

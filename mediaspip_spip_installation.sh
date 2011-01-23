@@ -13,7 +13,7 @@
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 mediaspip_install(){
-	export TEXTDOMAINDIR=$(pwd)/locale
+	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
 	TYPES=(ferme_full ferme minimal full none)
@@ -26,14 +26,17 @@ mediaspip_install(){
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	elif [ -d $SPIP/.svn ];then
 		cd $SPIP
+		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
-		if [ $(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }') != "$SPIP_SVN" ];then
-			echo $(eval_gettext 'Info SPIP change depot $SPIP_SVN')
-			svn sw $SPIP_SVN ./ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
-		else
+		echo "DEPOT = $DEPOT"
+		echo "SPIP_SVN = $SPIP_SVN" 
+		if [ "$DEPOT" == "$SPIP_SVN" ];then
 			echo $(eval_gettext "Info SPIP maj")
 			cd $SPIP
 			svn up 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info SPIP change depot $SPIP_SVN')
+			svn sw $SPIP_SVN ./ 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log") &
 		fi
 	# cas d'une simple mise à jour		
 	else
