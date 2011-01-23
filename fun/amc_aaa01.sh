@@ -25,7 +25,7 @@ SSS     S*S    YSSP  SSS~YSSY    S*S  SSS    S*S  YSS'    S*S         S*S  S*S
         SP                       SP          SP           SP          SP   SP          
         Y                        Y           Y            Y           Y    Y  
 
-VERSION ${VERSION}
+VERSION ${VERSION_INSTALL}
 
 ######################################################################################
 "
