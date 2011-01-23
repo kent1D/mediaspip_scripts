@@ -23,10 +23,14 @@
 # Ce script nécessite l'ajout du dépôts debian-multimedia dans le sources.list d'APT :
 # deb http://www.debian-multimedia.org lenny main non-free
 
-export TEXTDOMAINDIR=$(pwd)/locale
+# On pose une variable sur le répertoire courant permettant de savoir 
+# d'où le script est lancé
+CURRENT=$(pwd)
+
+export TEXTDOMAINDIR=$CURRENT/locale
 export TEXTDOMAIN=mediaspip
 
-I18NLIB=/usr/bin/gettext.sh
+I18NLIB=$(which /usr/bin/gettext.sh)
 
 # source in I18N library - shown above
 if [[ -f $I18NLIB ]]; then
@@ -103,10 +107,6 @@ if [ ! -r /etc/debian_version ]; then
 	echo_erreur $(eval_gettext "Erreur script debian") 1>&2
 	exit 1
 fi
-
-# On pose une variable sur le répertoire courant permettant de savoir 
-# d'où le script est lancé
-CURRENT=$(pwd)
 
 # On vérifie que l'on a bien accès au programme pkg-config 
 # Il permet de connaitre les versions des librairies sur le système
