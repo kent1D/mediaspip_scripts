@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-21 02:16+0100\n"
+"POT-Creation-Date: 2011-01-24 00:11+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@arscenic.tv>\n"
@@ -14,149 +14,165 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: mediaspip_install.sh:444
+#: mediaspip_install.sh:467
 #, sh-format
 msgid "End alternc"
 msgstr "Création des liens symboliques des binaires pour AlternC terminée"
 
-#: mediaspip_install.sh:333
+#: mediaspip_install.sh:359
 #, sh-format
 msgid "End apache"
 msgstr "Préconfiguration d'Apache terminée"
 
-#: mediaspip_install.sh:318
+#: mediaspip_install.sh:344
 #, sh-format
 msgid "End dependances"
 msgstr "Fin de l'installation des dépendances"
 
-#: mediaspip_install.sh:367
+#: mediaspip_install.sh:393
 #, sh-format
 msgid "End ffmpeg"
 msgstr "Installation de FFMpeg terminée"
 
-#: mediaspip_install.sh:401
+#: mediaspip_install.sh:427
 #, sh-format
 msgid "End ffmpeg-php"
 msgstr "Installation de FFMpeg-php terminée"
 
-#: mediaspip_install.sh:380
+#: mediaspip_install.sh:406
 #, sh-format
 msgid "End ffmpeg2theora"
 msgstr "Installation de ffmpeg2theora terminée"
 
-#: mediaspip_functions.sh:139
+#: distribs/debian_lenny_common.sh:44
+#: distribs/ubuntu_lucid_common.sh:45
 #, sh-format
 msgid "End flvtool2"
 msgstr "Installation de Flvtool2 terminée"
 
-#: mediaspip_install.sh:459
+#: mediaspip_install.sh:482
 #, sh-format
 msgid "End installation generale"
 msgstr "L'installation est terminée."
 
-#: mediaspip_functions.sh:197
+#: distribs/debian_lenny_common.sh:103
+#: distribs/ubuntu_lucid_common.sh:81
 #, sh-format
 msgid "End lame"
 msgstr "Installation de lame terminée"
 
-#: mediaspip_functions.sh:297
+#: distribs/debian_lenny_common.sh:209
 #, sh-format
 msgid "End libtheora"
 msgstr "Installation de libtheora terminée"
 
-#: mediaspip_functions.sh:263
+#: distribs/debian_lenny_common.sh:174
+#: distribs/ubuntu_lucid_common.sh:152
 #, sh-format
 msgid "End libvpx"
 msgstr "Installation de libvpx terminée"
 
-#: mediaspip_functions.sh:332
+#: distribs/debian_lenny_common.sh:245
+#: distribs/ubuntu_lucid_common.sh:188
 #, sh-format
 msgid "End mediainfo"
 msgstr "Installation de MediaInfo terminée"
 
-#: mediaspip_functions.sh:232
+#: distribs/debian_lenny_common.sh:138
+#: distribs/ubuntu_lucid_common.sh:116
 #, sh-format
 msgid "End opencore"
 msgstr "Installation de opencore-amr terminée"
 
-#: mediaspip_functions.sh:352
-#: mediaspip_functions.sh:353
-#: mediaspip_functions.sh:363
-#: mediaspip_functions.sh:364
+#: distribs/debian_lenny_common.sh:265
+#: distribs/debian_lenny_common.sh:266
+#: distribs/debian_lenny_common.sh:276
+#: distribs/debian_lenny_common.sh:277
+#: distribs/ubuntu_lucid_common.sh:208
+#: distribs/ubuntu_lucid_common.sh:209
+#: distribs/ubuntu_lucid_common.sh:219
+#: distribs/ubuntu_lucid_common.sh:220
 #, sh-format
 msgid "End php-imagick"
 msgstr "Installation de php-imagick terminée"
 
-#: distribs/debian_dev.sh:58
-#: distribs/debian_stable.sh:61
+#: distribs/debian_lenny_dev.sh:58
+#: distribs/debian_lenny_stable.sh:61
+#: distribs/ubuntu_lucid_dev.sh:58
+#: distribs/ubuntu_lucid_stable.sh:61
 #, sh-format
 msgid "End rtmpdump"
 msgstr "Installation de rtmpdump terminée"
 
-#: mediaspip_functions.sh:162
+#: distribs/debian_lenny_common.sh:67
 #, sh-format
 msgid "End scons"
 msgstr "Installation de Scons terminée"
 
-#: mediaspip_install.sh:347
+#: mediaspip_install.sh:373
 #, sh-format
 msgid "End x264"
 msgstr "Installation de x264 terminée"
 
-#: mediaspip_install.sh:45
+#: mediaspip_install.sh:49
 #, sh-format
 msgid "Erreur fichier fonctions"
 msgstr "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n'est pas disponible."
 
-#: mediaspip_install.sh:315
-#: mediaspip_install.sh:330
-#: mediaspip_install.sh:343
-#: mediaspip_install.sh:363
-#: mediaspip_install.sh:376
-#: mediaspip_install.sh:391
-#: mediaspip_install.sh:396
-#: mediaspip_install.sh:454
-#: mediaspip_spip_installation.sh:32
-#: mediaspip_spip_installation.sh:236
-#: mediaspip_spip_installation.sh:241
-#: mediaspip_spip_installation.sh:267
-#: mediaspip_spip_installation.sh:271
+#: mediaspip_install.sh:341
+#: mediaspip_install.sh:356
+#: mediaspip_install.sh:369
+#: mediaspip_install.sh:389
+#: mediaspip_install.sh:402
+#: mediaspip_install.sh:417
+#: mediaspip_install.sh:422
+#: mediaspip_install.sh:477
+#: mediaspip_spip_installation.sh:39
+#: mediaspip_spip_installation.sh:239
+#: mediaspip_spip_installation.sh:244
+#: mediaspip_spip_installation.sh:270
+#: mediaspip_spip_installation.sh:274
 #, sh-format
 msgid "Erreur installation regarde log"
 msgstr "Erreur : quelquechose s'est mal passé, veuillez consulter le fichier de log."
 
-#: mediaspip_install.sh:171
+#: mediaspip_install.sh:186
 #, sh-format
 msgid "Erreur langue inexistante"
 msgstr "Erreur : cette langue n'est pas prise en compte (fr|en)"
 
-#: mediaspip_install.sh:168
+#: mediaspip_install.sh:183
 #, sh-format
 msgid "Erreur langue non set"
 msgstr "Erreur : aucune langue n'est spécifiée avec l'option --lang"
 
-#: mediaspip_install.sh:234
+#: mediaspip_install.sh:249
 #, sh-format
 msgid "Erreur mediaspip type disponible $TYPEDEMANDE"
 msgstr "Erreur : votre type d'installation de MediaSPIP n'est pas disponible ($TYPEDEMANDE)"
 
-#: mediaspip_install.sh:197
-#: mediaspip_install.sh:201
+#: mediaspip_install.sh:212
+#: mediaspip_install.sh:216
 #, sh-format
 msgid "Erreur option cpus numerique"
 msgstr "Erreur : votre option --cpus n'est pas numérique"
 
-#: mediaspip_install.sh:191
+#: mediaspip_install.sh:206
 #, sh-format
 msgid "Erreur option cpus trop $CPU_NB"
 msgstr "Erreur : votre serveur n'a pas autant de cpus ($CPU_NB)"
 
-#: mediaspip_install.sh:103
+#: mediaspip_install.sh:113
 #, sh-format
-msgid "Erreur script debian"
-msgstr "Erreur : vous ne semblez pas être sur une Distribution Debian"
+msgid "Erreur script distro inconnue"
+msgstr "Erreur : la version de votre distribution est inconnue"
 
-#: mediaspip_install.sh:116
+#: mediaspip_install.sh:120
+#, sh-format
+msgid "Erreur script distro non suportee $DISTRIB $DISTRO"
+msgstr "Erreur : votre distribution n'est pas supportée ($DISTRIB $DISTRO)"
+
+#: mediaspip_install.sh:129
 #, sh-format
 msgid "Erreur script pkg-config"
 msgstr ""
@@ -164,32 +180,32 @@ msgstr ""
 "Vous pouvez l'installer manuellement via la commande :\n"
 "apt-get -y install pkg-config"
 
-#: mediaspip_install.sh:54
+#: mediaspip_install.sh:58
 #, sh-format
 msgid "Erreur script protocole svn"
 msgstr "Erreur : le protocole svn:// ne semble pas être accessible de votre machine."
 
-#: mediaspip_install.sh:98
+#: mediaspip_install.sh:102
 #, sh-format
 msgid "Erreur script root"
 msgstr "Erreur : ce script doit être lancé en tant que root"
 
-#: mediaspip_install.sh:280
+#: mediaspip_install.sh:306
 #, sh-format
 msgid "Erreur valide LOG"
 msgstr "Erreur : modifiez la variable LOG pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:292
+#: mediaspip_install.sh:318
 #, sh-format
 msgid "Erreur valide SPIP"
 msgstr "Erreur : modifiez la variable SPIP pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:268
+#: mediaspip_install.sh:294
 #, sh-format
 msgid "Erreur valide SRC_INSTALL"
 msgstr "Erreur : modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:159
+#: mediaspip_install.sh:172
 #, sh-format
 msgid "Help message"
 msgstr ""
@@ -213,12 +229,12 @@ msgstr ""
 "\n"
 "--src_install : répertoire où seront téléchargée les sources des logiciels à installér (/usr/local/src)\n"
 "--dep_version : mode d'installation des logiciels. Elle est utilisée pour l'installation de rtmpdump, FFMpeg et FFMpeg2theora, les autres logiciels étant arbitrairement installés de l'une ou l'autre manière. Cette option peut avoir deux valeurs différentes :\n"
-"	dev (valeur par défaut) : installation à jour en récupérant les sources possibles via les logiciels de gestion de version que sont svn et git\n"
-"	stable (ou tout autre valeur) : essaye de n'installer que des releases fixes des logiciels récupérées via une archive figée pour une version\n"
+"\tdev (valeur par défaut) : installation à jour en récupérant les sources possibles via les logiciels de gestion de version que sont svn et git\n"
+"\tstable (ou tout autre valeur) : essaye de n'installer que des releases fixes des logiciels récupérées via une archive figée pour une version\n"
 "--disable-ffmpeg : ne pas installer FFMpeg. Plusieurs installations sont affectées par cette configuration car elles dépendent de FFMpeg :\n"
-"	FFMpeg lui-même\n"
-"	FFMpeg2theora\n"
-"	FFMpeg-php\n"
+"\tFFMpeg lui-même\n"
+"\tFFMpeg2theora\n"
+"\tFFMpeg-php\n"
 "--disable-apache : éviter de préconfigurer le serveur Apache, l'installation de PHP5 et des classes nécessaires sera quand même réalisée\n"
 "--disable-alternc : dans le cas où AlternC est détecté sur votre serveur, cela permet de ne pas prendre en compte cette détection et de ne pas créer les liens symboliques nécessaires au safe_mode\n"
 "\n"
@@ -230,10 +246,10 @@ msgstr ""
 "--spip-user : définir l'utilisateur Unix à qui vont appartenir les fichiers de MediaSPIP (www-data)\n"
 "--spip-group : définir le groupe Unix à qui vont appartenir les fichiers de MediaSPIP (www-data)\n"
 "--spip-type : définir le type d'installation que l'on souhaite, plusieurs valeurs sont possibles :\n"
-"	ferme_full : installe l'ensemble sous la forme d'une ferme (avec le plugin de mutualisation) ainsi que l'ensemble des plugins optionnels et thèmes dits compatibles (choix par défaut)\n"
-"	ferme : installe l'ensemble sous la forme d'une ferme (avec le plugin de mutualisation) sans les plugins optionnels ni les thèmes\n"
-"	full : installe une version standalone avec l'ensemble des plugins optionnels et thèmes dits compatibles\n"
-"	minimal : installe une version standalone sans les plugins optionnels et thèmes dits compatibles\n"
+"\tferme_full : installe l'ensemble sous la forme d'une ferme (avec le plugin de mutualisation) ainsi que l'ensemble des plugins optionnels et thèmes dits compatibles (choix par défaut)\n"
+"\tferme : installe l'ensemble sous la forme d'une ferme (avec le plugin de mutualisation) sans les plugins optionnels ni les thèmes\n"
+"\tfull : installe une version standalone avec l'ensemble des plugins optionnels et thèmes dits compatibles\n"
+"\tminimal : installe une version standalone sans les plugins optionnels et thèmes dits compatibles\n"
 " \n"
 "PLUS D'INFOS\n"
 "\n"
@@ -243,154 +259,154 @@ msgstr ""
 " \n"
 " "
 
-#: mediaspip_spip_installation.sh:311
+#: mediaspip_spip_installation.sh:314
 #, sh-format
 msgid "Info MediaSPIP installe"
 msgstr "Les fichiers de MediaSPIP sont installés"
 
-#: mediaspip_install.sh:295
+#: mediaspip_install.sh:321
 #, sh-format
 msgid "Info MediaSPIP non installe"
 msgstr "MediaSPIP ne sera pas installé"
 
-#: mediaspip_spip_installation.sh:31
+#: mediaspip_spip_installation.sh:38
 #, sh-format
 msgid "Info SPIP change depot $SPIP_SVN"
 msgstr "Changement de dépot SVN de SPIP vers $SPIP_SVN"
 
-#: mediaspip_spip_installation.sh:306
+#: mediaspip_spip_installation.sh:309
 #, sh-format
 msgid "Info SPIP changement droits $SPIP_USER $SPIP_GROUP"
 msgstr "Modifications des droits des fichiers, utilisateur \"$SPIP_USER\", groupe \"$SPIP_GROUP\""
 
-#: mediaspip_spip_installation.sh:302
+#: mediaspip_spip_installation.sh:305
 #, sh-format
 msgid "Info SPIP copie htaccess"
 msgstr "Copie du fichier htaccess de SPIP"
 
-#: mediaspip_spip_installation.sh:49
+#: mediaspip_spip_installation.sh:52
 #, sh-format
 msgid "Info SPIP extensions"
 msgstr "Installation des extensions de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:150
+#: mediaspip_spip_installation.sh:153
 #, sh-format
 msgid "Info SPIP extensions maj"
 msgstr "Mise à jour des extensions de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:266
+#: mediaspip_spip_installation.sh:269
 #, sh-format
 msgid "Info SPIP install mutualisation"
 msgstr "Installation du plugin de mutualisation"
 
-#: mediaspip_spip_installation.sh:193
+#: mediaspip_spip_installation.sh:196
 #, sh-format
 msgid "Info SPIP install plugins"
 msgstr "Installation des plugins optionnels de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:46
+#: mediaspip_spip_installation.sh:49
 #, sh-format
 msgid "Info SPIP install revision $REVISIONSPIP"
 msgstr "SPIP est installé à la révision $REVISIONSPIP"
 
-#: mediaspip_install.sh:289
+#: mediaspip_install.sh:315
 #, sh-format
 msgid "Info SPIP installation"
 msgstr "Ce script installera SPIP dans le répertoire :"
 
 #: mediaspip_spip_installation.sh:34
-#: mediaspip_spip_installation.sh:40
+#: mediaspip_spip_installation.sh:43
 #, sh-format
 msgid "Info SPIP maj"
 msgstr "Mise à jour de SPIP"
 
-#: mediaspip_spip_installation.sh:270
+#: mediaspip_spip_installation.sh:273
 #, sh-format
 msgid "Info SPIP maj mutualisation"
 msgstr "Mise à jour du plugin de mutualisation"
 
-#: mediaspip_spip_installation.sh:196
+#: mediaspip_spip_installation.sh:199
 #, sh-format
 msgid "Info SPIP maj plugins"
 msgstr "Mise à jour des plugins optionnels de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:191
+#: mediaspip_spip_installation.sh:194
 #, sh-format
 msgid "Info SPIP plugins"
 msgstr "Installation des plugins SPIP optionnels"
 
-#: mediaspip_spip_installation.sh:253
+#: mediaspip_spip_installation.sh:256
 #, sh-format
 msgid "Info SPIP repertoire lib"
 msgstr "Création du répertoire lib/"
 
-#: mediaspip_spip_installation.sh:275
+#: mediaspip_spip_installation.sh:278
 #, sh-format
 msgid "Info SPIP repertoire sites"
 msgstr "Création du répertoire sites/"
 
-#: mediaspip_spip_installation.sh:279
-#: mediaspip_spip_installation.sh:291
+#: mediaspip_spip_installation.sh:282
+#: mediaspip_spip_installation.sh:294
 #, sh-format
 msgid "Info SPIP suppression cache css"
 msgstr "Suppression des caches CSS"
 
-#: mediaspip_spip_installation.sh:283
-#: mediaspip_spip_installation.sh:295
+#: mediaspip_spip_installation.sh:286
+#: mediaspip_spip_installation.sh:298
 #, sh-format
 msgid "Info SPIP suppression cache html"
 msgstr "Suppression des caches"
 
-#: mediaspip_spip_installation.sh:281
-#: mediaspip_spip_installation.sh:293
+#: mediaspip_spip_installation.sh:284
+#: mediaspip_spip_installation.sh:296
 #, sh-format
 msgid "Info SPIP suppression cache js"
 msgstr "Suppression des caches javascript"
 
-#: mediaspip_spip_installation.sh:285
-#: mediaspip_spip_installation.sh:297
+#: mediaspip_spip_installation.sh:288
+#: mediaspip_spip_installation.sh:300
 #, sh-format
 msgid "Info SPIP suppression cache plugins"
 msgstr "Suppression des caches de metas"
 
-#: mediaspip_spip_installation.sh:55
-#: mediaspip_spip_installation.sh:60
-#: mediaspip_spip_installation.sh:65
-#: mediaspip_spip_installation.sh:70
-#: mediaspip_spip_installation.sh:75
-#: mediaspip_spip_installation.sh:80
-#: mediaspip_spip_installation.sh:85
-#: mediaspip_spip_installation.sh:90
-#: mediaspip_spip_installation.sh:95
-#: mediaspip_spip_installation.sh:100
-#: mediaspip_spip_installation.sh:105
-#: mediaspip_spip_installation.sh:110
-#: mediaspip_spip_installation.sh:115
-#: mediaspip_spip_installation.sh:120
-#: mediaspip_spip_installation.sh:125
-#: mediaspip_spip_installation.sh:130
-#: mediaspip_spip_installation.sh:135
-#: mediaspip_spip_installation.sh:142
+#: mediaspip_spip_installation.sh:58
+#: mediaspip_spip_installation.sh:63
+#: mediaspip_spip_installation.sh:68
+#: mediaspip_spip_installation.sh:73
+#: mediaspip_spip_installation.sh:78
+#: mediaspip_spip_installation.sh:83
+#: mediaspip_spip_installation.sh:88
+#: mediaspip_spip_installation.sh:93
+#: mediaspip_spip_installation.sh:98
+#: mediaspip_spip_installation.sh:103
+#: mediaspip_spip_installation.sh:108
+#: mediaspip_spip_installation.sh:113
+#: mediaspip_spip_installation.sh:118
+#: mediaspip_spip_installation.sh:123
+#: mediaspip_spip_installation.sh:128
+#: mediaspip_spip_installation.sh:133
+#: mediaspip_spip_installation.sh:138
+#: mediaspip_spip_installation.sh:145
 #, sh-format
 msgid "Info SPIP telecharge extension $i"
 msgstr "Téléchargement de l'extension : $i"
 
-#: mediaspip_spip_installation.sh:204
-#: mediaspip_spip_installation.sh:210
-#: mediaspip_spip_installation.sh:215
-#: mediaspip_spip_installation.sh:220
-#: mediaspip_spip_installation.sh:225
-#: mediaspip_spip_installation.sh:230
-#: mediaspip_spip_installation.sh:235
-#: mediaspip_spip_installation.sh:240
-#: mediaspip_spip_installation.sh:245
+#: mediaspip_spip_installation.sh:207
+#: mediaspip_spip_installation.sh:213
+#: mediaspip_spip_installation.sh:218
+#: mediaspip_spip_installation.sh:223
+#: mediaspip_spip_installation.sh:228
+#: mediaspip_spip_installation.sh:233
+#: mediaspip_spip_installation.sh:238
+#: mediaspip_spip_installation.sh:243
+#: mediaspip_spip_installation.sh:248
 #, sh-format
 msgid "Info SPIP telecharge plugin $i"
 msgstr "Téléchargement du plugin $i"
 
-#: mediaspip_spip_installation.sh:169
-#: mediaspip_spip_installation.sh:175
-#: mediaspip_spip_installation.sh:181
+#: mediaspip_spip_installation.sh:172
+#: mediaspip_spip_installation.sh:178
+#: mediaspip_spip_installation.sh:184
 #, sh-format
 msgid "Info SPIP telecharge theme $i"
 msgstr "Téléchargement du thème : $i"
@@ -400,366 +416,497 @@ msgstr "Téléchargement du thème : $i"
 msgid "Info SPIP telechargement"
 msgstr "Téléchargement de SPIP"
 
-#: mediaspip_spip_installation.sh:165
+#: mediaspip_spip_installation.sh:168
 #, sh-format
 msgid "Info SPIP themes"
 msgstr "Installation des thèmes de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:187
+#: mediaspip_spip_installation.sh:190
 #, sh-format
 msgid "Info SPIP themes maj"
 msgstr "Mise à jour des themes de MediaSPIP"
 
-#: distribs/debian_dev.sh:120
-#: distribs/debian_dev.sh:121
-#: distribs/debian_stable.sh:129
-#: distribs/debian_stable.sh:130
+#: distribs/debian_lenny_dev.sh:120
+#: distribs/debian_lenny_dev.sh:121
+#: distribs/debian_lenny_stable.sh:129
+#: distribs/debian_lenny_stable.sh:130
+#: distribs/ubuntu_lucid_dev.sh:120
+#: distribs/ubuntu_lucid_dev.sh:121
+#: distribs/ubuntu_lucid_stable.sh:129
+#: distribs/ubuntu_lucid_stable.sh:130
 #, sh-format
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg semble déjà à jour"
 
-#: mediaspip_functions.sh:539
-#: mediaspip_functions.sh:540
+#: distribs/debian_lenny_common.sh:451
+#: distribs/debian_lenny_common.sh:452
+#: distribs/ubuntu_lucid_common.sh:384
+#: distribs/ubuntu_lucid_common.sh:385
 #, sh-format
 msgid "Info a jour ffmpeg-php"
 msgstr "FFmpeg-php semble déjà à jour"
 
-#: distribs/debian_stable.sh:81
-#: distribs/debian_stable.sh:82
+#: distribs/debian_lenny_stable.sh:81
+#: distribs/debian_lenny_stable.sh:82
+#: distribs/ubuntu_lucid_stable.sh:81
+#: distribs/ubuntu_lucid_stable.sh:82
 #, sh-format
 msgid "Info a jour ffmpeg2theora version $VERSION"
 msgstr "ffmpeg2theora est installé à la version $VERSION"
 
-#: mediaspip_functions.sh:178
-#: mediaspip_functions.sh:179
+#: distribs/debian_lenny_common.sh:84
+#: distribs/debian_lenny_common.sh:85
+#: distribs/ubuntu_lucid_common.sh:62
+#: distribs/ubuntu_lucid_common.sh:63
 #, sh-format
 msgid "Info a jour lame $VERSION"
 msgstr "LAME semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:278
-#: mediaspip_functions.sh:279
+#: distribs/debian_lenny_common.sh:190
+#: distribs/debian_lenny_common.sh:191
 #, sh-format
 msgid "Info a jour libtheora $VERSION"
 msgstr "Libtheora semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:313
-#: mediaspip_functions.sh:314
+#: distribs/debian_lenny_common.sh:154
+#: distribs/debian_lenny_common.sh:155
+#: distribs/ubuntu_lucid_common.sh:132
+#: distribs/ubuntu_lucid_common.sh:133
+#, sh-format
+msgid "Info a jour libvpx $VERSION"
+msgstr "Libvpx semble déjà à la version $VERSION"
+
+#: distribs/debian_lenny_common.sh:226
+#: distribs/debian_lenny_common.sh:227
+#: distribs/ubuntu_lucid_common.sh:169
+#: distribs/ubuntu_lucid_common.sh:170
 #, sh-format
 msgid "Info a jour mediainfo $VERSION"
 msgstr "MediaInfo semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:212
-#: mediaspip_functions.sh:213
+#: distribs/debian_lenny_common.sh:118
+#: distribs/debian_lenny_common.sh:119
+#: distribs/ubuntu_lucid_common.sh:96
+#: distribs/ubuntu_lucid_common.sh:97
 #, sh-format
 msgid "Info a jour opencore $VERSION"
 msgstr "Libopencore-amr semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:356
-#: mediaspip_functions.sh:357
+#: distribs/debian_lenny_common.sh:269
+#: distribs/debian_lenny_common.sh:270
+#: distribs/ubuntu_lucid_common.sh:212
+#: distribs/ubuntu_lucid_common.sh:213
 #, sh-format
 msgid "Info a jour php-imagick"
 msgstr "php-imagick semble déjà à jour"
 
-#: distribs/debian_dev.sh:49
-#: distribs/debian_dev.sh:50
+#: distribs/debian_lenny_dev.sh:49
+#: distribs/debian_lenny_dev.sh:50
+#: distribs/ubuntu_lucid_dev.sh:49
+#: distribs/ubuntu_lucid_dev.sh:50
 #, sh-format
 msgid "Info a jour rtmpdump $REVISION"
 msgstr "rtmpdump semble déjà à la révision $REVISION"
 
-#: distribs/debian_stable.sh:47
-#: distribs/debian_stable.sh:48
+#: distribs/debian_lenny_stable.sh:47
+#: distribs/debian_lenny_stable.sh:48
+#: distribs/ubuntu_lucid_stable.sh:47
+#: distribs/ubuntu_lucid_stable.sh:48
 #, sh-format
 msgid "Info a jour rtmpdump $VERSION"
 msgstr "rtmpdump semble déjà à la version $VERSION"
 
-#: mediaspip_functions.sh:486
-#: mediaspip_functions.sh:487
+#: distribs/debian_lenny_common.sh:398
+#: distribs/debian_lenny_common.sh:399
+#: distribs/ubuntu_lucid_common.sh:331
+#: distribs/ubuntu_lucid_common.sh:332
 #, sh-format
 msgid "Info a jour x264"
 msgstr "x264 semble déjà à jour"
 
-#: mediaspip_functions.sh:446
-#: mediaspip_functions.sh:447
+#: distribs/debian_lenny_common.sh:358
+#: distribs/debian_lenny_common.sh:359
+#: distribs/ubuntu_lucid_common.sh:291
+#: distribs/ubuntu_lucid_common.sh:292
 #, sh-format
 msgid "Info apache mime fichier"
 msgstr "Installation du fichier de configuration des types mime supplémentaires"
 
-#: mediaspip_functions.sh:430
-#: mediaspip_functions.sh:431
+#: distribs/debian_lenny_common.sh:342
+#: distribs/debian_lenny_common.sh:343
+#: distribs/ubuntu_lucid_common.sh:275
+#: distribs/ubuntu_lucid_common.sh:276
 #, sh-format
 msgid "Info apache mod deflate"
 msgstr "Activation du module mod_deflate"
 
-#: mediaspip_functions.sh:433
-#: mediaspip_functions.sh:434
+#: distribs/debian_lenny_common.sh:345
+#: distribs/debian_lenny_common.sh:346
+#: distribs/ubuntu_lucid_common.sh:278
+#: distribs/ubuntu_lucid_common.sh:279
 #, sh-format
 msgid "Info apache mod deflate fichier"
 msgstr "Installation du fichier de configuration du mod_deflate"
 
-#: mediaspip_functions.sh:438
-#: mediaspip_functions.sh:439
+#: distribs/debian_lenny_common.sh:350
+#: distribs/debian_lenny_common.sh:351
+#: distribs/ubuntu_lucid_common.sh:283
+#: distribs/ubuntu_lucid_common.sh:284
 #, sh-format
 msgid "Info apache mod expires"
 msgstr "Activation du module mod_expires"
 
-#: mediaspip_functions.sh:441
-#: mediaspip_functions.sh:442
+#: distribs/debian_lenny_common.sh:353
+#: distribs/debian_lenny_common.sh:354
+#: distribs/ubuntu_lucid_common.sh:286
+#: distribs/ubuntu_lucid_common.sh:287
 #, sh-format
 msgid "Info apache mod expires fichier"
 msgstr "Installation du fichier de configuration du mod_expires"
 
-#: mediaspip_functions.sh:420
-#: mediaspip_functions.sh:421
+#: distribs/debian_lenny_common.sh:332
+#: distribs/debian_lenny_common.sh:333
+#: distribs/ubuntu_lucid_common.sh:265
+#: distribs/ubuntu_lucid_common.sh:266
 #, sh-format
 msgid "Info apache mod headers"
 msgstr "Activation du module mod_headers"
 
-#: mediaspip_functions.sh:425
-#: mediaspip_functions.sh:426
+#: distribs/debian_lenny_common.sh:337
+#: distribs/debian_lenny_common.sh:338
+#: distribs/ubuntu_lucid_common.sh:270
+#: distribs/ubuntu_lucid_common.sh:271
 #, sh-format
 msgid "Info apache mod rewrite"
 msgstr "Activation du mod_rewrite"
 
-#: mediaspip_functions.sh:451
-#: mediaspip_functions.sh:452
+#: distribs/debian_lenny_common.sh:363
+#: distribs/debian_lenny_common.sh:364
+#: distribs/ubuntu_lucid_common.sh:296
+#: distribs/ubuntu_lucid_common.sh:297
 #, sh-format
 msgid "Info apache reload"
 msgstr "Rechargement d'Apache"
 
-#: mediaspip_functions.sh:374
-#: mediaspip_functions.sh:375
+#: distribs/debian_lenny_common.sh:288
+#: distribs/debian_lenny_common.sh:289
+#: distribs/ubuntu_lucid_common.sh:231
+#: distribs/ubuntu_lucid_common.sh:232
 #, sh-format
 msgid "Info apt maj base"
 msgstr "Mise à jour de la base d'APT"
 
-#: mediaspip_functions.sh:377
-#: mediaspip_functions.sh:378
+#: distribs/debian_lenny_common.sh:291
+#: distribs/debian_lenny_common.sh:292
+#: distribs/ubuntu_lucid_common.sh:234
+#: distribs/ubuntu_lucid_common.sh:235
 #, sh-format
 msgid "Info apt maj paquets"
 msgstr "Mise à jour et installation des paquets via APT"
 
-#: mediaspip_functions.sh:191
-#: mediaspip_functions.sh:225
-#: mediaspip_functions.sh:256
-#: mediaspip_functions.sh:291
-#: mediaspip_functions.sh:490
-#: mediaspip_functions.sh:514
-#: mediaspip_functions.sh:545
-#: distribs/debian_dev.sh:125
-#: distribs/debian_stable.sh:134
+#: distribs/debian_lenny_common.sh:97
+#: distribs/debian_lenny_common.sh:131
+#: distribs/debian_lenny_common.sh:167
+#: distribs/debian_lenny_common.sh:203
+#: distribs/debian_lenny_common.sh:402
+#: distribs/debian_lenny_common.sh:426
+#: distribs/debian_lenny_common.sh:457
+#: distribs/debian_lenny_dev.sh:125
+#: distribs/debian_lenny_stable.sh:134
+#: distribs/ubuntu_lucid_common.sh:75
+#: distribs/ubuntu_lucid_common.sh:109
+#: distribs/ubuntu_lucid_common.sh:145
+#: distribs/ubuntu_lucid_common.sh:335
+#: distribs/ubuntu_lucid_common.sh:359
+#: distribs/ubuntu_lucid_common.sh:390
+#: distribs/ubuntu_lucid_dev.sh:125
+#: distribs/ubuntu_lucid_stable.sh:134
 #, sh-format
 msgid "Info compilation configure"
 msgstr "Configuration"
 
-#: mediaspip_functions.sh:195
-#: mediaspip_functions.sh:230
-#: mediaspip_functions.sh:260
-#: mediaspip_functions.sh:295
-#: mediaspip_functions.sh:495
-#: distribs/debian_dev.sh:132
-#: distribs/debian_stable.sh:59
-#: distribs/debian_stable.sh:141
+#: distribs/debian_lenny_common.sh:101
+#: distribs/debian_lenny_common.sh:136
+#: distribs/debian_lenny_common.sh:171
+#: distribs/debian_lenny_common.sh:207
+#: distribs/debian_lenny_common.sh:407
+#: distribs/debian_lenny_dev.sh:132
+#: distribs/debian_lenny_stable.sh:59
+#: distribs/debian_lenny_stable.sh:141
+#: distribs/ubuntu_lucid_common.sh:79
+#: distribs/ubuntu_lucid_common.sh:114
+#: distribs/ubuntu_lucid_common.sh:149
+#: distribs/ubuntu_lucid_common.sh:340
+#: distribs/ubuntu_lucid_dev.sh:132
+#: distribs/ubuntu_lucid_stable.sh:59
+#: distribs/ubuntu_lucid_stable.sh:141
 #, sh-format
 msgid "Info compilation install"
 msgstr "Installation"
 
-#: mediaspip_functions.sh:193
-#: mediaspip_functions.sh:228
-#: mediaspip_functions.sh:258
-#: mediaspip_functions.sh:293
-#: mediaspip_functions.sh:492
-#: mediaspip_functions.sh:516
-#: mediaspip_functions.sh:547
-#: distribs/debian_dev.sh:55
-#: distribs/debian_dev.sh:129
-#: distribs/debian_stable.sh:57
-#: distribs/debian_stable.sh:138
+#: distribs/debian_lenny_common.sh:99
+#: distribs/debian_lenny_common.sh:134
+#: distribs/debian_lenny_common.sh:169
+#: distribs/debian_lenny_common.sh:205
+#: distribs/debian_lenny_common.sh:404
+#: distribs/debian_lenny_common.sh:428
+#: distribs/debian_lenny_common.sh:459
+#: distribs/debian_lenny_dev.sh:55
+#: distribs/debian_lenny_dev.sh:129
+#: distribs/debian_lenny_stable.sh:57
+#: distribs/debian_lenny_stable.sh:138
+#: distribs/ubuntu_lucid_common.sh:77
+#: distribs/ubuntu_lucid_common.sh:112
+#: distribs/ubuntu_lucid_common.sh:147
+#: distribs/ubuntu_lucid_common.sh:337
+#: distribs/ubuntu_lucid_common.sh:361
+#: distribs/ubuntu_lucid_common.sh:392
+#: distribs/ubuntu_lucid_dev.sh:55
+#: distribs/ubuntu_lucid_dev.sh:129
+#: distribs/ubuntu_lucid_stable.sh:57
+#: distribs/ubuntu_lucid_stable.sh:138
 #, sh-format
 msgid "Info compilation make"
 msgstr "Compilation"
 
-#: distribs/debian_dev.sh:106
-#: distribs/debian_dev.sh:108
-#: distribs/debian_stable.sh:112
-#: distribs/debian_stable.sh:113
+#: distribs/debian_lenny_dev.sh:106
+#: distribs/debian_lenny_dev.sh:108
+#: distribs/debian_lenny_stable.sh:112
+#: distribs/debian_lenny_stable.sh:113
+#: distribs/ubuntu_lucid_dev.sh:106
+#: distribs/ubuntu_lucid_dev.sh:108
+#: distribs/ubuntu_lucid_stable.sh:112
+#: distribs/ubuntu_lucid_stable.sh:113
 #, sh-format
 msgid "Info debut ffmpeg install"
 msgstr "Téléchargement, compilation et installation de FFMpeg"
 
-#: distribs/debian_dev.sh:100
-#: distribs/debian_dev.sh:102
+#: distribs/debian_lenny_dev.sh:100
+#: distribs/debian_lenny_dev.sh:102
+#: distribs/ubuntu_lucid_dev.sh:100
+#: distribs/ubuntu_lucid_dev.sh:102
 #, sh-format
 msgid "Info debut ffmpeg update"
 msgstr "Mise à jour, compilation et installation de FFMpeg"
 
-#: mediaspip_install.sh:394
-#: mediaspip_install.sh:395
+#: mediaspip_install.sh:420
+#: mediaspip_install.sh:421
 #, sh-format
 msgid "Info debut ffmpeg-php install"
 msgstr "Téléchargement, compilation et installation de FFMpeg-php"
 
-#: mediaspip_install.sh:389
-#: mediaspip_install.sh:390
+#: mediaspip_install.sh:415
+#: mediaspip_install.sh:416
 #, sh-format
 msgid "Info debut ffmpeg-php update"
 msgstr "Mise à jour, compilation et installation de FFMpeg-php"
 
-#: distribs/debian_dev.sh:73
-#: distribs/debian_dev.sh:74
-#: distribs/debian_stable.sh:85
-#: distribs/debian_stable.sh:86
+#: distribs/debian_lenny_dev.sh:73
+#: distribs/debian_lenny_dev.sh:74
+#: distribs/debian_lenny_stable.sh:85
+#: distribs/debian_lenny_stable.sh:86
+#: distribs/ubuntu_lucid_dev.sh:73
+#: distribs/ubuntu_lucid_dev.sh:74
+#: distribs/ubuntu_lucid_stable.sh:85
+#: distribs/ubuntu_lucid_stable.sh:86
 #, sh-format
 msgid "Info debut ffmpeg2theora install"
 msgstr "Téléchargement, compilation et installation de ffmpeg2theora"
 
-#: distribs/debian_dev.sh:80
-#: distribs/debian_dev.sh:81
-#: distribs/debian_stable.sh:93
-#: distribs/debian_stable.sh:94
+#: distribs/debian_lenny_dev.sh:80
+#: distribs/debian_lenny_dev.sh:81
+#: distribs/debian_lenny_stable.sh:93
+#: distribs/debian_lenny_stable.sh:94
+#: distribs/ubuntu_lucid_dev.sh:80
+#: distribs/ubuntu_lucid_dev.sh:81
+#: distribs/ubuntu_lucid_stable.sh:93
+#: distribs/ubuntu_lucid_stable.sh:94
 #, sh-format
 msgid "Info debut ffmpeg2theora update"
 msgstr "Mise à jour, compilation et installation de ffmpeg2theora"
 
-#: mediaspip_functions.sh:133
-#: mediaspip_functions.sh:134
+#: distribs/debian_lenny_common.sh:38
+#: distribs/debian_lenny_common.sh:39
+#: distribs/ubuntu_lucid_common.sh:39
+#: distribs/ubuntu_lucid_common.sh:40
 #, sh-format
 msgid "Info debut flvtool2"
 msgstr "Téléchargement, compilation et installation de flvtool2"
 
-#: mediaspip_functions.sh:182
-#: mediaspip_functions.sh:183
+#: distribs/debian_lenny_common.sh:88
+#: distribs/debian_lenny_common.sh:89
+#: distribs/ubuntu_lucid_common.sh:66
+#: distribs/ubuntu_lucid_common.sh:67
 #, sh-format
 msgid "Info debut lame install $VERSION"
 msgstr "Téléchargement, compilation et installation de lame version $VERSION"
 
-#: mediaspip_functions.sh:187
-#: mediaspip_functions.sh:188
+#: distribs/debian_lenny_common.sh:93
+#: distribs/debian_lenny_common.sh:94
+#: distribs/ubuntu_lucid_common.sh:71
+#: distribs/ubuntu_lucid_common.sh:72
 #, sh-format
 msgid "Info debut lame update $VERSION"
 msgstr "Recompilation et réinstallation de lame version $VERSION"
 
-#: mediaspip_functions.sh:282
-#: mediaspip_functions.sh:283
+#: distribs/debian_lenny_common.sh:194
+#: distribs/debian_lenny_common.sh:195
 #, sh-format
 msgid "Info debut libtheora install $VERSION"
 msgstr "Téléchargement, compilation et installation de libtheora version $VERSION"
 
-#: mediaspip_functions.sh:287
-#: mediaspip_functions.sh:288
+#: distribs/debian_lenny_common.sh:199
+#: distribs/debian_lenny_common.sh:200
 #, sh-format
 msgid "Info debut libtheora update $VERSION"
 msgstr "Recompilation et réinstallation de libtheora version $VERSION"
 
-#: mediaspip_functions.sh:246
-#: mediaspip_functions.sh:247
+#: distribs/debian_lenny_common.sh:157
+#: distribs/debian_lenny_common.sh:158
+#: distribs/ubuntu_lucid_common.sh:135
+#: distribs/ubuntu_lucid_common.sh:136
 #, sh-format
 msgid "Info debut libvpx install $VERSION"
 msgstr "Compilation et installation de libvpx version $VERSION"
 
-#: mediaspip_functions.sh:317
-#: mediaspip_functions.sh:318
+#: distribs/debian_lenny_common.sh:230
+#: distribs/debian_lenny_common.sh:231
+#: distribs/ubuntu_lucid_common.sh:173
+#: distribs/ubuntu_lucid_common.sh:174
 #, sh-format
 msgid "Info debut mediainfo install $VERSION"
 msgstr "Téléchargement, compilation et installation de mediainfo version $VERSION"
 
-#: mediaspip_functions.sh:323
-#: mediaspip_functions.sh:324
+#: distribs/debian_lenny_common.sh:236
+#: distribs/debian_lenny_common.sh:237
+#: distribs/ubuntu_lucid_common.sh:179
+#: distribs/ubuntu_lucid_common.sh:180
 #, sh-format
 msgid "Info debut mediainfo update $VERSION"
 msgstr "Recompilation et réinstallation de mediainfo version $VERSION"
 
-#: mediaspip_functions.sh:216
-#: mediaspip_functions.sh:217
+#: distribs/debian_lenny_common.sh:122
+#: distribs/debian_lenny_common.sh:123
+#: distribs/ubuntu_lucid_common.sh:100
+#: distribs/ubuntu_lucid_common.sh:101
 #, sh-format
 msgid "Info debut opencore install $VERSION"
 msgstr "Téléchargement, compilation et installation de opencore-amr version $VERSION"
 
-#: mediaspip_functions.sh:221
-#: mediaspip_functions.sh:222
+#: distribs/debian_lenny_common.sh:127
+#: distribs/debian_lenny_common.sh:128
+#: distribs/ubuntu_lucid_common.sh:105
+#: distribs/ubuntu_lucid_common.sh:106
 #, sh-format
 msgid "Info debut opencore update $VERSION"
 msgstr "Recompilation et réinstallation de opencore-amr version $VERSION"
 
-#: mediaspip_functions.sh:349
-#: mediaspip_functions.sh:350
+#: distribs/debian_lenny_common.sh:262
+#: distribs/debian_lenny_common.sh:263
+#: distribs/ubuntu_lucid_common.sh:205
+#: distribs/ubuntu_lucid_common.sh:206
 #, sh-format
 msgid "Info debut php-imagick install"
 msgstr "Installation de php-imagick"
 
-#: mediaspip_functions.sh:360
-#: mediaspip_functions.sh:361
+#: distribs/debian_lenny_common.sh:273
+#: distribs/debian_lenny_common.sh:274
+#: distribs/ubuntu_lucid_common.sh:216
+#: distribs/ubuntu_lucid_common.sh:217
 #, sh-format
 msgid "Info debut php-imagick update"
 msgstr "Mise à jour de php-imagick"
 
-#: distribs/debian_dev.sh:52
-#: distribs/debian_dev.sh:53
-#: distribs/debian_stable.sh:51
-#: distribs/debian_stable.sh:52
+#: distribs/debian_lenny_dev.sh:52
+#: distribs/debian_lenny_dev.sh:53
+#: distribs/debian_lenny_stable.sh:51
+#: distribs/debian_lenny_stable.sh:52
+#: distribs/ubuntu_lucid_dev.sh:52
+#: distribs/ubuntu_lucid_dev.sh:53
+#: distribs/ubuntu_lucid_stable.sh:51
+#: distribs/ubuntu_lucid_stable.sh:52
 #, sh-format
 msgid "Info debut rtmpdump install"
 msgstr "Téléchargement, compilation et installation de rtmpdump"
 
-#: mediaspip_functions.sh:154
+#: distribs/debian_lenny_common.sh:59
 #, sh-format
 msgid "Info debut scons install $VERSION"
 msgstr "Téléchargement, compilation et installation de Scons version $VERSION"
 
-#: mediaspip_functions.sh:158
+#: distribs/debian_lenny_common.sh:63
 #, sh-format
 msgid "Info debut scons update $VERSION"
 msgstr "Téléchargement, compilation et installation de Scons version $VERSION"
 
-#: mediaspip_functions.sh:476
-#: mediaspip_functions.sh:478
+#: distribs/debian_lenny_common.sh:388
+#: distribs/debian_lenny_common.sh:390
+#: distribs/ubuntu_lucid_common.sh:321
+#: distribs/ubuntu_lucid_common.sh:323
 #, sh-format
 msgid "Info debut x264 install"
 msgstr "Téléchargement, compilation et installation de x264"
 
-#: mediaspip_functions.sh:468
-#: mediaspip_functions.sh:470
+#: distribs/debian_lenny_common.sh:380
+#: distribs/debian_lenny_common.sh:382
+#: distribs/ubuntu_lucid_common.sh:313
+#: distribs/ubuntu_lucid_common.sh:315
 #, sh-format
 msgid "Info debut x264 update"
 msgstr "Mise à jour, compilation et installation de x264"
 
-#: distribs/debian_dev.sh:140
+#: mediaspip_install.sh:280
+#, sh-format
+msgid "Info distro version $DISTRIB $DISTRO"
+msgstr "Vous utilisez une distribution $DISTRIB $DISTRO"
+
+#: distribs/debian_lenny_dev.sh:140
+#: distribs/ubuntu_lucid_dev.sh:140
 #, sh-format
 msgid "Info ffmpeg revision $REVISION"
 msgstr "FFMpeg est installé à la révision $REVISION"
 
-#: distribs/debian_stable.sh:149
+#: distribs/debian_lenny_stable.sh:149
+#: distribs/ubuntu_lucid_stable.sh:149
 #, sh-format
 msgid "Info ffmpeg version $VERSION"
 msgstr "FFMpeg est installé à la version $VERSION"
 
-#: mediaspip_functions.sh:523
-#: mediaspip_functions.sh:554
+#: distribs/debian_lenny_common.sh:435
+#: distribs/debian_lenny_common.sh:466
+#: distribs/ubuntu_lucid_common.sh:368
+#: distribs/ubuntu_lucid_common.sh:399
 #, sh-format
 msgid "Info ffmpeg-php revision $REVISION"
 msgstr "FFMpeg-php est installé à la révision $REVISION"
 
-#: distribs/debian_dev.sh:88
+#: distribs/debian_lenny_dev.sh:88
+#: distribs/ubuntu_lucid_dev.sh:88
 #, sh-format
 msgid "Info ffmpeg2theora revision $REVISION"
 msgstr "ffmpeg2theora est installé à la révision $REVISION"
 
-#: distribs/debian_stable.sh:98
+#: distribs/debian_lenny_stable.sh:98
+#: distribs/ubuntu_lucid_stable.sh:98
 #, sh-format
 msgid "Info ffmpeg2theora version $VERSION"
 msgstr "ffmpeg2theora est installé à la version $VERSION"
 
-#: mediaspip_install.sh:276
+#: mediaspip_install.sh:302
 #, sh-format
 msgid "Info log installation"
 msgstr "Ce script enregistrera ses logs dans :"
 
-#: mediaspip_functions.sh:327
-#: mediaspip_functions.sh:328
+#: distribs/debian_lenny_common.sh:240
+#: distribs/debian_lenny_common.sh:241
+#: distribs/ubuntu_lucid_common.sh:183
+#: distribs/ubuntu_lucid_common.sh:184
 #, sh-format
 msgid "Info mediainfo compil install"
 msgstr "Compilation et installation"
 
-#: mediaspip_install.sh:176
+#: mediaspip_install.sh:173
+#: mediaspip_install.sh:191
 #, sh-format
 msgid "Info mediaspip installation $VERSION_INSTALL"
 msgstr ""
@@ -770,47 +917,47 @@ msgstr ""
 "Pour plus de détails voir le fichier COPYING.txt.\n"
 " "
 
-#: mediaspip_install.sh:208
+#: mediaspip_install.sh:223
 #, sh-format
 msgid "Info options disable_alternc"
 msgstr "[INFO] Vous avez décidé de ne pas utiliser AlternC"
 
-#: mediaspip_install.sh:211
+#: mediaspip_install.sh:226
 #, sh-format
 msgid "Info options disable_apache"
 msgstr "[INFO] Vous avez décidé de ne pas préconfigurer Apache"
 
-#: mediaspip_install.sh:214
+#: mediaspip_install.sh:229
 #, sh-format
 msgid "Info options disable_ffmpeg"
 msgstr "[INFO] Vous avez décidé de ne pas installer ou mettre à jour FFMpeg"
 
-#: mediaspip_install.sh:217
+#: mediaspip_install.sh:232
 #, sh-format
 msgid "Info options disable_mediaspip"
 msgstr "[INFO] Vous avez décidé de ne pas installer ou mettre à jour SPIP et MediaSPIP"
 
-#: mediaspip_install.sh:180
+#: mediaspip_install.sh:195
 #, sh-format
 msgid "Info options no_question"
 msgstr "[INFO] Vous avez décidé de valider automatiquement toutes les questions"
 
-#: mediaspip_install.sh:265
+#: mediaspip_install.sh:291
 #, sh-format
 msgid "Info source installation"
 msgstr "Ce script téléchargera les sources des logiciels dans :"
 
-#: mediaspip_install.sh:409
+#: mediaspip_install.sh:435
 #, sh-format
 msgid "Question alternc"
 msgstr "Utilisez vous AlternC pour MediaSPIP ?"
 
-#: mediaspip_install.sh:255
+#: mediaspip_install.sh:278
 #, sh-format
 msgid "Question valider"
 msgstr "Oui ou non (o/n) ?"
 
-#: mediaspip_install.sh:326
+#: mediaspip_install.sh:352
 #, sh-format
 msgid "Titre apache"
 msgstr ""
@@ -819,7 +966,7 @@ msgstr ""
 "#        Préconfiguration d'Apache         #\n"
 "############################################"
 
-#: mediaspip_install.sh:311
+#: mediaspip_install.sh:337
 #, sh-format
 msgid "Titre dependances logicielles"
 msgstr ""
@@ -828,7 +975,7 @@ msgstr ""
 "# Installation des dépendances logicielles #\n"
 "############################################"
 
-#: mediaspip_install.sh:359
+#: mediaspip_install.sh:385
 #, sh-format
 msgid "Titre ffmpeg"
 msgstr ""
@@ -837,7 +984,7 @@ msgstr ""
 "#         Installation de FFMpeg           #\n"
 "############################################"
 
-#: mediaspip_install.sh:372
+#: mediaspip_install.sh:398
 #, sh-format
 msgid "Titre ffmpeg2theora"
 msgstr ""
@@ -846,7 +993,7 @@ msgstr ""
 "#      Installation de FFMpeg2Theora       #\n"
 "############################################"
 
-#: mediaspip_install.sh:385
+#: mediaspip_install.sh:411
 #, sh-format
 msgid "Titre ffmpegphp"
 msgstr ""
@@ -855,7 +1002,7 @@ msgstr ""
 "#       Installation de FFMpeg-php         #\n"
 "############################################"
 
-#: mediaspip_install.sh:450
+#: mediaspip_install.sh:473
 #, sh-format
 msgid "Titre spip mediaspip"
 msgstr ""
@@ -864,7 +1011,7 @@ msgstr ""
 "#    Installation de SPIP et MediaSPIP     #\n"
 "############################################"
 
-#: mediaspip_install.sh:339
+#: mediaspip_install.sh:365
 #, sh-format
 msgid "Titre x264"
 msgstr ""
@@ -872,6 +1019,9 @@ msgstr ""
 "############################################\n"
 "#     Installation de libx264 et x264      #\n"
 "############################################"
+
+#~ msgid "Erreur script debian"
+#~ msgstr "Erreur : vous ne semblez pas être sur une Distribution Debian"
 
 #~ msgid "Info ffmpeg2theora version $REVISION"
 #~ msgstr "ffmpeg2theora est installé à la version $REVISION"
