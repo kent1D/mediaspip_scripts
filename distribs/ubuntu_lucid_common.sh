@@ -218,7 +218,8 @@ ubuntu_lucid_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x $(which mediainfo) ]; then
+	MEDIAINFO=$(which mediainfo)
+	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
 	VERSION="0.7.38"
