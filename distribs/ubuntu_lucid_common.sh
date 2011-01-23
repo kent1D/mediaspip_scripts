@@ -14,7 +14,7 @@ VERSION_UBUNTU_COMMON=0.2
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 if [[ "$0" == *ubuntu_lucid_common.sh ]];then
-	
+
 	echo "
 ######################################
 MediaSPIP Ubuntu common functions v$VERSION_UBUNTU_COMMON
@@ -27,9 +27,10 @@ This file doesn't work standalone.
 
 Please have a look to mediaspip_install.sh
 "
-	tput sgr0; 
-	exit 1 
+	tput sgr0;
+	exit 1
 fi
+
 # Installation de flvtool2
 ubuntu_lucid_flvtool_install()
 {
@@ -52,7 +53,7 @@ ubuntu_lucid_scons_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	
+
 	cd $SRC_INSTALL
 	VERSION="2.0.1"
 	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
@@ -74,7 +75,8 @@ ubuntu_lucid_lame_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x $(which lame) ];then
+	LAME=$(which lame)
+	if [ ! -z "$LAME"  ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
 	fi
 	cd $SRC_INSTALL
@@ -294,30 +296,30 @@ ubuntu_lucid_dep_install()
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools \
 		2>> $LOG >> $LOG || return 1
-	echo 
+	echo
 	
 	#if [ -x $(which scons) ];then
 	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	#fi
-	
+
 	#if [[ $SCONS_VERSION < "v1.2" ]]; then
 	#	ubuntu_lucid_scons_install || return 1
-	#fi 
-	
+	#fi
+
 	ubuntu_lucid_lame_install || return 1
-	
+
 	ubuntu_lucid_libopencore_amr_install || return 1
-	
+
 	#ubuntu_lucid_libtheora_install || return 1
-	
+
 	ubuntu_lucid_libvpx_install || return 1
-	
+
 	ubuntu_lucid_rtmpdump_install || return 1
-	
+
 	ubuntu_lucid_flvtool_install || return 1
-	
+
 	ubuntu_lucid_media_info_install || return 1
-	
+
 	ubuntu_lucid_phpimagick_install || return 1
 }
 
