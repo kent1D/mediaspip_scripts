@@ -30,11 +30,11 @@ CURRENT=$(pwd)
 export TEXTDOMAINDIR=$CURRENT/locale
 export TEXTDOMAIN=mediaspip
 
-I18NLIB=$(which /usr/bin/gettext.sh)
+I18NLIB=$(which gettext.sh)
 
 # source in I18N library - shown above
-if [[ -f $I18NLIB ]]; then
-	. $I18NLIB
+if [ -f "$I18NLIB" ]; then
+	. "$I18NLIB"
 else
 	echo "ERROR - $I18NLIB NOT FOUND"
 	echo "Please install the gettext package via the command:"
@@ -43,7 +43,7 @@ else
 fi
 
 # On inclut le fichier de fonctions
-if [[ -f "./mediaspip_functions.sh" ]]; then
+if [ -f "./mediaspip_functions.sh" ]; then
 	. ./mediaspip_functions.sh
 else
 	echo $(eval_gettext "Erreur fichier fonctions")
@@ -163,9 +163,9 @@ while [[ $1 = -* ]]; do
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
-				en) export LC_ALL="en_GB.UTF-8"
+				en) export LANG="en_US.UTF-8"
 				shift 2;;
-				fr) export LC_ALL="fr_FR.UTF-8"
+				fr) export LANG="fr_FR.UTF-8"
 				shift 2;;
 				"") echo_erreur $(eval_gettext "Erreur langue non set")
 				ERROR=oui
@@ -249,6 +249,12 @@ if [ "$DEP_VERSION" == "stable" ]; then
 else
 	. ./distribs/debian_dev.sh
 fi
+
+LANGUES_COMPAT=(en fr)
+LANGUE=$(expr substr $LANG 1 2)
+if ! in_array $LANGUE ${LANGUES_COMPAT[@]};then
+	export LANG="en_US.UTF-8"
+fi 
 
 ###############################
 # Suite des fonctions du script
