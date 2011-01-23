@@ -46,29 +46,6 @@ ubuntu_lucid_flvtool_install()
 	echo
 }
 
-# Installation d'une version récente de scons
-# Utilisée pour ffmpeg2theora
-# http://www.scons.org/
-ubuntu_lucid_scons_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-
-	cd $SRC_INSTALL
-	VERSION="2.0.1"
-	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
-		echo $(eval_gettext 'Info debut scons install $VERSION')
-		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG || return 1
-		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG || return 1
-	else
-		echo $(eval_gettext 'Info debut scons update $VERSION')
-	fi
-	cd scons-2.0.1
-	python setup.py install 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "End scons")
-	echo
-}
-
 # Installation de Lame
 # http://lame.sourceforge.net/
 ubuntu_lucid_lame_install()
@@ -177,41 +154,6 @@ ubuntu_lucid_libvpx_install()
 	echo
 }
 
-# Installation de libtheora
-# http://www.theora.org/downloads/
-ubuntu_lucid_libtheora_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	apt-get -y install libogg-dev 2>> $LOG >> $LOG
-	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
-	cd $SRC_INSTALL
-	VERSION="1.1.1"
-	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour libtheora $VERSION')
-		echo $(eval_gettext 'Info a jour libtheora $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
-			echo $(eval_gettext 'Info debut libtheora install $VERSION')
-			echo $(eval_gettext 'Info debut libtheora install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
-			tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut libtheora update $VERSION')
-			echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd libtheora-1.1.1
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libtheora")
-	fi
-	echo
-}
-
 # Installation de mediainfo
 # http://mediainfo.sourceforge.net/fr
 ubuntu_lucid_media_info_install()
@@ -298,20 +240,10 @@ ubuntu_lucid_dep_install()
 		flac vorbis-tools \
 		2>> $LOG >> $LOG || return 1
 	echo
-	
-	#if [ -x $(which scons) ];then
-	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
-	#fi
-
-	#if [[ $SCONS_VERSION < "v1.2" ]]; then
-	#	ubuntu_lucid_scons_install || return 1
-	#fi
 
 	ubuntu_lucid_lame_install || return 1
 
 	ubuntu_lucid_libopencore_amr_install || return 1
-
-	#ubuntu_lucid_libtheora_install || return 1
 
 	ubuntu_lucid_libvpx_install || return 1
 
