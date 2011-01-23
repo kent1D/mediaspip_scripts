@@ -118,7 +118,7 @@ debian_ffmpeg_install ()
 		tar xvjf ffmpeg-0.6.1.tar.bz2 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="0.6.1" 2>> $LOG >> $LOG
+	VERSION="0.6.1"
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
 	fi
