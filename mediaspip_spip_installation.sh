@@ -28,8 +28,6 @@ mediaspip_install(){
 		cd $SPIP
 		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
-		echo "DEPOT = $DEPOT"
-		echo "SPIP_SVN = $SPIP_SVN" 
 		if [ "$DEPOT" == "$SPIP_SVN" ];then
 			echo $(eval_gettext "Info SPIP maj")
 			cd $SPIP
