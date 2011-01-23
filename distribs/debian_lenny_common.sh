@@ -74,7 +74,8 @@ debian_lenny_lame_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x $(which lame) ];then
+	LAME=$(which lame)
+	if [ ! -z "$LAME"  ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
 	fi
 	cd $SRC_INSTALL
@@ -216,7 +217,8 @@ debian_lenny_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	if [ -x $(which mediainfo) ]; then
+	MEDIAINFO=$(which mediainfo)
+	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
 	VERSION="0.7.38"
