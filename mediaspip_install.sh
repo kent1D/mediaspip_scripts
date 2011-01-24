@@ -113,14 +113,14 @@ elif [ -r /etc/debian_version ]; then
 	DISTRO="lenny"
 # Cas de redhat (?) et centos
 elif [ -r /etc/redhat-release ]; then
-	DISTRIB=$(cat /etc/redhat-release |awk  '{ print $1 }' | tr '[A-Z]' '[a-z]')
-	DISTRO=$(cat /etc/redhat-release |awk  '{ print $3 }' | tr '[A-Z]' '[a-z]')
+	DISTRIB=$(cat /etc/redhat-release |awk  '{ print $1 }' | tr '[A-Z]' '[a-z]' | tr '[:punct:]' '_')
+	DISTRO=$(cat /etc/redhat-release |awk  '{ print $3 }' | tr '[A-Z]' '[a-z]' | tr '[:punct:]' '_')
 else
 	echo_erreur $(eval_gettext "Erreur script distro inconnue") 1>&2
 	exit 1
 fi
 
-OKDISTRO="lenny lucid 5.3"
+OKDISTRO="lenny lucid 5_3"
 
 if [[ ! $(grep $DISTRO <<< $OKDISTRO) ]]; then
 	echo_erreur $(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO') 1>&2

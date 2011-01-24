@@ -1,23 +1,23 @@
 #!/bin/bash
 #
-# centos_5.3_stable
+# centos_5_3_stable
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.3.1
 #
-# Installation des dépendances de manière stable pour debian
+# Installation des dépendances de manière stable pour centos
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_DEBIAN_STABLE=0.3.1
+VERSION_CENTOS_STABLE=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5.3_stable.sh ]];then
+if [[ "$0" == *centos_5_3_stable.sh ]];then
 	
 	echo "
 ######################################
-MediaSPIP Debian stable functions v$VERSION_DEBIAN_STABLE
+MediaSPIP Centos stable functions v$VERSION_CENTOS_STABLE
 ######################################
 "
 	echo "This file is only usefull for its functions"
@@ -102,7 +102,7 @@ centos_ffmpeg2theora_install()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-centos_ffmpeg_install ()
+centos_5_3_ffmpeg_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale

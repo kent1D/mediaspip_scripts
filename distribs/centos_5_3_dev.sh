@@ -1,16 +1,16 @@
 #!/bin/bash
 #
-# centos_dev
+# centos_5_3_dev
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.3.1
 #
-# Installation des dépendances en version de développement pour debian
+# Installation des dépendances en version de développement pour Centos
 
-VERSION_DEBIAN_DEV=0.3.1
+VERSION_CENTOS_DEV=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5.3_dev.sh ]];then
+if [[ "$0" == *centos_5_3_dev.sh ]];then
 	
 	echo "
 ######################################
@@ -90,7 +90,7 @@ centos_ffmpeg2theora_install ()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-centos_ffmpeg_install ()
+centos_5_3_ffmpeg_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale

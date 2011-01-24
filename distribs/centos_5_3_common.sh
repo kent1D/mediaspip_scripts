@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# centos_5.3_common
+# centos_5_3_common
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.3.1
 #
@@ -13,7 +13,7 @@ VERSION_CENTOS_COMMON=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5.3_common.sh ]];then
+if [[ "$0" == *centos_5_3_common.sh ]];then
 	
 	echo "
 ######################################
@@ -280,8 +280,8 @@ centos_phpimagick_install()
 }
 
 # Installation de diverses dépendances
-# Pour Debian lenny
-centos_5.3_dep_install()
+# Pour Centis 5.3
+centos_5_3_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -328,7 +328,7 @@ centos_5.3_dep_install()
 }
 
 # Préconfiguration basique d'Apache
-centos_5.3_apache_install ()
+centos_5_3_apache_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -372,7 +372,7 @@ centos_5.3_apache_install ()
 
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-centos_5.3_x264_install ()
+centos_5_3_x264_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -415,7 +415,7 @@ centos_5.3_x264_install ()
 
 # Installation de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_5.3_ffmpeg_php_install ()
+centos_5_3_ffmpeg_php_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -441,7 +441,7 @@ centos_5.3_ffmpeg_php_install ()
 
 # Mise à jour de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_5.3_ffmpeg_php_update ()
+centos_5_3_ffmpeg_php_update ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
