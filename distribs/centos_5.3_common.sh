@@ -281,7 +281,7 @@ centos_phpimagick_install()
 
 # Installation de diverses dépendances
 # Pour Debian lenny
-centos_dep_install()
+centos_5.3_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -328,7 +328,7 @@ centos_dep_install()
 }
 
 # Préconfiguration basique d'Apache
-centos_apache_install ()
+centos_5.3_apache_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -372,7 +372,7 @@ centos_apache_install ()
 
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-centos_x264_install ()
+centos_5.3_x264_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -415,7 +415,7 @@ centos_x264_install ()
 
 # Installation de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_ffmpeg_php_install ()
+centos_5.3_ffmpeg_php_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -441,7 +441,7 @@ centos_ffmpeg_php_install ()
 
 # Mise à jour de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_ffmpeg_php_update ()
+centos_5.3_ffmpeg_php_update ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
