@@ -2,14 +2,14 @@
 #
 # ubuntu_lucid_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 #
 # Installation des dépendances de manière stable pour Ubuntu Lucid
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_UBUNTU_STABLE=0.2
+VERSION_UBUNTU_STABLE=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel

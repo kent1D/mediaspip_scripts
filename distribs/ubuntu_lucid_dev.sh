@@ -2,11 +2,11 @@
 #
 # ubuntu_lucid_dev
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 #
 # Installation des dépendances en version de développement pour Ubuntu lucid
 
-VERSION_UBUNTU_DEV=0.2
+VERSION_UBUNTU_DEV=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel

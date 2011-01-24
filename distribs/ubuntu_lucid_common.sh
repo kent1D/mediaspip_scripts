@@ -2,14 +2,14 @@
 #
 # ubuntu_lucid_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_UBUNTU_COMMON=0.2
+VERSION_UBUNTU_COMMON=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -254,6 +254,8 @@ ubuntu_lucid_dep_install()
 	ubuntu_lucid_media_info_install || return 1
 
 	ubuntu_lucid_phpimagick_install || return 1
+	
+	return 0
 }
 
 # Préconfiguration basique d'Apache

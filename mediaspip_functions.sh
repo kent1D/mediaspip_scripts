@@ -2,14 +2,14 @@
 #
 # mediaspip_functions
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3
+# Version 0.3.1
 #
 # Diverses fonctions permettant d'installer mediaSPIP
 
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
 
-VERSION_FUNCTIONS=0.3
+VERSION_FUNCTIONS=0.3.1
 
 function isNumeric()
 {

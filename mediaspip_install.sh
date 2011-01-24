@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -60,7 +60,7 @@ if [[ $? != "0" ]]; then
 fi
 
 
-VERSION_INSTALL="0.2"
+VERSION_INSTALL="0.3.1"
 
 LOGO="
 ######################################################################################
@@ -322,8 +322,8 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	fi
 	
 	# ok, already, last check before proceeding
-	echo "OK, nous sommes prêts à y aller."
-	read -p "Dois-je procéder, rappelez-vous, il ne faut pas arrêter son exécution (o/n)?"
+	echo "OK, nous sommes prêts à y aller ?"
+	read -p "$QUESTION_VALID"
 	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 	echo
 fi
@@ -338,8 +338,7 @@ eval_gettext "Titre dependances logicielles"
 echo
 echo
 
-"$DISTRIB"_"$DISTRO"_dep_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
+"$DISTRIB"_"$DISTRO"_dep_install || error $(eval_gettext "Erreur installation regarde log")
 
 echo_reussite $(eval_gettext "End dependances")
 echo

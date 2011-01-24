@@ -2,14 +2,14 @@
 #
 # debian_lenny_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 #
 # Installation des dépendances de manière stable pour debian
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_DEBIAN_COMMON=0.2
+VERSION_DEBIAN_COMMON=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -288,8 +288,19 @@ debian_lenny_dep_install()
 	
 	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list) 2>> $LOG >> $LOG
 	if [ -z "$DEBIANMULTIMEDIA" ];then
-		echo_erreur $(eval_gettext 'Erreur apt debian-multimedia') 1>&2
-		return 1
+		echo $(eval_gettext 'Info apt debian-multimedia question auto')
+		read -p "$QUESTION_VALID"
+		[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
+			echo
+			echo $(eval_gettext 'Info apt debian-multimedia copie')
+			echo "deb http://www.debian-multimedia.org lenny main non-free" >> /etc/apt/sources.list 2>> $LOG
+			echo $(eval_gettext 'Info apt debian-multimedia installation cle')
+			cd $SRC_INSTALL
+			wget http://www.debian-multimedia.org/pool/main/d/debian-multimedia-keyring/debian-multimedia-keyring_2008.10.16_all.deb 2>> $LOG >> $LOG
+			dpkg -i debian-multimedia-keyring_2008.10.16_all.deb 2>> $LOG >> $LOG
+			rm debian-multimedia-keyring_2008.10.16_all.deb 2>> $LOG >> $LOG
+			echo $(eval_gettext 'End debian-multimedia')
+			echo
 	fi
 	echo $(eval_gettext "Info apt maj base")
 	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
@@ -327,6 +338,9 @@ debian_lenny_dep_install()
 	debian_lenny_media_info_install || return 1
 	
 	debian_lenny_phpimagick_install || return 1
+	
+	cd $CURRENT
+	return 0
 }
 
 # Préconfiguration basique d'Apache
