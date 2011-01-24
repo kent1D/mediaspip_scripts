@@ -285,6 +285,12 @@ debian_lenny_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	
+	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list) 2>> $LOG >> $LOG
+	if [ -z "$DEBIANMULTIMEDIA" ];then
+		echo_erreur $(eval_gettext 'Erreur apt debian-multimedia') 1>&2
+		return 1
+	fi
 	echo $(eval_gettext "Info apt maj base")
 	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
 	apt-get -y update 2>> $LOG >> $LOG || return 1
