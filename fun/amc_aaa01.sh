@@ -2,7 +2,7 @@
 #
 # amc_aaa01.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3.1
 #
 # Some fun
 
