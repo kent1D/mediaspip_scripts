@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-24 00:11+0100\n"
+"POT-Creation-Date: 2011-01-24 01:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@arscenic.tv>\n"
@@ -103,6 +103,11 @@ msgstr "Installation de Scons terminée"
 msgid "End x264"
 msgstr "Installation de x264 terminée"
 
+#: distribs/debian_lenny_common.sh:291
+#, sh-format
+msgid "Erreur apt debian-multimedia"
+msgstr "Vous devez activer les dépôts Debian Multimedia pour APT."
+
 #: mediaspip_install.sh:49
 #, sh-format
 msgid "Erreur fichier fonctions"
@@ -113,9 +118,9 @@ msgstr ""
 #: mediaspip_install.sh:341 mediaspip_install.sh:356 mediaspip_install.sh:369
 #: mediaspip_install.sh:389 mediaspip_install.sh:402 mediaspip_install.sh:417
 #: mediaspip_install.sh:422 mediaspip_install.sh:477
-#: mediaspip_spip_installation.sh:39 mediaspip_spip_installation.sh:239
-#: mediaspip_spip_installation.sh:244 mediaspip_spip_installation.sh:270
-#: mediaspip_spip_installation.sh:274
+#: mediaspip_spip_installation.sh:37 mediaspip_spip_installation.sh:237
+#: mediaspip_spip_installation.sh:242 mediaspip_spip_installation.sh:268
+#: mediaspip_spip_installation.sh:272
 #, sh-format
 msgid "Erreur installation regarde log"
 msgstr ""
@@ -273,7 +278,7 @@ msgstr ""
 " \n"
 " "
 
-#: mediaspip_spip_installation.sh:314
+#: mediaspip_spip_installation.sh:312
 #, sh-format
 msgid "Info MediaSPIP installe"
 msgstr "Les fichiers de MediaSPIP sont installés"
@@ -283,44 +288,44 @@ msgstr "Les fichiers de MediaSPIP sont installés"
 msgid "Info MediaSPIP non installe"
 msgstr "MediaSPIP ne sera pas installé"
 
-#: mediaspip_spip_installation.sh:38
+#: mediaspip_spip_installation.sh:36
 #, sh-format
 msgid "Info SPIP change depot $SPIP_SVN"
 msgstr "Changement de dépot SVN de SPIP vers $SPIP_SVN"
 
-#: mediaspip_spip_installation.sh:309
+#: mediaspip_spip_installation.sh:307
 #, sh-format
 msgid "Info SPIP changement droits $SPIP_USER $SPIP_GROUP"
 msgstr ""
 "Modifications des droits des fichiers, utilisateur \"$SPIP_USER\", groupe "
 "\"$SPIP_GROUP\""
 
-#: mediaspip_spip_installation.sh:305
+#: mediaspip_spip_installation.sh:303
 #, sh-format
 msgid "Info SPIP copie htaccess"
 msgstr "Copie du fichier htaccess de SPIP"
 
-#: mediaspip_spip_installation.sh:52
+#: mediaspip_spip_installation.sh:50
 #, sh-format
 msgid "Info SPIP extensions"
 msgstr "Installation des extensions de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:153
+#: mediaspip_spip_installation.sh:151
 #, sh-format
 msgid "Info SPIP extensions maj"
 msgstr "Mise à jour des extensions de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:269
+#: mediaspip_spip_installation.sh:267
 #, sh-format
 msgid "Info SPIP install mutualisation"
 msgstr "Installation du plugin de mutualisation"
 
-#: mediaspip_spip_installation.sh:196
+#: mediaspip_spip_installation.sh:194
 #, sh-format
 msgid "Info SPIP install plugins"
 msgstr "Installation des plugins optionnels de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:49
+#: mediaspip_spip_installation.sh:47
 #, sh-format
 msgid "Info SPIP install revision $REVISIONSPIP"
 msgstr "SPIP est installé à la révision $REVISIONSPIP"
@@ -330,80 +335,80 @@ msgstr "SPIP est installé à la révision $REVISIONSPIP"
 msgid "Info SPIP installation"
 msgstr "Ce script installera SPIP dans le répertoire :"
 
-#: mediaspip_spip_installation.sh:34 mediaspip_spip_installation.sh:43
+#: mediaspip_spip_installation.sh:32 mediaspip_spip_installation.sh:41
 #, sh-format
 msgid "Info SPIP maj"
 msgstr "Mise à jour de SPIP"
 
-#: mediaspip_spip_installation.sh:273
+#: mediaspip_spip_installation.sh:271
 #, sh-format
 msgid "Info SPIP maj mutualisation"
 msgstr "Mise à jour du plugin de mutualisation"
 
-#: mediaspip_spip_installation.sh:199
+#: mediaspip_spip_installation.sh:197
 #, sh-format
 msgid "Info SPIP maj plugins"
 msgstr "Mise à jour des plugins optionnels de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:194
+#: mediaspip_spip_installation.sh:192
 #, sh-format
 msgid "Info SPIP plugins"
 msgstr "Installation des plugins SPIP optionnels"
 
-#: mediaspip_spip_installation.sh:256
+#: mediaspip_spip_installation.sh:254
 #, sh-format
 msgid "Info SPIP repertoire lib"
 msgstr "Création du répertoire lib/"
 
-#: mediaspip_spip_installation.sh:278
+#: mediaspip_spip_installation.sh:276
 #, sh-format
 msgid "Info SPIP repertoire sites"
 msgstr "Création du répertoire sites/"
 
-#: mediaspip_spip_installation.sh:282 mediaspip_spip_installation.sh:294
+#: mediaspip_spip_installation.sh:280 mediaspip_spip_installation.sh:292
 #, sh-format
 msgid "Info SPIP suppression cache css"
 msgstr "Suppression des caches CSS"
 
-#: mediaspip_spip_installation.sh:286 mediaspip_spip_installation.sh:298
+#: mediaspip_spip_installation.sh:284 mediaspip_spip_installation.sh:296
 #, sh-format
 msgid "Info SPIP suppression cache html"
 msgstr "Suppression des caches HTML"
 
-#: mediaspip_spip_installation.sh:284 mediaspip_spip_installation.sh:296
+#: mediaspip_spip_installation.sh:282 mediaspip_spip_installation.sh:294
 #, sh-format
 msgid "Info SPIP suppression cache js"
 msgstr "Suppression des caches javascript"
 
-#: mediaspip_spip_installation.sh:288 mediaspip_spip_installation.sh:300
+#: mediaspip_spip_installation.sh:286 mediaspip_spip_installation.sh:298
 #, sh-format
 msgid "Info SPIP suppression cache plugins"
 msgstr "Suppression des caches de metas"
 
-#: mediaspip_spip_installation.sh:58 mediaspip_spip_installation.sh:63
-#: mediaspip_spip_installation.sh:68 mediaspip_spip_installation.sh:73
-#: mediaspip_spip_installation.sh:78 mediaspip_spip_installation.sh:83
-#: mediaspip_spip_installation.sh:88 mediaspip_spip_installation.sh:93
-#: mediaspip_spip_installation.sh:98 mediaspip_spip_installation.sh:103
-#: mediaspip_spip_installation.sh:108 mediaspip_spip_installation.sh:113
-#: mediaspip_spip_installation.sh:118 mediaspip_spip_installation.sh:123
-#: mediaspip_spip_installation.sh:128 mediaspip_spip_installation.sh:133
-#: mediaspip_spip_installation.sh:138 mediaspip_spip_installation.sh:145
+#: mediaspip_spip_installation.sh:56 mediaspip_spip_installation.sh:61
+#: mediaspip_spip_installation.sh:66 mediaspip_spip_installation.sh:71
+#: mediaspip_spip_installation.sh:76 mediaspip_spip_installation.sh:81
+#: mediaspip_spip_installation.sh:86 mediaspip_spip_installation.sh:91
+#: mediaspip_spip_installation.sh:96 mediaspip_spip_installation.sh:101
+#: mediaspip_spip_installation.sh:106 mediaspip_spip_installation.sh:111
+#: mediaspip_spip_installation.sh:116 mediaspip_spip_installation.sh:121
+#: mediaspip_spip_installation.sh:126 mediaspip_spip_installation.sh:131
+#: mediaspip_spip_installation.sh:136 mediaspip_spip_installation.sh:143
 #, sh-format
 msgid "Info SPIP telecharge extension $i"
 msgstr "Téléchargement de l'extension : $i"
 
-#: mediaspip_spip_installation.sh:207 mediaspip_spip_installation.sh:213
-#: mediaspip_spip_installation.sh:218 mediaspip_spip_installation.sh:223
-#: mediaspip_spip_installation.sh:228 mediaspip_spip_installation.sh:233
-#: mediaspip_spip_installation.sh:238 mediaspip_spip_installation.sh:243
-#: mediaspip_spip_installation.sh:248
+#: mediaspip_spip_installation.sh:205 mediaspip_spip_installation.sh:211
+#: mediaspip_spip_installation.sh:216 mediaspip_spip_installation.sh:221
+#: mediaspip_spip_installation.sh:226 mediaspip_spip_installation.sh:231
+#: mediaspip_spip_installation.sh:236 mediaspip_spip_installation.sh:241
+#: mediaspip_spip_installation.sh:246
 #, sh-format
 msgid "Info SPIP telecharge plugin $i"
 msgstr "Téléchargement du plugin $i"
 
-#: mediaspip_spip_installation.sh:172 mediaspip_spip_installation.sh:178
-#: mediaspip_spip_installation.sh:184
+#: mediaspip_spip_installation.sh:170 mediaspip_spip_installation.sh:176
+#: mediaspip_spip_installation.sh:182
 #, sh-format
 msgid "Info SPIP telecharge theme $i"
 msgstr "Téléchargement du thème : $i"
@@ -413,12 +418,12 @@ msgstr "Téléchargement du thème : $i"
 msgid "Info SPIP telechargement"
 msgstr "Téléchargement de SPIP"
 
-#: mediaspip_spip_installation.sh:168
+#: mediaspip_spip_installation.sh:166
 #, sh-format
 msgid "Info SPIP themes"
 msgstr "Installation des thèmes de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:190
+#: mediaspip_spip_installation.sh:188
 #, sh-format
 msgid "Info SPIP themes maj"
 msgstr "Mise à jour des themes de MediaSPIP"
@@ -431,7 +436,7 @@ msgstr "Mise à jour des themes de MediaSPIP"
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg semble déjà à jour"
 
-#: distribs/debian_lenny_common.sh:451 distribs/debian_lenny_common.sh:452
+#: distribs/debian_lenny_common.sh:457 distribs/debian_lenny_common.sh:458
 #: distribs/ubuntu_lucid_common.sh:384 distribs/ubuntu_lucid_common.sh:385
 #, sh-format
 msgid "Info a jour ffmpeg-php"
@@ -490,68 +495,68 @@ msgstr "rtmpdump semble déjà à jour à la révision $REVISION"
 msgid "Info a jour rtmpdump $VERSION"
 msgstr "rtmpdump semble déjà à jour à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:398 distribs/debian_lenny_common.sh:399
+#: distribs/debian_lenny_common.sh:404 distribs/debian_lenny_common.sh:405
 #: distribs/ubuntu_lucid_common.sh:331 distribs/ubuntu_lucid_common.sh:332
 #, sh-format
 msgid "Info a jour x264"
 msgstr "x264 semble déjà à jour"
 
-#: distribs/debian_lenny_common.sh:358 distribs/debian_lenny_common.sh:359
+#: distribs/debian_lenny_common.sh:364 distribs/debian_lenny_common.sh:365
 #: distribs/ubuntu_lucid_common.sh:291 distribs/ubuntu_lucid_common.sh:292
 #, sh-format
 msgid "Info apache mime fichier"
 msgstr ""
 "Installation du fichier de configuration des types mime supplémentaires"
 
-#: distribs/debian_lenny_common.sh:342 distribs/debian_lenny_common.sh:343
+#: distribs/debian_lenny_common.sh:348 distribs/debian_lenny_common.sh:349
 #: distribs/ubuntu_lucid_common.sh:275 distribs/ubuntu_lucid_common.sh:276
 #, sh-format
 msgid "Info apache mod deflate"
 msgstr "Activation du mod_deflate"
 
-#: distribs/debian_lenny_common.sh:345 distribs/debian_lenny_common.sh:346
+#: distribs/debian_lenny_common.sh:351 distribs/debian_lenny_common.sh:352
 #: distribs/ubuntu_lucid_common.sh:278 distribs/ubuntu_lucid_common.sh:279
 #, sh-format
 msgid "Info apache mod deflate fichier"
 msgstr "Installation du fichier de configuration du mod_deflate"
 
-#: distribs/debian_lenny_common.sh:350 distribs/debian_lenny_common.sh:351
+#: distribs/debian_lenny_common.sh:356 distribs/debian_lenny_common.sh:357
 #: distribs/ubuntu_lucid_common.sh:283 distribs/ubuntu_lucid_common.sh:284
 #, sh-format
 msgid "Info apache mod expires"
 msgstr "Activation du mod_expires"
 
-#: distribs/debian_lenny_common.sh:353 distribs/debian_lenny_common.sh:354
+#: distribs/debian_lenny_common.sh:359 distribs/debian_lenny_common.sh:360
 #: distribs/ubuntu_lucid_common.sh:286 distribs/ubuntu_lucid_common.sh:287
 #, sh-format
 msgid "Info apache mod expires fichier"
 msgstr "Installation du fichier de configuration du mod_expires"
 
-#: distribs/debian_lenny_common.sh:332 distribs/debian_lenny_common.sh:333
+#: distribs/debian_lenny_common.sh:338 distribs/debian_lenny_common.sh:339
 #: distribs/ubuntu_lucid_common.sh:265 distribs/ubuntu_lucid_common.sh:266
 #, sh-format
 msgid "Info apache mod headers"
 msgstr "Activation du mod_headers"
 
-#: distribs/debian_lenny_common.sh:337 distribs/debian_lenny_common.sh:338
+#: distribs/debian_lenny_common.sh:343 distribs/debian_lenny_common.sh:344
 #: distribs/ubuntu_lucid_common.sh:270 distribs/ubuntu_lucid_common.sh:271
 #, sh-format
 msgid "Info apache mod rewrite"
 msgstr "Activation du mod_rewrite"
 
-#: distribs/debian_lenny_common.sh:363 distribs/debian_lenny_common.sh:364
+#: distribs/debian_lenny_common.sh:369 distribs/debian_lenny_common.sh:370
 #: distribs/ubuntu_lucid_common.sh:296 distribs/ubuntu_lucid_common.sh:297
 #, sh-format
 msgid "Info apache reload"
 msgstr "Rechargement d'Apache"
 
-#: distribs/debian_lenny_common.sh:288 distribs/debian_lenny_common.sh:289
+#: distribs/debian_lenny_common.sh:294 distribs/debian_lenny_common.sh:295
 #: distribs/ubuntu_lucid_common.sh:231 distribs/ubuntu_lucid_common.sh:232
 #, sh-format
 msgid "Info apt maj base"
 msgstr "Mise à jour de la base d'APT"
 
-#: distribs/debian_lenny_common.sh:291 distribs/debian_lenny_common.sh:292
+#: distribs/debian_lenny_common.sh:297 distribs/debian_lenny_common.sh:298
 #: distribs/ubuntu_lucid_common.sh:234 distribs/ubuntu_lucid_common.sh:235
 #, sh-format
 msgid "Info apt maj paquets"
@@ -559,8 +564,8 @@ msgstr "Mise à jour et installation des paquets via APT"
 
 #: distribs/debian_lenny_common.sh:97 distribs/debian_lenny_common.sh:131
 #: distribs/debian_lenny_common.sh:167 distribs/debian_lenny_common.sh:203
-#: distribs/debian_lenny_common.sh:402 distribs/debian_lenny_common.sh:426
-#: distribs/debian_lenny_common.sh:457 distribs/debian_lenny_dev.sh:125
+#: distribs/debian_lenny_common.sh:408 distribs/debian_lenny_common.sh:432
+#: distribs/debian_lenny_common.sh:463 distribs/debian_lenny_dev.sh:125
 #: distribs/debian_lenny_stable.sh:134 distribs/ubuntu_lucid_common.sh:75
 #: distribs/ubuntu_lucid_common.sh:109 distribs/ubuntu_lucid_common.sh:145
 #: distribs/ubuntu_lucid_common.sh:335 distribs/ubuntu_lucid_common.sh:359
@@ -572,7 +577,7 @@ msgstr "Configuration"
 
 #: distribs/debian_lenny_common.sh:101 distribs/debian_lenny_common.sh:136
 #: distribs/debian_lenny_common.sh:171 distribs/debian_lenny_common.sh:207
-#: distribs/debian_lenny_common.sh:407 distribs/debian_lenny_dev.sh:132
+#: distribs/debian_lenny_common.sh:413 distribs/debian_lenny_dev.sh:132
 #: distribs/debian_lenny_stable.sh:59 distribs/debian_lenny_stable.sh:141
 #: distribs/ubuntu_lucid_common.sh:79 distribs/ubuntu_lucid_common.sh:114
 #: distribs/ubuntu_lucid_common.sh:149 distribs/ubuntu_lucid_common.sh:340
@@ -584,8 +589,8 @@ msgstr "Installation"
 
 #: distribs/debian_lenny_common.sh:99 distribs/debian_lenny_common.sh:134
 #: distribs/debian_lenny_common.sh:169 distribs/debian_lenny_common.sh:205
-#: distribs/debian_lenny_common.sh:404 distribs/debian_lenny_common.sh:428
-#: distribs/debian_lenny_common.sh:459 distribs/debian_lenny_dev.sh:55
+#: distribs/debian_lenny_common.sh:410 distribs/debian_lenny_common.sh:434
+#: distribs/debian_lenny_common.sh:465 distribs/debian_lenny_dev.sh:55
 #: distribs/debian_lenny_dev.sh:129 distribs/debian_lenny_stable.sh:57
 #: distribs/debian_lenny_stable.sh:138 distribs/ubuntu_lucid_common.sh:77
 #: distribs/ubuntu_lucid_common.sh:112 distribs/ubuntu_lucid_common.sh:147
@@ -728,13 +733,13 @@ msgstr "Téléchargement, compilation et installation de Scons version $VERSION"
 msgid "Info debut scons update $VERSION"
 msgstr "Mise à jour de scons à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:388 distribs/debian_lenny_common.sh:390
+#: distribs/debian_lenny_common.sh:394 distribs/debian_lenny_common.sh:396
 #: distribs/ubuntu_lucid_common.sh:321 distribs/ubuntu_lucid_common.sh:323
 #, sh-format
 msgid "Info debut x264 install"
 msgstr "Téléchargement, compilation et installation de x264"
 
-#: distribs/debian_lenny_common.sh:380 distribs/debian_lenny_common.sh:382
+#: distribs/debian_lenny_common.sh:386 distribs/debian_lenny_common.sh:388
 #: distribs/ubuntu_lucid_common.sh:313 distribs/ubuntu_lucid_common.sh:315
 #, sh-format
 msgid "Info debut x264 update"
@@ -755,7 +760,7 @@ msgstr "FFMpeg est installé à la révision $REVISION"
 msgid "Info ffmpeg version $VERSION"
 msgstr "FFMpeg est installé à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:435 distribs/debian_lenny_common.sh:466
+#: distribs/debian_lenny_common.sh:441 distribs/debian_lenny_common.sh:472
 #: distribs/ubuntu_lucid_common.sh:368 distribs/ubuntu_lucid_common.sh:399
 #, sh-format
 msgid "Info ffmpeg-php revision $REVISION"
