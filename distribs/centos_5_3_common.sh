@@ -74,7 +74,7 @@ centos_lame_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	LAME=$(which lame)
+	LAME=$(which lame 2>> /dev/null)
 	if [ ! -z "$LAME"  ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
 	fi
@@ -99,7 +99,7 @@ centos_lame_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End lame")
 	fi
 	echo
@@ -134,7 +134,7 @@ centos_libopencore_amr_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End opencore")
 	fi
 	echo
@@ -286,16 +286,16 @@ centos_5_3_dep_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
-	echo $(eval_gettext "Info apt maj base")
-	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
+	echo $(eval_gettext "Info yum maj base")
+	echo $(eval_gettext "Info yum maj base") 2>> $LOG >> $LOG
 	yum -y check-update 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apt maj paquets")
-	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	yum -y erase php5-imagick 2>> $LOG >> $LOG || return 1
-	yum -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
-		apache2.2-common php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
-		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
-		flac vorbis-tools \
+	echo $(eval_gettext "Info yum maj paquets")
+	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
+	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
+	yum -y install rpm-build gcc-c++ subversion git checkinstall scons zlib-devel \
+		httpd php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
+		speex-devel libvorbis-devel \
+		flac-devel vorbis-tools \
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
@@ -407,7 +407,7 @@ centos_5_3_x264_install ()
 		./configure --enable-shared 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		apt-get -y remove x264 2>> $LOG >> $LOG
+		yum -y erase x264* 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
