@@ -103,18 +103,24 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
+# Cas d'Ubuntu
 if [ -r /etc/lsb-release ];then
 	DISTRIB=$(cat /etc/lsb-release | grep ID | cut -c 12- | tr '[A-Z]' '[a-z]')
 	DISTRO=$(cat /etc/lsb-release | grep CODE | cut -c 18- | tr '[A-Z]' '[a-z]')
+# Cas de debian
 elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
 	DISTRO="lenny"
+# Cas de redhat (?) et centos
+elif [ -r /etc/redhat-release ]; then
+	DISTRIB=$(cat /etc/redhat-release |awk  '{ print $1 }' | tr '[A-Z]' '[a-z]')
+	DISTRO=$(cat /etc/redhat-release |awk  '{ print $3 }' | tr '[A-Z]' '[a-z]')
 else
 	echo_erreur $(eval_gettext "Erreur script distro inconnue") 1>&2
 	exit 1
 fi
 
-OKDISTRO="lenny lucid"
+OKDISTRO="lenny lucid 5.3"
 
 if [[ ! $(grep $DISTRO <<< $OKDISTRO) ]]; then
 	echo_erreur $(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO') 1>&2
