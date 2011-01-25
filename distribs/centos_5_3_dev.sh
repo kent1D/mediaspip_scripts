@@ -111,7 +111,7 @@ centos_5_3_ffmpeg_install ()
 	fi
 	
 	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
-	if [ -x $(which ffmpeg) ];then
+	if [ -x $(which ffmpeg 2>> $LOG) ];then
 		VERSION=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
 		REVISION_VERSION=git-"$REVISION"
 	fi

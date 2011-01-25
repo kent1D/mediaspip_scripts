@@ -219,7 +219,7 @@ centos_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	MEDIAINFO=$(which mediainfo)
+	MEDIAINFO=$(which mediainfo 2>> $LOG)
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
@@ -308,7 +308,7 @@ centos_5_3_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
-	#if [ -x $(which scons) ];then
+	#if [ -x $(which scons 2>> $LOG) ];then
 	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	#fi
 	
