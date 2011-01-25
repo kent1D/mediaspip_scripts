@@ -62,7 +62,7 @@ centos_rtmpdump_install()
 
 # Installation de ffmpeg2theora
 # http://www.v2v.cc/~j/ffmpeg2theora/
-centos_ffmpeg2theora_install ()
+centos_5_3_ffmpeg2theora_install ()
 {
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -101,7 +101,7 @@ centos_5_3_ffmpeg_install ()
 		echo
 		echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git
-		git pull 2>> $LOG >> $LOG || return 1
+		git pull 2>> $LOG >> $LOG || die "erreur"
 	else
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo
@@ -125,12 +125,12 @@ centos_5_3_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-			2>> $LOG >> $LOG || return 1
+			2>> $LOG >> $LOG || die "erreur"
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || die "erreur"
 		yum -y erase ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		make install 2>> $LOG >> $LOG || return 1
+		make install 2>> $LOG >> $LOG || die "erreur"
 		#checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
