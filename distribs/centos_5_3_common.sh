@@ -474,7 +474,7 @@ centos_5_3_apache_install ()
 	#a2enmod deflate 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/deflate.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod expires")
@@ -482,17 +482,17 @@ centos_5_3_apache_install ()
 	a2enmod expires 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/expires.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mime fichier")
 	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/mediaspip_mime.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/httpd force-reload 2>> $LOG >> $LOG || return 1
+	service httpd gracefull 2>> $LOG >> $LOG || return 1
 	echo
 }
 
