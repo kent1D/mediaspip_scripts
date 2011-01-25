@@ -149,7 +149,7 @@ centos_libvpx_install()
 
 	cd $SRC_INSTALL
 	VERSION="0.9.5"
-	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
+	LIBVPX=$(rpm -qi libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	if [[ "$LIBVPX" == *$VERSION* ]];then
 		echo $(eval_gettext 'Info a jour libvpx $VERSION')
 		echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
