@@ -409,7 +409,7 @@ centos_5_3_dep_install()
 	fi
 	echo $(eval_gettext "Info yum maj base")
 	echo $(eval_gettext "Info yum maj base") 2>> $LOG >> $LOG
-	yum -y check-update 2>> $LOG >> $LOG || return 1
+	yum -y check-update 2>> $LOG >> $LOG 
 	echo $(eval_gettext "Info yum maj paquets")
 	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
 	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
