@@ -169,7 +169,7 @@ centos_libvpx_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		apt-get -y remove libvpx 2>> $LOG >> $LOG
+		yum -y erase libvpx 2>> $LOG >> $LOG
 		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libvpx")
 	fi
@@ -182,7 +182,7 @@ centos_libtheora_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y install libogg-dev 2>> $LOG >> $LOG
+	yum -y install libogg-devel 2>> $LOG >> $LOG
 	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
@@ -427,7 +427,7 @@ centos_5_3_ffmpeg_php_install ()
 	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
+	yum -y erase ffmpeg-php 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php
