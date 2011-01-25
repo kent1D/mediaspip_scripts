@@ -286,6 +286,13 @@ centos_5_3_dep_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
+	EPEL=$(yum repolist |grep ^epel |grep enabled)
+	if [ -z "$EPEL" ]; then
+		echo $(eval_gettext "Info yum intallation epel")
+		rm epel-release* 2>> $LOG >> $LOG
+		wget http://download.fedora.redhat.com/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm 2>> $LOG >> $LOG  
+		rpm -Uvh epel-release-5*.rpm 2>> $LOG >> $LOG
+	fi
 	echo $(eval_gettext "Info yum maj base")
 	echo $(eval_gettext "Info yum maj base") 2>> $LOG >> $LOG
 	yum -y check-update 2>> $LOG >> $LOG || return 1
@@ -299,13 +306,13 @@ centos_5_3_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
-	if [ -x $(which scons) ];then
-		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
-	fi
+	#if [ -x $(which scons) ];then
+	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
+	#fi
 	
-	if [[ $SCONS_VERSION < "v1.2" ]]; then
-		centos_scons_install || return 1
-	fi 
+	#if [[ $SCONS_VERSION < "v1.2" ]]; then
+	#	centos_scons_install || return 1
+	#fi 
 	
 	centos_lame_install || return 1
 	
