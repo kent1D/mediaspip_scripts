@@ -479,7 +479,7 @@ centos_5_3_apache_install ()
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG || return 1
+	#a2enmod expires 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/expires.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
