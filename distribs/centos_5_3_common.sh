@@ -457,22 +457,21 @@ centos_5_3_dep_install()
 # Préconfiguration basique d'Apache
 centos_5_3_apache_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG || return 1
+	#a2enmod headers 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG || return 1
+	#a2enmod rewrite 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG || return 1
+	#a2enmod deflate 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
@@ -501,7 +500,6 @@ centos_5_3_apache_install ()
 # http://www.videolan.org/developers/x264.html
 centos_5_3_x264_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"
@@ -545,23 +543,22 @@ centos_5_3_x264_install ()
 # http://ffmpeg-php.sourceforge.net/
 centos_5_3_ffmpeg_php_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	yum -y erase ffmpeg-php 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
-	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
+	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG || return 1
 	cd ffmpeg-php/ffmpeg-php
 	phpize 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG 
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 	echo $(eval_gettext "Info compilation configure")
-	./configure 2>> $LOG >> $LOG
+	./configure 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 	make install 2>> $LOG >> $LOG || return 1
 	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
+	service httpd graceful 2>> $LOG >> $LOG || return 1
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	echo
 	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
@@ -571,7 +568,6 @@ centos_5_3_ffmpeg_php_install ()
 # http://ffmpeg-php.sourceforge.net/
 centos_5_3_ffmpeg_php_update ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
@@ -583,16 +579,16 @@ centos_5_3_ffmpeg_php_update ()
 		echo $(eval_gettext "Info a jour ffmpeg-php")
 		echo $(eval_gettext "Info a jour ffmpeg-php") 2>> $LOG >> $LOG
 	else
-		phpize 2>> $LOG >> $LOG
+		phpize 2>> $LOG >> $LOG || return 1
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG
+		./configure 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		make install 2>> $LOG >> $LOG || return 1
 		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
+		service httpd graceful 2>> $LOG >> $LOG || return 1
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')

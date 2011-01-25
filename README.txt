@@ -7,6 +7,11 @@ Script d'installation de MediaSPIP.
 
 Ce script automatise l'installation des dépendances logicielles, de SPIP et des extensions/plugins/thèmes compatibles avec MediaSPIP
 
+Il est compatible avec les Distributions Linux suivantes :
+* Debian Lenny (5.0.8)
+* Ubuntu Lucid LTS (10.04)
+
+
 1) Documentation
 ----------------
 

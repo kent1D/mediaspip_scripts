@@ -358,8 +358,7 @@ if [ "$DISABLE_APACHE" != "yes" ];then
 	echo
 	echo
 
-	"$DISTRIB"_"$DISTRO"_apache_install || error $(eval_gettext "Erreur installation regarde log") &
-	progress_indicator $!
+	"$DISTRIB"_"$DISTRO"_apache_install || error $(eval_gettext "Erreur installation regarde log")
 	
 	echo_reussite $(eval_gettext "End apache")
 	echo
@@ -371,8 +370,7 @@ eval_gettext "Titre x264"
 echo
 echo
 
-"$DISTRIB"_"$DISTRO"_x264_install || error $(eval_gettext "Erreur installation regarde log") &
-progress_indicator $!
+"$DISTRIB"_"$DISTRO"_x264_install || error $(eval_gettext "Erreur installation regarde log")
 
 echo
 echo_reussite $(eval_gettext "End x264")
@@ -391,8 +389,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log") &
-	progress_indicator $!
+	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log")
 	
 	echo
 	echo_reussite $(eval_gettext "End ffmpeg")
@@ -404,8 +401,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log") &
-	progress_indicator $!
+	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log")
 	
 	echo
 	echo_reussite $(eval_gettext "End ffmpeg2theora")
@@ -419,13 +415,11 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 		echo $(eval_gettext "Info debut ffmpeg-php update")
 		echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log") &
-		progress_indicator $!
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log")
 	else
 		echo $(eval_gettext "Info debut ffmpeg-php install")
 		echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log") &
-		progress_indicator $!
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log")
 	fi
 	
 	echo
@@ -479,8 +473,7 @@ if [ "$DISABLE_MEDIASPIP" != "yes" ];then
 	echo
 	echo
 	
-	mediaspip_install || error $(eval_gettext "Erreur installation regarde log") &
-	progress_indicator $!
+	mediaspip_install || error $(eval_gettext "Erreur installation regarde log")
 fi
 
 echo

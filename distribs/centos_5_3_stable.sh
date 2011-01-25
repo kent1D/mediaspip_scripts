@@ -68,7 +68,6 @@ centos_rtmpdump_install()
 # http://www.v2v.cc/~j/ffmpeg2theora/
 centos_5_3_ffmpeg2theora_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
@@ -105,7 +104,6 @@ centos_5_3_ffmpeg2theora_install()
 # http://www.ffmpeg.org
 centos_5_3_ffmpeg_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
@@ -135,12 +133,12 @@ centos_5_3_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx  \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
-			2>> $LOG >> $LOG || die "erreur"
+			2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || die "erreur"
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		yum -y erase ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		make install 2>> $LOG >> $LOG || die "erreur"
+		make install 2>> $LOG >> $LOG || return 1
 		#checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
