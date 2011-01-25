@@ -51,7 +51,6 @@ centos_rtmpdump_install()
 	else
 		echo $(eval_gettext "Info debut rtmpdump install")
 		echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-		yum -y install openssl-devel 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3.svn$REVISION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG || return 1

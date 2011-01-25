@@ -299,10 +299,10 @@ centos_faac_install()
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
 	else
+		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/faac-1.28.tar.gz ];then
 			echo $(eval_gettext 'Info debut faac install $VERSION')
 			echo $(eval_gettext 'Info debut faac install $VERSION') 2>> $LOG >> $LOG
-			cd $SRC_INSTALL
 			wget http://downloads.sourceforge.net/faac/faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1 
 			tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
 		else
@@ -410,7 +410,7 @@ centos_5_3_dep_install()
 	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
 	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
 	yum -y install rpm-build gcc-c++ subversion git libtool checkinstall scons zlib-devel \
-		httpd php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
+		httpd openssl-devel php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
 		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
 		flac-devel vorbis-tools \
 		2>> $LOG >> $LOG || return 1
