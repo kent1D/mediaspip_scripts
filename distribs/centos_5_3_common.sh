@@ -492,7 +492,7 @@ centos_5_3_apache_install ()
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	service httpd gracefull 2>> $LOG >> $LOG || return 1
+	service httpd graceful 2>> $LOG >> $LOG || return 1
 	echo
 }
 
