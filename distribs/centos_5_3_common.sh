@@ -170,7 +170,7 @@ centos_libvpx_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		apt-get -y remove libvpx 2>> $LOG >> $LOG
-		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libvpx")
 	fi
 	echo
@@ -205,7 +205,7 @@ centos_libtheora_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
 	fi
 	echo
@@ -416,7 +416,7 @@ centos_5_3_x264_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		yum -y erase x264* 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
