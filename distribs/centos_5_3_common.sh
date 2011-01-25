@@ -249,6 +249,114 @@ centos_media_info_install()
 	echo
 }
 
+# Installation du décodeur AAC
+# http://www.audiocoding.com/
+centos_faad_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	VERSION="2.7"
+	SOFTWARE="faad"
+	FAADVERSION=$(faad -h 2>&1 |awk '/Ahead Software MPEG-4 AAC/ { print $7 }')
+	if [ "$FAADVERSION" = "V$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/faad2-2.7.tar.gz ];then
+			echo $(eval_gettext 'Info debut faad install $VERSION')
+			echo $(eval_gettext 'Info debut faad install $VERSION') 2>> $LOG >> $LOG
+			cd $SRC_INSTALL
+			wget http://downloads.sourceforge.net/faac/faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1  
+			tar zxf faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1
+		else
+			if [ ! -d faad2-2.7 ];then
+				tar zxf faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1
+			fi
+			echo $(eval_gettext 'Info debut faad update $VERSION')
+			echo $(eval_gettext 'Info debut faad update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd faad2-2.7
+		autoreconf -vif 2>> $LOG >> $LOG ||return 1  
+		./configure 2>> $LOG >> $LOG ||return 1 
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
+		make install  2>> $LOG >> $LOG ||return 1
+		ldconfig
+		echo $(eval_gettext "End faad")
+	fi
+	echo 
+}
+
+# Installation de l'encodeur AAC
+# http://www.audiocoding.com/
+centos_faac_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	VERSION="1.28"
+	SOFTWARE="faac"
+	FAACVERSION=$(faac --help 2>&1 |awk '/^FAAC/ { print $2 }')
+	if [ "$FAACVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/faac-1.28.tar.gz ];then
+			echo $(eval_gettext 'Info debut faac install $VERSION')
+			echo $(eval_gettext 'Info debut faac install $VERSION') 2>> $LOG >> $LOG
+			cd $SRC_INSTALL
+			wget http://downloads.sourceforge.net/faac/faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1 
+			tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
+		else
+			if [ ! -d faac-1.28 ];then
+				tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
+			fi
+			echo $(eval_gettext 'Info debut faac update $VERSION')
+			echo $(eval_gettext 'Info debut faac update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd faac-1.28
+		./bootstrap 2>> $LOG >> $LOG ||return 1 
+		./configure 2>> $LOG >> $LOG ||return 1 
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
+		make install  2>> $LOG >> $LOG ||return 1
+		ldconfig
+		echo $(eval_gettext "End faac")
+	fi
+	echo
+}
+
+# Installation de xvidcore
+# http://www.xvid.org/
+centos_xvid_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	VERSION="1.2.2"
+	SOFTWARE="xvidcore"
+	if [ "$FAADVERSION" = "v$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/xvidcore-1.2.2.tar.gz ];then
+			echo $(eval_gettext 'Info debut xvidcore install $VERSION')
+			echo $(eval_gettext 'Info debut xvidcore install $VERSION') 2>> $LOG >> $LOG
+			cd $SRC_INSTALL
+			wget http://downloads.xvid.org/downloads/xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1 
+			tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
+		else
+			if [ ! -d xvidcore ];then
+				tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
+			fi
+			echo $(eval_gettext 'Info debut xvidcore update $VERSION')
+			echo $(eval_gettext 'Info debut xvidcore update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd xvidcore/build/generic 
+		./configure 2>> $LOG >> $LOG ||return 1 
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
+		make install  2>> $LOG >> $LOG ||return 1
+		echo $(eval_gettext "End xvid")
+	fi
+	echo
+}
+
 # Installation de php-imagick via pecl
 # On n'utilise pas la version des dépots officiels car trop ancienne
 # et bugguée avec safe_mode php
@@ -301,9 +409,9 @@ centos_5_3_dep_install()
 	echo $(eval_gettext "Info yum maj paquets")
 	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
 	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
-	yum -y install rpm-build gcc-c++ subversion git checkinstall scons zlib-devel \
+	yum -y install rpm-build gcc-c++ subversion git libtool checkinstall scons zlib-devel \
 		httpd php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
-		speex-devel libvorbis-devel \
+		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
 		flac-devel vorbis-tools \
 		2>> $LOG >> $LOG || return 1
 	echo 
@@ -327,6 +435,12 @@ centos_5_3_dep_install()
 	centos_rtmpdump_install || return 1
 	
 	centos_flvtool_install || return 1
+	
+	centos_faad_install || return 1
+	
+	centos_faac_install || return 1
+	
+	centos_xvid_install || return 1
 	
 	centos_media_info_install || return 1
 	
