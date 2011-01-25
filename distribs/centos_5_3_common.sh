@@ -343,7 +343,7 @@ centos_xvid_install()
 			tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
 		else
 			if [ ! -d xvidcore ];then
-				tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
+				tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
 			fi
 			echo $(eval_gettext 'Info debut xvidcore update $VERSION')
 			echo $(eval_gettext 'Info debut xvidcore update $VERSION') 2>> $LOG >> $LOG
