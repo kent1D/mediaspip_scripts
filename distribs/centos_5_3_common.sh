@@ -262,10 +262,10 @@ centos_faad_install()
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
 	else
+		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/faad2-2.7.tar.gz ];then
 			echo $(eval_gettext 'Info debut faad install $VERSION')
 			echo $(eval_gettext 'Info debut faad install $VERSION') 2>> $LOG >> $LOG
-			cd $SRC_INSTALL
 			wget http://downloads.sourceforge.net/faac/faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1  
 			tar zxf faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1
 		else
