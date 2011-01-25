@@ -335,10 +335,10 @@ centos_xvid_install()
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
 		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
 	else
+		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/xvidcore-1.2.2.tar.gz ];then
 			echo $(eval_gettext 'Info debut xvidcore install $VERSION')
 			echo $(eval_gettext 'Info debut xvidcore install $VERSION') 2>> $LOG >> $LOG
-			cd $SRC_INSTALL
 			wget http://downloads.xvid.org/downloads/xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1 
 			tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
 		else
