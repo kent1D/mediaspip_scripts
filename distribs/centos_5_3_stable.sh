@@ -57,7 +57,8 @@ centos_rtmpdump_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
+		make install 2>> $LOG >> $LOG || return 1
+		#checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End rtmpdump")
 	fi
 	echo
@@ -139,7 +140,8 @@ centos_5_3_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		yum -y erase ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
+		make install 2>> $LOG >> $LOG || return 1
+		#checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
