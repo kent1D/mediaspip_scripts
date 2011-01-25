@@ -11,6 +11,8 @@
 
 VERSION_CENTOS_COMMON=0.3.1
 
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
+
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 if [[ "$0" == *centos_5_3_common.sh ]];then
