@@ -305,8 +305,7 @@ mediaspip_install(){
 	
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
-	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null &
-	wait $!
+	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null || return 1
 	
 	echo
 	echo_reussite $(eval_gettext "Info MediaSPIP installe")

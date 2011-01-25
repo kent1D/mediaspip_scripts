@@ -58,6 +58,7 @@ centos_rtmpdump_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
 		make install 2>> $LOG >> $LOG || return 1
+		ldconfig
 		#checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End rtmpdump")
 	fi

@@ -164,8 +164,15 @@ SPIP="/var/www/mediaspip"
 SPIP_VERSION="svn"
 SPIP_TYPE="ferme_full"
 SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-2.1"
-SPIP_USER="www-data"
-SPIP_GROUP="www-data"
+
+if [ "$DISTRIB" = "centos" ];then
+	SPIP_USER="apache"
+	SPIP_GROUP="apache"
+else
+	SPIP_USER="www-data"
+	SPIP_GROUP="www-data"
+fi
+
 SPIP_TYPES=(ferme_full ferme minimal full none)
 
 # On insère un fichier de modification de ces variables si présent
