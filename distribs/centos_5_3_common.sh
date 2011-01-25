@@ -413,7 +413,7 @@ centos_5_3_dep_install()
 	echo $(eval_gettext "Info yum maj paquets")
 	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
 	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
-	yum -y install rpm-build gcc-c++ subversion git libtool checkinstall scons zlib-devel \
+	yum -y install rpm-build gcc-c++ subversion git libtool scons zlib-devel \
 		httpd openssl-devel php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
 		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
 		flac-devel vorbis-tools \
