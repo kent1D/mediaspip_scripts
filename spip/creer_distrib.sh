@@ -98,7 +98,8 @@ function read_line_svn(){
 	svn up $REP/$TYPE/*
 }
 
-function distrib_autres (){
+function distrib_autres ()
+{
 	TYPE=$1
 	if [ -z "$TYPE" ];then
 		echo "Erreur"
@@ -111,19 +112,34 @@ function distrib_autres (){
 	fi
 		
 }
-distrib_core
 
-echo
-echo "RECUPERATION DES EXTENSIONS"
-distrib_autres extensions
-echo
+function distrib_empaqueter ()
+{
+	zip -roq $NOM $REP -x \*/.svn\*	
+}
 
-echo
-echo "RECUPERATION DES PLUGINS"
-distrib_autres plugins
-echo
 
-echo
-echo "RECUPERATION DES THEMES"
-distrib_autres themes
-echo
+function creer_distrib ()
+{
+	distrib_core
+	
+	echo
+	echo "RECUPERATION DES EXTENSIONS"
+	distrib_autres extensions
+	echo
+	
+	echo
+	echo "RECUPERATION DES PLUGINS"
+	distrib_autres plugins
+	echo
+	
+	echo
+	echo "RECUPERATION DES THEMES"
+	distrib_autres themes
+	echo
+	
+	echo
+	echo "CRÉATION DE L'ARCHIVE"
+	distrib_empaqueter
+	echo
+}
