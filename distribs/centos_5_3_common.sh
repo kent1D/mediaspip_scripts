@@ -563,7 +563,7 @@ centos_5_3_ffmpeg_php_install ()
 	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 	make install 2>> $LOG >> $LOG || return 1
-	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
+	echo 'extension=ffmpeg.so' > /etc/php.d/ 2>> $LOG >> $LOG || return 1
 	service httpd graceful 2>> $LOG >> $LOG || return 1
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	echo
@@ -593,7 +593,7 @@ centos_5_3_ffmpeg_php_update ()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		make install 2>> $LOG >> $LOG || return 1
-		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
+		echo 'extension=ffmpeg.so' > /etc/php.d/ 2>> $LOG >> $LOG || return 1
 		service httpd graceful 2>> $LOG >> $LOG || return 1
 	fi
 	echo
