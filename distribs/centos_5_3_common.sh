@@ -467,21 +467,24 @@ centos_5_3_apache_install ()
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG 
-	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule headers_module" 2>> $LOG) ];then
+	HEADERS=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule headers_module")
+	if [ -z "$HEADERS" ];then
 		echo "LoadModule headers_module modules/mod_headers.so" >>  /etc/httpd/conf/httpd.conf || return 1
 	fi
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule rewrite_module" 2>> $LOG) ];then
+	REWRITE=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule rewrite_module")
+	if [ -z "$REWRITE" ];then
 		echo "LoadModule rewrite_module modules/mod_rewrite.so" >>  /etc/httpd/conf/httpd.conf || return 1
 	fi
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule deflate_module" 2>> $LOG) ];then
+	DEFLATE=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule deflate_module")
+	if [ -z "$DEFLATE" ];then
 		echo "LoadModule deflate_module modules/mod_deflate.so" >>  /etc/httpd/conf/httpd.conf || return 1
 	fi
 	echo $(eval_gettext "Info apache mod deflate fichier")
@@ -491,7 +494,8 @@ centos_5_3_apache_install ()
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule expires_module" 2>> $LOG) ];then
+	EXPIRES=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule expires_module")
+	if [ -z "$EXPIRES" ];then
 		echo "LoadModule expires_module modules/mod_expires.so" >>  /etc/httpd/conf/httpd.conf || return 1
 	fi
 	echo $(eval_gettext "Info apache mod expires fichier")
