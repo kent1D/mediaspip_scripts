@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# creer_distrib.sh
+# © 2011 - kent1 (kent1@arscenic.info)
+# Version 0.0.1
+
+if [ ! -r distrib_core.txt ];then
+	echo "Erreur"
+	exit 1
+fi
+
+CURRENT=$(pwd)
+
+function distrib_core()
+{
+	echo "Récupération de SPIP"
+	NOM=$(cat distrib_core.txt |grep "^NOM=" | tr "=" " " |awk '{ print $2 }');
+	REPERTOIRE=$(cat distrib_core.txt |grep "^REP=" | tr "=" " " |awk '{ print $2 }');
+	SOURCE=$(cat distrib_core.txt |grep "^SOURCE=" | tr "=" " " |awk '{ print $2 }');
+	if [ -z "$SOURCE" ];then
+		echo "Erreur source"
+		exit 1
+	fi
+	
+	if [ -z "$NOM" ];then
+		echo "Erreur nom"
+		exit 1
+	fi
+	
+	if [ -z "$REP" ];then
+		REP="$NOM"
+	fi
+	
+	if [ ! -d "$REP" ];then
+		echo "Création du répertoire $REP"
+		mkdir -p $REP
+	fi
+	
+	cd $REP
+	
+	if [ ! -d .svn ];then
+		echo "Récupération des sources"
+		svn co $SOURCE ./
+	else
+		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		# cas de changement de dépot
+		if [ "$DEPOT" == "$SOURCE" ];then
+			echo "Mise à jour des sources"
+			svn up
+		else
+			echo "Switch de dépot"
+			svn sw $SOURCE ./
+		fi
+	fi
+	
+	if [ ! -d themes ];then
+		echo "Création du répertoire des thèmes"
+		mkdir -p themes
+	fi
+	
+	if [ ! -d plugins ];then
+		echo "Création du répertoire des plugins"
+		mkdir -p plugins
+	fi
+	
+	cd $CURRENT
+}
+
+function split_string_svn()
+{
+	#IN="$1" 
+	#set -- "$IN" 
+	#IFS="$2"; declare -a Array=($*)
+	IN="$1"
+	
+}
+
+function read_line_svn(){
+	while read line  
+	do
+		IFS=';' read -ra ADDR <<< "$line"
+	
+		if [ ! -z "${ADDR[1]}" ];then
+			if [ -d "$REP/$TYPE/${ADDR[0]}/.svn" ];then
+				DEPOT=$(env LANG=C svn info $REP/$TYPE/${ADDR[0]}/ --non-interactive | awk '/^URL:/ { print $2 }')
+				# cas de changement de dépot
+				if [ "$DEPOT" != "${ADDR[1]}" ];then
+					echo "Switch de dépot"
+					svn sw ${ADDR[1]} $REP/$TYPE/${ADDR[0]}
+				fi
+			else
+				echo "Récupération du code de ${ADDR[0]}"
+				svn co ${ADDR[1]} $REP/$TYPE/${ADDR[0]}
+			fi
+		fi
+	done < distrib_"$TYPE".txt
+	echo "Mise à jour des sources de $TYPE"
+	svn up $REP/$TYPE/*
+}
+
+function distrib_autres (){
+	TYPE=$1
+	if [ -z "$TYPE" ];then
+		echo "Erreur"
+	fi
+	
+	if [ -r distrib_"$TYPE".txt ];then
+		read_line_svn	
+	else
+		echo "Pas de $TYPE"
+	fi
+		
+}
+distrib_core
+
+echo
+echo "RECUPERATION DES EXTENSIONS"
+distrib_autres extensions
+echo
+
+echo
+echo "RECUPERATION DES PLUGINS"
+distrib_autres plugins
+echo
+
+echo
+echo "RECUPERATION DES THEMES"
+distrib_autres themes
+echo
