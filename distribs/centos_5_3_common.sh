@@ -466,18 +466,24 @@ centos_5_3_apache_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
-	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	#a2enmod headers 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG 
+	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule headers_module" 2>> $LOG) ];then
+		echo "LoadModule headers_module modules/mod_headers.so" >>  /etc/httpd/conf/httpd.conf || return 1
+	fi
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	#a2enmod rewrite 2>> $LOG >> $LOG || return 1
+	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule rewrite_module" 2>> $LOG) ];then
+		echo "LoadModule rewrite_module modules/mod_rewrite.so" >>  /etc/httpd/conf/httpd.conf || return 1
+	fi
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	#a2enmod deflate 2>> $LOG >> $LOG || return 1
+	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule deflate_module" 2>> $LOG) ];then
+		echo "LoadModule deflate_module modules/mod_deflate.so" >>  /etc/httpd/conf/httpd.conf || return 1
+	fi
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/deflate.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
@@ -485,7 +491,9 @@ centos_5_3_apache_install ()
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	#a2enmod expires 2>> $LOG >> $LOG || return 1
+	if [ -z $(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule expires_module" 2>> $LOG) ];then
+		echo "LoadModule expires_module modules/mod_expires.so" >>  /etc/httpd/conf/httpd.conf || return 1
+	fi
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/expires.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
