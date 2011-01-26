@@ -407,6 +407,12 @@ centos_5_3_dep_install()
 		wget http://download.fedora.redhat.com/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm 2>> $LOG >> $LOG  
 		rpm -Uvh epel-release-5*.rpm 2>> $LOG >> $LOG
 	fi
+	
+	LDSO=$(cat /etc/ld.so.conf |grep '^/usr/local/lib')
+	if [ -z "$LDSO" ];then
+		echo "/usr/local/lib" >> /etc/ld.so.conf
+		ldconfig
+	fi
 	echo $(eval_gettext "Info yum maj base")
 	echo $(eval_gettext "Info yum maj base") 2>> $LOG >> $LOG
 	yum -y check-update 2>> $LOG >> $LOG 
