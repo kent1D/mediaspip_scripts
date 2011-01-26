@@ -9,6 +9,8 @@ if [ ! -r distrib_core.txt ];then
 	exit 1
 fi
 
+VERSION_SPIP_DISTRIB="0.0.1"
+
 CURRENT=$(pwd)
 
 function distrib_core()
@@ -66,17 +68,10 @@ function distrib_core()
 	cd $CURRENT
 }
 
-function split_string_svn()
-{
-	#IN="$1" 
-	#set -- "$IN" 
-	#IFS="$2"; declare -a Array=($*)
-	IN="$1"
-	
-}
-
 function read_line_svn(){
-	while read line  
+	echo "Mise à jour des sources de $TYPE"
+	svn up $REP/$TYPE/*
+	while read line
 	do
 		IFS=';' read -ra ADDR <<< "$line"
 	
@@ -92,10 +87,9 @@ function read_line_svn(){
 				echo "Récupération du code de ${ADDR[0]}"
 				svn co ${ADDR[1]} $REP/$TYPE/${ADDR[0]}
 			fi
+			svn info $REP/$TYPE/${ADDR[0]} > $REP/$TYPE/${ADDR[0]}/svn.revision
 		fi
 	done < distrib_"$TYPE".txt
-	echo "Mise à jour des sources de $TYPE"
-	svn up $REP/$TYPE/*
 }
 
 function distrib_autres ()
@@ -143,3 +137,21 @@ function creer_distrib ()
 	distrib_empaqueter
 	echo
 }
+
+# Cas où l'on appelle directement le script
+if [[ "$0" == *creer_distrib.sh ]];then
+
+	while [[ $1 = -* ]]; do
+		case $1 in
+			--help|-h) HELP="Oué c'est l'aide mais vide"
+			echo 
+			echo "$HELP"
+			echo
+			exit 0;;
+			--version|-v) VERSION_AFFICHER="Script de création de distribution version $VERSION_SPIP_DISTRIB"
+			echo "$VERSION_AFFICHER" 
+			exit 0;;
+		esac
+	done
+	creer_distrib
+fi
