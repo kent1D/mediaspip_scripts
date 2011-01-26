@@ -64,7 +64,6 @@ ubuntu_lucid_rtmpdump_install()
 # http://www.v2v.cc/~j/ffmpeg2theora/
 ubuntu_lucid_ffmpeg2theora_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
@@ -92,7 +91,6 @@ ubuntu_lucid_ffmpeg2theora_install ()
 # http://www.ffmpeg.org
 ubuntu_lucid_ffmpeg_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL

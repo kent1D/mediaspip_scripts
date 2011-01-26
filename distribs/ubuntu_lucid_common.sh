@@ -261,7 +261,6 @@ ubuntu_lucid_dep_install()
 # Préconfiguration basique d'Apache
 ubuntu_lucid_apache_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
@@ -305,7 +304,6 @@ ubuntu_lucid_apache_install ()
 # http://www.videolan.org/developers/x264.html
 ubuntu_lucid_x264_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"
@@ -348,7 +346,6 @@ ubuntu_lucid_x264_install ()
 # http://ffmpeg-php.sourceforge.net/
 ubuntu_lucid_ffmpeg_php_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
@@ -374,7 +371,6 @@ ubuntu_lucid_ffmpeg_php_install ()
 # http://ffmpeg-php.sourceforge.net/
 ubuntu_lucid_ffmpeg_php_update ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
