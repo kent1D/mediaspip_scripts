@@ -67,7 +67,6 @@ debian_lenny_rtmpdump_install()
 # http://www.v2v.cc/~j/ffmpeg2theora/
 debian_lenny_ffmpeg2theora_install()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
@@ -104,7 +103,6 @@ debian_lenny_ffmpeg2theora_install()
 # http://www.ffmpeg.org
 debian_lenny_ffmpeg_install ()
 {
-	PID=$!
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
@@ -142,7 +140,7 @@ debian_lenny_ffmpeg_install ()
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
-		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
+		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || return 1
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
