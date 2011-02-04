@@ -13,10 +13,10 @@ crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 # D
 diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs
-diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence
-diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious
+doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img
 
 # E
+emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img
 emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias
 emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion
 
@@ -35,19 +35,14 @@ html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5
 job_queue;svn://zone.spip.org/spip-zone/_plugins_/job_queue
 jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
 
-# L
-licence;svn://zone.spip.org/spip-zone/_plugins_/licence
-
 # M
 mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config
 mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core
 mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus
-mes_fichiers_2;svn://zone.spip.org/spip-zone/_plugins_/mes_fichiers_2
 
 # N
 nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
-nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage
 
 # P
 palette;svn://zone.spip.org/spip-zone/_plugins_/palette
@@ -55,15 +50,10 @@ pcltar;svn://zone.spip.org/spip-zone/_plugins_/pcltar
 
 # S
 saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
-saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/2.1
-selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique
 spip-bonux-2;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2
-spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery
 spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion
 step;svn://zone.spip.org/spip-zone/_plugins_/step
 swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload
 
 # z
-zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden
-zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard
 zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip

@@ -19,6 +19,7 @@ function distrib_core()
 	NOM=$(cat distrib_core.txt |grep "^NOM=" | tr "=" " " |awk '{ print $2 }');
 	REPERTOIRE=$(cat distrib_core.txt |grep "^REP=" | tr "=" " " |awk '{ print $2 }');
 	SOURCE=$(cat distrib_core.txt |grep "^SOURCE=" | tr "=" " " |awk '{ print $2 }');
+	SOURCE=$(cat distrib_core.txt |grep "^LIB=" | tr "=" " " |awk '{ print $2 }');
 	if [ -z "$SOURCE" ];then
 		echo "Erreur source"
 		exit 1
@@ -63,6 +64,11 @@ function distrib_core()
 	if [ ! -d plugins ];then
 		echo "Création du répertoire des plugins"
 		mkdir -p plugins
+	fi
+	
+	if [ "$LIB" == "oui" ] && [ ! -d lib ];then
+		echo "Création du répertoire lib"
+		mkdir -p lib
 	fi
 	
 	cd $CURRENT
@@ -115,6 +121,7 @@ function distrib_empaqueter ()
 
 function creer_distrib ()
 {
+
 	distrib_core
 	
 	echo
@@ -154,4 +161,5 @@ if [[ "$0" == *creer_distrib.sh ]];then
 		esac
 	done
 	creer_distrib
+	
 fi

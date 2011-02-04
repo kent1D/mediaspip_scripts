@@ -10,25 +10,30 @@ cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras2/extens
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
 # D
-doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img
-
-# E
-emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img
+diogene_geo;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo
+diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence
+diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious
 
 # F
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
 
 # G
-gestion_documents;svn://zone.spip.org/spip-zone/_plugins_/mediatheque
+gis2;http://svn.kupaia.fr/svn/plugins/gis2
 google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
 # I
 inscription3;http://svn.aires-de-confluxence.info/svn/plugins_spip/inscription3
 
+# L
+legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
+licence;svn://zone.spip.org/spip-zone/_plugins_/licence
+
 # M
 mediabox;svn://zone.spip.org/spip-zone/_plugins_/mediabox
+mediatheque;svn://zone.spip.org/spip-zone/_plugins_/mediatheque
 memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
+mes_fichiers_2;svn://zone.spip.org/spip-zone/_plugins_/mes_fichiers_2
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
@@ -36,6 +41,7 @@ multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation
 notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications
+nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage
 
 # O
 openid;svn://zone.spip.org/spip-zone/_plugins_/authentification/openid
@@ -51,9 +57,16 @@ porte_plume_documents;http://svn.aires-de-confluxence.info/svn/plugins_spip/port
 recommander;svn://zone.spip.org/spip-zone/_plugins_/recommander
 
 # S
+saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/2.1
+selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique
 socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats
 spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0
+spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery
 
 # V
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
+
+# Z
+zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden
+zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard
