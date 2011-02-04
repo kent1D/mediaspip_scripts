@@ -433,7 +433,7 @@ debian_lenny_ffmpeg_php_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y remove ffmpeg-php 2>> $LOG >> $LOG
+	apt-get -y remove php5-ffmpeg 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php
