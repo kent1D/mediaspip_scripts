@@ -19,7 +19,7 @@ function distrib_core()
 	NOM=$(cat distrib_core.txt |grep "^NOM=" | tr "=" " " |awk '{ print $2 }');
 	REPERTOIRE=$(cat distrib_core.txt |grep "^REP=" | tr "=" " " |awk '{ print $2 }');
 	SOURCE=$(cat distrib_core.txt |grep "^SOURCE=" | tr "=" " " |awk '{ print $2 }');
-	SOURCE=$(cat distrib_core.txt |grep "^LIB=" | tr "=" " " |awk '{ print $2 }');
+	LIB=$(cat distrib_core.txt |grep "^LIB=" | tr "=" " " |awk '{ print $2 }');
 	if [ -z "$SOURCE" ];then
 		echo "Erreur source"
 		exit 1
