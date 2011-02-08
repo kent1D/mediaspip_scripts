@@ -249,6 +249,11 @@ mediaspip_install(){
 		cd $SPIP
 	fi
 	
+	chmod 755 config/ 2>> $LOG >> $LOG
+	chmod 755 tmp/ 2>> $LOG >> $LOG
+	chmod 755 local/ 2>> $LOG >> $LOG
+	chmod 755 IMG/ 2>> $LOG >> $LOG
+	
 	if [ ! -d lib ];then
 		echo
 		echo $(eval_gettext "Info SPIP repertoire lib")
