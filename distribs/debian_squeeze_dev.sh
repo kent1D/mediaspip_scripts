@@ -128,7 +128,7 @@ debian_squeeze_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=ffmpeg --pkgversion "6:`date +%Y%m%d`.git$REVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || return 1
