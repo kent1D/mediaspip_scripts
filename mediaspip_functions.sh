@@ -11,7 +11,7 @@ export TEXTDOMAIN=mediaspip
 
 VERSION_FUNCTIONS=0.3.1
 
-function isNumeric()
+isNumeric()
 {
 	echo "$@" | grep -q -v "[^0-9]"
 }
@@ -29,14 +29,14 @@ in_array(){
     return 1
 }
 
-function echo_erreur ()
+echo_erreur()
 {
 	tput setaf 1;
 	echo $@
 	tput sgr0;
 }
 
-function echo_reussite ()
+echo_reussite()
 {
 	tput setaf 2;
 	echo $@
@@ -62,7 +62,7 @@ error ()
 	exit 1
 }
 
-function progress_indicator()
+progress_indicator()
 {
 	#this is a simple progress indicator
 	while [ -d /proc/$1 ]; do
@@ -81,7 +81,7 @@ function progress_indicator()
 # Function git_log
 # Equivalent pour git de svn info
 # cf : http://justamemo.com/2009/02/09/git-info-almost-like-svn-info/
-function git_log()
+git_log()
 {
 	cd $@
 	# Show various information about this git directory

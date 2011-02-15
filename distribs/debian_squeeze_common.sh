@@ -1,25 +1,23 @@
 #!/bin/bash
 #
-# centos_5_3_common
+# debian_squeeze_common
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.3.1
 #
-# Installation des dépendances de manière stable pour centos
+# Installation des dépendances de manière stable pour debian
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_CENTOS_COMMON=0.3.1
-
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
+VERSION_DEBIAN_COMMON=0.3.1
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5_3_common.sh ]];then
+if [[ "$0" == *debian_squeeze_common.sh ]];then
 	
 	echo "
 ######################################
-MediaSPIP Centos common functions v$VERSION_CENTOS_COMMON
+MediaSPIP Debian common functions v$VERSION_DEBIAN_COMMON
 ######################################
 "
 	echo "This file is only usefull for its functions"
@@ -33,7 +31,7 @@ Please have a look to mediaspip_install.sh
 	exit 1 
 fi
 # Installation de flvtool2
-centos_flvtool_install()
+debian_squeeze_flvtool_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -47,36 +45,13 @@ centos_flvtool_install()
 	echo
 }
 
-# Installation d'une version récente de scons
-# Utilisée pour ffmpeg2theora
-# http://www.scons.org/
-centos_scons_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	cd $SRC_INSTALL
-	VERSION="2.0.1"
-	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
-		echo $(eval_gettext 'Info debut scons install $VERSION')
-		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG || return 1
-		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG || return 1
-	else
-		echo $(eval_gettext 'Info debut scons update $VERSION')
-	fi
-	cd scons-2.0.1
-	python setup.py install 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "End scons")
-	echo
-}
-
 # Installation de Lame
 # http://lame.sourceforge.net/
-centos_lame_install()
+debian_squeeze_lame_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	LAME=$(which lame 2>> /dev/null)
+	LAME=$(which lame)
 	if [ ! -z "$LAME"  ];then
 		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
 	fi
@@ -101,8 +76,7 @@ centos_lame_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation install")
-		make install 2>> $LOG >> $LOG || return 1
-		#checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End lame")
 	fi
 	echo
@@ -110,7 +84,7 @@ centos_lame_install()
 
 # Installation de libopencore-amr
 # http://opencore-amr.sourceforge.net/
-centos_libopencore_amr_install()
+debian_squeeze_libopencore_amr_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -137,8 +111,7 @@ centos_libopencore_amr_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		make install 2>> $LOG >> $LOG || return 1
-		#checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End opencore")
 	fi
 	echo
@@ -146,14 +119,14 @@ centos_libopencore_amr_install()
 
 # Installation de libvpx
 # http://code.google.com/p/webm/
-centos_libvpx_install()
+debian_squeeze_libvpx_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
 	VERSION="0.9.5"
-	LIBVPX=$(rpm -qi libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
+	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	if [[ "$LIBVPX" == *$VERSION* ]];then
 		echo $(eval_gettext 'Info a jour libvpx $VERSION')
 		echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
@@ -173,9 +146,8 @@ centos_libvpx_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		yum -y erase libvpx 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG || return 1
-		#checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG
+		apt-get -y remove libvpx 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libvpx")
 	fi
 	echo
@@ -183,11 +155,11 @@ centos_libvpx_install()
 
 # Installation de libtheora
 # http://www.theora.org/downloads/
-centos_libtheora_install()
+debian_squeeze_libtheora_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	yum -y install libogg-devel 2>> $LOG >> $LOG
+	apt-get -y install libogg-dev 2>> $LOG >> $LOG
 	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
@@ -210,8 +182,7 @@ centos_libtheora_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		make install 2>> $LOG >> $LOG || return 1
-		#checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --type=rpm --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
 	fi
 	echo
@@ -219,11 +190,11 @@ centos_libtheora_install()
 
 # Installation de mediainfo
 # http://mediainfo.sourceforge.net/fr
-centos_media_info_install()
+debian_squeeze_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	MEDIAINFO=$(which mediainfo 2>> $LOG)
+	MEDIAINFO=$(which mediainfo)
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
@@ -253,119 +224,11 @@ centos_media_info_install()
 	echo
 }
 
-# Installation du décodeur AAC
-# http://www.audiocoding.com/
-centos_faad_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	VERSION="2.7"
-	SOFTWARE="faad"
-	FAADVERSION=$(faad -h 2>&1 |awk '/Ahead Software MPEG-4 AAC/ { print $7 }')
-	if [ "$FAADVERSION" = "V$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
-	else
-		cd $SRC_INSTALL
-		if [ ! -e "$SRC_INSTALL"/faad2-2.7.tar.gz ];then
-			echo $(eval_gettext 'Info debut faad install $VERSION')
-			echo $(eval_gettext 'Info debut faad install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/faac/faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1  
-			tar zxf faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1
-		else
-			if [ ! -d faad2-2.7 ];then
-				tar zxf faad2-2.7.tar.gz 2>> $LOG >> $LOG ||return 1
-			fi
-			echo $(eval_gettext 'Info debut faad update $VERSION')
-			echo $(eval_gettext 'Info debut faad update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd faad2-2.7
-		autoreconf -vif 2>> $LOG >> $LOG ||return 1  
-		./configure 2>> $LOG >> $LOG ||return 1 
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
-		make install  2>> $LOG >> $LOG ||return 1
-		ldconfig
-		echo $(eval_gettext "End faad")
-	fi
-	echo 
-}
-
-# Installation de l'encodeur AAC
-# http://www.audiocoding.com/
-centos_faac_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	VERSION="1.28"
-	SOFTWARE="faac"
-	FAACVERSION=$(faac --help 2>&1 |awk '/^FAAC/ { print $2 }')
-	if [ "$FAACVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
-	else
-		cd $SRC_INSTALL
-		if [ ! -e "$SRC_INSTALL"/faac-1.28.tar.gz ];then
-			echo $(eval_gettext 'Info debut faac install $VERSION')
-			echo $(eval_gettext 'Info debut faac install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/faac/faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1 
-			tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
-		else
-			if [ ! -d faac-1.28 ];then
-				tar zxfv faac-1.28.tar.gz 2>> $LOG >> $LOG ||return 1
-			fi
-			echo $(eval_gettext 'Info debut faac update $VERSION')
-			echo $(eval_gettext 'Info debut faac update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd faac-1.28
-		./bootstrap 2>> $LOG >> $LOG ||return 1 
-		./configure 2>> $LOG >> $LOG ||return 1 
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
-		make install  2>> $LOG >> $LOG ||return 1
-		ldconfig
-		echo $(eval_gettext "End faac")
-	fi
-	echo
-}
-
-# Installation de xvidcore
-# http://www.xvid.org/
-centos_xvid_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	VERSION="1.2.2"
-	SOFTWARE="xvidcore"
-	if [ "$FAADVERSION" = "v$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION')
-		echo $(eval_gettext 'Info a jour $SOFTWARE $VERSION') 2>> $LOG >> $LOG
-	else
-		cd $SRC_INSTALL
-		if [ ! -e "$SRC_INSTALL"/xvidcore-1.2.2.tar.gz ];then
-			echo $(eval_gettext 'Info debut xvidcore install $VERSION')
-			echo $(eval_gettext 'Info debut xvidcore install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.xvid.org/downloads/xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1 
-			tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
-		else
-			if [ ! -d xvidcore ];then
-				tar zxfv xvidcore-1.2.2.tar.gz 2>> $LOG >> $LOG ||return 1
-			fi
-			echo $(eval_gettext 'Info debut xvidcore update $VERSION')
-			echo $(eval_gettext 'Info debut xvidcore update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd xvidcore/build/generic 
-		./configure 2>> $LOG >> $LOG ||return 1 
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG ||return 1 
-		make install  2>> $LOG >> $LOG ||return 1
-		echo $(eval_gettext "End xvid")
-	fi
-	echo
-}
-
 # Installation de php-imagick via pecl
 # On n'utilise pas la version des dépots officiels car trop ancienne
 # et bugguée avec safe_mode php
 # http://pecl.php.net/package/imagick
-centos_phpimagick_install()
+debian_squeeze_phpimagick_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -394,118 +257,95 @@ centos_phpimagick_install()
 }
 
 # Installation de diverses dépendances
-# Pour Centis 5.3
-centos_5_3_dep_install()
+# Pour Debian lenny
+debian_squeeze_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-
-	EPEL=$(yum repolist |grep ^epel |grep enabled)
-	if [ -z "$EPEL" ]; then
-		echo $(eval_gettext "Info yum intallation epel")
-		rm epel-release* 2>> $LOG >> $LOG
-		wget http://download.fedora.redhat.com/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm 2>> $LOG >> $LOG  
-		rpm -Uvh epel-release-5*.rpm 2>> $LOG >> $LOG
-	fi
 	
-	LDSO=$(cat /etc/ld.so.conf |grep '^/usr/local/lib')
-	if [ -z "$LDSO" ];then
-		echo "/usr/local/lib" >> /etc/ld.so.conf
-		ldconfig
+	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list) 2>> $LOG >> $LOG
+	if [ -z "$DEBIANMULTIMEDIA" ];then
+		echo $(eval_gettext 'Info apt debian-multimedia question auto')
+		read -p "$QUESTION_VALID"
+		[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
+			echo
+			echo $(eval_gettext 'Info apt debian-multimedia copie')
+			echo "deb http://www.debian-multimedia.org squeeze main non-free" >> /etc/apt/sources.list 2>> $LOG
+			echo $(eval_gettext 'Info apt debian-multimedia installation cle')
+			cd $SRC_INSTALL
+			wget http://www.debian-multimedia.org/pool/main/d/debian-multimedia-keyring/debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
+			dpkg -i debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
+			rm debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
+			echo $(eval_gettext 'End debian-multimedia')
+			echo
 	fi
-	echo $(eval_gettext "Info yum maj base")
-	echo $(eval_gettext "Info yum maj base") 2>> $LOG >> $LOG
-	yum -y check-update 2>> $LOG >> $LOG 
-	echo $(eval_gettext "Info yum maj paquets")
-	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
-	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
-	yum -y install rpm-build gcc-c++ subversion git libtool scons zlib-devel \
-		httpd openssl-devel php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
-		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
-		flac-devel vorbis-tools \
+	echo $(eval_gettext "Info apt maj base")
+	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
+	apt-get -y update 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apt maj paquets")
+	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
+	apt-get -y remove php5-imagick 2>> $LOG >> $LOG || return 1
+	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
+		apache2.2-common php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
+		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
+		flac mediainfo vorbis-tools \
 		2>> $LOG >> $LOG || return 1
-	echo 
+	echo
 	
-	#if [ -x $(which scons 2>> $LOG) ];then
-	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
-	#fi
+	#debian_squeeze_lame_install || return 1
 	
-	#if [[ $SCONS_VERSION < "v1.2" ]]; then
-	#	centos_scons_install || return 1
-	#fi 
+	#debian_squeeze_libopencore_amr_install || return 1
 	
-	centos_lame_install || return 1
+	#debian_squeeze_libtheora_install || return 1
 	
-	centos_libopencore_amr_install || return 1
+	debian_squeeze_libvpx_install || return 1
 	
-	centos_libtheora_install || return 1
+	#debian_squeeze_rtmpdump_install || return 1
 	
-	centos_libvpx_install || return 1
+	debian_squeeze_flvtool_install || return 1
 	
-	centos_rtmpdump_install || return 1
+	#debian_squeeze_media_info_install || return 1
 	
-	centos_flvtool_install || return 1
-	
-	centos_faad_install || return 1
-	
-	centos_faac_install || return 1
-	
-	centos_xvid_install || return 1
-	
-	centos_media_info_install || return 1
-	
-	centos_phpimagick_install || return 1
+	debian_squeeze_phpimagick_install || return 1
 	
 	cd $CURRENT
 	return 0
 }
 
 # Préconfiguration basique d'Apache
-centos_5_3_apache_install ()
+debian_squeeze_apache_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	echo $(eval_gettext "Info apache mod headers")
-	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG 
-	HEADERS=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule headers_module")
-	if [ -z "$HEADERS" ];then
-		echo "LoadModule headers_module modules/mod_headers.so" >>  /etc/httpd/conf/httpd.conf || return 1
-	fi
+	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
+	a2enmod headers 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	REWRITE=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule rewrite_module")
-	if [ -z "$REWRITE" ];then
-		echo "LoadModule rewrite_module modules/mod_rewrite.so" >>  /etc/httpd/conf/httpd.conf || return 1
-	fi
+	a2enmod rewrite 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	DEFLATE=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule deflate_module")
-	if [ -z "$DEFLATE" ];then
-		echo "LoadModule deflate_module modules/mod_deflate.so" >>  /etc/httpd/conf/httpd.conf || return 1
-	fi
+	a2enmod deflate 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod deflate fichier")
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	EXPIRES=$(cat /etc/httpd/conf/httpd.conf |grep "^LoadModule expires_module")
-	if [ -z "$EXPIRES" ];then
-		echo "LoadModule expires_module modules/mod_expires.so" >>  /etc/httpd/conf/httpd.conf || return 1
-	fi
+	a2enmod expires 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apache mod expires fichier")
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info apache mime fichier")
 	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/mediaspip_mime.conf /etc/httpd/conf.d/ 2>> $LOG >> $LOG || return 1
+	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
 	echo $(eval_gettext "Info php max_upload $PHP_UPLOAD_SIZE")
@@ -515,13 +355,14 @@ centos_5_3_apache_install ()
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	service httpd graceful 2>> $LOG >> $LOG || return 1
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	
 	echo
 }
 
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-centos_5_3_x264_install ()
+debian_squeeze_x264_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -555,33 +396,32 @@ centos_5_3_x264_install ()
 		./configure --enable-shared 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		yum -y erase x264* 2>> $LOG >> $LOG
+		apt-get -y remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		#checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG || return 1
-		make install 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
 # Installation de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_5_3_ffmpeg_php_install ()
+debian_squeeze_ffmpeg_php_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	yum -y erase ffmpeg-php 2>> $LOG >> $LOG
+	apt-get -y remove php5-ffmpeg 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
-	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG || return 1
+	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php
 	phpize 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG 
+	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 	echo $(eval_gettext "Info compilation configure")
 	./configure 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info compilation make")
 	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 	make install 2>> $LOG >> $LOG || return 1
-	echo 'extension=ffmpeg.so' > /etc/php.d/ffmpeg.ini 2>> $LOG >> $LOG || return 1
-	service httpd graceful 2>> $LOG >> $LOG || return 1
+	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
 	echo
 	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
@@ -589,7 +429,7 @@ centos_5_3_ffmpeg_php_install ()
 
 # Mise à jour de ffmpeg-php
 # http://ffmpeg-php.sourceforge.net/
-centos_5_3_ffmpeg_php_update ()
+debian_squeeze_ffmpeg_php_update ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -602,16 +442,16 @@ centos_5_3_ffmpeg_php_update ()
 		echo $(eval_gettext "Info a jour ffmpeg-php")
 		echo $(eval_gettext "Info a jour ffmpeg-php") 2>> $LOG >> $LOG
 	else
-		phpize 2>> $LOG >> $LOG || return 1
+		phpize 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
+		./configure 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		make install 2>> $LOG >> $LOG || return 1
-		echo 'extension=ffmpeg.so' > /etc/php.d/ 2>> $LOG >> $LOG || return 1
-		service httpd graceful 2>> $LOG >> $LOG || return 1
+		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')

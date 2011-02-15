@@ -110,7 +110,12 @@ if [ -r /etc/lsb-release ];then
 # Cas de debian
 elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
-	DISTRO="lenny"
+	NUMBER=$(cat /etc/debian_version)
+	if [ "$NUMBER" == '6.0' ]; then
+		DISTRO="squeeze"
+	else
+		DISTRO="lenny"
+	fi
 # Cas de redhat (?) et centos
 elif [ -r /etc/redhat-release ]; then
 	DISTRIB=$(cat /etc/redhat-release |awk  '{ print $1 }' | tr '[A-Z]' '[a-z]' | tr '[:punct:]' '_')
@@ -120,7 +125,7 @@ else
 	exit 1
 fi
 
-OKDISTRO="lenny lucid 5_3"
+OKDISTRO="lenny squeeze lucid 5_3"
 
 if [[ ! $(grep $DISTRO <<< $OKDISTRO) ]]; then
 	echo_erreur $(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO') 1>&2
@@ -152,6 +157,10 @@ if [ ! "$?" = "0" ]
 then
     NO_OF_CPUCORES=2
 fi
+
+
+# Le upload_max_filesize de php
+PHP_UPLOAD_SIZE="150M"
 
 # Type d'installation des dépendances 
 # valeurs : stable|dev
