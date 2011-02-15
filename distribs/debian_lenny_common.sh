@@ -315,6 +315,8 @@ debian_lenny_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
+	verif_svn_protocole || return 1
+	
 	if [ -x $(which scons) ];then
 		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	fi

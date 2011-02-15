@@ -241,6 +241,8 @@ ubuntu_lucid_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo
 
+	verif_svn_protocole || return 1
+	
 	ubuntu_lucid_lame_install || return 1
 
 	ubuntu_lucid_libopencore_amr_install || return 1

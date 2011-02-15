@@ -109,6 +109,16 @@ git_log()
 	fi
 }
 
+verif_svn_protocole()
+{
+	# On vérifie que l'on a bien accès au protocole svn://
+	svn info svn://trac.rezo.net/spip/branches/spip-2.1 2>> /dev/null >> /dev/null
+	if [[ $? != "0" ]]; then
+		echo_erreur $(eval_gettext "Erreur script protocole svn") 1>&2
+		exit 1
+	fi
+}
+
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [[ "$0" == *mediaspip_functions.sh ]];then

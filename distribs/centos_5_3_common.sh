@@ -426,6 +426,8 @@ centos_5_3_dep_install()
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
+	verif_svn_protocole || return 1
+	
 	#if [ -x $(which scons 2>> $LOG) ];then
 	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	#fi

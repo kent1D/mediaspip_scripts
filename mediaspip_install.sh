@@ -52,13 +52,6 @@ fi
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 . ./mediaspip_spip_installation.sh
 
-# On vérifie que l'on a bien accès au protocole svn://
-svn info svn://trac.rezo.net/spip/branches/spip-2.1 2>> /dev/null >> /dev/null
-if [[ $? != "0" ]]; then
-	echo_erreur $(eval_gettext "Erreur script protocole svn") 1>&2
-	exit 1
-fi
-
 
 VERSION_INSTALL="0.3.1"
 
