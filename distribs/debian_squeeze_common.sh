@@ -286,7 +286,7 @@ debian_squeeze_dep_install()
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	apt-get -y remove php5-imagick 2>> $LOG >> $LOG || return 1
 	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
-		apache2.2-common php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
+		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac mediainfo vorbis-tools \
 		2>> $LOG >> $LOG || return 1
