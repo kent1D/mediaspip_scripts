@@ -268,6 +268,8 @@ while [[ $1 = -* ]]; do
 	esac
 done
 
+verif_internet_connexion || error $(eval_gettext "Erreur internet connexion")
+
 if [ "$ERROR" == "oui" ]; then
 	exit 1
 fi

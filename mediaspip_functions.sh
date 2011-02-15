@@ -109,6 +109,15 @@ git_log()
 	fi
 }
 
+verif_internet_connexion()
+{
+	wget -q --tries=10 --timeout=5 http://www.google.com -O /tmp/index.google &> /dev/null
+	if [ ! -s /tmp/index.google ];then
+		return 1
+	fi
+	rm /tmp/index.google
+}
+
 verif_svn_protocole()
 {
 	# On vérifie que l'on a bien accès au protocole svn://
