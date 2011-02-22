@@ -10,11 +10,12 @@
 
 	$quota_cache = 50;
 
+	define ('_INSTALL_SITE_PREF', prefixe_mutualisation($site));
 	define ('_INSTALL_SERVER_DB', 'mysql');
 	define ('_INSTALL_HOST_DB', 'localhost');
 	define ('_INSTALL_USER_DB', 'user');
 	define ('_INSTALL_PASS_DB', 'pass');
-	define ('_INSTALL_NAME_DB', 'mutu_'.prefixe_mutualisation($site));
+	define ('_INSTALL_NAME_DB', 'mu_'._INSTALL_SITE_PREF);
 
 	/* mettre en commentaire la ligne suivante si vous utilisez l'option table_prefixe plus bas dans la config */
 	define ('_INSTALL_TABLE_PREFIX', 'spip');
