@@ -152,7 +152,7 @@ centos_libvpx_install()
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
-	VERSION="0.9.5"
+	VERSION="0.9.6"
 	LIBVPX=$(rpm -qi libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	if [[ "$LIBVPX" == *$VERSION* ]];then
 		echo $(eval_gettext 'Info a jour libvpx $VERSION')
@@ -160,13 +160,13 @@ centos_libvpx_install()
 	else
 		echo $(eval_gettext 'Info debut libvpx install $VERSION')
 		echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-		if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.5.tar.bz2 ];then
-			wget http://webm.googlecode.com/files/libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
-			tar xvjf libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
-		elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.5 ]; then
-			tar xvjf libvpx-v0.9.5.tar.bz2 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
+			wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+		elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
+			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
 		fi
-		cd libvpx-v0.9.5
+		cd libvpx-v0.9.6
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG
