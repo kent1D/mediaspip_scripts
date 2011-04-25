@@ -1,6 +1,9 @@
 #!/bin/bash
 #
 # creer_distrib.sh
+#
+# Ce script sert à créer une distribution SPIP spécifique basée sur 4 fichiers :
+# -* distrib_core.txt : qui donne le nom de la distribution, son répertoire temporaire, l'adresse svn du core à utiliser
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.0.1
 
@@ -121,7 +124,6 @@ function distrib_empaqueter ()
 
 function creer_distrib ()
 {
-
 	distrib_core
 	
 	echo
@@ -147,7 +149,6 @@ function creer_distrib ()
 
 # Cas où l'on appelle directement le script
 if [[ "$0" == *creer_distrib.sh ]];then
-
 	while [[ $1 = -* ]]; do
 		case $1 in
 			--help|-h) HELP="Oué c'est l'aide mais vide"
@@ -161,5 +162,4 @@ if [[ "$0" == *creer_distrib.sh ]];then
 		esac
 	done
 	creer_distrib
-	
 fi

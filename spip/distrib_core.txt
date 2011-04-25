@@ -1,4 +1,4 @@
-NOM=mediaspip
+NOM=mediaspip_0.1_beta
 REP=mediaspip
 SOURCE=svn://trac.rezo.net/spip/branches/spip-2.1
 LIB=oui
