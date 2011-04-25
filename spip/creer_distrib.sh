@@ -12,7 +12,7 @@ if [ ! -r distrib_core.txt ];then
 	exit 1
 fi
 
-VERSION_SPIP_DISTRIB="0.0.1"
+VERSION_SPIP_DISTRIB="0.1"
 
 CURRENT=$(pwd)
 
@@ -20,7 +20,7 @@ function distrib_core()
 {
 	echo "Récupération de SPIP"
 	NOM=$(cat distrib_core.txt |grep "^NOM=" | tr "=" " " |awk '{ print $2 }');
-	REPERTOIRE=$(cat distrib_core.txt |grep "^REP=" | tr "=" " " |awk '{ print $2 }');
+	REP=$(cat distrib_core.txt |grep "^REP=" | tr "=" " " |awk '{ print $2 }');
 	SOURCE=$(cat distrib_core.txt |grep "^SOURCE=" | tr "=" " " |awk '{ print $2 }');
 	LIB=$(cat distrib_core.txt |grep "^LIB=" | tr "=" " " |awk '{ print $2 }');
 	if [ -z "$SOURCE" ];then
@@ -118,7 +118,7 @@ function distrib_autres ()
 
 function distrib_empaqueter ()
 {
-	zip -roq $NOM $REP -x \*/.svn\*	
+	zip -roq "$NOM" $REP -x \*/.svn\*	
 }
 
 
