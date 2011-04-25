@@ -104,7 +104,7 @@ ubuntu_lucid_ffmpeg_install ()
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
-		git clone git://git.ffmpeg.org/ffmpeg.git ffmpeg-git 2>> $LOG >> $LOG
+		git clone git://git.videolan.org/ffmpeg.git ffmpeg-git 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git || return 1
 	fi
 	
