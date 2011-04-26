@@ -157,7 +157,7 @@ PHP_UPLOAD_SIZE="150M"
 
 # Type d'installation des dépendances 
 # valeurs : stable|dev
-DEP_VERSION="dev"
+DEP_VERSION="stable"
 
 # Emplacement final de SPIP et MediaSPIP
 SPIP="/var/www/mediaspip"
