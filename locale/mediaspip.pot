@@ -2,113 +2,140 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-24 02:08+0100\n"
+"POT-Creation-Date: 2011-04-26 13:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@arscenic.tv>\n"
+"Language: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: French\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: mediaspip_install.sh:466
+#: mediaspip_install.sh:477
 #, sh-format
 msgid "End alternc"
 msgstr "Création des liens symboliques des binaires pour AlternC terminée"
 
-#: mediaspip_install.sh:358
+#: mediaspip_install.sh:374
 #, sh-format
 msgid "End apache"
 msgstr "La préconfiguration d'Apache est terminée"
 
-#: distribs/debian_lenny_common.sh:302
+#: distribs/debian_lenny_common.sh:302 distribs/debian_squeeze_common.sh:279
 #, sh-format
 msgid "End debian-multimedia"
 msgstr "Le dépôt Debian Multimédia a été correctement activé."
 
-#: mediaspip_install.sh:343
+#: mediaspip_install.sh:360
 #, sh-format
 msgid "End dependances"
 msgstr "Fin de l'installation des dépendances"
 
-#: mediaspip_install.sh:392
+#: distribs/centos_5_3_common.sh:325
+#, sh-format
+msgid "End faac"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:288
+#, sh-format
+msgid "End faad"
+msgstr ""
+
+#: mediaspip_install.sh:406
 #, sh-format
 msgid "End ffmpeg"
 msgstr "Installation de FFMpeg terminée"
 
-#: mediaspip_install.sh:426
+#: mediaspip_install.sh:437
 #, sh-format
 msgid "End ffmpeg-php"
 msgstr "Installation de FFMpeg-php terminée"
 
-#: mediaspip_install.sh:405
+#: mediaspip_install.sh:418
 #, sh-format
 msgid "End ffmpeg2theora"
 msgstr "Installation de ffmpeg2theora terminée"
 
-#: distribs/debian_lenny_common.sh:44 distribs/ubuntu_lucid_common.sh:45
+#: distribs/centos_5_3_common.sh:46 distribs/debian_lenny_common.sh:44
+#: distribs/debian_squeeze_common.sh:44 distribs/ubuntu_lucid_common.sh:45
 #, sh-format
 msgid "End flvtool2"
 msgstr "Installation de Flvtool2 terminée"
 
-#: mediaspip_install.sh:481
+#: mediaspip_install.sh:491
 #, sh-format
 msgid "End installation generale"
 msgstr "L'installation est terminée."
 
-#: distribs/debian_lenny_common.sh:103 distribs/ubuntu_lucid_common.sh:81
+#: distribs/centos_5_3_common.sh:106 distribs/debian_lenny_common.sh:103
+#: distribs/debian_squeeze_common.sh:80 distribs/ubuntu_lucid_common.sh:81
 #, sh-format
 msgid "End lame"
 msgstr "Installation de lame terminée"
 
-#: distribs/debian_lenny_common.sh:209
+#: distribs/centos_5_3_common.sh:215 distribs/debian_lenny_common.sh:209
+#: distribs/debian_squeeze_common.sh:186
 #, sh-format
 msgid "End libtheora"
 msgstr "Installation de libtheora terminée"
 
-#: distribs/debian_lenny_common.sh:174 distribs/ubuntu_lucid_common.sh:152
+#: distribs/centos_5_3_common.sh:179 distribs/debian_lenny_common.sh:174
+#: distribs/debian_squeeze_common.sh:151 distribs/ubuntu_lucid_common.sh:152
 #, sh-format
 msgid "End libvpx"
 msgstr "Installation de libvpx terminée"
 
-#: distribs/debian_lenny_common.sh:245 distribs/ubuntu_lucid_common.sh:188
+#: distribs/centos_5_3_common.sh:251 distribs/debian_lenny_common.sh:245
+#: distribs/debian_squeeze_common.sh:222 distribs/ubuntu_lucid_common.sh:188
 #, sh-format
 msgid "End mediainfo"
 msgstr "Installation de MediaInfo terminée"
 
-#: distribs/debian_lenny_common.sh:138 distribs/ubuntu_lucid_common.sh:116
+#: distribs/centos_5_3_common.sh:142 distribs/debian_lenny_common.sh:138
+#: distribs/debian_squeeze_common.sh:115 distribs/ubuntu_lucid_common.sh:116
 #, sh-format
 msgid "End opencore"
 msgstr "Installation de opencore-amr terminée"
 
+#: distribs/centos_5_3_common.sh:379 distribs/centos_5_3_common.sh:380
+#: distribs/centos_5_3_common.sh:390 distribs/centos_5_3_common.sh:391
 #: distribs/debian_lenny_common.sh:265 distribs/debian_lenny_common.sh:266
 #: distribs/debian_lenny_common.sh:276 distribs/debian_lenny_common.sh:277
+#: distribs/debian_squeeze_common.sh:242 distribs/debian_squeeze_common.sh:243
+#: distribs/debian_squeeze_common.sh:253 distribs/debian_squeeze_common.sh:254
 #: distribs/ubuntu_lucid_common.sh:208 distribs/ubuntu_lucid_common.sh:209
 #: distribs/ubuntu_lucid_common.sh:219 distribs/ubuntu_lucid_common.sh:220
 #, sh-format
 msgid "End php-imagick"
 msgstr "Installation de php-imagick terminée"
 
+#: distribs/centos_5_3_dev.sh:62 distribs/centos_5_3_stable.sh:63
 #: distribs/debian_lenny_dev.sh:58 distribs/debian_lenny_stable.sh:61
+#: distribs/debian_squeeze_dev.sh:58 distribs/debian_squeeze_stable.sh:61
 #: distribs/ubuntu_lucid_dev.sh:58 distribs/ubuntu_lucid_stable.sh:61
 #, sh-format
 msgid "End rtmpdump"
 msgstr "Installation de rtmpdump terminée"
 
-#: distribs/debian_lenny_common.sh:67
+#: distribs/centos_5_3_common.sh:69 distribs/debian_lenny_common.sh:67
 #, sh-format
 msgid "End scons"
 msgstr "Installation de Scons terminée"
 
-#: mediaspip_install.sh:372
+#: mediaspip_install.sh:387
 #, sh-format
 msgid "End x264"
 msgstr "Installation de x264 terminée"
 
-#: distribs/debian_lenny_common.sh:293
+#: distribs/centos_5_3_common.sh:359
+#, sh-format
+msgid "End xvid"
+msgstr ""
+
+#: distribs/debian_lenny_common.sh:293 distribs/debian_squeeze_common.sh:270
 #, sh-format
 msgid "Erreur apt debian-multimedia"
 msgstr "Vous devez activer les dépôts Debian Multimedia pour APT."
@@ -120,55 +147,60 @@ msgstr ""
 "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) n'est "
 "pas disponible."
 
-#: mediaspip_install.sh:341 mediaspip_install.sh:355 mediaspip_install.sh:368
-#: mediaspip_install.sh:388 mediaspip_install.sh:401 mediaspip_install.sh:416
-#: mediaspip_install.sh:421 mediaspip_install.sh:476
+#: mediaspip_install.sh:358 mediaspip_install.sh:372 mediaspip_install.sh:384
+#: mediaspip_install.sh:403 mediaspip_install.sh:415 mediaspip_install.sh:429
+#: mediaspip_install.sh:433 mediaspip_install.sh:487
 #: mediaspip_spip_installation.sh:37 mediaspip_spip_installation.sh:237
-#: mediaspip_spip_installation.sh:242 mediaspip_spip_installation.sh:268
-#: mediaspip_spip_installation.sh:272
+#: mediaspip_spip_installation.sh:242 mediaspip_spip_installation.sh:273
+#: mediaspip_spip_installation.sh:277
 #, sh-format
 msgid "Erreur installation regarde log"
 msgstr ""
 "Erreur : quelquechose s'est mal passé, veuillez consulter le fichier de log."
 
-#: mediaspip_install.sh:186
+#: mediaspip_install.sh:271
+#, sh-format
+msgid "Erreur internet connexion"
+msgstr ""
+
+#: mediaspip_install.sh:201
 #, sh-format
 msgid "Erreur langue inexistante"
 msgstr "Erreur : cette langue n'est pas prise en compte (fr|en)"
 
-#: mediaspip_install.sh:183
+#: mediaspip_install.sh:198
 #, sh-format
 msgid "Erreur langue non set"
 msgstr "Erreur : aucune langue n'est spécifiée avec l'option --lang"
 
-#: mediaspip_install.sh:249
+#: mediaspip_install.sh:264
 #, sh-format
 msgid "Erreur mediaspip type disponible $TYPEDEMANDE"
 msgstr ""
 "Erreur : votre type d'installation de MediaSPIP n'est pas disponible "
 "($TYPEDEMANDE)"
 
-#: mediaspip_install.sh:212 mediaspip_install.sh:216
+#: mediaspip_install.sh:227 mediaspip_install.sh:231
 #, sh-format
 msgid "Erreur option cpus numerique"
 msgstr "Erreur : votre option --cpus n'est pas numérique"
 
-#: mediaspip_install.sh:206
+#: mediaspip_install.sh:221
 #, sh-format
 msgid "Erreur option cpus trop $CPU_NB"
 msgstr "Erreur : votre serveur n'a pas autant de cpus ($CPU_NB)"
 
-#: mediaspip_install.sh:113
+#: mediaspip_install.sh:117
 #, sh-format
 msgid "Erreur script distro inconnue"
 msgstr "Erreur : la version de votre distribution est inconnue"
 
-#: mediaspip_install.sh:120
+#: mediaspip_install.sh:124
 #, sh-format
 msgid "Erreur script distro non suportee $DISTRIB $DISTRO"
 msgstr "Erreur : votre distribution n'est pas supportée ($DISTRIB $DISTRO)"
 
-#: mediaspip_install.sh:129
+#: mediaspip_install.sh:133
 #, sh-format
 msgid "Erreur script pkg-config"
 msgstr ""
@@ -176,34 +208,34 @@ msgstr ""
 "Vous pouvez l'installer manuellement via la commande :\n"
 "apt-get -y install pkg-config"
 
-#: mediaspip_install.sh:58
+#: mediaspip_functions.sh:126
 #, sh-format
 msgid "Erreur script protocole svn"
 msgstr ""
 "Erreur : le protocole svn:// ne semble pas être accessible de votre machine."
 
-#: mediaspip_install.sh:102
+#: mediaspip_install.sh:95
 #, sh-format
 msgid "Erreur script root"
 msgstr "Erreur : ce script doit être lancé en tant que root"
 
-#: mediaspip_install.sh:306
+#: mediaspip_install.sh:323
 #, sh-format
 msgid "Erreur valide LOG"
 msgstr "Erreur : modifiez la variable LOG pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:318
+#: mediaspip_install.sh:335
 #, sh-format
 msgid "Erreur valide SPIP"
 msgstr "Erreur : modifiez la variable SPIP pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:294
+#: mediaspip_install.sh:311
 #, sh-format
 msgid "Erreur valide SRC_INSTALL"
 msgstr ""
 "Erreur : modifiez la variable SRC_INSTALL pour l'emplacement de votre choix."
 
-#: mediaspip_install.sh:172
+#: mediaspip_install.sh:187
 #, sh-format
 msgid "Help message"
 msgstr ""
@@ -283,12 +315,12 @@ msgstr ""
 " \n"
 " "
 
-#: mediaspip_spip_installation.sh:312
+#: mediaspip_spip_installation.sh:316
 #, sh-format
 msgid "Info MediaSPIP installe"
 msgstr "Les fichiers de MediaSPIP sont installés"
 
-#: mediaspip_install.sh:321
+#: mediaspip_install.sh:338
 #, sh-format
 msgid "Info MediaSPIP non installe"
 msgstr "MediaSPIP ne sera pas installé"
@@ -298,14 +330,14 @@ msgstr "MediaSPIP ne sera pas installé"
 msgid "Info SPIP change depot $SPIP_SVN"
 msgstr "Changement de dépot SVN de SPIP vers $SPIP_SVN"
 
-#: mediaspip_spip_installation.sh:307
+#: mediaspip_spip_installation.sh:312
 #, sh-format
 msgid "Info SPIP changement droits $SPIP_USER $SPIP_GROUP"
 msgstr ""
 "Modifications des droits des fichiers, utilisateur \"$SPIP_USER\", groupe "
 "\"$SPIP_GROUP\""
 
-#: mediaspip_spip_installation.sh:303
+#: mediaspip_spip_installation.sh:308
 #, sh-format
 msgid "Info SPIP copie htaccess"
 msgstr "Copie du fichier htaccess de SPIP"
@@ -320,7 +352,7 @@ msgstr "Installation des extensions de MediaSPIP"
 msgid "Info SPIP extensions maj"
 msgstr "Mise à jour des extensions de MediaSPIP"
 
-#: mediaspip_spip_installation.sh:267
+#: mediaspip_spip_installation.sh:272
 #, sh-format
 msgid "Info SPIP install mutualisation"
 msgstr "Installation du plugin de mutualisation"
@@ -335,7 +367,7 @@ msgstr "Installation des plugins optionnels de MediaSPIP"
 msgid "Info SPIP install revision $REVISIONSPIP"
 msgstr "SPIP est installé à la révision $REVISIONSPIP"
 
-#: mediaspip_install.sh:315
+#: mediaspip_install.sh:332
 #, sh-format
 msgid "Info SPIP installation"
 msgstr "Ce script installera SPIP dans le répertoire :"
@@ -345,7 +377,7 @@ msgstr "Ce script installera SPIP dans le répertoire :"
 msgid "Info SPIP maj"
 msgstr "Mise à jour de SPIP"
 
-#: mediaspip_spip_installation.sh:271
+#: mediaspip_spip_installation.sh:276
 #, sh-format
 msgid "Info SPIP maj mutualisation"
 msgstr "Mise à jour du plugin de mutualisation"
@@ -360,32 +392,32 @@ msgstr "Mise à jour des plugins optionnels de MediaSPIP"
 msgid "Info SPIP plugins"
 msgstr "Installation des plugins SPIP optionnels"
 
-#: mediaspip_spip_installation.sh:254
+#: mediaspip_spip_installation.sh:259
 #, sh-format
 msgid "Info SPIP repertoire lib"
 msgstr "Création du répertoire lib/"
 
-#: mediaspip_spip_installation.sh:276
+#: mediaspip_spip_installation.sh:281
 #, sh-format
 msgid "Info SPIP repertoire sites"
 msgstr "Création du répertoire sites/"
 
-#: mediaspip_spip_installation.sh:280 mediaspip_spip_installation.sh:292
+#: mediaspip_spip_installation.sh:285 mediaspip_spip_installation.sh:297
 #, sh-format
 msgid "Info SPIP suppression cache css"
 msgstr "Suppression des caches CSS"
 
-#: mediaspip_spip_installation.sh:284 mediaspip_spip_installation.sh:296
+#: mediaspip_spip_installation.sh:289 mediaspip_spip_installation.sh:301
 #, sh-format
 msgid "Info SPIP suppression cache html"
 msgstr "Suppression des caches HTML"
 
-#: mediaspip_spip_installation.sh:282 mediaspip_spip_installation.sh:294
+#: mediaspip_spip_installation.sh:287 mediaspip_spip_installation.sh:299
 #, sh-format
 msgid "Info SPIP suppression cache js"
 msgstr "Suppression des caches javascript"
 
-#: mediaspip_spip_installation.sh:286 mediaspip_spip_installation.sh:298
+#: mediaspip_spip_installation.sh:291 mediaspip_spip_installation.sh:303
 #, sh-format
 msgid "Info SPIP suppression cache plugins"
 msgstr "Suppression des caches de metas"
@@ -433,381 +465,546 @@ msgstr "Installation des thèmes de MediaSPIP"
 msgid "Info SPIP themes maj"
 msgstr "Mise à jour des themes de MediaSPIP"
 
-#: distribs/debian_lenny_dev.sh:120 distribs/debian_lenny_dev.sh:121
-#: distribs/debian_lenny_stable.sh:129 distribs/debian_lenny_stable.sh:130
-#: distribs/ubuntu_lucid_dev.sh:120 distribs/ubuntu_lucid_dev.sh:121
-#: distribs/ubuntu_lucid_stable.sh:129 distribs/ubuntu_lucid_stable.sh:130
+#: distribs/centos_5_3_common.sh:266 distribs/centos_5_3_common.sh:267
+#: distribs/centos_5_3_common.sh:303 distribs/centos_5_3_common.sh:304
+#: distribs/centos_5_3_common.sh:339 distribs/centos_5_3_common.sh:340
+#, sh-format
+msgid "Info a jour $SOFTWARE $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_dev.sh:122 distribs/centos_5_3_dev.sh:123
+#: distribs/centos_5_3_stable.sh:129 distribs/centos_5_3_stable.sh:130
+#: distribs/debian_lenny_dev.sh:118 distribs/debian_lenny_dev.sh:119
+#: distribs/debian_lenny_stable.sh:127 distribs/debian_lenny_stable.sh:128
+#: distribs/debian_squeeze_dev.sh:118 distribs/debian_squeeze_dev.sh:119
+#: distribs/debian_squeeze_stable.sh:127 distribs/debian_squeeze_stable.sh:128
+#: distribs/ubuntu_lucid_dev.sh:118 distribs/ubuntu_lucid_dev.sh:119
+#: distribs/ubuntu_lucid_stable.sh:127 distribs/ubuntu_lucid_stable.sh:128
 #, sh-format
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg semble déjà à jour"
 
-#: distribs/debian_lenny_common.sh:471 distribs/debian_lenny_common.sh:472
-#: distribs/ubuntu_lucid_common.sh:384 distribs/ubuntu_lucid_common.sh:385
+#: distribs/centos_5_3_common.sh:605 distribs/centos_5_3_common.sh:606
+#: distribs/debian_lenny_common.sh:476 distribs/debian_lenny_common.sh:477
+#: distribs/debian_squeeze_common.sh:445 distribs/debian_squeeze_common.sh:446
+#: distribs/ubuntu_lucid_common.sh:390 distribs/ubuntu_lucid_common.sh:391
 #, sh-format
 msgid "Info a jour ffmpeg-php"
 msgstr "FFmpeg-php semble déjà à jour"
 
-#: distribs/debian_lenny_stable.sh:81 distribs/debian_lenny_stable.sh:82
-#: distribs/ubuntu_lucid_stable.sh:81 distribs/ubuntu_lucid_stable.sh:82
+#: distribs/centos_5_3_stable.sh:82 distribs/centos_5_3_stable.sh:83
+#: distribs/debian_lenny_stable.sh:80 distribs/debian_lenny_stable.sh:81
+#: distribs/debian_squeeze_stable.sh:80 distribs/debian_squeeze_stable.sh:81
+#: distribs/ubuntu_lucid_stable.sh:80 distribs/ubuntu_lucid_stable.sh:81
 #, sh-format
 msgid "Info a jour ffmpeg2theora version $VERSION"
 msgstr "ffmpeg2theora semble déjà à jour à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:86 distribs/centos_5_3_common.sh:87
 #: distribs/debian_lenny_common.sh:84 distribs/debian_lenny_common.sh:85
+#: distribs/debian_squeeze_common.sh:61 distribs/debian_squeeze_common.sh:62
 #: distribs/ubuntu_lucid_common.sh:62 distribs/ubuntu_lucid_common.sh:63
 #, sh-format
 msgid "Info a jour lame $VERSION"
 msgstr "LAME semble déjà à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:195 distribs/centos_5_3_common.sh:196
 #: distribs/debian_lenny_common.sh:190 distribs/debian_lenny_common.sh:191
+#: distribs/debian_squeeze_common.sh:167 distribs/debian_squeeze_common.sh:168
 #, sh-format
 msgid "Info a jour libtheora $VERSION"
 msgstr "Libtheora semble déjà à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:158 distribs/centos_5_3_common.sh:159
 #: distribs/debian_lenny_common.sh:154 distribs/debian_lenny_common.sh:155
+#: distribs/debian_squeeze_common.sh:131 distribs/debian_squeeze_common.sh:132
 #: distribs/ubuntu_lucid_common.sh:132 distribs/ubuntu_lucid_common.sh:133
 #, sh-format
 msgid "Info a jour libvpx $VERSION"
 msgstr "Libvpx semble déjà installé à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:232 distribs/centos_5_3_common.sh:233
 #: distribs/debian_lenny_common.sh:226 distribs/debian_lenny_common.sh:227
+#: distribs/debian_squeeze_common.sh:203 distribs/debian_squeeze_common.sh:204
 #: distribs/ubuntu_lucid_common.sh:169 distribs/ubuntu_lucid_common.sh:170
 #, sh-format
 msgid "Info a jour mediainfo $VERSION"
 msgstr "MediaInfo semble déjà à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:121 distribs/centos_5_3_common.sh:122
 #: distribs/debian_lenny_common.sh:118 distribs/debian_lenny_common.sh:119
+#: distribs/debian_squeeze_common.sh:95 distribs/debian_squeeze_common.sh:96
 #: distribs/ubuntu_lucid_common.sh:96 distribs/ubuntu_lucid_common.sh:97
 #, sh-format
 msgid "Info a jour opencore $VERSION"
 msgstr "Libopencore-amr semble déjà à la version $VERSION"
 
+#: distribs/centos_5_3_common.sh:383 distribs/centos_5_3_common.sh:384
 #: distribs/debian_lenny_common.sh:269 distribs/debian_lenny_common.sh:270
+#: distribs/debian_squeeze_common.sh:246 distribs/debian_squeeze_common.sh:247
 #: distribs/ubuntu_lucid_common.sh:212 distribs/ubuntu_lucid_common.sh:213
 #, sh-format
 msgid "Info a jour php-imagick"
 msgstr "php-imagick semble déjà à jour"
 
+#: distribs/centos_5_3_dev.sh:52 distribs/centos_5_3_dev.sh:53
 #: distribs/debian_lenny_dev.sh:49 distribs/debian_lenny_dev.sh:50
+#: distribs/debian_squeeze_dev.sh:49 distribs/debian_squeeze_dev.sh:50
 #: distribs/ubuntu_lucid_dev.sh:49 distribs/ubuntu_lucid_dev.sh:50
 #, sh-format
 msgid "Info a jour rtmpdump $REVISION"
 msgstr "rtmpdump semble déjà à jour à la révision $REVISION"
 
+#: distribs/centos_5_3_stable.sh:47 distribs/centos_5_3_stable.sh:48
 #: distribs/debian_lenny_stable.sh:47 distribs/debian_lenny_stable.sh:48
+#: distribs/debian_squeeze_stable.sh:47 distribs/debian_squeeze_stable.sh:48
 #: distribs/ubuntu_lucid_stable.sh:47 distribs/ubuntu_lucid_stable.sh:48
 #, sh-format
 msgid "Info a jour rtmpdump $VERSION"
 msgstr "rtmpdump semble déjà à jour à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:418 distribs/debian_lenny_common.sh:419
-#: distribs/ubuntu_lucid_common.sh:331 distribs/ubuntu_lucid_common.sh:332
+#: distribs/centos_5_3_common.sh:553 distribs/centos_5_3_common.sh:554
+#: distribs/debian_lenny_common.sh:425 distribs/debian_lenny_common.sh:426
+#: distribs/debian_squeeze_common.sh:394 distribs/debian_squeeze_common.sh:395
+#: distribs/ubuntu_lucid_common.sh:339 distribs/ubuntu_lucid_common.sh:340
 #, sh-format
 msgid "Info a jour x264"
 msgstr "x264 semble déjà à jour"
 
-#: distribs/debian_lenny_common.sh:378 distribs/debian_lenny_common.sh:379
-#: distribs/ubuntu_lucid_common.sh:291 distribs/ubuntu_lucid_common.sh:292
+#: distribs/centos_5_3_common.sh:508 distribs/centos_5_3_common.sh:509
+#: distribs/debian_lenny_common.sh:379 distribs/debian_lenny_common.sh:380
+#: distribs/debian_squeeze_common.sh:348 distribs/debian_squeeze_common.sh:349
+#: distribs/ubuntu_lucid_common.sh:294 distribs/ubuntu_lucid_common.sh:295
 #, sh-format
 msgid "Info apache mime fichier"
 msgstr ""
 "Installation du fichier de configuration des types mime supplémentaires"
 
-#: distribs/debian_lenny_common.sh:362 distribs/debian_lenny_common.sh:363
-#: distribs/ubuntu_lucid_common.sh:275 distribs/ubuntu_lucid_common.sh:276
+#: distribs/centos_5_3_common.sh:486 distribs/centos_5_3_common.sh:487
+#: distribs/debian_lenny_common.sh:363 distribs/debian_lenny_common.sh:364
+#: distribs/debian_squeeze_common.sh:332 distribs/debian_squeeze_common.sh:333
+#: distribs/ubuntu_lucid_common.sh:278 distribs/ubuntu_lucid_common.sh:279
 #, sh-format
 msgid "Info apache mod deflate"
 msgstr "Activation du mod_deflate"
 
-#: distribs/debian_lenny_common.sh:365 distribs/debian_lenny_common.sh:366
-#: distribs/ubuntu_lucid_common.sh:278 distribs/ubuntu_lucid_common.sh:279
+#: distribs/centos_5_3_common.sh:492 distribs/centos_5_3_common.sh:493
+#: distribs/debian_lenny_common.sh:366 distribs/debian_lenny_common.sh:367
+#: distribs/debian_squeeze_common.sh:335 distribs/debian_squeeze_common.sh:336
+#: distribs/ubuntu_lucid_common.sh:281 distribs/ubuntu_lucid_common.sh:282
 #, sh-format
 msgid "Info apache mod deflate fichier"
 msgstr "Installation du fichier de configuration du mod_deflate"
 
-#: distribs/debian_lenny_common.sh:370 distribs/debian_lenny_common.sh:371
-#: distribs/ubuntu_lucid_common.sh:283 distribs/ubuntu_lucid_common.sh:284
+#: distribs/centos_5_3_common.sh:497 distribs/centos_5_3_common.sh:498
+#: distribs/debian_lenny_common.sh:371 distribs/debian_lenny_common.sh:372
+#: distribs/debian_squeeze_common.sh:340 distribs/debian_squeeze_common.sh:341
+#: distribs/ubuntu_lucid_common.sh:286 distribs/ubuntu_lucid_common.sh:287
 #, sh-format
 msgid "Info apache mod expires"
 msgstr "Activation du mod_expires"
 
-#: distribs/debian_lenny_common.sh:373 distribs/debian_lenny_common.sh:374
-#: distribs/ubuntu_lucid_common.sh:286 distribs/ubuntu_lucid_common.sh:287
+#: distribs/centos_5_3_common.sh:503 distribs/centos_5_3_common.sh:504
+#: distribs/debian_lenny_common.sh:374 distribs/debian_lenny_common.sh:375
+#: distribs/debian_squeeze_common.sh:343 distribs/debian_squeeze_common.sh:344
+#: distribs/ubuntu_lucid_common.sh:289 distribs/ubuntu_lucid_common.sh:290
 #, sh-format
 msgid "Info apache mod expires fichier"
 msgstr "Installation du fichier de configuration du mod_expires"
 
-#: distribs/debian_lenny_common.sh:352 distribs/debian_lenny_common.sh:353
-#: distribs/ubuntu_lucid_common.sh:265 distribs/ubuntu_lucid_common.sh:266
+#: distribs/centos_5_3_common.sh:470 distribs/centos_5_3_common.sh:471
+#: distribs/debian_lenny_common.sh:353 distribs/debian_lenny_common.sh:354
+#: distribs/debian_squeeze_common.sh:322 distribs/debian_squeeze_common.sh:323
+#: distribs/ubuntu_lucid_common.sh:268 distribs/ubuntu_lucid_common.sh:269
 #, sh-format
 msgid "Info apache mod headers"
 msgstr "Activation du mod_headers"
 
-#: distribs/debian_lenny_common.sh:357 distribs/debian_lenny_common.sh:358
-#: distribs/ubuntu_lucid_common.sh:270 distribs/ubuntu_lucid_common.sh:271
+#: distribs/centos_5_3_common.sh:478 distribs/centos_5_3_common.sh:479
+#: distribs/debian_lenny_common.sh:358 distribs/debian_lenny_common.sh:359
+#: distribs/debian_squeeze_common.sh:327 distribs/debian_squeeze_common.sh:328
+#: distribs/ubuntu_lucid_common.sh:273 distribs/ubuntu_lucid_common.sh:274
 #, sh-format
 msgid "Info apache mod rewrite"
 msgstr "Activation du mod_rewrite"
 
-#: distribs/debian_lenny_common.sh:383 distribs/debian_lenny_common.sh:384
-#: distribs/ubuntu_lucid_common.sh:296 distribs/ubuntu_lucid_common.sh:297
+#: distribs/centos_5_3_common.sh:519 distribs/centos_5_3_common.sh:520
+#: distribs/debian_lenny_common.sh:390 distribs/debian_lenny_common.sh:391
+#: distribs/debian_squeeze_common.sh:359 distribs/debian_squeeze_common.sh:360
+#: distribs/ubuntu_lucid_common.sh:305 distribs/ubuntu_lucid_common.sh:306
 #, sh-format
 msgid "Info apache reload"
 msgstr "Rechargement d'Apache"
 
-#: distribs/debian_lenny_common.sh:295
+#: distribs/debian_lenny_common.sh:295 distribs/debian_squeeze_common.sh:272
 #, sh-format
 msgid "Info apt debian-multimedia copie"
 msgstr "Insertion du dépôt dans le fichier /etc/apt/sources.list ."
 
-#: distribs/debian_lenny_common.sh:297
+#: distribs/debian_lenny_common.sh:297 distribs/debian_squeeze_common.sh:274
 #, sh-format
 msgid "Info apt debian-multimedia installation cle"
 msgstr "Installation de la clé GPG du dépôt."
 
-#: distribs/debian_lenny_common.sh:291
+#: distribs/debian_lenny_common.sh:291 distribs/debian_squeeze_common.sh:268
 #, sh-format
 msgid "Info apt debian-multimedia question auto"
-msgstr "Le dépôt APT Debian Multimédia est nécessaire pour continuer. Voulez-vous que le script l'active automatiquement ?"
+msgstr ""
+"Le dépôt APT Debian Multimédia est nécessaire pour continuer. Voulez-vous "
+"que le script l'active automatiquement ?"
 
 #: distribs/debian_lenny_common.sh:305 distribs/debian_lenny_common.sh:306
+#: distribs/debian_squeeze_common.sh:282 distribs/debian_squeeze_common.sh:283
 #: distribs/ubuntu_lucid_common.sh:231 distribs/ubuntu_lucid_common.sh:232
 #, sh-format
 msgid "Info apt maj base"
 msgstr "Mise à jour de la base d'APT"
 
 #: distribs/debian_lenny_common.sh:308 distribs/debian_lenny_common.sh:309
+#: distribs/debian_squeeze_common.sh:285 distribs/debian_squeeze_common.sh:286
 #: distribs/ubuntu_lucid_common.sh:234 distribs/ubuntu_lucid_common.sh:235
 #, sh-format
 msgid "Info apt maj paquets"
 msgstr "Mise à jour et installation des paquets via APT"
 
-#: distribs/debian_lenny_common.sh:97 distribs/debian_lenny_common.sh:131
-#: distribs/debian_lenny_common.sh:167 distribs/debian_lenny_common.sh:203
-#: distribs/debian_lenny_common.sh:422 distribs/debian_lenny_common.sh:446
-#: distribs/debian_lenny_common.sh:477 distribs/debian_lenny_dev.sh:125
-#: distribs/debian_lenny_stable.sh:134 distribs/ubuntu_lucid_common.sh:75
+#: distribs/centos_5_3_common.sh:99 distribs/centos_5_3_common.sh:134
+#: distribs/centos_5_3_common.sh:171 distribs/centos_5_3_common.sh:208
+#: distribs/centos_5_3_common.sh:557 distribs/centos_5_3_common.sh:581
+#: distribs/centos_5_3_common.sh:611 distribs/centos_5_3_dev.sh:127
+#: distribs/centos_5_3_stable.sh:134 distribs/debian_lenny_common.sh:97
+#: distribs/debian_lenny_common.sh:131 distribs/debian_lenny_common.sh:167
+#: distribs/debian_lenny_common.sh:203 distribs/debian_lenny_common.sh:429
+#: distribs/debian_lenny_common.sh:452 distribs/debian_lenny_common.sh:482
+#: distribs/debian_lenny_dev.sh:123 distribs/debian_lenny_stable.sh:132
+#: distribs/debian_squeeze_common.sh:74 distribs/debian_squeeze_common.sh:108
+#: distribs/debian_squeeze_common.sh:144 distribs/debian_squeeze_common.sh:180
+#: distribs/debian_squeeze_common.sh:398 distribs/debian_squeeze_common.sh:421
+#: distribs/debian_squeeze_common.sh:451 distribs/debian_squeeze_dev.sh:123
+#: distribs/debian_squeeze_stable.sh:132 distribs/ubuntu_lucid_common.sh:75
 #: distribs/ubuntu_lucid_common.sh:109 distribs/ubuntu_lucid_common.sh:145
-#: distribs/ubuntu_lucid_common.sh:335 distribs/ubuntu_lucid_common.sh:359
-#: distribs/ubuntu_lucid_common.sh:390 distribs/ubuntu_lucid_dev.sh:125
-#: distribs/ubuntu_lucid_stable.sh:134
+#: distribs/ubuntu_lucid_common.sh:343 distribs/ubuntu_lucid_common.sh:366
+#: distribs/ubuntu_lucid_common.sh:396 distribs/ubuntu_lucid_dev.sh:123
+#: distribs/ubuntu_lucid_stable.sh:132
 #, sh-format
 msgid "Info compilation configure"
 msgstr "Configuration"
 
+#: distribs/centos_5_3_common.sh:103 distribs/centos_5_3_common.sh:139
+#: distribs/centos_5_3_common.sh:175 distribs/centos_5_3_common.sh:212
+#: distribs/centos_5_3_common.sh:562 distribs/centos_5_3_dev.sh:134
+#: distribs/centos_5_3_stable.sh:59 distribs/centos_5_3_stable.sh:141
 #: distribs/debian_lenny_common.sh:101 distribs/debian_lenny_common.sh:136
 #: distribs/debian_lenny_common.sh:171 distribs/debian_lenny_common.sh:207
-#: distribs/debian_lenny_common.sh:427 distribs/debian_lenny_dev.sh:132
-#: distribs/debian_lenny_stable.sh:59 distribs/debian_lenny_stable.sh:141
+#: distribs/debian_lenny_common.sh:434 distribs/debian_lenny_dev.sh:130
+#: distribs/debian_lenny_stable.sh:59 distribs/debian_lenny_stable.sh:139
+#: distribs/debian_squeeze_common.sh:78 distribs/debian_squeeze_common.sh:113
+#: distribs/debian_squeeze_common.sh:148 distribs/debian_squeeze_common.sh:184
+#: distribs/debian_squeeze_common.sh:403 distribs/debian_squeeze_dev.sh:130
+#: distribs/debian_squeeze_stable.sh:59 distribs/debian_squeeze_stable.sh:139
 #: distribs/ubuntu_lucid_common.sh:79 distribs/ubuntu_lucid_common.sh:114
-#: distribs/ubuntu_lucid_common.sh:149 distribs/ubuntu_lucid_common.sh:340
-#: distribs/ubuntu_lucid_dev.sh:132 distribs/ubuntu_lucid_stable.sh:59
-#: distribs/ubuntu_lucid_stable.sh:141
+#: distribs/ubuntu_lucid_common.sh:149 distribs/ubuntu_lucid_common.sh:348
+#: distribs/ubuntu_lucid_dev.sh:130 distribs/ubuntu_lucid_stable.sh:59
+#: distribs/ubuntu_lucid_stable.sh:139
 #, sh-format
 msgid "Info compilation install"
 msgstr "Installation"
 
-#: distribs/debian_lenny_common.sh:99 distribs/debian_lenny_common.sh:134
-#: distribs/debian_lenny_common.sh:169 distribs/debian_lenny_common.sh:205
-#: distribs/debian_lenny_common.sh:424 distribs/debian_lenny_common.sh:448
-#: distribs/debian_lenny_common.sh:479 distribs/debian_lenny_dev.sh:55
-#: distribs/debian_lenny_dev.sh:129 distribs/debian_lenny_stable.sh:57
-#: distribs/debian_lenny_stable.sh:138 distribs/ubuntu_lucid_common.sh:77
+#: distribs/centos_5_3_common.sh:101 distribs/centos_5_3_common.sh:137
+#: distribs/centos_5_3_common.sh:173 distribs/centos_5_3_common.sh:210
+#: distribs/centos_5_3_common.sh:559 distribs/centos_5_3_common.sh:583
+#: distribs/centos_5_3_common.sh:613 distribs/centos_5_3_dev.sh:57
+#: distribs/centos_5_3_dev.sh:131 distribs/centos_5_3_stable.sh:57
+#: distribs/centos_5_3_stable.sh:138 distribs/debian_lenny_common.sh:99
+#: distribs/debian_lenny_common.sh:134 distribs/debian_lenny_common.sh:169
+#: distribs/debian_lenny_common.sh:205 distribs/debian_lenny_common.sh:431
+#: distribs/debian_lenny_common.sh:454 distribs/debian_lenny_common.sh:484
+#: distribs/debian_lenny_dev.sh:55 distribs/debian_lenny_dev.sh:127
+#: distribs/debian_lenny_stable.sh:57 distribs/debian_lenny_stable.sh:136
+#: distribs/debian_squeeze_common.sh:76 distribs/debian_squeeze_common.sh:111
+#: distribs/debian_squeeze_common.sh:146 distribs/debian_squeeze_common.sh:182
+#: distribs/debian_squeeze_common.sh:400 distribs/debian_squeeze_common.sh:423
+#: distribs/debian_squeeze_common.sh:453 distribs/debian_squeeze_dev.sh:55
+#: distribs/debian_squeeze_dev.sh:127 distribs/debian_squeeze_stable.sh:57
+#: distribs/debian_squeeze_stable.sh:136 distribs/ubuntu_lucid_common.sh:77
 #: distribs/ubuntu_lucid_common.sh:112 distribs/ubuntu_lucid_common.sh:147
-#: distribs/ubuntu_lucid_common.sh:337 distribs/ubuntu_lucid_common.sh:361
-#: distribs/ubuntu_lucid_common.sh:392 distribs/ubuntu_lucid_dev.sh:55
-#: distribs/ubuntu_lucid_dev.sh:129 distribs/ubuntu_lucid_stable.sh:57
-#: distribs/ubuntu_lucid_stable.sh:138
+#: distribs/ubuntu_lucid_common.sh:345 distribs/ubuntu_lucid_common.sh:368
+#: distribs/ubuntu_lucid_common.sh:398 distribs/ubuntu_lucid_dev.sh:55
+#: distribs/ubuntu_lucid_dev.sh:127 distribs/ubuntu_lucid_stable.sh:57
+#: distribs/ubuntu_lucid_stable.sh:136
 #, sh-format
 msgid "Info compilation make"
 msgstr "Compilation"
 
-#: distribs/debian_lenny_dev.sh:106 distribs/debian_lenny_dev.sh:108
-#: distribs/debian_lenny_stable.sh:112 distribs/debian_lenny_stable.sh:113
-#: distribs/ubuntu_lucid_dev.sh:106 distribs/ubuntu_lucid_dev.sh:108
-#: distribs/ubuntu_lucid_stable.sh:112 distribs/ubuntu_lucid_stable.sh:113
+#: distribs/centos_5_3_common.sh:308 distribs/centos_5_3_common.sh:309
+#, sh-format
+msgid "Info debut faac install $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:316 distribs/centos_5_3_common.sh:317
+#, sh-format
+msgid "Info debut faac update $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:271 distribs/centos_5_3_common.sh:272
+#, sh-format
+msgid "Info debut faad install $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:279 distribs/centos_5_3_common.sh:280
+#, sh-format
+msgid "Info debut faad update $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_dev.sh:108 distribs/centos_5_3_dev.sh:110
+#: distribs/centos_5_3_stable.sh:112 distribs/centos_5_3_stable.sh:113
+#: distribs/debian_lenny_dev.sh:104 distribs/debian_lenny_dev.sh:106
+#: distribs/debian_lenny_stable.sh:110 distribs/debian_lenny_stable.sh:111
+#: distribs/debian_squeeze_dev.sh:104 distribs/debian_squeeze_dev.sh:106
+#: distribs/debian_squeeze_stable.sh:110 distribs/debian_squeeze_stable.sh:111
+#: distribs/ubuntu_lucid_dev.sh:104 distribs/ubuntu_lucid_dev.sh:106
+#: distribs/ubuntu_lucid_stable.sh:110 distribs/ubuntu_lucid_stable.sh:111
 #, sh-format
 msgid "Info debut ffmpeg install"
 msgstr "Téléchargement, compilation et installation de FFMpeg"
 
-#: distribs/debian_lenny_dev.sh:100 distribs/debian_lenny_dev.sh:102
-#: distribs/ubuntu_lucid_dev.sh:100 distribs/ubuntu_lucid_dev.sh:102
+#: distribs/centos_5_3_dev.sh:102 distribs/centos_5_3_dev.sh:104
+#: distribs/debian_lenny_dev.sh:98 distribs/debian_lenny_dev.sh:100
+#: distribs/debian_squeeze_dev.sh:98 distribs/debian_squeeze_dev.sh:100
+#: distribs/ubuntu_lucid_dev.sh:98 distribs/ubuntu_lucid_dev.sh:100
 #, sh-format
 msgid "Info debut ffmpeg update"
 msgstr "Mise à jour, compilation et installation de FFMpeg"
 
-#: mediaspip_install.sh:419 mediaspip_install.sh:420
+#: mediaspip_install.sh:431 mediaspip_install.sh:432
 #, sh-format
 msgid "Info debut ffmpeg-php install"
 msgstr "Téléchargement, compilation et installation de FFMpeg-php"
 
-#: mediaspip_install.sh:414 mediaspip_install.sh:415
+#: mediaspip_install.sh:427 mediaspip_install.sh:428
 #, sh-format
 msgid "Info debut ffmpeg-php update"
 msgstr "Mise à jour, compilation et installation de FFMpeg-php"
 
-#: distribs/debian_lenny_dev.sh:73 distribs/debian_lenny_dev.sh:74
-#: distribs/debian_lenny_stable.sh:85 distribs/debian_lenny_stable.sh:86
-#: distribs/ubuntu_lucid_dev.sh:73 distribs/ubuntu_lucid_dev.sh:74
-#: distribs/ubuntu_lucid_stable.sh:85 distribs/ubuntu_lucid_stable.sh:86
+#: distribs/centos_5_3_dev.sh:76 distribs/centos_5_3_dev.sh:77
+#: distribs/centos_5_3_stable.sh:86 distribs/centos_5_3_stable.sh:87
+#: distribs/debian_lenny_dev.sh:72 distribs/debian_lenny_dev.sh:73
+#: distribs/debian_lenny_stable.sh:84 distribs/debian_lenny_stable.sh:85
+#: distribs/debian_squeeze_dev.sh:72 distribs/debian_squeeze_dev.sh:73
+#: distribs/debian_squeeze_stable.sh:84 distribs/debian_squeeze_stable.sh:85
+#: distribs/ubuntu_lucid_dev.sh:72 distribs/ubuntu_lucid_dev.sh:73
+#: distribs/ubuntu_lucid_stable.sh:84 distribs/ubuntu_lucid_stable.sh:85
 #, sh-format
 msgid "Info debut ffmpeg2theora install"
 msgstr "Téléchargement, compilation et installation de ffmpeg2theora"
 
-#: distribs/debian_lenny_dev.sh:80 distribs/debian_lenny_dev.sh:81
-#: distribs/debian_lenny_stable.sh:93 distribs/debian_lenny_stable.sh:94
-#: distribs/ubuntu_lucid_dev.sh:80 distribs/ubuntu_lucid_dev.sh:81
-#: distribs/ubuntu_lucid_stable.sh:93 distribs/ubuntu_lucid_stable.sh:94
+#: distribs/centos_5_3_dev.sh:83 distribs/centos_5_3_dev.sh:84
+#: distribs/centos_5_3_stable.sh:94 distribs/centos_5_3_stable.sh:95
+#: distribs/debian_lenny_dev.sh:79 distribs/debian_lenny_dev.sh:80
+#: distribs/debian_lenny_stable.sh:92 distribs/debian_lenny_stable.sh:93
+#: distribs/debian_squeeze_dev.sh:79 distribs/debian_squeeze_dev.sh:80
+#: distribs/debian_squeeze_stable.sh:92 distribs/debian_squeeze_stable.sh:93
+#: distribs/ubuntu_lucid_dev.sh:79 distribs/ubuntu_lucid_dev.sh:80
+#: distribs/ubuntu_lucid_stable.sh:92 distribs/ubuntu_lucid_stable.sh:93
 #, sh-format
 msgid "Info debut ffmpeg2theora update"
 msgstr "Mise à jour, compilation et installation de ffmpeg2theora"
 
+#: distribs/centos_5_3_common.sh:40 distribs/centos_5_3_common.sh:41
 #: distribs/debian_lenny_common.sh:38 distribs/debian_lenny_common.sh:39
+#: distribs/debian_squeeze_common.sh:38 distribs/debian_squeeze_common.sh:39
 #: distribs/ubuntu_lucid_common.sh:39 distribs/ubuntu_lucid_common.sh:40
 #, sh-format
 msgid "Info debut flvtool2"
 msgstr "Téléchargement, compilation et installation de flvtool2"
 
+#: distribs/centos_5_3_common.sh:90 distribs/centos_5_3_common.sh:91
 #: distribs/debian_lenny_common.sh:88 distribs/debian_lenny_common.sh:89
+#: distribs/debian_squeeze_common.sh:65 distribs/debian_squeeze_common.sh:66
 #: distribs/ubuntu_lucid_common.sh:66 distribs/ubuntu_lucid_common.sh:67
 #, sh-format
 msgid "Info debut lame install $VERSION"
 msgstr "Téléchargement, compilation et installation de lame version $VERSION"
 
+#: distribs/centos_5_3_common.sh:95 distribs/centos_5_3_common.sh:96
 #: distribs/debian_lenny_common.sh:93 distribs/debian_lenny_common.sh:94
+#: distribs/debian_squeeze_common.sh:70 distribs/debian_squeeze_common.sh:71
 #: distribs/ubuntu_lucid_common.sh:71 distribs/ubuntu_lucid_common.sh:72
 #, sh-format
 msgid "Info debut lame update $VERSION"
 msgstr "Recompilation et réinstallation de lame version $VERSION"
 
+#: distribs/centos_5_3_common.sh:199 distribs/centos_5_3_common.sh:200
 #: distribs/debian_lenny_common.sh:194 distribs/debian_lenny_common.sh:195
+#: distribs/debian_squeeze_common.sh:171 distribs/debian_squeeze_common.sh:172
 #, sh-format
 msgid "Info debut libtheora install $VERSION"
 msgstr ""
 "Téléchargement, compilation et installation de libtheora version $VERSION"
 
+#: distribs/centos_5_3_common.sh:204 distribs/centos_5_3_common.sh:205
 #: distribs/debian_lenny_common.sh:199 distribs/debian_lenny_common.sh:200
+#: distribs/debian_squeeze_common.sh:176 distribs/debian_squeeze_common.sh:177
 #, sh-format
 msgid "Info debut libtheora update $VERSION"
 msgstr "Recompilation et réinstallation de libtheora version $VERSION"
 
+#: distribs/centos_5_3_common.sh:161 distribs/centos_5_3_common.sh:162
 #: distribs/debian_lenny_common.sh:157 distribs/debian_lenny_common.sh:158
+#: distribs/debian_squeeze_common.sh:134 distribs/debian_squeeze_common.sh:135
 #: distribs/ubuntu_lucid_common.sh:135 distribs/ubuntu_lucid_common.sh:136
 #, sh-format
 msgid "Info debut libvpx install $VERSION"
 msgstr "Compilation et installation de libvpx version $VERSION"
 
+#: distribs/centos_5_3_common.sh:236 distribs/centos_5_3_common.sh:237
 #: distribs/debian_lenny_common.sh:230 distribs/debian_lenny_common.sh:231
+#: distribs/debian_squeeze_common.sh:207 distribs/debian_squeeze_common.sh:208
 #: distribs/ubuntu_lucid_common.sh:173 distribs/ubuntu_lucid_common.sh:174
 #, sh-format
 msgid "Info debut mediainfo install $VERSION"
 msgstr ""
 "Téléchargement, compilation et installation de mediainfo version $VERSION"
 
+#: distribs/centos_5_3_common.sh:242 distribs/centos_5_3_common.sh:243
 #: distribs/debian_lenny_common.sh:236 distribs/debian_lenny_common.sh:237
+#: distribs/debian_squeeze_common.sh:213 distribs/debian_squeeze_common.sh:214
 #: distribs/ubuntu_lucid_common.sh:179 distribs/ubuntu_lucid_common.sh:180
 #, sh-format
 msgid "Info debut mediainfo update $VERSION"
 msgstr "Recompilation et réinstallation de mediainfo version $VERSION"
 
+#: distribs/centos_5_3_common.sh:125 distribs/centos_5_3_common.sh:126
 #: distribs/debian_lenny_common.sh:122 distribs/debian_lenny_common.sh:123
+#: distribs/debian_squeeze_common.sh:99 distribs/debian_squeeze_common.sh:100
 #: distribs/ubuntu_lucid_common.sh:100 distribs/ubuntu_lucid_common.sh:101
 #, sh-format
 msgid "Info debut opencore install $VERSION"
 msgstr ""
 "Téléchargement, compilation et installation de opencore-amr version $VERSION"
 
+#: distribs/centos_5_3_common.sh:130 distribs/centos_5_3_common.sh:131
 #: distribs/debian_lenny_common.sh:127 distribs/debian_lenny_common.sh:128
+#: distribs/debian_squeeze_common.sh:104 distribs/debian_squeeze_common.sh:105
 #: distribs/ubuntu_lucid_common.sh:105 distribs/ubuntu_lucid_common.sh:106
 #, sh-format
 msgid "Info debut opencore update $VERSION"
 msgstr "Recompilation et réinstallation de opencore-amr version $VERSION"
 
+#: distribs/centos_5_3_common.sh:376 distribs/centos_5_3_common.sh:377
 #: distribs/debian_lenny_common.sh:262 distribs/debian_lenny_common.sh:263
+#: distribs/debian_squeeze_common.sh:239 distribs/debian_squeeze_common.sh:240
 #: distribs/ubuntu_lucid_common.sh:205 distribs/ubuntu_lucid_common.sh:206
 #, sh-format
 msgid "Info debut php-imagick install"
 msgstr "Installation de php-imagick"
 
+#: distribs/centos_5_3_common.sh:387 distribs/centos_5_3_common.sh:388
 #: distribs/debian_lenny_common.sh:273 distribs/debian_lenny_common.sh:274
+#: distribs/debian_squeeze_common.sh:250 distribs/debian_squeeze_common.sh:251
 #: distribs/ubuntu_lucid_common.sh:216 distribs/ubuntu_lucid_common.sh:217
 #, sh-format
 msgid "Info debut php-imagick update"
 msgstr "Mise à jour de php-imagick"
 
+#: distribs/centos_5_3_dev.sh:55 distribs/centos_5_3_dev.sh:56
+#: distribs/centos_5_3_stable.sh:51 distribs/centos_5_3_stable.sh:52
 #: distribs/debian_lenny_dev.sh:52 distribs/debian_lenny_dev.sh:53
 #: distribs/debian_lenny_stable.sh:51 distribs/debian_lenny_stable.sh:52
+#: distribs/debian_squeeze_dev.sh:52 distribs/debian_squeeze_dev.sh:53
+#: distribs/debian_squeeze_stable.sh:51 distribs/debian_squeeze_stable.sh:52
 #: distribs/ubuntu_lucid_dev.sh:52 distribs/ubuntu_lucid_dev.sh:53
 #: distribs/ubuntu_lucid_stable.sh:51 distribs/ubuntu_lucid_stable.sh:52
 #, sh-format
 msgid "Info debut rtmpdump install"
 msgstr "Téléchargement, compilation et installation de rtmpdump"
 
-#: distribs/debian_lenny_common.sh:59
+#: distribs/centos_5_3_common.sh:61 distribs/debian_lenny_common.sh:59
 #, sh-format
 msgid "Info debut scons install $VERSION"
 msgstr "Téléchargement, compilation et installation de Scons version $VERSION"
 
-#: distribs/debian_lenny_common.sh:63
+#: distribs/centos_5_3_common.sh:65 distribs/debian_lenny_common.sh:63
 #, sh-format
 msgid "Info debut scons update $VERSION"
 msgstr "Mise à jour de scons à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:408 distribs/debian_lenny_common.sh:410
-#: distribs/ubuntu_lucid_common.sh:321 distribs/ubuntu_lucid_common.sh:323
+#: distribs/centos_5_3_common.sh:543 distribs/centos_5_3_common.sh:545
+#: distribs/debian_lenny_common.sh:415 distribs/debian_lenny_common.sh:417
+#: distribs/debian_squeeze_common.sh:384 distribs/debian_squeeze_common.sh:386
+#: distribs/ubuntu_lucid_common.sh:329 distribs/ubuntu_lucid_common.sh:331
 #, sh-format
 msgid "Info debut x264 install"
 msgstr "Téléchargement, compilation et installation de x264"
 
-#: distribs/debian_lenny_common.sh:400 distribs/debian_lenny_common.sh:402
-#: distribs/ubuntu_lucid_common.sh:313 distribs/ubuntu_lucid_common.sh:315
+#: distribs/centos_5_3_common.sh:535 distribs/centos_5_3_common.sh:537
+#: distribs/debian_lenny_common.sh:407 distribs/debian_lenny_common.sh:409
+#: distribs/debian_squeeze_common.sh:376 distribs/debian_squeeze_common.sh:378
+#: distribs/ubuntu_lucid_common.sh:321 distribs/ubuntu_lucid_common.sh:323
 #, sh-format
 msgid "Info debut x264 update"
 msgstr "Mise à jour, compilation et installation de x264"
 
-#: mediaspip_install.sh:280
+#: distribs/centos_5_3_common.sh:344 distribs/centos_5_3_common.sh:345
+#, sh-format
+msgid "Info debut xvidcore install $VERSION"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:352 distribs/centos_5_3_common.sh:353
+#, sh-format
+msgid "Info debut xvidcore update $VERSION"
+msgstr ""
+
+#: mediaspip_install.sh:297
 #, sh-format
 msgid "Info distro version $DISTRIB $DISTRO"
 msgstr "Vous utilisez une distribution $DISTRIB $DISTRO"
 
-#: distribs/debian_lenny_dev.sh:140 distribs/ubuntu_lucid_dev.sh:140
+#: distribs/centos_5_3_dev.sh:143 distribs/debian_lenny_dev.sh:138
+#: distribs/debian_squeeze_dev.sh:138 distribs/ubuntu_lucid_dev.sh:138
 #, sh-format
 msgid "Info ffmpeg revision $REVISION"
 msgstr "FFMpeg est installé à la révision $REVISION"
 
-#: distribs/debian_lenny_stable.sh:149 distribs/ubuntu_lucid_stable.sh:149
+#: distribs/centos_5_3_stable.sh:150 distribs/debian_lenny_stable.sh:147
+#: distribs/debian_squeeze_stable.sh:147 distribs/ubuntu_lucid_stable.sh:147
 #, sh-format
 msgid "Info ffmpeg version $VERSION"
 msgstr "FFMpeg est installé à la version $VERSION"
 
-#: distribs/debian_lenny_common.sh:455 distribs/debian_lenny_common.sh:486
-#: distribs/ubuntu_lucid_common.sh:368 distribs/ubuntu_lucid_common.sh:399
+#: distribs/centos_5_3_common.sh:590 distribs/centos_5_3_common.sh:620
+#: distribs/debian_lenny_common.sh:461 distribs/debian_lenny_common.sh:491
+#: distribs/debian_squeeze_common.sh:430 distribs/debian_squeeze_common.sh:460
+#: distribs/ubuntu_lucid_common.sh:375 distribs/ubuntu_lucid_common.sh:405
 #, sh-format
 msgid "Info ffmpeg-php revision $REVISION"
 msgstr "FFMpeg-php est installé à la révision $REVISION"
 
-#: distribs/debian_lenny_dev.sh:88 distribs/ubuntu_lucid_dev.sh:88
+#: distribs/centos_5_3_dev.sh:91 distribs/debian_lenny_dev.sh:87
+#: distribs/debian_squeeze_dev.sh:87 distribs/ubuntu_lucid_dev.sh:87
 #, sh-format
 msgid "Info ffmpeg2theora revision $REVISION"
 msgstr "ffmpeg2theora est installé à la révision $REVISION"
 
-#: distribs/debian_lenny_stable.sh:98 distribs/ubuntu_lucid_stable.sh:98
+#: distribs/centos_5_3_stable.sh:99 distribs/debian_lenny_stable.sh:97
+#: distribs/debian_squeeze_stable.sh:97 distribs/ubuntu_lucid_stable.sh:97
 #, sh-format
 msgid "Info ffmpeg2theora version $VERSION"
 msgstr "ffmpeg2theora est installé à la version $VERSION"
 
-#: mediaspip_install.sh:302
+#: mediaspip_install.sh:319
 #, sh-format
 msgid "Info log installation"
 msgstr "Ce script enregistrera ses logs dans :"
 
+#: distribs/centos_5_3_common.sh:246 distribs/centos_5_3_common.sh:247
 #: distribs/debian_lenny_common.sh:240 distribs/debian_lenny_common.sh:241
+#: distribs/debian_squeeze_common.sh:217 distribs/debian_squeeze_common.sh:218
 #: distribs/ubuntu_lucid_common.sh:183 distribs/ubuntu_lucid_common.sh:184
 #, sh-format
 msgid "Info mediainfo compil install"
 msgstr "Compilation et installation"
 
-#: mediaspip_install.sh:173 mediaspip_install.sh:191
+#: mediaspip_install.sh:188 mediaspip_install.sh:206
 #, sh-format
 msgid "Info mediaspip installation $VERSION_INSTALL"
 msgstr ""
@@ -818,49 +1015,64 @@ msgstr ""
 "Pour plus de détails voir le fichier COPYING.txt.\n"
 " "
 
-#: mediaspip_install.sh:223
+#: mediaspip_install.sh:238
 #, sh-format
 msgid "Info options disable_alternc"
 msgstr "[INFO] Vous avez décidé de ne pas utiliser AlternC"
 
-#: mediaspip_install.sh:226
+#: mediaspip_install.sh:241
 #, sh-format
 msgid "Info options disable_apache"
 msgstr "[INFO] Vous avez décidé de ne pas préconfigurer Apache"
 
-#: mediaspip_install.sh:229
+#: mediaspip_install.sh:244
 #, sh-format
 msgid "Info options disable_ffmpeg"
 msgstr "[INFO] Vous avez décidé de ne pas installer ou mettre à jour FFMpeg"
 
-#: mediaspip_install.sh:232
+#: mediaspip_install.sh:247
 #, sh-format
 msgid "Info options disable_mediaspip"
 msgstr ""
 "[INFO] Vous avez décidé de ne pas installer ou mettre à jour SPIP et "
 "MediaSPIP"
 
-#: mediaspip_install.sh:195
+#: mediaspip_install.sh:210
 #, sh-format
 msgid "Info options no_question"
 msgstr "Vous avez décidé valider automatiquement chaque question"
 
-#: mediaspip_install.sh:291
+#: mediaspip_install.sh:308
 #, sh-format
 msgid "Info source installation"
 msgstr "Ce script téléchargera les sources des logiciels dans :"
 
-#: mediaspip_install.sh:434
+#: distribs/centos_5_3_common.sh:405
+#, sh-format
+msgid "Info yum intallation epel"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:416 distribs/centos_5_3_common.sh:417
+#, sh-format
+msgid "Info yum maj base"
+msgstr ""
+
+#: distribs/centos_5_3_common.sh:419 distribs/centos_5_3_common.sh:420
+#, sh-format
+msgid "Info yum maj paquets"
+msgstr ""
+
+#: mediaspip_install.sh:445
 #, sh-format
 msgid "Question alternc"
 msgstr "Utilisez vous AlternC pour MediaSPIP ?"
 
-#: mediaspip_install.sh:278
+#: mediaspip_install.sh:295
 #, sh-format
 msgid "Question valider"
 msgstr "Oui ou non (o/n) ?"
 
-#: mediaspip_install.sh:351
+#: mediaspip_install.sh:368
 #, sh-format
 msgid "Titre apache"
 msgstr ""
@@ -869,7 +1081,7 @@ msgstr ""
 "#        Préconfiguration d'Apache         #\n"
 "############################################"
 
-#: mediaspip_install.sh:337
+#: mediaspip_install.sh:354
 #, sh-format
 msgid "Titre dependances logicielles"
 msgstr ""
@@ -878,7 +1090,7 @@ msgstr ""
 "# Installation des dépendances logicielles #\n"
 "############################################"
 
-#: mediaspip_install.sh:384
+#: mediaspip_install.sh:399
 #, sh-format
 msgid "Titre ffmpeg"
 msgstr ""
@@ -887,7 +1099,7 @@ msgstr ""
 "#         Installation de FFMpeg           #\n"
 "############################################"
 
-#: mediaspip_install.sh:397
+#: mediaspip_install.sh:411
 #, sh-format
 msgid "Titre ffmpeg2theora"
 msgstr ""
@@ -896,7 +1108,7 @@ msgstr ""
 "#      Installation de FFMpeg2Theora       #\n"
 "############################################"
 
-#: mediaspip_install.sh:410
+#: mediaspip_install.sh:423
 #, sh-format
 msgid "Titre ffmpegphp"
 msgstr ""
@@ -905,7 +1117,7 @@ msgstr ""
 "#       Installation de FFMpeg-php         #\n"
 "############################################"
 
-#: mediaspip_install.sh:472
+#: mediaspip_install.sh:483
 #, sh-format
 msgid "Titre spip mediaspip"
 msgstr ""
@@ -914,7 +1126,7 @@ msgstr ""
 "#    Installation de SPIP et MediaSPIP     #\n"
 "############################################"
 
-#: mediaspip_install.sh:364
+#: mediaspip_install.sh:380
 #, sh-format
 msgid "Titre x264"
 msgstr ""
