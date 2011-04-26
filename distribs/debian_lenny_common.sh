@@ -381,7 +381,7 @@ debian_lenny_apache_install ()
 	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
 	
-	echo $(eval_gettext "Info php max_upload $PHP_UPLOAD_SIZE")
+	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
 	echo "file_uploads = On" > /etc/php5/conf.d/mediaspip_upload.ini
 	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini

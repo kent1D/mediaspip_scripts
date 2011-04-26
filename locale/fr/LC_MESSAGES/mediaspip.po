@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-26 13:40+0200\n"
+"POT-Creation-Date: 2011-04-26 14:07+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@arscenic.tv>\n"
@@ -1316,6 +1316,14 @@ msgstr "[INFO] Vous avez décidé de ne pas installer ou mettre à jour SPIP et 
 #, sh-format
 msgid "Info options no_question"
 msgstr "[INFO] Vous avez décidé de valider automatiquement toutes les questions"
+
+#: distribs/centos_5_3_common.sh:513
+#: distribs/debian_lenny_common.sh:384
+#: distribs/debian_squeeze_common.sh:353
+#: distribs/ubuntu_lucid_common.sh:299
+#, sh-format
+msgid "Info php max_upload $PHP_UPLOAD_SIZE"
+msgstr "Configuration de la taille maximale d'upload via PHP à $PHP_UPLOAD_SIZE"
 
 #: mediaspip_install.sh:308
 #, sh-format
