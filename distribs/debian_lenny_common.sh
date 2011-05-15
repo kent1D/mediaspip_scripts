@@ -311,7 +311,7 @@ debian_lenny_dep_install()
 	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
 		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
-		flac vorbis-tools \
+		flac vorbis-tools xpdf \
 		2>> $LOG >> $LOG || return 1
 	echo 
 	

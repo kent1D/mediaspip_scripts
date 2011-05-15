@@ -422,7 +422,7 @@ centos_5_3_dep_install()
 	yum -y install rpm-build gcc-c++ subversion git libtool scons zlib-devel \
 		httpd openssl-devel php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
 		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
-		flac-devel vorbis-tools \
+		flac-devel vorbis-tools xpdf \
 		2>> $LOG >> $LOG || return 1
 	echo 
 	
