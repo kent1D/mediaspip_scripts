@@ -4,11 +4,12 @@
 #
 # Ce script sert à créer une distribution SPIP spécifique basée sur 4 fichiers :
 # -* distrib_core.txt : qui donne le nom de la distribution, son répertoire temporaire, l'adresse svn du core à utiliser
+#
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.0.1
 
 if [ ! -r distrib_core.txt ];then
-	echo "Erreur"
+	echo "Erreur, pas de fichier distrib_core.txt"
 	exit 1
 fi
 

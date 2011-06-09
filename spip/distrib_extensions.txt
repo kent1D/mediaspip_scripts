@@ -7,7 +7,7 @@ auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic
 cfg2_compat;svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/compat
 cfg2_core;svn://zone.spip.org/spip-zone/_plugins_/cfg2/core
 cfg2_interface;svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/interface
-contact;svn://zone.spip.org/spip-zone/_plugins_/contact
+contact;svn://zone.spip.org/spip-zone/_plugins_/contact/branches/v0_7
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
