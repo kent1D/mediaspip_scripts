@@ -56,4 +56,4 @@ step;svn://zone.spip.org/spip-zone/_plugins_/step
 swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload
 
 # z
-zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1
+zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99
