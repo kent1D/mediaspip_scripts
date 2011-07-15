@@ -6,7 +6,7 @@ bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother
 
 # C
 calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/spip-1.9
-cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/core/branches/v1 cextras
+cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/core/branches/v1
 cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interface/branches/v1
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
@@ -50,7 +50,7 @@ openid;svn://zone.spip.org/spip-zone/_plugins_/authentification/openid
 opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
 # P
-pages;svn://zone.spip.org/spip-zone/_plugins_/pages
+pages;svn://zone.spip.org/spip-zone/_plugins_/pages/branches/v0_3
 podcast;http://svn.aires-de-confluxence.info/svn/plugins_spip/podcast
 polyhierarchie;svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie
 porte_plume_documents;http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents
