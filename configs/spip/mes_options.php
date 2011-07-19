@@ -8,8 +8,12 @@
 		redirige_par_entete('http://'.$site.'/');
 	}
 
+	// Autoriser un cache de 50Mo
 	$quota_cache = 50;
-
+	// Ne pas autoriser les plugins auto
+	define ('_DIR_PLUGINS_AUTO', false);
+	define('_AUTORISER_TELECHARGER_PLUGINS',false);
+	
 	define ('_INSTALL_SITE_PREF', prefixe_mutualisation($site));
 	define ('_INSTALL_SERVER_DB', 'mysql');
 	define ('_INSTALL_HOST_DB', 'localhost');
