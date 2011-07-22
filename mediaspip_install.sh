@@ -30,6 +30,8 @@
 # d'où le script est lancé
 CURRENT=$(pwd)
 
+LOG=/dev/null
+
 export TEXTDOMAINDIR=$CURRENT/locale
 export TEXTDOMAIN=mediaspip
 
@@ -44,17 +46,6 @@ else
 	echo "apt-get -y install gettext gettext-base"
 	exit 1
 fi
-
-# On inclut le fichier de fonctions
-if [ -f "./mediaspip_functions.sh" ]; then
-	. ./mediaspip_functions.sh
-else
-	echo $(eval_gettext "Erreur fichier fonctions")
-	exit 1
-fi
-# On inclut le fichier d'installation de SPIP et de MediaSPIP
-. ./mediaspip_spip_installation.sh
-
 
 VERSION_INSTALL="0.3.2"
 
@@ -88,10 +79,19 @@ tput setaf 2;
 echo "$LOGO"
 tput sgr0;
 
+
+# On inclut le fichier de fonctions
+FICHIER='mediaspip_functions.sh'
+. ./mediaspip_functions.sh 2>> $LOG >> $LOG || (tput setaf 1;echo $(eval_gettext "Erreur fichier $FICHIER");tput sgr0;kill "$$";exit 1)
+
+# On inclut le fichier d'installation de SPIP et de MediaSPIP
+FICHIER='mediaspip_spip_installation.sh'
+. ./mediaspip_spip_installation.sh 2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier $FICHIER")
+
 #########################################
 # Vérifications de base :
 # - doit être lancé par root
-# - doit être sur une debian 
+# - doit être sur une distribution que l'on connait 
 #
 
 if [ "$(id -u)" != "0" ]; then

@@ -29,6 +29,8 @@ in_array(){
     return 1
 }
 
+# Fonction d'affichage des erreurs
+# Affiche les erreurs en rouge
 echo_erreur()
 {
 	tput setaf 1;
