@@ -79,7 +79,6 @@ tput setaf 2;
 echo "$LOGO"
 tput sgr0;
 
-
 # On inclut le fichier de fonctions
 FICHIER='mediaspip_functions.sh'
 . ./mediaspip_functions.sh 2>> $LOG >> $LOG || (tput setaf 1;echo $(eval_gettext "Erreur fichier $FICHIER");tput sgr0;kill "$$";exit 1)

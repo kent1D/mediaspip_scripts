@@ -2,16 +2,49 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.2
 #
 # Ce script installe MediaSPIP
 # - SPIP
 # - Les extensions obligatoires au bon fonctionnement
 # - Les plugins compatibles si configuré comme tel
+# - Les thèmes compatibles si configuré comme tel
+# - Le plugin de mutualisation si configuré comme tel
 # - Les répertoires sites/ (si dans un cas de mutu) et lib/
 # - Le htaccess de SPIP
+#
+# Ce script se base sur les 3 fichiers du script de création de distribution (spip/creer_distrib.sh) :
+# -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
+# -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
+# -* distrib_themes.txt : qui donne la liste des thèmes SPIP
+#
+# Mises à jour :
+# Version 0.3.2 - On utilise les mêmes fichiers txt de spip/creer_distrib.sh pour télécharger les plugins, extensions et thèmes
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
+function recuperer_svn(){
+	TYPE=$2
+	while read line
+	do
+		IFS=';' read -ra ADDR <<< "$line"
+		PLUGIN="${ADDR[0]}"
+		if [ ! -z "${ADDR[1]}" ];then
+			if [ -d $PLUGIN/.svn ];then
+				DEPOT_FICHIER=$(env LANG=C svn info ${ADDR[0]}/ --non-interactive | awk '/^URL:/ { print $2 }')
+				# cas de changement de dépot
+				if [ "$DEPOT_FICHIER" != "${ADDR[1]}" ];then
+					NEW_DEPOT=${ADDR[1]}
+					echo $(eval_gettext "Info $PLUGIN change depot $NEW_DEPOT")
+					svn sw ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
+				fi
+			else
+				echo $(eval_gettext "Info $TYPE telecharge $PLUGIN")
+				svn co ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
+			fi
+		fi
+	done < $1
+}
+
 mediaspip_install(){
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -51,100 +84,18 @@ mediaspip_install(){
 	
 	cd $SPIP/extensions/
 
-	if [ ! -d cfg2_compat ]; then
-		i=cfg2_compat
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/compat cfg2_compat 2>> $LOG >> $LOG
-	fi
-	if [ ! -d cfg2_core ]; then
-		i=cfg2_core
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/core cfg2_core 2>> $LOG >> $LOG
-	fi
-	if [ ! -d cfg2_interface ]; then
-		i=cfg2_interface
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_plugins_/cfg2/extensions/interface cfg2_interface 2>> $LOG >> $LOG
-	fi
-	if [ ! -d diogene ]; then
-		i=diogene
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene  2>> $LOG >> $LOG
-	fi
-	if [ ! -d diogene_gerer_auteurs ]; then
-		i=diogene_gerer_auteurs
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs  2>> $LOG >> $LOG
-	fi
-	if [ ! -d diogene_licence ]; then
-		i=diogene_licence
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence  2>> $LOG >> $LOG
-	fi
-	if [ ! -d diogene_spipicious ]; then
-		i=diogene_spipicious
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious  2>> $LOG >> $LOG
-	fi
-	if [ ! -d emballe_medias ]; then
-		i=emballe_medias
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias  2>> $LOG >> $LOG
-	fi
-	if [ ! -d emballe_medias_spipmotion ]; then
-		i=emballe_medias_spipmotion
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion  2>> $LOG >> $LOG
-	fi
-	if [ ! -d forum ]; then
-		i=forum
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum  2>> $LOG >> $LOG
-	fi
-	if [ ! -d html5 ]; then
-		i=html5
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/html5 2>> $LOG >> $LOG
-	fi
-	if [ ! -d mediaspip_config ]; then
-		i=mediaspip_config
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config 2>> $LOG >> $LOG
-	fi
-	if [ ! -d mediaspip_core ]; then
-		i=mediaspip_core
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core 2>> $LOG >> $LOG
-	fi
-	if [ ! -d mediaspip_init ]; then
-		i=mediaspip_init
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init 2>> $LOG >> $LOG
-	fi
-	if [ ! -d saveauto ]; then
-		i=saveauto
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_plugins_/saveauto/2.1 saveauto 2>> $LOG >> $LOG
-	fi
-	if [ ! -d swfupload ]; then
-		i=swfupload
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload 2>> $LOG >> $LOG
-	fi
-	if [ ! -d zpip ]; then
-		i=zpip
-		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-		svn co svn://zone.spip.org/spip-zone/_squelettes_/zpip 2>> $LOG >> $LOG
+	FICHIER='spip/distrib_extensions.txt'
+	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
+		recuperer_svn $CURRENT/$FICHIER extension
+	else
+		error $(eval_gettext "Erreur fichier $FICHIER")
 	fi
 	
-	extensions_normales=(afficher_objets ajaxforms auteurs_syndic contact crayons doc2img facteur fonctions_images getID3 job_queue jquery_ui licence menus nospam nuage palette pcltar polyhierarchie saisies selecteur_generique spip-bonux-2 spipicious_jquery spipmotion saisies step zen-garden zeroclipboard)
-	for i in ${extensions_normales[@]}; do
-    	if [ ! -d $i ]; then
-    		echo $(eval_gettext 'Info SPIP telecharge extension $i')
-    		#echo "Téléchargement de l'extension $i"
-			svn co svn://zone.spip.org/spip-zone/_plugins_/$i 2>> $LOG >> $LOG
-		fi
-	done
+	#if [ ! -d zpip ]; then
+	#	i=zpip
+	#	echo $(eval_gettext 'Info SPIP telecharge extension $i')
+	#	svn co svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99 zpip 2>> $LOG >> $LOG
+	#fi
 	
 	cd $SPIP
 	
@@ -164,23 +115,11 @@ mediaspip_install(){
 		cd $SPIP/themes
 		
 		echo $(eval_gettext "Info SPIP themes")
-		
-		if [ ! -d spipeo ]; then
-			i=SPIPeo
-			echo $(eval_gettext 'Info SPIP telecharge theme $i')
-			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/spipeo 2>> $LOG >> $LOG
-		fi
-		
-		if [ ! -d brazil ]; then
-			i=Brazil
-			echo $(eval_gettext 'Info SPIP telecharge theme $i')
-			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/brazil 2>> $LOG >> $LOG
-		fi
-		
-		if [ ! -d arscenic ]; then
-			i=Arscenic
-			echo $(eval_gettext 'Info SPIP telecharge theme $i')
-			svn co http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/arscenic 2>> $LOG >> $LOG
+		FICHIER='spip/distrib_themes.txt'
+		if [ -r $CURRENT/$FICHIER ];then
+			recuperer_svn $CURRENT/$FICHIER theme
+		else
+			error $(eval_gettext "Erreur fichier $FICHIER")
 		fi
 		
 		cd $SPIP
@@ -199,53 +138,14 @@ mediaspip_install(){
 		fi
 		
 		cd plugins
-		plugins_optionnels=(ancres_douces bigbrother compositions criteres_suivant_precedent fulltext google_analytics gravatar legendes mediabox mediatheque memoization metadonnees_photo microblog multilang notation notifications opensearch pages recommander socialtags sparkstats verifier)
-		for i in ${plugins_optionnels[@]}; do
-	    	if [ ! -d $i ]; then
-	    		echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-				svn co svn://zone.spip.org/spip-zone/_plugins_/$i 2>> $LOG >> $LOG
-			fi
-		done
-		if [ ! -d agenda ]; then
-			i=agenda
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/agenda/2_1_0 agenda 2>> $LOG >> $LOG
+		
+		FICHIER='spip/distrib_plugins.txt'
+		if [ -r $CURRENT/$FICHIER ];then
+			recuperer_svn $CURRENT/$FICHIER plugin
+		else
+			error $(eval_gettext "Erreur fichier $FICHIER")
 		fi
-		if [ ! -d cextras2 ]; then
-			i=cextras2
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/champs_extras2/core cextras2 2>> $LOG >> $LOG
-		fi
-		if [ ! -d cextras2_interface ]; then
-			i=cextras2_interface
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/champs_extras2/extensions/interface cextras2_interface 2>> $LOG >> $LOG
-		fi
-		if [ ! -d diogene_geo ]; then
-			i=diogene_geo
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo diogene_geo 2>> $LOG >> $LOG
-		fi
-		if [ ! -d podcast ]; then
-			i=podcast
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/podcast podcast 2>> $LOG >> $LOG
-		fi
-		if [ ! -d porte_plume_documents ]; then
-			i=porte_plume_documents
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents porte_plume_documents 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		fi
-		if [ ! -d openid ]; then
-			i=openid
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/authentification/openid openid 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		fi
-		if [ ! -d spip_piwik_2_0 ]; then
-			i=Piwik
-			echo $(eval_gettext 'Info SPIP telecharge plugin $i')
-			svn co svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0 spip_piwik_2_0 2>> $LOG >> $LOG
-		fi
+		
 		cd $SPIP
 	fi
 	
