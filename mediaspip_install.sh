@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.2
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -22,6 +22,9 @@
 #
 # Ce script nécessite l'ajout du dépôts debian-multimedia dans le sources.list d'APT :
 # deb http://www.debian-multimedia.org lenny main non-free
+#
+# Mises à jour :
+# Version 0.3.2 - Meilleure détection des distribs avec lsb_release
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -96,15 +99,20 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
+LSB_RELEASE=$(which lsb_release)
+
+if [ -x $LSB_RELEASE ]; then
+	DISTRIB=$($LSB_RELEASE -si | tr [:upper:] [:lower:])
+	DISTRO=$($LSB_RELEASE -sc | tr [:upper:] [:lower:])
 # Cas d'Ubuntu
-if [ -r /etc/lsb-release ];then
+elif [ -r /etc/lsb-release ];then
 	DISTRIB=$(cat /etc/lsb-release | grep ID | cut -c 12- | tr '[A-Z]' '[a-z]')
 	DISTRO=$(cat /etc/lsb-release | grep CODE | cut -c 18- | tr '[A-Z]' '[a-z]')
 # Cas de debian
 elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
-	NUMBER=$(cat /etc/debian_version)
-	if [ "$NUMBER" == '6.0' ]; then
+	NUMBER=$(cat /etc/debian_version | cut -c 1)
+	if [ "$NUMBER" == '6' ]; then
 		DISTRO="squeeze"
 	else
 		DISTRO="lenny"
@@ -274,12 +282,12 @@ if [ "$ERROR" == "oui" ]; then
 	exit 1
 fi
 
-. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	
+. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_common.sh")
 
 if [ "$DEP_VERSION" == "stable" ]; then
-	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	
+	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_stable.sh")
 else
-	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh
+	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_dev.sh")
 fi
 
 LANGUES_COMPAT=(en fr)
