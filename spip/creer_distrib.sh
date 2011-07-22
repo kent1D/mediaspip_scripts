@@ -4,7 +4,10 @@
 #
 # Ce script sert à créer une distribution SPIP spécifique basée sur 4 fichiers :
 # -* distrib_core.txt : qui donne le nom de la distribution, son répertoire temporaire, l'adresse svn du core à utiliser
-#
+# -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
+# -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
+# -* distrib_themes.txt : qui donne la liste des thèmes SPIP
+# 
 # © 2011 - kent1 (kent1@arscenic.info)
 # Version 0.0.1
 
