@@ -146,7 +146,7 @@ debian_squeeze_libvpx_install()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		apt-get -y remove libvpx 2>> $LOG >> $LOG
+		apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
 		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libvpx")
 	fi
@@ -159,7 +159,7 @@ debian_squeeze_libtheora_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y install libogg-dev 2>> $LOG >> $LOG
+	apt-get -y --force-yes install libogg-dev 2>> $LOG >> $LOG
 	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="1.1.1"
@@ -281,11 +281,11 @@ debian_squeeze_dep_install()
 	fi
 	echo $(eval_gettext "Info apt maj base")
 	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
-	apt-get -y update 2>> $LOG >> $LOG || return 1
+	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	apt-get -y remove php5-imagick 2>> $LOG >> $LOG || return 1
-	apt-get -y install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
+	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
+	apt-get -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
 		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac mediainfo vorbis-tools xpdf \
@@ -399,7 +399,7 @@ debian_squeeze_x264_install ()
 		./configure --enable-shared 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		apt-get -y remove x264 2>> $LOG >> $LOG
+		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
@@ -411,7 +411,7 @@ debian_squeeze_ffmpeg_php_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y remove php5-ffmpeg 2>> $LOG >> $LOG
+	apt-get -y --force-yes remove php5-ffmpeg 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
 	cd ffmpeg-php/ffmpeg-php

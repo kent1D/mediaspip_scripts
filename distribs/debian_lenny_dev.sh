@@ -51,7 +51,7 @@ debian_lenny_rtmpdump_install()
 	else
 		echo $(eval_gettext "Info debut rtmpdump install")
 		echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-		apt-get -y install libssl-dev 2>> $LOG >> $LOG || return 1
+		apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		checkinstall --pkgname=rtmpdump --pkgversion "2.3.svn$REVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
@@ -67,7 +67,7 @@ debian_lenny_ffmpeg2theora_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	apt-get -y remove ffmpeg2theora 2>> $LOG >> $LOG
+	apt-get -y --force-yes remove ffmpeg2theora 2>> $LOG >> $LOG
 	if [ ! -d ffmpeg2theora ];then
 		echo $(eval_gettext "Info debut ffmpeg2theora install")
 		echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
@@ -126,7 +126,7 @@ debian_lenny_ffmpeg_install ()
 			2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		apt-get -y remove ffmpeg  2>> $LOG >> $LOG
+		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`.git$REVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig

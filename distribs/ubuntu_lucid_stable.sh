@@ -39,7 +39,7 @@ ubuntu_lucid_rtmpdump_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
-	apt-get -y install libssl-dev 2>> $LOG >> $LOG
+	apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG
 	cd $SRC_INSTALL
 	
 	VERSION="2.3"
@@ -138,7 +138,7 @@ ubuntu_lucid_ffmpeg_install ()
 			2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		apt-get -y remove ffmpeg  2>> $LOG >> $LOG
+		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
