@@ -34,11 +34,11 @@ function recuperer_svn(){
 				# cas de changement de dépot
 				if [ "$DEPOT_FICHIER" != "${ADDR[1]}" ];then
 					NEW_DEPOT=${ADDR[1]}
-					echo $(eval_gettext "Info $PLUGIN change depot $NEW_DEPOT")
+					echo $(eval_gettext 'Info $PLUGIN change depot $NEW_DEPOT')
 					svn sw ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
 				fi
 			else
-				echo $(eval_gettext "Info $TYPE telecharge $PLUGIN")
+				echo $(eval_gettext 'Info $TYPE telecharge $PLUGIN')
 				svn co ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
 			fi
 		fi
@@ -88,14 +88,8 @@ mediaspip_install(){
 	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
 		recuperer_svn $CURRENT/$FICHIER extension
 	else
-		error $(eval_gettext "Erreur fichier $FICHIER")
+		error $(eval_gettext 'Erreur fichier $FICHIER')
 	fi
-	
-	#if [ ! -d zpip ]; then
-	#	i=zpip
-	#	echo $(eval_gettext 'Info SPIP telecharge extension $i')
-	#	svn co svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99 zpip 2>> $LOG >> $LOG
-	#fi
 	
 	cd $SPIP
 	
@@ -119,7 +113,7 @@ mediaspip_install(){
 		if [ -r $CURRENT/$FICHIER ];then
 			recuperer_svn $CURRENT/$FICHIER theme
 		else
-			error $(eval_gettext "Erreur fichier $FICHIER")
+			error $(eval_gettext 'Erreur fichier $FICHIER')
 		fi
 		
 		cd $SPIP
@@ -143,7 +137,7 @@ mediaspip_install(){
 		if [ -r $CURRENT/$FICHIER ];then
 			recuperer_svn $CURRENT/$FICHIER plugin
 		else
-			error $(eval_gettext "Erreur fichier $FICHIER")
+			error $(eval_gettext 'Erreur fichier $FICHIER')
 		fi
 		
 		cd $SPIP

@@ -81,11 +81,11 @@ tput sgr0;
 
 # On inclut le fichier de fonctions
 FICHIER='mediaspip_functions.sh'
-. ./mediaspip_functions.sh 2>> $LOG >> $LOG || (tput setaf 1;echo $(eval_gettext "Erreur fichier $FICHIER");tput sgr0;kill "$$";exit 1)
+. ./mediaspip_functions.sh 2>> $LOG >> $LOG || (tput setaf 1;echo $(eval_gettext 'Erreur fichier $FICHIER');tput sgr0;kill "$$";exit 1)
 
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 FICHIER='mediaspip_spip_installation.sh'
-. ./mediaspip_spip_installation.sh 2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier $FICHIER")
+. ./mediaspip_spip_installation.sh 2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
 
 #########################################
 # Vérifications de base :
@@ -281,12 +281,15 @@ if [ "$ERROR" == "oui" ]; then
 	exit 1
 fi
 
-. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_common.sh")
+FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
+. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
 
 if [ "$DEP_VERSION" == "stable" ]; then
-	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_stable.sh")
+	FICHIER="distribs/$DISTRIB_$DISTRO_stable.sh"
+	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
 else
-	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error $(eval_gettext "Erreur fichier distribs/$DISTRIB_$DISTRO_dev.sh")
+	FICHIER="distribs/$DISTRIB_$DISTRO_dev.sh"
+	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
 fi
 
 LANGUES_COMPAT=(en fr)
