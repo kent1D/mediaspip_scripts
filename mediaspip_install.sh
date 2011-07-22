@@ -56,7 +56,7 @@ fi
 . ./mediaspip_spip_installation.sh
 
 
-VERSION_INSTALL="0.3.1"
+VERSION_INSTALL="0.3.2"
 
 LOGO="
 ######################################################################################
