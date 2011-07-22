@@ -20,7 +20,7 @@ diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
 
 # G
-gis2;http://svn.kupaia.fr/svn/plugins/gis2
+gis2;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
 google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
