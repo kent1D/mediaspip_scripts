@@ -2,34 +2,30 @@
 #
 # debian_lenny_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.2
 #
 # Installation des dépendances de manière stable pour debian
 
-# Installation de rtmpdump pour librtmp
-# http://rtmpdump.mplayerhq.hu/
-
-VERSION_DEBIAN_COMMON=0.3.1
+VERSION_DEBIAN_COMMON=0.3.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *debian_lenny_common.sh ]];then
-	
-	echo "
-######################################
+case "$0" in
+	*debian_lenny_common.sh) 
+	printf "
+########################################
 MediaSPIP Debian common functions v$VERSION_DEBIAN_COMMON
-######################################
-"
-	echo "This file is only usefull for its functions"
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
+Please have a look to mediaspip_install.sh\n\n"
 	tput sgr0; 
 	exit 1 
-fi
+	shift;;
+esac
+
 # Installation de flvtool2
 debian_lenny_flvtool_install()
 {

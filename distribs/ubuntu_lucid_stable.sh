@@ -12,27 +12,25 @@
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_UBUNTU_STABLE=0.3.1
+VERSION_UBUNTU_STABLE=0.3.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *ubuntu_lucid_stable.sh ]];then
-	
-	echo "
-######################################
+case "$0" in
+	*ubuntu_lucid_stable.sh) 
+	printf "
+########################################
 MediaSPIP Ubuntu stable functions v$VERSION_UBUNTU_STABLE
-######################################
-"
-	echo "This file is only usefull for its functions"
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
+Please have a look to mediaspip_install.sh\n\n"
 	tput sgr0; 
 	exit 1 
-fi
+	shift;;
+esac
 
 ubuntu_lucid_rtmpdump_install()
 {

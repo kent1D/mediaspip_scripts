@@ -9,30 +9,25 @@
 # Mises à jour :
 # Version 0.3.2 - Upgrade de FFmpeg en 0.7.1
 
-# Installation de rtmpdump pour librtmp
-# http://rtmpdump.mplayerhq.hu/
-
-VERSION_DEBIAN_STABLE=0.3.1
+VERSION_DEBIAN_STABLE=0.3.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *debian_squeeze_stable.sh ]];then
-	
-	echo "
-######################################
+case "$0" in
+	*debian_squeeze_stable.sh) 
+	printf "
+########################################
 MediaSPIP Debian stable functions v$VERSION_DEBIAN_STABLE
-######################################
-"
-	echo "This file is only usefull for its functions"
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
+Please have a look to mediaspip_install.sh\n\n"
 	tput sgr0; 
 	exit 1 
-fi
+	shift;;
+esac
 
 debian_squeeze_rtmpdump_install()
 {

@@ -2,34 +2,29 @@
 #
 # ubuntu_lucid_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.2
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 
-# Installation de rtmpdump pour librtmp
-# http://rtmpdump.mplayerhq.hu/
-
-VERSION_UBUNTU_COMMON=0.3.1
+VERSION_UBUNTU_COMMON=0.3.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *ubuntu_lucid_common.sh ]];then
-
-	echo "
-######################################
+case "$0" in
+	*ubuntu_lucid_common.sh) 
+	printf "
+########################################
 MediaSPIP Ubuntu common functions v$VERSION_UBUNTU_COMMON
-######################################
-"
-	echo "This file is only usefull for its functions"
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
-	tput sgr0;
-	exit 1
-fi
+Please have a look to mediaspip_install.sh\n\n"
+	tput sgr0; 
+	exit 1 
+	shift;;
+esac
 
 # Installation de flvtool2
 ubuntu_lucid_flvtool_install()

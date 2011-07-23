@@ -2,31 +2,29 @@
 #
 # centos_5_3_dev
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.2
 #
 # Installation des dépendances en version de développement pour Centos
 
-VERSION_CENTOS_DEV=0.3.1
+VERSION_CENTOS_DEV=0.3.2
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5_3_dev.sh ]];then
-	
-	echo "
-######################################
-MediaSPIP Centos devel functions v$VERSION_CENTOS_DEV
-######################################
-"
-	echo "This file is only usefull for its functions"
+case "$0" in
+	*centos_5_3_dev.sh) 
+	printf "
+########################################
+MediaSPIP Centos dev functions v$VERSION_CENTOS_DEV
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
+Please have a look to mediaspip_install.sh\n\n"
 	tput sgr0; 
 	exit 1 
-fi
+	shift;;
+esac
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/

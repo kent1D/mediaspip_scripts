@@ -2,37 +2,32 @@
 #
 # centos_5_3_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances de manière stable pour centos
 #
 # Mises à jour :
 # Version 0.3.2 - Upgrade de FFmpeg en 0.7.1
 
-# Installation de rtmpdump pour librtmp
-# http://rtmpdump.mplayerhq.hu/
-
-VERSION_CENTOS_STABLE=0.3.1
+VERSION_CENTOS_STABLE=0.3.3
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
-if [[ "$0" == *centos_5_3_stable.sh ]];then
-	
-	echo "
-######################################
+case "$0" in
+	*centos_5_3_stable.sh) 
+	printf "
+########################################
 MediaSPIP Centos stable functions v$VERSION_CENTOS_STABLE
-######################################
-"
-	echo "This file is only usefull for its functions"
+########################################\n\n"
+	printf "This file is only usefull for its functions"
 	tput setaf 1;
-	echo "
+	printf "
 This file doesn't work standalone.
-
-Please have a look to mediaspip_install.sh
-"
+Please have a look to mediaspip_install.sh\n\n"
 	tput sgr0; 
 	exit 1 
-fi
+	shift;;
+esac
 
 centos_rtmpdump_install()
 {
