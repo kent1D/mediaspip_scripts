@@ -289,7 +289,7 @@ debian_lenny_dep_install()
 	if [ -z "$DEBIANMULTIMEDIA" ];then
 		echo $(eval_gettext 'Info apt debian-multimedia question auto')
 		read -p "$QUESTION_VALID"
-		[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
+		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
 			echo
 			echo $(eval_gettext 'Info apt debian-multimedia copie')
 			echo "deb http://www.debian-multimedia.org lenny main non-free" >> /etc/apt/sources.list 2>> $LOG
