@@ -9,18 +9,21 @@
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
 # 
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.0.1
+# Version 0.2
+#
+# Mises à jour :
+# Version 0.2 - On fait marcher le script avec dash
 
 if [ ! -r distrib_core.txt ];then
 	echo "Erreur, pas de fichier distrib_core.txt"
 	exit 1
 fi
 
-VERSION_SPIP_DISTRIB="0.1"
+VERSION_SPIP_DISTRIB="0.2"
 
 CURRENT=$(pwd)
 
-function distrib_core()
+distrib_core()
 {
 	echo "Récupération de SPIP"
 	NOM=$(cat distrib_core.txt |grep "^NOM=" | tr "=" " " |awk '{ print $2 }');
@@ -54,7 +57,7 @@ function distrib_core()
 	else
 		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
-		if [ "$DEPOT" == "$SOURCE" ];then
+		if [ "$DEPOT" = "$SOURCE" ];then
 			echo "Mise à jour des sources"
 			svn up
 		else
@@ -73,7 +76,7 @@ function distrib_core()
 		mkdir -p plugins
 	fi
 	
-	if [ "$LIB" == "oui" ] && [ ! -d lib ];then
+	if [ "$LIB" = "oui" ] && [ ! -d lib ];then
 		echo "Création du répertoire lib"
 		mkdir -p lib
 	fi
@@ -81,31 +84,37 @@ function distrib_core()
 	cd $CURRENT
 }
 
-function read_line_svn(){
+read_line_svn(){
 	echo "Mise à jour des sources de $TYPE"
 	svn up $REP/$TYPE/*
 	while read line
 	do
-		IFS=';' read -ra ADDR <<< "$line"
-	
-		if [ ! -z "${ADDR[1]}" ];then
-			if [ -d "$REP/$TYPE/${ADDR[0]}/.svn" ];then
-				DEPOT=$(env LANG=C svn info $REP/$TYPE/${ADDR[0]}/ --non-interactive | awk '/^URL:/ { print $2 }')
+		PLUGIN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $1 }')
+		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
+		if [ ! -z "$SVN" ];then
+			if [ -d "$REP/$TYPE/$PLUGIN/.svn" ];then
+				DEPOT=$(env LANG=C svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
-				if [ "$DEPOT" != "${ADDR[1]}" ];then
+				if [ "$DEPOT" != "$SVN" ];then
 					echo "Switch de dépot"
-					svn sw ${ADDR[1]} $REP/$TYPE/${ADDR[0]}
+					svn sw $SVN $REP/$TYPE/$PLUGIN > /dev/null
+					if [ $? -ne 0 ] ; then
+						echo "Le plugin a changé de serveur svn"
+						rm -Rvf $REP/$TYPE/$PLUGIN
+						echo "Récupération de la nouvelle version de $PLUGIN"
+						svn co $SVN $REP/$TYPE/$PLUGIN
+					fi
 				fi
 			else
-				echo "Récupération du code de ${ADDR[0]}"
-				svn co ${ADDR[1]} $REP/$TYPE/${ADDR[0]}
+				echo "Récupération du code de $PLUGIN"
+				svn co $SVN $REP/$TYPE/$PLUGIN
 			fi
-			svn info $REP/$TYPE/${ADDR[0]} > $REP/$TYPE/${ADDR[0]}/svn.revision
+			svn info $REP/$TYPE/$PLUGIN > $REP/$TYPE/$PLUGIN/svn.revision
 		fi
 	done < distrib_"$TYPE".txt
 }
 
-function distrib_autres ()
+distrib_autres ()
 {
 	TYPE=$1
 	if [ -z "$TYPE" ];then
@@ -120,13 +129,13 @@ function distrib_autres ()
 		
 }
 
-function distrib_empaqueter ()
+distrib_empaqueter ()
 {
 	zip -roq "$NOM" $REP -x \*/.svn\*	
 }
 
 
-function creer_distrib ()
+creer_distrib ()
 {
 	distrib_core
 	
@@ -151,19 +160,19 @@ function creer_distrib ()
 	echo
 }
 
-# Cas où l'on appelle directement le script
-if [[ "$0" == *creer_distrib.sh ]];then
-	while [[ $1 = -* ]]; do
-		case $1 in
-			--help|-h) HELP="Oué c'est l'aide mais vide"
-			echo 
-			echo "$HELP"
-			echo
-			exit 0;;
-			--version|-v) VERSION_AFFICHER="Script de création de distribution version $VERSION_SPIP_DISTRIB"
-			echo "$VERSION_AFFICHER" 
-			exit 0;;
-		esac
-	done
-	creer_distrib
-fi
+case "$0" in
+	*creer_distrib.sh) 
+		while [ $# -gt 0 ]; do
+			case $1 in
+				--help|-h) HELP="Oué c'est l'aide mais vide"
+				echo 
+				echo "$HELP"
+				echo
+				exit 0;;
+				--version|-v) VERSION_AFFICHER="Script de création de distribution version $VERSION_SPIP_DISTRIB"
+				echo "$VERSION_AFFICHER" 
+				exit 0;;
+			esac
+		done
+		creer_distrib
+esac

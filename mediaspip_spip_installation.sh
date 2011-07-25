@@ -38,6 +38,12 @@ recuperer_svn()
 					NEW_DEPOT=$SVN
 					echo $(eval_gettext 'Info $PLUGIN change depot $NEW_DEPOT')
 					svn sw $SVN $PLUGIN 2>> $LOG >> $LOG
+					if [ $? -ne 0 ];then
+						echo $(eval_gettext 'Info $PLUGIN change serveur $NEW_DEPOT')
+						rm -Rvf $PLUGIN 2>> $LOG >> $LOG
+						echo $(eval_gettext 'Info $TYPE telecharge $PLUGIN')
+						svn co $PLUGIN 2>> $LOG >> $LOG
+					fi
 				fi
 			else
 				echo $(eval_gettext 'Info $TYPE telecharge $PLUGIN')

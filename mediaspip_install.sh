@@ -80,11 +80,11 @@ tput sgr0;
 
 # On inclut le fichier de fonctions
 FICHIER='mediaspip_functions.sh'
-. ./mediaspip_functions.sh  || (tput setaf 1;printf "$(eval_gettext 'Erreur fichier $FICHIER')";tput sgr0;kill "$$";exit 1)
+. ./mediaspip_functions.sh || (tput setaf 1;printf "$(eval_gettext 'Erreur fichier $FICHIER')";tput sgr0;kill "$$";exit 1)
 
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 FICHIER='mediaspip_spip_installation.sh'
-. ./mediaspip_spip_installation.sh  || error "$(eval_gettext 'Erreur fichier $FICHIER')"
+. ./mediaspip_spip_installation.sh || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 
 #########################################
 # Vérifications de base :
