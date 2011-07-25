@@ -2,7 +2,7 @@
 #
 # block.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.1
+# Version 0.3.3
 #
 # Some fun
 
@@ -23,8 +23,8 @@ VERSION ${VERSION_INSTALL}
 "
 
 # Planter l'appel si on appelle ce script directement
-if [[ "$0" == *block.sh ]];then
-	if [ "$1" == "-f" ]; then
+if [ "$0" = *block.sh ];then
+	if [ "$1" = "-f" ]; then
 		echo "$LOGO"
 	else
 		echo "
