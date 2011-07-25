@@ -74,7 +74,7 @@ debian_squeeze_ffmpeg2theora_install()
 	if [ -x $(which ffmpeg2theora) ];then
 		FFMPEG2THEORAVERSION=$(ffmpeg2theora --help |awk '/^ffmpeg2theora/ { print $2 }') 2>> $LOG >> $LOG
 	fi
-	if [ "$FFMPEG2THEORAVERSION" == "$VERSION" ];then
+	if [ "$FFMPEG2THEORAVERSION" = "$VERSION" ];then
 		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION')
 		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION') 2>> $LOG >> $LOG
 	else
@@ -121,7 +121,7 @@ debian_squeeze_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/ffmpeg-0.7.1
 	
-	if [ "$VERSION" == "$VERSION_ACTUELLE" ];then
+	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
 		echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
 	else

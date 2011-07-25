@@ -123,7 +123,7 @@ centos_5_3_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/ffmpeg-0.7.1
 	
-	if [ "$VERSION" == "$VERSION_ACTUELLE" ];then
+	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
 		echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
 	else

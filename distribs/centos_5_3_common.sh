@@ -150,30 +150,33 @@ centos_libvpx_install()
 	cd $SRC_INSTALL
 	VERSION="0.9.6"
 	LIBVPX=$(rpm -qi libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	if [[ "$LIBVPX" == *$VERSION* ]];then
-		echo $(eval_gettext 'Info a jour libvpx $VERSION')
-		echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
-	else
-		echo $(eval_gettext 'Info debut libvpx install $VERSION')
-		echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-		if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
+	case "$LIBVPX" in
+		*$VERSION*)
+			echo $(eval_gettext 'Info a jour libvpx $VERSION')
+			echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
+			;;
+		*)
+			echo $(eval_gettext 'Info debut libvpx install $VERSION')
+			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
 			wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
 			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-		elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
-			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-		fi
-		cd libvpx-v0.9.6
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		yum -y erase libvpx 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG || return 1
-		#checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libvpx")
-	fi
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
+				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			fi
+			cd libvpx-v0.9.6
+			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation configure")
+			./configure --enable-shared 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation make")
+			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation install")
+			yum -y erase libvpx 2>> $LOG >> $LOG
+			make install 2>> $LOG >> $LOG || return 1
+			#checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG
+			echo $(eval_gettext "End libvpx")
+			;;
+		esac
 	echo
 }
 
@@ -223,17 +226,17 @@ centos_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.38"
+	VERSION="0.7.47"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
@@ -368,14 +371,14 @@ centos_phpimagick_install()
 	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
 	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
 	# Cas de l'installation
-	if [ "$ACTUEL" == "-" ]; then
+	if [ "$ACTUEL" = "-" ]; then
 		echo $(eval_gettext "Info debut php-imagick install")
 		echo $(eval_gettext "Info debut php-imagick install") 2>> $LOG >> $LOG
 		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
 		echo $(eval_gettext "End php-imagick")
 		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
 	# Cas où on a déjà installé la dernière version
-	elif [ "$ACTUEL" == "$LATEST" ]; then
+	elif [ "$ACTUEL" = "$LATEST" ]; then
 		echo $(eval_gettext "Info a jour php-imagick")
 		echo $(eval_gettext "Info a jour php-imagick") 2>> $LOG >> $LOG
 	# Cas de la mise à jour
@@ -428,7 +431,7 @@ centos_5_3_dep_install()
 	#	SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
 	#fi
 	
-	#if [[ $SCONS_VERSION < "v1.2" ]]; then
+	#if [ "$SCONS_VERSION" < "v1.2" ]; then
 	#	centos_scons_install || return 1
 	#fi 
 	
@@ -545,7 +548,7 @@ centos_5_3_x264_install ()
 	fi
 	
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
-	if [ "$REVISION" == "$NEWREVISION" ]; then
+	if [ "$REVISION" = "$NEWREVISION" ]; then
 		echo $(eval_gettext "Info a jour x264")
 		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
 	else

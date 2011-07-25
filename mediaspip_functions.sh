@@ -9,14 +9,15 @@
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
 
-VERSION_FUNCTIONS=0.3.1
+VERSION_FUNCTIONS=0.3.2
 
 isNumeric()
 {
-	echo "$@" | grep -q -v "[^0-9]"
+	printf "$@" | grep -q -v "[^0-9]"
 }
 
-in_array(){
+in_array()
+{
     local i
     needle=$1
     shift 1
@@ -24,7 +25,7 @@ in_array(){
     [ -z "$1" ] && return 1
     for i in $*
     do
-	    [ "$i" == "$needle" ] && return 0
+	    [ "$i" = "$needle" ] && return 0
     done
     return 1
 }
@@ -34,29 +35,31 @@ in_array(){
 echo_erreur()
 {
 	tput setaf 1;
-	echo $@
+	printf "$@"
+	printf "\n"
 	tput sgr0;
 }
 
 echo_reussite()
 {
 	tput setaf 2;
-	echo $@
+	printf "$@"
+	printf "\n"
 	tput sgr0;
 }
 
 #exit function
 die ()
 {
-	echo_erreur $@ 
-	echo
+	echo_erreur "$@"
+	printf "\n"
 	exit 1
 }
 
 #error function
 error ()
 {
-	echo_erreur $@
+	echo_erreur "$@"
 	if [ ! -z "$PID" ];then
 		kill "$PID" 2>> $LOG >> $LOG
 	fi
@@ -88,26 +91,26 @@ git_log()
 	cd $@
 	# Show various information about this git directory
 	if [ -d .git ]; then
-	  echo "== Remote URL: `git remote -v`"
+	  printf "== Remote URL: `git remote -v`"
 	
-	  echo "== Remote Branches: "
+	  printf "== Remote Branches: "
 	  git branch -r
-	  echo
+	  printf "\n"
 	
-	  echo "== Local Branches:"
+	  printf "== Local Branches:"
 	  git branch
-	  echo
+	  printf "\n"
 	
-	  echo "== Configuration (.git/config)"
+	  printf "== Configuration (.git/config)"
 	  cat .git/config
-	  echo
+	  printf "\n"
 	
-	  echo "== Most Recent Commit"
+	  printf "== Most Recent Commit"
 	  git --no-pager log --max-count=1
-	  echo
-	  echo "== Short Revision: `git describe --always`"
+	  printf "\n"
+	  printf "== Short Revision: `git describe --always`"
 	else
-	  echo "Not a git repository."
+	  printf "Not a git repository."
 	fi
 }
 
@@ -124,7 +127,7 @@ verif_svn_protocole()
 {
 	# On vérifie que l'on a bien accès au protocole svn://
 	svn info svn://trac.rezo.net/spip/branches/spip-2.1 2>> /dev/null >> /dev/null
-	if [[ $? != "0" ]]; then
+	if [ $? != "0" ]; then
 		echo_erreur $(eval_gettext "Erreur script protocole svn") 1>&2
 		exit 1
 	fi
@@ -132,16 +135,13 @@ verif_svn_protocole()
 
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
-if [[ "$0" == *mediaspip_functions.sh ]];then
-
-	echo "
+if [ "$0" = *mediaspip_functions.sh ]; then
+printf "\n
 ######################################
 MediaSPIP functions $VERSION_FUNCTIONS
-######################################
-	"
-	echo "This file is only usefull for its functions
-	"
-	echo_erreur "This file doesn't work standalone."
-	echo
-	die  "Please have a look to mediaspip_install.sh"
+######################################\n"
+printf "This file is only usefull for its functions\n"
+echo_erreur "This file doesn't work standalone."
+printf "\n"
+die "Please have a look to mediaspip_install.sh"
 fi

@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -20,36 +20,39 @@
 #
 # Mises à jour :
 # Version 0.3.2 - On utilise les mêmes fichiers txt de spip/creer_distrib.sh pour télécharger les plugins, extensions et thèmes
+# Version 0.3.3 - On fait marcher le script avec dash
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
-function recuperer_svn(){
+recuperer_svn()
+{
 	TYPE=$2
 	while read line
 	do
-		IFS=';' read -ra ADDR <<< "$line"
-		PLUGIN="${ADDR[0]}"
-		if [ ! -z "${ADDR[1]}" ];then
+		PLUGIN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $1 }')
+		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
+		if [ ! -z "$SVN" ];then
 			if [ -d $PLUGIN/.svn ];then
-				DEPOT_FICHIER=$(env LANG=C svn info ${ADDR[0]}/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT_FICHIER=$(env LANG=C svn info $SVN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
-				if [ "$DEPOT_FICHIER" != "${ADDR[1]}" ];then
-					NEW_DEPOT=${ADDR[1]}
+				if [ "$DEPOT_FICHIER" != "$SVN" ];then
+					NEW_DEPOT=$SVN
 					echo $(eval_gettext 'Info $PLUGIN change depot $NEW_DEPOT')
-					svn sw ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
+					svn sw $SVN $PLUGIN 2>> $LOG >> $LOG
 				fi
 			else
 				echo $(eval_gettext 'Info $TYPE telecharge $PLUGIN')
-				svn co ${ADDR[1]} $PLUGIN 2>> $LOG >> $LOG
+				svn co $SVN $PLUGIN 2>> $LOG >> $LOG
 			fi
 		fi
 	done < $1
 }
 
-mediaspip_install(){
+mediaspip_install()
+{
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 
-	TYPES=(ferme_full ferme minimal full none)
+#	TYPES="ferme_full:ferme:minimal:full:none"
 
 	# Installation de mediaSPIP
 	if [ ! -d "$SPIP" ]; then
@@ -61,7 +64,7 @@ mediaspip_install(){
 		cd $SPIP
 		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
-		if [ "$DEPOT" == "$SPIP_SVN" ];then
+		if [ "$DEPOT" = "$SPIP_SVN" ];then
 			echo $(eval_gettext "Info SPIP maj")
 			cd $SPIP
 			svn up 2>> $LOG >> $LOG
@@ -97,10 +100,9 @@ mediaspip_install(){
 	echo
 	svn up extensions/* 2>> $LOG >> $LOG
 	
-	TYPES_FULL=(ferme_full full)
 	# Si on est dans un type full on installe les plugins et thèmes dits compatibles
 	# par défaut
-	if in_array $SPIP_TYPE ${TYPES_FULL[@]};then
+	if [ $SPIP_TYPE = "ferme_full" -o  $SPIP_TYPE = "full" ]; then
 		
 		if [ ! -d themes ]; then
 			mkdir -p $SPIP/themes
@@ -153,14 +155,13 @@ mediaspip_install(){
 		echo $(eval_gettext "Info SPIP repertoire lib")
 		mkdir lib && chmod 755 lib/ 2>> $LOG >> $LOG
 	fi
-	
-	TYPES_MUTU=(ferme_full ferme)
+
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
 	# - crée le répertoire site si non existant
 	# - vide les caches de l'ensemble des sites
 	# par défaut
-	if in_array $SPIP_TYPE ${TYPES_MUTU[@]};then
+	if [ $SPIP_TYPE = "ferme" ] || [ $SPIP_TYPE = "ferme_full" ];then
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
@@ -207,6 +208,6 @@ mediaspip_install(){
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null || return 1
 	
 	echo
-	echo_reussite $(eval_gettext "Info MediaSPIP installe")
+	echo_reussite "$(eval_gettext 'Info MediaSPIP installe')"
 	
 }

@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -25,6 +25,7 @@
 #
 # Mises à jour :
 # Version 0.3.2 - Meilleure détection des distribs avec lsb_release
+# Version 0.3.3 - On fait marcher le script avec dash
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -41,13 +42,13 @@ I18NLIB=$(which gettext.sh)
 if [ -f "$I18NLIB" ]; then
 	. "$I18NLIB"
 else
-	echo "ERROR - $I18NLIB NOT FOUND"
-	echo "Please install the gettext package via the command:"
-	echo "apt-get -y install gettext gettext-base"
+	printf "ERROR - $I18NLIB NOT FOUND"
+	printf "Please install the gettext package via the command:"
+	printf "apt-get -y install gettext gettext-base"
 	exit 1
 fi
 
-VERSION_INSTALL="0.3.2"
+VERSION_INSTALL="0.3.3"
 
 LOGO="
 ######################################################################################
@@ -67,25 +68,23 @@ VERSION ${VERSION_INSTALL}
 
 # Inclusion d'un logo aléatoire ;)
 if [ -d "fun" ];then
-	files=(./fun/*.sh)		# create an array of the files.
-	N=${#files[@]}			# Number of members in the array
-	((N=RANDOM%N))
-	randomfile=${files[$N]}
-	. $randomfile
+	DIR="./fun/*.sh"
+	RANDOMFILE=$(ls $DIR | shuf -n1)
+	. $RANDOMFILE
 fi
 
 # On affiche le logo ... en vert
 tput setaf 2;
-echo "$LOGO"
+printf "$LOGO"
 tput sgr0;
 
 # On inclut le fichier de fonctions
 FICHIER='mediaspip_functions.sh'
-. ./mediaspip_functions.sh 2>> $LOG >> $LOG || (tput setaf 1;echo $(eval_gettext 'Erreur fichier $FICHIER');tput sgr0;kill "$$";exit 1)
+. ./mediaspip_functions.sh  || (tput setaf 1;printf "$(eval_gettext 'Erreur fichier $FICHIER')";tput sgr0;kill "$$";exit 1)
 
 # On inclut le fichier d'installation de SPIP et de MediaSPIP
 FICHIER='mediaspip_spip_installation.sh'
-. ./mediaspip_spip_installation.sh 2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
+. ./mediaspip_spip_installation.sh  || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 
 #########################################
 # Vérifications de base :
@@ -94,13 +93,13 @@ FICHIER='mediaspip_spip_installation.sh'
 #
 
 if [ "$(id -u)" != "0" ]; then
-	echo_erreur $(eval_gettext "Erreur script root") 1>&2
+	echo_erreur "$(eval_gettext 'Erreur script root')" 1>&2
 	exit 1
 fi
 
 LSB_RELEASE=$(which lsb_release)
 
-if [ -x $LSB_RELEASE ]; then
+if [ "$LSB_RELEASE" ] && [ -x $LSB_RELEASE ]; then
 	DISTRIB=$($LSB_RELEASE -si | tr [:upper:] [:lower:])
 	DISTRO=$($LSB_RELEASE -sc | tr [:upper:] [:lower:])
 # Cas d'Ubuntu
@@ -111,7 +110,7 @@ elif [ -r /etc/lsb-release ];then
 elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
-	if [ "$NUMBER" == '6' ]; then
+	if [ "$NUMBER" = '6' ]; then
 		DISTRO="squeeze"
 	else
 		DISTRO="lenny"
@@ -121,23 +120,25 @@ elif [ -r /etc/redhat-release ]; then
 	DISTRIB=$(cat /etc/redhat-release |awk  '{ print $1 }' | tr '[A-Z]' '[a-z]' | tr '[:punct:]' '_')
 	DISTRO=$(cat /etc/redhat-release |awk  '{ print $3 }' | tr '[A-Z]' '[a-z]' | tr '[:punct:]' '_')
 else
-	echo_erreur $(eval_gettext "Erreur script distro inconnue") 1>&2
+	echo_erreur "$(eval_gettext 'Erreur script distro inconnue')"
 	exit 1
 fi
 
-OKDISTRO="lenny squeeze lucid 5_3"
-
-if [[ ! $(grep $DISTRO <<< $OKDISTRO) ]]; then
-	echo_erreur $(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO') 1>&2
-	exit 1
-fi
+OKDISTRO='lenny squeeze lucid 5_3';
+case "$OKDISTRO" in 
+	*$DISTRO*);;
+	*)
+		die "$(eval_gettext 'Erreur script distro non suportee $DISTRIB $DISTRO')"
+		shift
+		;;
+esac
 
 # On vérifie que l'on a bien accès au programme pkg-config 
 # Il permet de connaitre les versions des librairies sur le système
 PKG_CONFIG=$(which pkg-config)
 
 if [ ! -x $PKG_CONFIG ]; then
-	echo_erreur $(eval_gettext "Erreur script pkg-config") 1>&2
+	echo_erreur "$(eval_gettext 'Erreur script pkg-config')" 1>&2
 	exit 1
 fi
 
@@ -157,7 +158,6 @@ if [ ! "$?" = "0" ]
 then
     NO_OF_CPUCORES=2
 fi
-
 
 # Le upload_max_filesize de php
 PHP_UPLOAD_SIZE="150M"
@@ -182,19 +182,20 @@ else
 	SPIP_GROUP="www-data"
 fi
 
-SPIP_TYPES=(ferme_full ferme minimal full none)
-
 # On insère un fichier de modification de ces variables si présent
 if [ -r /etc/default/mediaspip ]; then
 	. /etc/default/mediaspip
 fi
 
-while [[ $1 = -* ]]; do
+while [ $# -gt 0 ]; do
 	case $1 in
 		--help|-h) HELP=$(eval_gettext "Help message")
 		VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
 		echo "$VERSION_AFFICHER"
 		echo "$HELP"
+		exit 0;;
+		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
+		echo "$VERSION_AFFICHER"  
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
@@ -202,17 +203,14 @@ while [[ $1 = -* ]]; do
 				shift 2;;
 				fr) export LANG="fr_FR.UTF-8"
 				shift 2;;
-				"") echo_erreur $(eval_gettext "Erreur langue non set")
+				"") echo_erreur "$(eval_gettext 'Erreur langue non set')"
 				ERROR=oui
 				shift 2;;
-				*) echo_erreur $(eval_gettext "Erreur langue inexistante")
+				*) echo_erreur "$(eval_gettext 'Erreur langue inexistante')"
 				ERROR=oui
 				shift;;
 			esac
 		shift;;
-		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
-		echo "$VERSION_AFFICHER"  
-		exit 0;;
 		--allways-yes|-y) NO_QUESTION="yes"
 		echo $(eval_gettext 'Info options no_question')
 		shift;;
@@ -225,17 +223,17 @@ while [[ $1 = -* ]]; do
 				if(isNumeric "${2}");then
 					if ((${2} > $NO_OF_CPUCORES));then
 						CPU_NB=${2}
-						echo_erreur $(eval_gettext 'Erreur option cpus trop $CPU_NB')  
+						echo_erreur "$(eval_gettext 'Erreur option cpus trop $CPU_NB')"
 						ERROR=oui
 					else 
 						NO_OF_CPUCORES="${2}"
 					fi
 				else
-					echo_erreur $(eval_gettext "Erreur option cpus numerique")
+					echo_erreur "$(eval_gettext 'Erreur option cpus numerique')"
 					ERROR="oui"
 				fi
 			else
-				echo_erreur $(eval_gettext "Erreur option cpus numerique")
+				echo_erreur "$(eval_gettext 'Erreur option cpus numerique')"
 				ERROR="oui"
 			fi
 		shift 2;;
@@ -264,39 +262,44 @@ while [[ $1 = -* ]]; do
 		--spip_group) SPIP_GROUP="${2}"
 		shift 2;;
 		--spip_type)
-		if in_array ${2} ${SPIP_TYPES[@]};then
-			SPIP_TYPE=${2}
-		else
-			TYPEDEMANDE=${2}
-			echo_erreur $(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')
-			ERROR=oui
-		fi
+			case "${2}" in
+				ferme_full|ferme|minimal|full|none) SPIP_TYPE=${2}
+				shift 2;;
+				*)
+				TYPEDEMANDE=${2}
+				echo_erreur "$(eval_gettext 'Erreur mediaspip type disponible $TYPEDEMANDE')"
+				ERROR=oui
+				shift;;
+			esac
 		shift 2;;
 	esac
 done
 
-verif_internet_connexion || error $(eval_gettext "Erreur internet connexion")
+verif_internet_connexion || error "$(eval_gettext 'Erreur internet connexion')"
 
-if [ "$ERROR" == "oui" ]; then
+if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
-FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
-. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
 
-if [ "$DEP_VERSION" == "stable" ]; then
+FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
+. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
+
+if [ "$DEP_VERSION" = "stable" ]; then
 	FICHIER="distribs/$DISTRIB_$DISTRO_stable.sh"
-	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
+	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 else
 	FICHIER="distribs/$DISTRIB_$DISTRO_dev.sh"
-	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error $(eval_gettext 'Erreur fichier $FICHIER')
+	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 fi
 
-LANGUES_COMPAT=(en fr)
+LANGUES_COMPAT='en fr'
 LANGUE=$(expr substr $LANG 1 2)
-if ! in_array $LANGUE ${LANGUES_COMPAT[@]};then
-	export LANG="en_US.UTF-8"
-fi 
+case $LANGUE in
+	en|fr) ;;
+	*)
+	export LANG="en_US.UTF-8";;
+esac 
 
 ###############################
 # Suite des fonctions du script
@@ -317,8 +320,9 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	# - return (vide)
 	eval_gettext "Info source installation"
 	echo " $SRC_INSTALL"
-	read -p "$QUESTION_VALID"
-	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SRC_INSTALL")
+	echo -n "$QUESTION_VALID"
+	read REPLY
+	[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SRC_INSTALL")
 	echo
 	
 	# Demande de valider l'emplacement des fichiers de log
@@ -329,8 +333,9 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	eval_gettext "Info log installation"
 	#echo ""
 	echo " $LOG"
-	read -p "$QUESTION_VALID"
-	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide LOG")
+	echo -n "$QUESTION_VALID"
+	read REPLY
+	[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide LOG")
 	echo
 	
 	# Demande de valider l'emplacement des fichiers de SPIP et MediaSPIP
@@ -341,8 +346,9 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	if [ "$SPIP_TYPE" != "none" ];then
 		eval_gettext "Info SPIP installation"
 		echo " $SPIP"
-		read -p "$QUESTION_VALID"
-		[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SPIP")
+		echo -n "$QUESTION_VALID"
+		read REPLY
+		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext "Erreur valide SPIP")
 		echo
 	else
 		eval_gettext "Info MediaSPIP non installe"
@@ -350,8 +356,9 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	
 	# ok, already, last check before proceeding
 	echo "OK, nous sommes prêts à y aller ?"
-	read -p "$QUESTION_VALID"
-	[ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
+	echo -n "$QUESTION_VALID"
+	read REPLY
+	[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die "exiting. Bye, did I come on too strong?."
 	echo
 fi
 
@@ -365,9 +372,9 @@ eval_gettext "Titre dependances logicielles"
 echo
 echo
 
-"$DISTRIB"_"$DISTRO"_dep_install || error $(eval_gettext "Erreur installation regarde log")
+"$DISTRIB"_"$DISTRO"_dep_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 
-echo_reussite $(eval_gettext "End dependances")
+echo_reussite "$(eval_gettext 'End dependances')"
 echo
 
 # Préconfiguration basique d'Apache 
@@ -379,9 +386,9 @@ if [ "$DISABLE_APACHE" != "yes" ];then
 	echo
 	echo
 
-	"$DISTRIB"_"$DISTRO"_apache_install || error $(eval_gettext "Erreur installation regarde log")
+	"$DISTRIB"_"$DISTRO"_apache_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
-	echo_reussite $(eval_gettext "End apache")
+	echo_reussite "$(eval_gettext 'End apache')"
 	echo
 fi
 
@@ -391,10 +398,10 @@ eval_gettext "Titre x264"
 echo
 echo
 
-"$DISTRIB"_"$DISTRO"_x264_install || error $(eval_gettext "Erreur installation regarde log")
+"$DISTRIB"_"$DISTRO"_x264_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 
 echo
-echo_reussite $(eval_gettext "End x264")
+echo_reussite "$(eval_gettext 'End x264')"
 echo
 
 # Si on demande à ne pas installer FFMpeg, plusieurs autres logiciels ne seront pas installés :
@@ -410,10 +417,10 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error $(eval_gettext "Erreur installation regarde log")
+	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
 	echo
-	echo_reussite $(eval_gettext "End ffmpeg")
+	echo_reussite "$(eval_gettext 'End ffmpeg')"
 	echo
 	
 	# Installation de ffmpeg2theora
@@ -422,10 +429,10 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo
 	
-	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error $(eval_gettext "Erreur installation regarde log")
+	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
 	echo
-	echo_reussite $(eval_gettext "End ffmpeg2theora")
+	echo_reussite "$(eval_gettext 'End ffmpeg2theora')"
 	echo
 	
 	# Installation de ffmpeg-php
@@ -436,15 +443,15 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
 		echo $(eval_gettext "Info debut ffmpeg-php update")
 		echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error $(eval_gettext "Erreur installation regarde log")
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	else
 		echo $(eval_gettext "Info debut ffmpeg-php install")
 		echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error $(eval_gettext "Erreur installation regarde log")
+		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	fi
 	
 	echo
-	echo_reussite $(eval_gettext "End ffmpeg-php")
+	echo_reussite "$(eval_gettext 'End ffmpeg-php')"
 fi
 
 # On vérifie si alternc est sur le système
@@ -453,8 +460,9 @@ fi
 if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 	echo
 	echo $(eval_gettext "Question alternc")
-	read -p "$QUESTION_VALID"
-	if([ "$REPLY" == "y" ] || [ "$REPLY" == "o" ] || [ -z "$REPLY" ]);then
+	echo -n "$QUESTION_VALID"
+	read REPLY
+	if([ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ]);then
 		cd /var/alternc/exec.usr
 		if [ ! -h vorbiscomment ];then
 			ln -s /usr/bin/vorbiscomment 2>> $LOG >> $LOG 
@@ -484,7 +492,7 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 		chmod +x /var/alternc/exec.usr/spipmotion.sh
 		
 		echo
-		echo_reussite $(eval_gettext "End alternc")
+		echo_reussite "$(eval_gettext 'End alternc')"
 	fi
 fi
 
@@ -494,10 +502,10 @@ if [ "$DISABLE_MEDIASPIP" != "yes" ];then
 	echo
 	echo
 	
-	mediaspip_install || error $(eval_gettext "Erreur installation regarde log")
+	mediaspip_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 fi
 
 echo
-echo_reussite $(eval_gettext "End installation generale")
+echo_reussite "$(eval_gettext 'End installation generale')"
 echo
 exit 

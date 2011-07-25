@@ -123,29 +123,32 @@ ubuntu_lucid_libvpx_install()
 	cd $SRC_INSTALL
 	VERSION="0.9.6"
 	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	if [[ "$LIBVPX" == *$VERSION* ]];then
-		echo $(eval_gettext 'Info a jour libvpx $VERSION')
-		echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
-	else
-		echo $(eval_gettext 'Info debut libvpx install $VERSION')
-		echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-		if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
-			wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-		elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
-			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-		fi
-		cd libvpx-v0.9.6
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
-		checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libvpx")
-	fi
+	case "$LIBVPX" in
+		*$VERSION*)
+			echo $(eval_gettext 'Info a jour libvpx $VERSION')
+			echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
+			;;
+		*)
+			echo $(eval_gettext 'Info debut libvpx install $VERSION')
+			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
+				wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
+				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			fi
+			cd libvpx-v0.9.6
+			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation configure")
+			./configure --enable-shared 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation make")
+			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation install")
+			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
+			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+			echo $(eval_gettext "End libvpx")
+			;;
+	esac
 	echo
 }
 
@@ -159,17 +162,17 @@ ubuntu_lucid_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.38"
+	VERSION="0.7.47"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.38/MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.38_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
