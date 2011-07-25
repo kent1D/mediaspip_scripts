@@ -285,7 +285,7 @@ debian_lenny_dep_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
-	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list) 2>> $LOG >> $LOG
+	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list |grep lenny) 2>> $LOG >> $LOG
 	if [ -z "$DEBIANMULTIMEDIA" ];then
 		echo $(eval_gettext 'Info apt debian-multimedia question auto')
 		read -p "$QUESTION_VALID"
