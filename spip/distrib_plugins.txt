@@ -22,6 +22,7 @@ fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
 # G
 gis2;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
 google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
+googleplus1;svn://zone.spip.org/spip-zone/_plugins_/googleplus1
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
 # I
