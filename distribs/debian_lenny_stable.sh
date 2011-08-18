@@ -2,14 +2,15 @@
 #
 # debian_lenny_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances de manière stable pour debian
 #
 # Mises à jour :
 # Version 0.3.2 - Upgrade de FFmpeg en 0.7.1
+# Version 0.3.3 - Upgrade de FFmpeg en 0.7.3
 
-VERSION_DEBIAN_STABLE=0.3.2
+VERSION_DEBIAN_STABLE=0.3.3
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -104,22 +105,22 @@ debian_lenny_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.1.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.3.tar.bz2 ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-0.7.1.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-0.7.1.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-0.7.1 ];then
-		tar xvjf ffmpeg-0.7.1.tar.bz2 2>> $LOG >> $LOG
+		wget http://ffmpeg.org/releases/ffmpeg-0.7.3.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf ffmpeg-0.7.3.tar.bz2 2>> $LOG >> $LOG
+	elif [ ! -d ffmpeg-0.7.3 ];then
+		tar xvjf ffmpeg-0.7.3.tar.bz2 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="0.7.1"
+	VERSION="0.7.3"
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-0.7.1
+	cd $SRC_INSTALL/ffmpeg-0.7.3
 	
 	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
