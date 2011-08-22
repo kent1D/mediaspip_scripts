@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
+# Version 0.3.4
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -12,6 +12,7 @@
 # - Le plugin de mutualisation si configuré comme tel
 # - Les répertoires sites/ (si dans un cas de mutu) et lib/
 # - Le htaccess de SPIP
+# - Le repertoire securite/ comprenant l'écran de sécurité, on crée un lien symbolique de securite/ecran_securite.php dans config/
 #
 # Ce script se base sur les 3 fichiers du script de création de distribution (spip/creer_distrib.sh) :
 # -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
@@ -21,6 +22,7 @@
 # Mises à jour :
 # Version 0.3.2 - On utilise les mêmes fichiers txt de spip/creer_distrib.sh pour télécharger les plugins, extensions et thèmes
 # Version 0.3.3 - On fait marcher le script avec dash
+# Version 0.3.4 - On ajoute l'écran de sécurité
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
@@ -156,12 +158,39 @@ mediaspip_install()
 	chmod 755 local/ 2>> $LOG >> $LOG
 	chmod 755 IMG/ 2>> $LOG >> $LOG
 	
+	# Création du répertoire lib/
 	if [ ! -d lib ];then
 		echo
 		echo $(eval_gettext "Info SPIP repertoire lib")
 		mkdir lib && chmod 755 lib/ 2>> $LOG >> $LOG
 	fi
 
+	if [ ! -d securite ];then
+		echo
+		echo $(eval_gettext "Info SPIP install securite")
+		svn co svn://zone.spip.org/spip-zone/_core_/securite
+		if [ -e securite/ecran_securite.php ]
+			if [ ! -h securite/ecran_securite.php ]
+				rm securite/ecran_securite.php 2>> $LOG >> $LOG
+				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+			fi
+		else
+			ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+		fi
+	else
+		echo
+		echo $(eval_gettext "Info SPIP maj securite")
+		svn up securite/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
+		if [ -e securite/ecran_securite.php ]
+			if [ ! -h securite/ecran_securite.php ]
+				rm securite/ecran_securite.php 2>> $LOG >> $LOG
+				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+			fi
+		else
+			ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+		fi
+	fi
+	
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
 	# - crée le répertoire site si non existant

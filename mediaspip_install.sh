@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
+# Version 0.3.4
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -26,6 +26,7 @@
 # Mises à jour :
 # Version 0.3.2 - Meilleure détection des distribs avec lsb_release
 # Version 0.3.3 - On fait marcher le script avec dash
+# Version 0.3.4 - Installation de l'écran de sécurité dans mediaspip_spip_installation.sh
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -48,7 +49,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.3.3"
+VERSION_INSTALL="0.3.4"
 
 LOGO="
 ######################################################################################
