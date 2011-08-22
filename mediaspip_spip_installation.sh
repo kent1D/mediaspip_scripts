@@ -169,25 +169,33 @@ mediaspip_install()
 		echo
 		echo $(eval_gettext "Info SPIP install securite")
 		svn co svn://zone.spip.org/spip-zone/_core_/securite 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		if [ -e securite/ecran_securite.php ];then
-			if [ ! -h securite/ecran_securite.php ];then
-				rm securite/ecran_securite.php 2>> $LOG >> $LOG
-				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+		if [ -e config/ecran_securite.php ];then
+			if [ ! -h config/ecran_securite.php ];then
+				rm config/ecran_securite.php 2>> $LOG >> $LOG
+				cd config
+				ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
+				cd ..
 			fi
 		else
-			ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+			cd config
+			ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
+			cd ..
 		fi
 	else
 		echo
 		echo $(eval_gettext "Info SPIP maj securite")
 		svn up securite/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
-		if [ -e securite/ecran_securite.php ];then
-			if [ ! -h securite/ecran_securite.php ];then
-				rm securite/ecran_securite.php 2>> $LOG >> $LOG
-				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+		if [ -e config/ecran_securite.php ];then
+			if [ ! -h config/ecran_securite.php ];then
+				rm config/ecran_securite.php 2>> $LOG >> $LOG
+				cd config
+				ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
+				cd ..
 			fi
 		else
-			ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
+			cd config
+			ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
+			cd ..
 		fi
 	fi
 	
