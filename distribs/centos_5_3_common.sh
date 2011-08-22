@@ -2,11 +2,14 @@
 #
 # centos_5_3_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances de manière stable pour centos
+#
+# Mise à jour 
+# Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
 
-VERSION_CENTOS_COMMON=0.3.2
+VERSION_CENTOS_COMMON=0.3.3
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
@@ -148,7 +151,7 @@ centos_libvpx_install()
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
-	VERSION="0.9.6"
+	VERSION="0.9.7-p1"
 	LIBVPX=$(rpm -qi libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	case "$LIBVPX" in
 		*$VERSION*)
@@ -158,13 +161,13 @@ centos_libvpx_install()
 		*)
 			echo $(eval_gettext 'Info debut libvpx install $VERSION')
 			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
-			wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-			tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
-				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.7-p1.tar.bz2 ];then
+			wget http://webm.googlecode.com/files/libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
+			tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.7-p1 ]; then
+				tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
 			fi
-			cd libvpx-v0.9.6
+			cd libvpx-v0.9.7-p1
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation configure")
 			./configure --enable-shared 2>> $LOG >> $LOG

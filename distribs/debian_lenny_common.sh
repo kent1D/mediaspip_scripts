@@ -2,11 +2,14 @@
 #
 # debian_lenny_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances de manière stable pour debian
+#
+# Mise à jour 
+# Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
 
-VERSION_DEBIAN_COMMON=0.3.2
+VERSION_DEBIAN_COMMON=0.3.3
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -144,7 +147,7 @@ debian_lenny_libvpx_install()
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
-	VERSION="0.9.6"
+	VERSION="0.9.7-p1"
 	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	case "$LIBVPX" in
 		*$VERSION*) 
@@ -154,14 +157,13 @@ debian_lenny_libvpx_install()
 		*)
 			echo $(eval_gettext 'Info debut libvpx install $VERSION')
 			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.6.tar.bz2 ];then
-				wget http://webm.googlecode.com/files/libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.6 ]; then
-				tar xvjf libvpx-v0.9.6.tar.bz2 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.7-p1.tar.bz2 ];then
+				wget http://webm.googlecode.com/files/libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.7-p1 ]; then
+				tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
 			fi
-			cd libvpx-v0.9.6
-			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+			cd libvpx-v0.9.7-p1
 			echo $(eval_gettext "Info compilation configure")
 			./configure --enable-shared 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation make")
