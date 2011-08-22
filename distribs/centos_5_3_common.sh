@@ -2,14 +2,15 @@
 #
 # centos_5_3_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
+# Version 0.3.4
 #
 # Installation des dépendances de manière stable pour centos
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
+# Version 0.3.4 : upgrade de MediaInfo en 0.7.48
 
-VERSION_CENTOS_COMMON=0.3.3
+VERSION_CENTOS_COMMON=0.3.4
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
@@ -229,17 +230,17 @@ centos_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.47"
+	VERSION="0.7.48"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.47_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
