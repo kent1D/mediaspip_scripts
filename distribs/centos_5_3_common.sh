@@ -2,15 +2,18 @@
 #
 # centos_5_3_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.4
+# Version 0.3.5
 #
 # Installation des dépendances de manière stable pour centos
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
 # Version 0.3.4 : upgrade de MediaInfo en 0.7.48
+# Version 0.3.5 : 
+# -* ajout de libboost-dev à yum pour installer flvtool++
+# -* installation de flvtool++ en version 1.2.1
 
-VERSION_CENTOS_COMMON=0.3.4
+VERSION_CENTOS_COMMON=0.3.5
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
@@ -44,6 +47,41 @@ centos_flvtool_install()
 	cd flvtool2
 	ruby setup.rb 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "End flvtool2")
+	echo
+}
+
+
+# Installation de flvtool++
+centos_flvtool_plus_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	FLVTOOLPLUS=$(which flvtool++)
+	if [ ! -z "$FLVTOOLPLUS" ]; then
+		FLVTOOLPLUSVERSION=$(flvtool++ |awk '/^flvtool++/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	
+	VERSION="1.2.1"
+	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION')
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut flvtool++")
+		echo $(eval_gettext "Info debut flvtool++") 2>> $LOG >> $LOG
+		cd $SRC_INSTALL
+		if [ ! -d flvtool++-1.2.1 ];then
+			mkdir flvtool++-1.2.1 2>> $LOG >> $LOG
+		fi
+		cd flvtool++-1.2.1
+		if [ ! -e flvtool++-1.2.1.tar.gz ];then
+			wget http://mirror.facebook.net/facebook/flvtool++/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+		fi
+		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
+		scons 2>> $LOG >> $LOG
+		cp flvtool++ /usr/local/bin
+		echo $(eval_gettext "End flvtool++")
+	fi
 	echo
 }
 
@@ -397,7 +435,7 @@ centos_phpimagick_install()
 }
 
 # Installation de diverses dépendances
-# Pour Centis 5.3
+# Pour Centos 5.3
 centos_5_3_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -422,7 +460,7 @@ centos_5_3_dep_install()
 	echo $(eval_gettext "Info yum maj paquets")
 	echo $(eval_gettext "Info yum maj paquets") 2>> $LOG >> $LOG
 	yum -y erase php-pecl-imagick 2>> $LOG >> $LOG || return 1
-	yum -y install rpm-build gcc-c++ subversion git libtool scons zlib-devel \
+	yum -y install rpm-build gcc-c++ subversion git libtool scons libboost-dev zlib-devel \
 		httpd openssl-devel php-devel php-pear php-mysql php-pear-Net-Curl php-gd ImageMagick-devel ruby yasm texi2html \
 		openjpeg-devel gsm-devel dirac-devel speex-devel libvorbis-devel \
 		flac-devel vorbis-tools xpdf \

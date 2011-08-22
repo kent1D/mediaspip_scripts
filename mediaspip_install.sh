@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.6
+# Version 0.3.7
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -20,15 +20,13 @@
 #
 # Ce script installe également SPIP et l'ensemble des extensions et plugins nécessaires à MediaSPIP
 #
-# Ce script nécessite l'ajout du dépôts debian-multimedia dans le sources.list d'APT :
-# deb http://www.debian-multimedia.org lenny main non-free
-#
 # Mises à jour :
 # Version 0.3.2 - Meilleure détection des distribs avec lsb_release
 # Version 0.3.3 - On fait marcher le script avec dash
 # Version 0.3.4 - Installation de l'écran de sécurité dans mediaspip_spip_installation.sh
 # Version 0.3.5 - Mise à jour de libvpx en 0.9.7-p1 "Cayuga"
-# Version 0.3.6 - Mise à jour de MediaInfo en 0.7.48
+# Version 0.3.6 - Mise à jour de MediaInfo en 
+# Version 0.3.7 - Installation de flvtool++ en version 1.2.1
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -51,7 +49,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.3.6"
+VERSION_INSTALL="0.3.7"
 
 LOGO="
 ######################################################################################

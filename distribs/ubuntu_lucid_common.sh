@@ -2,15 +2,18 @@
 #
 # ubuntu_lucid_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.4
+# Version 0.3.5
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
 # Version 0.3.4 : upgrade de MediaInfo en 0.7.48
+# Version 0.3.5 : 
+# -* ajout de libboost-dev à apt-get pour installer flvtool++
+# -* installation de flvtool++ en version 1.2.1
 
-VERSION_UBUNTU_COMMON=0.3.4
+VERSION_UBUNTU_COMMON=0.3.5
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -42,6 +45,40 @@ ubuntu_lucid_flvtool_install()
 	cd flvtool2
 	ruby setup.rb 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "End flvtool2")
+	echo
+}
+
+# Installation de flvtool++
+ubuntu_lucid_flvtool_plus_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	FLVTOOLPLUS=$(which flvtool++)
+	if [ ! -z "$FLVTOOLPLUS" ]; then
+		FLVTOOLPLUSVERSION=$(flvtool++ |awk '/^flvtool++/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	
+	VERSION="1.2.1"
+	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION')
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut flvtool++")
+		echo $(eval_gettext "Info debut flvtool++") 2>> $LOG >> $LOG
+		cd $SRC_INSTALL
+		if [ ! -d flvtool++-1.2.1 ];then
+			mkdir flvtool++-1.2.1 2>> $LOG >> $LOG
+		fi
+		cd flvtool++-1.2.1
+		if [ ! -e flvtool++-1.2.1.tar.gz ];then
+			wget http://mirror.facebook.net/facebook/flvtool++/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+		fi
+		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
+		scons 2>> $LOG >> $LOG
+		cp flvtool++ /usr/local/bin
+		echo $(eval_gettext "End flvtool++")
+	fi
 	echo
 }
 
@@ -236,7 +273,7 @@ ubuntu_lucid_dep_install()
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
-	apt-get -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons zlib1g-dev \
+	apt-get -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev \
 		apache2 php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools xpdf \
@@ -254,6 +291,8 @@ ubuntu_lucid_dep_install()
 	ubuntu_lucid_rtmpdump_install || return 1
 
 	ubuntu_lucid_flvtool_install || return 1
+	
+	ubuntu_lucid_flvtool_plus_install || return 1
 
 	ubuntu_lucid_media_info_install || return 1
 
