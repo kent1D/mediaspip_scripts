@@ -169,8 +169,8 @@ mediaspip_install()
 		echo
 		echo $(eval_gettext "Info SPIP install securite")
 		svn co svn://zone.spip.org/spip-zone/_core_/securite
-		if [ -e securite/ecran_securite.php ]
-			if [ ! -h securite/ecran_securite.php ]
+		if [ -e securite/ecran_securite.php ];then
+			if [ ! -h securite/ecran_securite.php ];then
 				rm securite/ecran_securite.php 2>> $LOG >> $LOG
 				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
 			fi
@@ -181,8 +181,8 @@ mediaspip_install()
 		echo
 		echo $(eval_gettext "Info SPIP maj securite")
 		svn up securite/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
-		if [ -e securite/ecran_securite.php ]
-			if [ ! -h securite/ecran_securite.php ]
+		if [ -e securite/ecran_securite.php ];then
+			if [ ! -h securite/ecran_securite.php ];then
 				rm securite/ecran_securite.php 2>> $LOG >> $LOG
 				ln -s securite/ecran_securite.php 2>> $LOG >> $LOG
 			fi
