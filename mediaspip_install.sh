@@ -5,21 +5,26 @@
 # Version 0.3.9
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
-# - php5-gd2
-# - php5-curl
-# - php5-imagick
-# - libx264
-# - lame
-# - libopencore-amr
-# - libtheora
-# - rtmpdump
-# - flvtool2
-# - mediainfo
-# - ffmpeg
-# - ffmpeg2theora
+# - php5-gd2;
+# - php5-curl;
+# - php5-imagick;
+# - libx264;
+# - lame;
+# - libopencore-amr;
+# - libtheora;
+# - rtmpdump;
+# - flvtool2;
+# - flvtool++;
+# - mediainfo;
+# - ffmpeg;
+# - ffmpeg2theora;
 #
 # Ce script installe également SPIP et l'ensemble des extensions et plugins nécessaires à MediaSPIP
-#
+# Il installe également :
+# - le nécessaire pour réaliser une mutualisation (ferme) de SPIP;
+# - l'écran de sécurité de SPIP;
+# - des thèmes Zpip compatibles avec MediaSPIP;
+# 
 # Mises à jour :
 # Version 0.3.2 - Meilleure détection des distribs avec lsb_release
 # Version 0.3.3 - On fait marcher le script avec dash
