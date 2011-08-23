@@ -2,15 +2,16 @@
 #
 # debian_squeeze_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
+# Version 0.3.4
 #
 # Installation des dépendances de manière stable pour debian
 #
 # Mises à jour :
 # Version 0.3.2 - Upgrade de FFmpeg en 0.7.1
 # Version 0.3.3 - Upgrade de FFmpeg en 0.7.3
+# Version 0.3.4 - Upgrade de FFmpeg2theora en 0.28
 
-VERSION_DEBIAN_STABLE=0.3.3
+VERSION_DEBIAN_STABLE=0.3.4
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -71,7 +72,7 @@ debian_squeeze_ffmpeg2theora_install()
 	
 	cd $SRC_INSTALL
 	
-	VERSION="0.27"
+	VERSION="0.28"
 	if [ -x $(which ffmpeg2theora) ];then
 		FFMPEG2THEORAVERSION=$(ffmpeg2theora --help |awk '/^ffmpeg2theora/ { print $2 }') 2>> $LOG >> $LOG
 	fi
@@ -79,15 +80,15 @@ debian_squeeze_ffmpeg2theora_install()
 		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION')
 		echo $(eval_gettext 'Info a jour ffmpeg2theora version $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/ffmpeg2theora-0.27.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/ffmpeg2theora-0.28.tar.bz2 ];then
 			echo $(eval_gettext "Info debut ffmpeg2theora install")
 			echo $(eval_gettext "Info debut ffmpeg2theora install") 2>> $LOG >> $LOG
-			wget http://v2v.cc/~j/ffmpeg2theora/downloads/ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar xvjf ffmpeg2theora-0.27.tar.bz2 2>> $LOG >> $LOG
-			cd ffmpeg2theora-0.27
-			sh ./get_libkate.sh 2>> $LOG >> $LOG || return 1
+			wget http://v2v.cc/~j/ffmpeg2theora/downloads/ffmpeg2theora-0.28.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar xvjf ffmpeg2theora-0.28.tar.bz2 2>> $LOG >> $LOG
+			cd ffmpeg2theora-0.28
+			./get_libkate.sh 2>> $LOG >> $LOG || return 1
 		else
-			cd ffmpeg2theora-0.27
+			cd ffmpeg2theora-0.28
 			echo $(eval_gettext "Info debut ffmpeg2theora update")
 			echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
 		fi

@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.7
+# Version 0.3.8
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2
@@ -27,6 +27,7 @@
 # Version 0.3.5 - Mise à jour de libvpx en 0.9.7-p1 "Cayuga"
 # Version 0.3.6 - Mise à jour de MediaInfo en 
 # Version 0.3.7 - Installation de flvtool++ en version 1.2.1
+# Version 0.3.8 - Mise à jour de ffmpeg2theora en version 0.28
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -49,7 +50,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.3.7"
+VERSION_INSTALL="0.3.8"
 
 LOGO="
 ######################################################################################
