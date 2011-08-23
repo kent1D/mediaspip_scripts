@@ -2,11 +2,14 @@
 #
 # debian_lenny_dev
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances en version de développement pour debian
+#
+# Mises à jour :
+# Version 0.3.3 - On force la branche 0.7 de ffmpeg
 
-VERSION_DEBIAN_DEV=0.3.2
+VERSION_DEBIAN_DEV=0.3.3
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -72,7 +75,7 @@ debian_lenny_ffmpeg2theora_install ()
 		svn checkout http://svn.xiph.org/trunk/ffmpeg2theora ffmpeg2theora 2>> $LOG >> $LOG || return 1
 		cd ffmpeg2theora
 		# Install une version récente de libkate
-		sh ./get_libkate.sh 2>> $LOG >> $LOG || return 1
+		./get_libkate.sh 2>> $LOG >> $LOG || return 1
 	else
 		echo $(eval_gettext "Info debut ffmpeg2theora update")
 		echo $(eval_gettext "Info debut ffmpeg2theora update") 2>> $LOG >> $LOG
@@ -97,6 +100,7 @@ debian_lenny_ffmpeg_install ()
 		echo
 		echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git
+		git checkout release/0.7 2>> $LOG >> $LOG || return 1
 		git pull 2>> $LOG >> $LOG || return 1
 	else
 		echo $(eval_gettext "Info debut ffmpeg install")
@@ -104,6 +108,8 @@ debian_lenny_ffmpeg_install ()
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/ffmpeg.git ffmpeg-git 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git || return 1
+		git checkout release/0.7 2>> $LOG >> $LOG || return 1
+		git pull 2>> $LOG >> $LOG || return 1
 	fi
 	
 	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG

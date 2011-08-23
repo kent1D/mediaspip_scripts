@@ -2,11 +2,14 @@
 #
 # centos_5_3_dev
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.2
+# Version 0.3.3
 #
 # Installation des dépendances en version de développement pour Centos
+#
+# Mises à jour :
+# Version 0.3.3 - On force la branche 0.7 de ffmpeg
 
-VERSION_CENTOS_DEV=0.3.2
+VERSION_CENTOS_DEV=0.3.3
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -101,6 +104,7 @@ centos_5_3_ffmpeg_install ()
 		echo
 		echo $(eval_gettext "Info debut ffmpeg update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git
+		git checkout release/0.7 2>> $LOG >> $LOG || return 1
 		git pull 2>> $LOG >> $LOG || return 1
 	else
 		echo $(eval_gettext "Info debut ffmpeg install")
@@ -108,6 +112,8 @@ centos_5_3_ffmpeg_install ()
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/ffmpeg.git ffmpeg-git 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/ffmpeg-git || return 1
+		git checkout release/0.7 2>> $LOG >> $LOG || return 1
+		git pull 2>> $LOG >> $LOG || return 1
 	fi
 	
 	REVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
