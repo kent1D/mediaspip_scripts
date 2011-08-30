@@ -72,5 +72,5 @@ spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
 
 # Z
-zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden
+zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/branches/v1
 zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard
