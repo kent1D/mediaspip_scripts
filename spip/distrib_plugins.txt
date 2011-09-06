@@ -44,7 +44,7 @@ multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation
 notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications
-nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage
+nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
 # O
 openid;svn://zone.spip.org/spip-zone/_plugins_/authentification/openid
