@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.5
+# Version 0.3.6
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -24,6 +24,7 @@
 # Version 0.3.3 - On fait marcher le script avec dash
 # Version 0.3.4 - On ajoute l'écran de sécurité
 # Version 0.3.5 - On change la source du plugin zen-garden
+# Version 0.3.6 - On change la source du plugin gis
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
