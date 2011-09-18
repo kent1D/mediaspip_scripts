@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.92
+# Version 0.4.0
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -36,6 +36,11 @@
 # Version 0.3.9 - On force la branche 0.7 de FFmpeg en version de développement pour faire fonctionner ffmpeg2theora
 # Version 0.3.91 - On change la source du plugin zen-garden
 # Version 0.3.92 - On change la source du plugin gis
+# Version 0.4.0 :
+# -* Passage de FFmpeg en stable en version 0.7.4
+# -* Passage de MediaInfo en version 0.7.49
+# -* On règle un soucis de changement de dépot SVN sur les installations de SPIP et plugins
+# -* Ajout de certains paquets dans les logiciels automatiquement installés (poppler-utils et catdoc)
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -58,7 +63,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.3.92"
+VERSION_INSTALL="0.4.0"
 
 LOGO="
 ######################################################################################

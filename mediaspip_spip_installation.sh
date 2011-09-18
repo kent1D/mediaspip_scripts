@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.6
+# Version 0.3.7
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -25,6 +25,7 @@
 # Version 0.3.4 - On ajoute l'écran de sécurité
 # Version 0.3.5 - On change la source du plugin zen-garden
 # Version 0.3.6 - On change la source du plugin gis
+# Version 0.3.7 - On règle un problème dans le switch des dépots
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
@@ -36,7 +37,7 @@ recuperer_svn()
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d $PLUGIN/.svn ];then
-				DEPOT_FICHIER=$(env LANG=C svn info $SVN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT_FICHIER=$(env LANG=C svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT_FICHIER" != "$SVN" ];then
 					NEW_DEPOT=$SVN

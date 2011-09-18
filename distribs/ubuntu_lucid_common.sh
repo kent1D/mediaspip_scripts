@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.5
+# Version 0.3.6
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 #
@@ -12,8 +12,9 @@
 # Version 0.3.5 : 
 # -* ajout de libboost-dev à apt-get pour installer flvtool++
 # -* installation de flvtool++ en version 1.2.1
+# Version 0.3.6 : upgrade de MediaInfo en 0.7.49
 
-VERSION_UBUNTU_COMMON=0.3.5
+VERSION_UBUNTU_COMMON=0.3.6
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -203,17 +204,17 @@ ubuntu_lucid_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.48"
+	VERSION="0.7.49"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.48_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
@@ -276,7 +277,7 @@ ubuntu_lucid_dep_install()
 	apt-get -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev \
 		apache2 php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
 		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev \
-		flac vorbis-tools xpdf \
+		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	echo
 
