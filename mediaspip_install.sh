@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.4.1
+# Version 0.4.2
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -42,6 +42,7 @@
 # -* On règle un soucis de changement de dépot SVN sur les installations de SPIP et plugins
 # -* Ajout de certains paquets dans les logiciels automatiquement installés (poppler-utils et catdoc)
 # Version 0.4.1 - Passage de FFmpeg en stable en version 0.7.5
+# Version 0.4.2 - Passage de FFmpeg en stable en version 0.7.6 et ajout de --disable-doc à sa configuration
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -64,7 +65,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.4.1"
+VERSION_INSTALL="0.4.2"
 
 LOGO="
 ######################################################################################

@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.6
+# Version 0.3.7
 #
 # Installation des dépendances de manière stable pour Ubuntu Lucid
 #
@@ -12,11 +12,12 @@
 # Version 0.3.4 - Upgrade de FFmpeg2theora en 0.28
 # Version 0.3.5 - Upgrade de FFmpeg en 0.7.4
 # Version 0.3.6 - Upgrade de FFmpeg en 0.7.5
+# Version 0.4.2 - Passage de FFmpeg en stable en version 0.7.6 et ajout de --disable-doc à sa configuration
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_UBUNTU_STABLE=0.3.6
+VERSION_UBUNTU_STABLE=0.3.7
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -111,22 +112,22 @@ ubuntu_lucid_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.5.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.6.tar.bz2 ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-0.7.5.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-0.7.5.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-0.7.5 ];then
-		tar xvjf ffmpeg-0.7.5.tar.bz2 2>> $LOG >> $LOG
+		wget http://ffmpeg.org/releases/ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
+	elif [ ! -d ffmpeg-0.7.6 ];then
+		tar xvjf ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="0.7.5"
+	VERSION="0.7.6"
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-0.7.5
+	cd $SRC_INSTALL/ffmpeg-0.7.6
 	
 	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
@@ -135,7 +136,7 @@ ubuntu_lucid_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
-		./configure --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx  \
+		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx  \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --disable-encoder=vorbis --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 --enable-libdirac --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib \
 			2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
