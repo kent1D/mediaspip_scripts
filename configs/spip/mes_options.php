@@ -1,16 +1,43 @@
 <?php
+	
 	if (!defined("_ECRIRE_INC_VERSION")) return;
+	
+	/*
+	 * Inscrire ici le nom du site d'administration du tableau de bord
+	 * de la mutualisation (ou plusieurs, separes par des virgules)
+	 * pour autoriser tous les sites, ne pas definir la constante ;
+	 * Si le site maitre n'est pas dans sites/ mais a la racine, mettre ''
+	 * et ajouter 'mutualisation' dans $dossier_squelettes
+	 */
+	define ('_SITES_ADMIN_MUTUALISATION', 'www.mondomaine.org');
+	
+	if (!is_readable (_DIR_RACINE.'mutualisation/mutualiser.php')) {
+		echo _L("Fichier 'mutualisation/mutualiser.php' manquant dans la racine " . _DIR_RACINE);
+		exit;
+	}
 	require _DIR_RACINE.'mutualisation/mutualiser.php';
 
 	$site = $_SERVER['HTTP_HOST'];
-	if ($site != $_SERVER['HTTP_HOST']) {
-		include_spip('inc/headers');
-		redirige_par_entete('http://'.$site.'/');
-	}
 
-	// Autoriser un cache de 50Mo
+	/**
+	 * Compatibilite avec le ":" de $dossier_squelettes
+	 * Si l'url indique explicitement un port (grace a ":")
+	 * tout eliminer s'il s'agit du port 80
+	 * et remplacer ":" par _ pour les autres ports
+	 */
+	if (strpos($site, ':')) {
+		if (preg_match('/:80$/', $site)) $site = substr($site,-3);
+		else $site = str_replace(':', '_', $site);
+	}
+	
+	/**
+	 * Autoriser un cache de 50Mo
+	 */
 	$quota_cache = 50;
-	// Ne pas autoriser les plugins auto
+	
+	/**
+	 * Ne pas autoriser les plugins auto
+	 */
 	define ('_DIR_PLUGINS_AUTO', false);
 	define('_AUTORISER_TELECHARGER_PLUGINS',false);
 	
@@ -21,7 +48,9 @@
 	define ('_INSTALL_PASS_DB', 'pass');
 	define ('_INSTALL_NAME_DB', 'mu_'._INSTALL_SITE_PREF);
 
-	/* mettre en commentaire la ligne suivante si vous utilisez l'option table_prefixe plus bas dans la config */
+	/**
+	 * Mettre en commentaire la ligne suivante si vous utilisez l'option table_prefixe plus bas dans la config 
+	 */
 	define ('_INSTALL_TABLE_PREFIX', 'spip');
 
 	include_spip('inc/acces');
@@ -79,15 +108,6 @@
 	 * grace a ?var_mode=creer_htaccess_img
 	 *
 	 */
-
-	/*
-	 * Inscrire ici le nom du site d'administration du tableau de bord
-	 * de la mutualisation (ou plusieurs, separes par des virgules)
-	 * pour autoriser tous les sites, ne pas definir la constante ;
-	 * Si le site maitre n'est pas dans sites/ mais a la racine, mettre ''
-	 * et ajouter 'mutualisation' dans $dossier_squelettes
-	 */
-	define ('_SITES_ADMIN_MUTUALISATION', 'www.mondomaine.org');
 
 	demarrer_site($site,
 		array(
