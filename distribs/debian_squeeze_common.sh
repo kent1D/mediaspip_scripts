@@ -2,7 +2,7 @@
 #
 # debian_squeeze_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.6
+# Version 0.3.7
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -14,8 +14,9 @@
 # -* ajout de libboost-dev à apt-get pour installer flvtool++ 
 # -* installation de flvtool++ en version 1.2.1
 # Version 0.3.6 : upgrade de MediaInfo en 0.7.49
+# Version 0.3.7 : upgrade de MediaInfo en 0.7.50
 
-VERSION_DEBIAN_COMMON=0.3.6
+VERSION_DEBIAN_COMMON=0.3.7
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -241,17 +242,17 @@ debian_squeeze_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.49"
+	VERSION="0.7.50"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.49_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG

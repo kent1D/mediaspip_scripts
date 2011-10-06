@@ -2,14 +2,17 @@
 #
 # mediaspip_functions
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
+# Version 0.3.4
 #
 # Diverses fonctions permettant d'installer mediaSPIP
+#
+# Mises à jour
+# Version 0.3.4 - Ajout d'un sleep sur la vérification de la connexion internet
 
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
 
-VERSION_FUNCTIONS=0.3.3
+VERSION_FUNCTIONS=0.3.4
 
 isNumeric()
 {
@@ -117,7 +120,9 @@ git_log()
 verif_internet_connexion()
 {
 	wget -q --tries=10 --timeout=5 http://www.google.com -O /tmp/index.google &> /dev/null
+	sleep 1
 	if [ ! -s /tmp/index.google ];then
+		rm /tmp/index.google
 		return 1
 	fi
 	rm /tmp/index.google
