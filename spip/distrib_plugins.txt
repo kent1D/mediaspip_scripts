@@ -53,7 +53,7 @@ opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 # P
 pages;svn://zone.spip.org/spip-zone/_plugins_/pages/branches/v0_3
 podcast;http://svn.aires-de-confluxence.info/svn/plugins_spip/podcast
-polyhierarchie;svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie
+polyhierarchie;svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie/branches/v1.0
 porte_plume_documents;http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents
 
 # R
