@@ -310,7 +310,8 @@ debian_squeeze_dep_install()
 	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list |grep squeeze) 2>> $LOG >> $LOG
 	if [ -z "$DEBIANMULTIMEDIA" ];then
 		echo $(eval_gettext 'Info apt debian-multimedia question auto')
-		read -p "$QUESTION_VALID"
+		echo -n "$QUESTION_VALID"
+		read REPLY
 		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
 			echo
 			echo $(eval_gettext 'Info apt debian-multimedia copie')
