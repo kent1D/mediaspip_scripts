@@ -42,7 +42,7 @@ microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
 
 # N
-notation;svn://zone.spip.org/spip-zone/_plugins_/notation
+notation;svn://zone.spip.org/spip-zone/_plugins_/notation/branches/v_0_9
 notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications
 nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
