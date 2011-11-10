@@ -21,7 +21,7 @@ emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_vide
 emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion
 
 # F
-facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur
+facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/branches/v1
 fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images
 forum;svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum
 
