@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.4.3
+# Version 0.4.4
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -46,6 +46,11 @@
 # Version 0.4.3 : 
 # -* Passage de MediaInfo en version 0.7.50
 # -* Ajout d'un sleep sur la vérification de la connexion internet
+# Version 0.4.4 : 
+# -* Passage de MediaInfo en version 0.7.51
+# -* Passage de FFMpeg en version 0.7.8
+# -* Installation de yasm en Debian Squeeze en version 1.2.0 car < 1.0.0 empêche x264 de se compiler
+# -* changement d'environnement de lang en "en" et plus "C" pour tester les dépots de SPIP
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -68,7 +73,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.4.3"
+VERSION_INSTALL="0.4.4"
 
 LOGO="
 ######################################################################################

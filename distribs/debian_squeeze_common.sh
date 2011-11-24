@@ -2,7 +2,7 @@
 #
 # debian_squeeze_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.7
+# Version 0.3.8
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -15,8 +15,11 @@
 # -* installation de flvtool++ en version 1.2.1
 # Version 0.3.6 : upgrade de MediaInfo en 0.7.49
 # Version 0.3.7 : upgrade de MediaInfo en 0.7.50
+# Version 0.3.8 : 
+# -* upgrade de MediaInfo en 0.7.51
+# -* installation de Yasm en 1.2.0 pour installer la dernière version de x264
 
-VERSION_DEBIAN_COMMON=0.3.7
+VERSION_DEBIAN_COMMON=0.3.8
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -242,17 +245,17 @@ debian_squeeze_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.50"
+	VERSION="0.7.51"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
@@ -339,6 +342,8 @@ debian_squeeze_dep_install()
 	
 	verif_svn_protocole || return 1
 	
+	debian_squeeze_yasm_install || return 1
+	
 	#debian_squeeze_lame_install || return 1
 	
 	#debian_squeeze_libopencore_amr_install || return 1
@@ -410,6 +415,39 @@ debian_squeeze_apache_install ()
 	echo
 }
 
+# Installation de yasm
+# http://yasm.tortall.net/
+debian_squeeze_yasm_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd "$SRC_INSTALL"
+	
+	VERSION="1.2.0"
+	if [ -x $(which yasm) ];then
+		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	if [ "$YASMVERSION" = "$VERSION" ];then
+		echo $(eval_gettext 'Info a jour yasm $VERSION')
+		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut yasm install")
+		echo $(eval_gettext "Info debut yasm install") 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
+			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+		fi
+		cd yasm-1.2.0
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End yasm")
+	fi
+	echo
+}
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
 debian_squeeze_x264_install ()

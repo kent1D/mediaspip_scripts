@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.7
+# Version 0.3.8
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -26,6 +26,7 @@
 # Version 0.3.5 - On change la source du plugin zen-garden
 # Version 0.3.6 - On change la source du plugin gis
 # Version 0.3.7 - On règle un problème dans le switch des dépots
+# Version 0.3.8 - LANG=C n'est pas disponible tout le temps ... on utilise LANG=en ... peut être plus fréquent
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
@@ -37,7 +38,7 @@ recuperer_svn()
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d $PLUGIN/.svn ];then
-				DEPOT_FICHIER=$(env LANG=C svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT_FICHIER=$(env LANG=en svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT_FICHIER" != "$SVN" ];then
 					NEW_DEPOT=$SVN
@@ -73,7 +74,7 @@ mediaspip_install()
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	elif [ -d $SPIP/.svn ];then
 		cd $SPIP
-		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		DEPOT=$(env LANG=en svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
 		if [ "$DEPOT" = "$SPIP_SVN" ];then
 			echo $(eval_gettext "Info SPIP maj")
@@ -90,7 +91,7 @@ mediaspip_install()
 		svn up 2>> $LOG >> $LOG
 	fi
 	
-	REVISIONSPIP=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
+	REVISIONSPIP=$(env LANG=en svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo $(eval_gettext 'Info SPIP install revision $REVISIONSPIP')
 	
 	echo

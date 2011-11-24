@@ -2,7 +2,7 @@
 #
 # centos_5_3_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.7
+# Version 0.3.8
 #
 # Installation des dépendances de manière stable pour centos
 #
@@ -14,8 +14,9 @@
 # -* installation de flvtool++ en version 1.2.1
 # Version 0.3.6 : upgrade de MediaInfo en 0.7.49
 # Version 0.3.7 : upgrade de MediaInfo en 0.7.50
+# Version 0.3.8 : upgrade de MediaInfo en 0.7.51
 
-VERSION_CENTOS_COMMON=0.3.7
+VERSION_CENTOS_COMMON=0.3.8
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
@@ -270,17 +271,17 @@ centos_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.50"
+	VERSION="0.7.51"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.50_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.51_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG

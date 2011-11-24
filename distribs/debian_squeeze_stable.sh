@@ -2,7 +2,7 @@
 #
 # debian_squeeze_stable
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.7
+# Version 0.3.8
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -12,9 +12,10 @@
 # Version 0.3.4 - Upgrade de FFmpeg2theora en 0.28
 # Version 0.3.5 - Upgrade de FFmpeg en 0.7.4
 # Version 0.3.6 - Upgrade de FFmpeg en 0.7.5
-# Version 0.4.2 - Passage de FFmpeg en stable en version 0.7.6 et ajout de --disable-doc à sa configuration
+# Version 0.3.7 - Passage de FFmpeg en stable en version 0.7.6 et ajout de --disable-doc à sa configuration
+# Version 0.3.8 - Passage de FFmpeg en stable en version 0.7.8
 
-VERSION_DEBIAN_STABLE=0.3.7
+VERSION_DEBIAN_STABLE=0.3.8
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -109,22 +110,22 @@ debian_squeeze_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.6.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.8.tar.bz2 ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-0.7.6 ];then
-		tar xvjf ffmpeg-0.7.6.tar.bz2 2>> $LOG >> $LOG
+		wget http://ffmpeg.org/releases/ffmpeg-0.7.8.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf ffmpeg-0.7.8.tar.bz2 2>> $LOG >> $LOG
+	elif [ ! -d ffmpeg-0.7.8 ];then
+		tar xvjf ffmpeg-0.7.8.tar.bz2 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="0.7.6"
+	VERSION="0.7.8"
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-0.7.6
+	cd $SRC_INSTALL/ffmpeg-0.7.8
 	
 	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
