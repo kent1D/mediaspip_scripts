@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.4.4
+# Version 0.4.5
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -51,6 +51,7 @@
 # -* Passage de FFMpeg en version 0.7.8
 # -* Installation de yasm en Debian Squeeze en version 1.2.0 car < 1.0.0 empêche x264 de se compiler
 # -* changement d'environnement de lang en "en" et plus "C" pour tester les dépots de SPIP
+# Version 0.4.5 : changement de l'URL de flvtool++ sur les scripts
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -73,7 +74,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.4.4"
+VERSION_INSTALL="0.4.5"
 
 LOGO="
 ######################################################################################

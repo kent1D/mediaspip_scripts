@@ -2,7 +2,7 @@
 #
 # debian_squeeze_common
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.8
+# Version 0.3.9
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -18,8 +18,9 @@
 # Version 0.3.8 : 
 # -* upgrade de MediaInfo en 0.7.51
 # -* installation de Yasm en 1.2.0 pour installer la dernière version de x264
+# Version 0.3.9 : changement de l'URL de flvtool++
 
-VERSION_DEBIAN_COMMON=0.3.8
+VERSION_DEBIAN_COMMON=0.3.9
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -79,7 +80,7 @@ debian_squeeze_flvtool_plus_install()
 		fi
 		cd flvtool++-1.2.1
 		if [ ! -e flvtool++-1.2.1.tar.gz ];then
-			wget http://mirror.facebook.net/facebook/flvtool++/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+			wget http://files.mediaspip.net/librairies/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
 		fi
 		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
 		scons 2>> $LOG >> $LOG
