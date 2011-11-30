@@ -76,7 +76,7 @@ debian_lenny_flvtool_plus_install()
 		fi
 		cd flvtool++-1.2.1
 		if [ ! -e flvtool++-1.2.1.tar.gz ];then
-		wget http://files.mediaspip.net/librairies/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+		wget http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
 		fi
 		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
 		scons 2>> $LOG >> $LOG
