@@ -39,7 +39,7 @@ jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
 mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config
 mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core
 mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init
-menus;svn://zone.spip.org/spip-zone/_plugins_/menus
+menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
 
 # N
 nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
