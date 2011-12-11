@@ -36,7 +36,7 @@ licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 mediabox;svn://zone.spip.org/spip-zone/_plugins_/mediabox
 mediatheque;svn://zone.spip.org/spip-zone/_plugins_/mediatheque
 memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
-mes_fichiers_2;svn://zone.spip.org/spip-zone/_plugins_/mes_fichiers/branches/1.0.2/
+mes_fichiers_2;svn://zone.spip.org/spip-zone/_plugins_/mes_fichiers/tags/1.0.2
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/branches/v1/
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
