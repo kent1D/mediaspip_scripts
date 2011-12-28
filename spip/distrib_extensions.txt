@@ -45,7 +45,7 @@ menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
 nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
 
 # P
-palette;svn://zone.spip.org/spip-zone/_plugins_/palette
+palette;svn://zone.spip.org/spip-zone/_plugins_/palette/branches/1_3
 pcltar;svn://zone.spip.org/spip-zone/_plugins_/pcltar
 
 # S
