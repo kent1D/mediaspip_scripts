@@ -43,7 +43,7 @@ multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
 
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation/branches/v_0_9
-notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications
+notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/branches/v1
 nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
 # O
