@@ -2,7 +2,7 @@
 #
 # debian_lenny_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.10
+# Version 0.3.11
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -17,6 +17,7 @@
 # Version 0.3.8 : upgrade de MediaInfo en 0.7.51
 # Version 0.3.9 : changement de l'URL de flvtool++
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
+# Version 0.3.11 : installation de yasm à une version moderne 1.2.0
 
 VERSION_DEBIAN_COMMON=0.3.10
 
@@ -106,6 +107,43 @@ debian_lenny_scons_install()
 	cd scons-2.0.1
 	python setup.py install 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "End scons")
+	echo
+}
+
+# Installation de Yasm en version récence
+# http://yasm.tortall.net
+debian_lenny_yasm_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	YASM=$(which yasm)
+	if [ ! -z "$YASM"  ];then
+		YASMVERSION=$(yasm --version |awk '/^yasm/ { print $2 }')
+	fi
+	cd $SRC_INSTALL
+	VERSION="1.2.0"
+	if [ "$YASMVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour yasm $VERSION')
+		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ]; then
+			echo $(eval_gettext 'Info debut yasm install $VERSION')
+			echo $(eval_gettext 'Info debut yasm install $VERSION') 2>> $LOG >> $LOG
+			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut yasm update $VERSION')
+			echo $(eval_gettext 'Info debut yasm update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd yasm-1.2.0
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname="yasm" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End lame")
+	fi
 	echo
 }
 
@@ -367,6 +405,8 @@ debian_lenny_dep_install()
 	if [ "$SCONS_VERSION" < "v1.2" ]; then
 		debian_lenny_scons_install || return 1
 	fi 
+	
+	debian_lenny_yasm_install || return 1
 	
 	debian_lenny_lame_install || return 1
 	
