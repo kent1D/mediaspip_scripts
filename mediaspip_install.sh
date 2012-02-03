@@ -56,6 +56,7 @@
 # -* Passage de MediaInfo en version 0.7.52
 # Version 0.4.7 :
 # -* Passage de FFmpeg en version 0.7.11
+# -* Passage de MediaInfo en version 0.7.53
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé

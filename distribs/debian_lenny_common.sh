@@ -17,9 +17,11 @@
 # Version 0.3.8 : upgrade de MediaInfo en 0.7.51
 # Version 0.3.9 : changement de l'URL de flvtool++
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
-# Version 0.3.11 : installation de yasm à une version moderne 1.2.0
+# Version 0.3.11 : 
+# -* installation de yasm à une version moderne 1.2.0
+# -* upgrade de MediaInfo en 0.7.53
 
-VERSION_DEBIAN_COMMON=0.3.10
+VERSION_DEBIAN_COMMON=0.3.11
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -302,17 +304,17 @@ debian_lenny_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.52"
+	VERSION="0.7.53"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.52_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.52_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.52_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
@@ -399,10 +401,10 @@ debian_lenny_dep_install()
 	verif_svn_protocole || return 1
 	
 	if [ -x $(which scons) ];then
-		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }')
+		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }' |awk -F 'v' '{print $2}')
 	fi
 	
-	if [ "$SCONS_VERSION" < "v1.2" ]; then
+	if [[ "$SCONS_VERSION" < "1.2" ]]; then
 		debian_lenny_scons_install || return 1
 	fi 
 	
@@ -517,7 +519,8 @@ debian_lenny_x264_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		VERSION=$(sh version.sh | awk '/^#define X264_POINTVER/ { print $3 }' |awk -F '"' '{print $2}')
+		checkinstall --pkgname=x264 --pkgversion "1:0.$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
