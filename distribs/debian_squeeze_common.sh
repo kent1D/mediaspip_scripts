@@ -257,7 +257,7 @@ debian_squeeze_media_info_install()
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_GUI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 			tar -xvjf MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
