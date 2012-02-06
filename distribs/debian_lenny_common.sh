@@ -520,7 +520,7 @@ debian_lenny_x264_install ()
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		VERSION=$(sh version.sh | awk '/^#define X264_POINTVER/ { print $3 }' |awk -F '"' '{print $2}')
-		checkinstall --pkgname=x264 --pkgversion "1:0.$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=x264 --pkgversion "1:$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
