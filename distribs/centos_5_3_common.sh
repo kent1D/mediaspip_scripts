@@ -2,7 +2,7 @@
 #
 # centos_5_3_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.11
+# Version 0.3.12
 #
 # Installation des dépendances de manière stable pour centos
 #
@@ -18,8 +18,9 @@
 # Version 0.3.9 : changement de l'URL de flvtool++
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
 # Version 0.3.11 : upgrade de MediaInfo en 0.7.53
+# Version 0.3.12 : suppression de ffmpeg-php
 
-VERSION_CENTOS_COMMON=0.3.11
+VERSION_CENTOS_COMMON=0.3.12
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
@@ -610,59 +611,4 @@ centos_5_3_x264_install ()
 		#checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --type=rpm --default 2>> $LOG >> $LOG || return 1
 		make install 2>> $LOG >> $LOG || return 1
 	fi
-}
-
-# Installation de ffmpeg-php
-# http://ffmpeg-php.sourceforge.net/
-centos_5_3_ffmpeg_php_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	yum -y erase ffmpeg-php 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG || return 1
-	cd ffmpeg-php/ffmpeg-php
-	phpize 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG 
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation configure")
-	./configure 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-	make install 2>> $LOG >> $LOG || return 1
-	echo 'extension=ffmpeg.so' > /etc/php.d/ffmpeg.ini 2>> $LOG >> $LOG || return 1
-	service httpd graceful 2>> $LOG >> $LOG || return 1
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
-	echo
-	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
-}
-
-# Mise à jour de ffmpeg-php
-# http://ffmpeg-php.sourceforge.net/
-centos_5_3_ffmpeg_php_update ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
-	OLDREVISION=$(svnversion)
-	svn up 2>> $LOG >> $LOG
-	REVISION=$(svnversion)
-	if [ "$OLDREVISION" = "$REVISION" ];then
-		echo
-		echo $(eval_gettext "Info a jour ffmpeg-php")
-		echo $(eval_gettext "Info a jour ffmpeg-php") 2>> $LOG >> $LOG
-	else
-		phpize 2>> $LOG >> $LOG || return 1
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG || return 1
-		echo 'extension=ffmpeg.so' > /etc/php.d/ 2>> $LOG >> $LOG || return 1
-		service httpd graceful 2>> $LOG >> $LOG || return 1
-	fi
-	echo
-	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
 }

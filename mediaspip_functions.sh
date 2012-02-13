@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # mediaspip_functions
-# © 2011 - kent1 (kent1@arscenic.info)
+# © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.4
 #
 # Diverses fonctions permettant d'installer mediaSPIP

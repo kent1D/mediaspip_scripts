@@ -5,11 +5,11 @@ msgstr ""
 "POT-Creation-Date: 2011-11-24 12:26+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
-"Language-Team: kent1 <contact@arcenic.tv>\n"
-"Language: \n"
+"Language-Team: kent1 <contact@mediaspip.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -49,11 +49,6 @@ msgstr "FAAD installation finished"
 #, sh-format
 msgid "End ffmpeg"
 msgstr "FFMpeg installation finished"
-
-#: mediaspip_install.sh:479
-#, sh-format
-msgid "End ffmpeg-php"
-msgstr "FFMpeg-php installation finished"
 
 #: mediaspip_install.sh:460
 #, sh-format
@@ -315,7 +310,6 @@ msgstr ""
 "--disable-ffmpeg : ne pas installer FFMpeg. Plusieurs installations sont affectées par cette configuration car elles dépendent de FFMpeg :\n"
 "\tFFMpeg lui-même\n"
 "\tFFMpeg2theora\n"
-"\tFFMpeg-php\n"
 "--disable-apache : éviter de préconfigurer le serveur Apache, l'installation de PHP5 et des classes nécessaires sera quand même réalisée\n"
 "--disable-alternc : dans le cas où AlternC est détecté sur votre serveur, cela permet de ne pas prendre en compte cette détection et de ne pas créer les liens symboliques nécessaires au safe_mode\n"
 "\n"
@@ -520,18 +514,6 @@ msgstr "The software $SOFTWARE is already up to date at the version $VERSION"
 #, sh-format
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg seems to be up to date"
-
-#: distribs/centos_5_3_common.sh:649
-#: distribs/centos_5_3_common.sh:650
-#: distribs/debian_lenny_common.sh:519
-#: distribs/debian_lenny_common.sh:520
-#: distribs/debian_squeeze_common.sh:528
-#: distribs/debian_squeeze_common.sh:529
-#: distribs/ubuntu_lucid_common.sh:434
-#: distribs/ubuntu_lucid_common.sh:435
-#, sh-format
-msgid "Info a jour ffmpeg-php"
-msgstr "FFmpeg-php seems to be up to date"
 
 #: distribs/centos_5_3_stable.sh:86
 #: distribs/centos_5_3_stable.sh:87
@@ -983,18 +965,6 @@ msgstr "Download, compilation and installation of FFMpeg"
 msgid "Info debut ffmpeg update"
 msgstr "Update, compilation and installation of FFMpeg"
 
-#: mediaspip_install.sh:473
-#: mediaspip_install.sh:474
-#, sh-format
-msgid "Info debut ffmpeg-php install"
-msgstr "Download, compilation and installation of FFMpeg-php"
-
-#: mediaspip_install.sh:469
-#: mediaspip_install.sh:470
-#, sh-format
-msgid "Info debut ffmpeg-php update"
-msgstr "Update, compilation and installation of FFMpeg-php"
-
 #: distribs/centos_5_3_dev.sh:77
 #: distribs/centos_5_3_dev.sh:78
 #: distribs/centos_5_3_stable.sh:90
@@ -1282,18 +1252,6 @@ msgstr "FFMpeg is installed at revision $REVISION"
 msgid "Info ffmpeg version $VERSION"
 msgstr "FFMpeg is installed at version $VERSION"
 
-#: distribs/centos_5_3_common.sh:634
-#: distribs/centos_5_3_common.sh:664
-#: distribs/debian_lenny_common.sh:504
-#: distribs/debian_lenny_common.sh:534
-#: distribs/debian_squeeze_common.sh:513
-#: distribs/debian_squeeze_common.sh:543
-#: distribs/ubuntu_lucid_common.sh:419
-#: distribs/ubuntu_lucid_common.sh:449
-#, sh-format
-msgid "Info ffmpeg-php revision $REVISION"
-msgstr "FFMpeg-php is installed at revision $REVISION"
-
 #: distribs/centos_5_3_dev.sh:92
 #: distribs/debian_lenny_dev.sh:88
 #: distribs/debian_squeeze_dev.sh:88
@@ -1440,15 +1398,6 @@ msgstr ""
 "#        FFMpeg2Theora installation        #\n"
 "############################################"
 
-#: mediaspip_install.sh:465
-#, sh-format
-msgid "Titre ffmpegphp"
-msgstr ""
-" \n"
-"############################################\n"
-"#         FFMpeg-php installation          #\n"
-"############################################"
-
 #: mediaspip_install.sh:526
 #, sh-format
 msgid "Titre spip mediaspip"
@@ -1480,9 +1429,3 @@ msgstr ""
 
 #~ msgid "Info SPIP telecharge theme $i"
 #~ msgstr "Download of the theme : $i"
-
-#~ msgid "Info ffmpeg2theora version $REVISION"
-#~ msgstr "ffmpeg2theora is installed at version $REVISION"
-
-#~ msgid "Info mediaspip installation $VERSION"
-#~ msgstr "Installation software of MediaSPIP version $VERSION"

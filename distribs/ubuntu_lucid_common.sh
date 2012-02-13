@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.11
+# Version 0.3.12
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 #
@@ -18,8 +18,9 @@
 # Version 0.3.9 : changement de l'URL de flvtool++
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
 # Version 0.3.11 : upgrade de MediaInfo en 0.7.53
+# Version 0.3.12 : suppression de ffmpeg-php
 
-VERSION_UBUNTU_COMMON=0.3.11
+VERSION_UBUNTU_COMMON=0.3.12
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -395,59 +396,4 @@ ubuntu_lucid_x264_install ()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
-}
-
-# Installation de ffmpeg-php
-# http://ffmpeg-php.sourceforge.net/
-ubuntu_lucid_ffmpeg_php_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	apt-get -y --force-yes remove ffmpeg-php 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php/trunk ffmpeg-php 2>> $LOG >> $LOG
-	cd ffmpeg-php/ffmpeg-php
-	phpize 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-	make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation configure")
-	./configure 2>> $LOG >> $LOG
-	echo $(eval_gettext "Info compilation make")
-	make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-	make install 2>> $LOG >> $LOG || return 1
-	echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
-	REVISION=$(env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $2 }')
-	echo
-	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
-}
-
-# Mise à jour de ffmpeg-php
-# http://ffmpeg-php.sourceforge.net/
-ubuntu_lucid_ffmpeg_php_update ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"/ffmpeg-php/ffmpeg-php
-	OLDREVISION=$(svnversion)
-	svn up 2>> $LOG >> $LOG
-	REVISION=$(svnversion)
-	if [ "$OLDREVISION" = "$REVISION" ];then
-		echo
-		echo $(eval_gettext "Info a jour ffmpeg-php")
-		echo $(eval_gettext "Info a jour ffmpeg-php") 2>> $LOG >> $LOG
-	else
-		phpize 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		make install 2>> $LOG >> $LOG || return 1
-		echo 'extension=ffmpeg.so' > /etc/php5/conf.d/ffmpeg.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG
-	fi
-	echo
-	echo $(eval_gettext 'Info ffmpeg-php revision $REVISION')
 }

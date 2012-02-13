@@ -5,7 +5,7 @@ msgstr ""
 "POT-Creation-Date: 2011-11-24 12:26+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
-"Language-Team: kent1 <contact@arscenic.tv>\n"
+"Language-Team: kent1 <contact@mediaspip.net>\n"
 "Language: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,11 +48,6 @@ msgstr ""
 #, sh-format
 msgid "End ffmpeg"
 msgstr "Installation de FFMpeg terminée"
-
-#: mediaspip_install.sh:479
-#, sh-format
-msgid "End ffmpeg-php"
-msgstr "Installation de FFMpeg-php terminée"
 
 #: mediaspip_install.sh:460
 #, sh-format
@@ -292,7 +287,6 @@ msgstr ""
 "affectées par cette configuration car elles dépendent de FFMpeg :\n"
 "\tFFMpeg lui-même\n"
 "\tFFMpeg2theora\n"
-"\tFFMpeg-php\n"
 "--disable-apache : éviter de préconfigurer le serveur Apache, l'installation "
 "de PHP5 et des classes nécessaires sera quand même réalisée\n"
 "--disable-alternc : dans le cas où AlternC est détecté sur votre serveur, "
@@ -325,7 +319,7 @@ msgstr ""
 " \n"
 "PLUS D'INFOS\n"
 "\n"
-"http://www.arscenic.tv\n"
+"http://www.mediaspip.net\n"
 "http://www.spip.net\n"
 "http://www.ffmpeg.org\n"
 " \n"
@@ -496,14 +490,6 @@ msgstr ""
 #, sh-format
 msgid "Info a jour ffmpeg"
 msgstr "FFmpeg semble déjà à jour"
-
-#: distribs/centos_5_3_common.sh:649 distribs/centos_5_3_common.sh:650
-#: distribs/debian_lenny_common.sh:519 distribs/debian_lenny_common.sh:520
-#: distribs/debian_squeeze_common.sh:528 distribs/debian_squeeze_common.sh:529
-#: distribs/ubuntu_lucid_common.sh:434 distribs/ubuntu_lucid_common.sh:435
-#, sh-format
-msgid "Info a jour ffmpeg-php"
-msgstr "FFmpeg-php semble déjà à jour"
 
 #: distribs/centos_5_3_stable.sh:86 distribs/centos_5_3_stable.sh:87
 #: distribs/debian_lenny_stable.sh:84 distribs/debian_lenny_stable.sh:85
@@ -801,16 +787,6 @@ msgstr "Téléchargement, compilation et installation de FFMpeg"
 msgid "Info debut ffmpeg update"
 msgstr "Mise à jour, compilation et installation de FFMpeg"
 
-#: mediaspip_install.sh:473 mediaspip_install.sh:474
-#, sh-format
-msgid "Info debut ffmpeg-php install"
-msgstr "Téléchargement, compilation et installation de FFMpeg-php"
-
-#: mediaspip_install.sh:469 mediaspip_install.sh:470
-#, sh-format
-msgid "Info debut ffmpeg-php update"
-msgstr "Mise à jour, compilation et installation de FFMpeg-php"
-
 #: distribs/centos_5_3_dev.sh:77 distribs/centos_5_3_dev.sh:78
 #: distribs/centos_5_3_stable.sh:90 distribs/centos_5_3_stable.sh:91
 #: distribs/debian_lenny_dev.sh:73 distribs/debian_lenny_dev.sh:74
@@ -1010,14 +986,6 @@ msgstr "FFMpeg est installé à la révision $REVISION"
 msgid "Info ffmpeg version $VERSION"
 msgstr "FFMpeg est installé à la version $VERSION"
 
-#: distribs/centos_5_3_common.sh:634 distribs/centos_5_3_common.sh:664
-#: distribs/debian_lenny_common.sh:504 distribs/debian_lenny_common.sh:534
-#: distribs/debian_squeeze_common.sh:513 distribs/debian_squeeze_common.sh:543
-#: distribs/ubuntu_lucid_common.sh:419 distribs/ubuntu_lucid_common.sh:449
-#, sh-format
-msgid "Info ffmpeg-php revision $REVISION"
-msgstr "FFMpeg-php est installé à la révision $REVISION"
-
 #: distribs/centos_5_3_dev.sh:92 distribs/debian_lenny_dev.sh:88
 #: distribs/debian_squeeze_dev.sh:88 distribs/ubuntu_lucid_dev.sh:88
 #, sh-format
@@ -1151,15 +1119,6 @@ msgstr ""
 " \n"
 "############################################\n"
 "#      Installation de FFMpeg2Theora       #\n"
-"############################################"
-
-#: mediaspip_install.sh:465
-#, sh-format
-msgid "Titre ffmpegphp"
-msgstr ""
-" \n"
-"############################################\n"
-"#       Installation de FFMpeg-php         #\n"
 "############################################"
 
 #: mediaspip_install.sh:526

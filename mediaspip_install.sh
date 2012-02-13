@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.4.7
+# Version 0.4.8
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -57,6 +57,7 @@
 # Version 0.4.7 :
 # -* Passage de FFmpeg en version 0.7.11
 # -* Passage de MediaInfo en version 0.7.53
+# Version 0.4.8 : suppression de ffmpeg-php
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -79,7 +80,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.4.7"
+VERSION_INSTALL="0.4.8"
 
 LOGO="
 ######################################################################################
@@ -467,24 +468,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo_reussite "$(eval_gettext 'End ffmpeg2theora')"
 	echo
-	
-	# Installation de ffmpeg-php
-	# extension ffmpeg pour php
-	eval_gettext "Titre ffmpegphp"
-	echo
-	echo
-	if [ -d "$SRC_INSTALL"/ffmpeg-php ];then
-		echo $(eval_gettext "Info debut ffmpeg-php update")
-		echo $(eval_gettext "Info debut ffmpeg-php update") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_update || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	else
-		echo $(eval_gettext "Info debut ffmpeg-php install")
-		echo $(eval_gettext "Info debut ffmpeg-php install") 2>> $LOG >> $LOG
-		"$DISTRIB"_"$DISTRO"_ffmpeg_php_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	fi
-	
-	echo
-	echo_reussite "$(eval_gettext 'End ffmpeg-php')"
+
 fi
 
 # On vérifie si alternc est sur le système

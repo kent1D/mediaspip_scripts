@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # mediaspip_spip_installation.sh
-# © 2011 - kent1 (kent1@arscenic.info)
+# © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.8
 #
 # Ce script installe MediaSPIP
