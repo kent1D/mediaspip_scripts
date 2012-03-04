@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.12
+# Version 0.3.13
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 #
@@ -19,8 +19,9 @@
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
 # Version 0.3.11 : upgrade de MediaInfo en 0.7.53
 # Version 0.3.12 : suppression de ffmpeg-php
+# Version 0.3.13 : installation d'une version moderne de yasm pour avoir x264
 
-VERSION_UBUNTU_COMMON=0.3.12
+VERSION_UBUNTU_COMMON=0.3.13
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -289,6 +290,8 @@ ubuntu_lucid_dep_install()
 
 	verif_svn_protocole || return 1
 	
+	ubuntu_lucid_yasm_install || return 1
+	
 	ubuntu_lucid_lame_install || return 1
 
 	ubuntu_lucid_libopencore_amr_install || return 1
@@ -353,6 +356,41 @@ ubuntu_lucid_apache_install ()
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	echo
+}
+
+
+# Installation de yasm
+# http://yasm.tortall.net/
+ubuntu_lucid_yasm_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd "$SRC_INSTALL"
+	
+	VERSION="1.2.0"
+	if [ -x $(which yasm) ];then
+		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	if [ "$YASMVERSION" = "$VERSION" ];then
+		echo $(eval_gettext 'Info a jour yasm $VERSION')
+		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut yasm install")
+		echo $(eval_gettext "Info debut yasm install") 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
+			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+		fi
+		cd yasm-1.2.0
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End yasm")
+	fi
 	echo
 }
 
