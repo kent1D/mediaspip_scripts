@@ -245,17 +245,18 @@ ubuntu_lucid_phpimagick_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	pecl channel-update pecl.php.net 2>> $LOG >> $LOG
 	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
 	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
 	# Cas de l'installation
-	if [ "$ACTUEL" == "-" ]; then
+	if [ "$ACTUEL" = "-" ]; then
 		echo $(eval_gettext "Info debut php-imagick install")
 		echo $(eval_gettext "Info debut php-imagick install") 2>> $LOG >> $LOG
 		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
 		echo $(eval_gettext "End php-imagick")
 		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
 	# Cas où on a déjà installé la dernière version
-	elif [ "$ACTUEL" == "$LATEST" ]; then
+	elif [ "$ACTUEL" = "$LATEST" ]; then
 		echo $(eval_gettext "Info a jour php-imagick")
 		echo $(eval_gettext "Info a jour php-imagick") 2>> $LOG >> $LOG
 	# Cas de la mise à jour
@@ -308,6 +309,7 @@ ubuntu_lucid_dep_install()
 
 	ubuntu_lucid_phpimagick_install || return 1
 	
+	cd $CURRENT
 	return 0
 }
 
@@ -421,7 +423,7 @@ ubuntu_lucid_x264_install ()
 	fi
 	
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
-	if [ "$REVISION" == "$NEWREVISION" ]; then
+	if [ "$REVISION" = "$NEWREVISION" ]; then
 		echo $(eval_gettext "Info a jour x264")
 		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
 	else

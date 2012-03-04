@@ -126,7 +126,7 @@ centos_5_3_ffmpeg_install ()
 	
 	VERSION="0.7.11"
 	if [ -x $(which ffmpeg 2>> $LOG) ];then
-		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
+		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
 	
 	cd $SRC_INSTALL/ffmpeg-0.7.11

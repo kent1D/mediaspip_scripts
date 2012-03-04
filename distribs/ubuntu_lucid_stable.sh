@@ -127,7 +127,7 @@ ubuntu_lucid_ffmpeg_install ()
 	
 	VERSION="0.7.11"
 	if [ -x $(which ffmpeg) ];then
-		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep FFmpeg -m 1 |awk '{print $2}')
+		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
 	
 	cd $SRC_INSTALL/ffmpeg-0.7.11
