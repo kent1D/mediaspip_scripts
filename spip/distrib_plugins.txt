@@ -5,7 +5,7 @@ ancres_douces;svn://zone.spip.org/spip-zone/_plugins_/ancres_douces
 bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother
 
 # C
-calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/spip-1.9
+calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/branches/spip-1.9
 cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/core/branches/v1
 cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interface/branches/v1
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
