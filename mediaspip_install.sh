@@ -58,6 +58,10 @@
 # -* Passage de FFmpeg en version 0.7.11
 # -* Passage de MediaInfo en version 0.7.53
 # Version 0.4.8 : suppression de ffmpeg-php
+# Version 0.4.9 : 
+# -* Passage de FFmpeg en version 0.7.12
+# -* Passage de MediaInfo en version 0.7.57
+# -* Passage de libvpx en version 1.1.0
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -80,7 +84,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.4.8"
+VERSION_INSTALL="0.4.9"
 
 LOGO="
 ######################################################################################

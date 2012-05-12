@@ -2,7 +2,7 @@
 #
 # debian_squeeze_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.12
+# Version 0.3.14
 #
 # Installation des dépendances de manière stable pour debian
 #
@@ -22,8 +22,11 @@
 # Version 0.3.10 : upgrade de MediaInfo en 0.7.52
 # Version 0.3.11 : upgrade de MediaInfo en 0.7.53
 # Version 0.3.12 : suppression de ffmpeg-php
+# Version 0.3.14 : 
+# -* upgrade de MediaInfo en 0.7.57
+# -* upgrade de libvpx en 1.1.0
 
-VERSION_DEBIAN_COMMON=0.3.12
+VERSION_DEBIAN_COMMON=0.3.14
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -173,7 +176,7 @@ debian_squeeze_libvpx_install()
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
-	VERSION="0.9.7-p1"
+	VERSION="1.1.0"
 	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	case "$LIBVPX" in
 		*$VERSION*) 
@@ -183,13 +186,13 @@ debian_squeeze_libvpx_install()
 		*)
 			echo $(eval_gettext 'Info debut libvpx install $VERSION')
 			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v0.9.7-p1.tar.bz2 ];then
-				wget http://webm.googlecode.com/files/libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
-				tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v0.9.7-p1 ]; then
-				tar xvjf libvpx-v0.9.7-p1.tar.bz2 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v1.1.0.tar.bz2 ];then
+				wget http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.1.0 ]; then
+				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
 			fi
-			cd libvpx-v0.9.7-p1
+			cd libvpx-v1.1.0
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation configure")
 			./configure --enable-shared 2>> $LOG >> $LOG
@@ -249,17 +252,17 @@ debian_squeeze_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.53"
+	VERSION="0.7.57"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.53_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
