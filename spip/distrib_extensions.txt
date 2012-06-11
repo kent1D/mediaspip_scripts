@@ -13,7 +13,7 @@ crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 # D
 diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs
-doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img
+doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1;doc2img
 
 # E
 emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img
