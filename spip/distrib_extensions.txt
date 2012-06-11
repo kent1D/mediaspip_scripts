@@ -53,7 +53,7 @@ saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
 spip-bonux-2;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2
 spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion
 step;svn://zone.spip.org/spip-zone/_plugins_/step
-swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload
+swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/branches/v1;swfupload
 
 # z
 zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99
