@@ -16,8 +16,8 @@ diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diog
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1;doc2img
 
 # E
-emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img
 emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1;emballe_medias
+emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1;emballe_medias
 emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion
 
 # F
