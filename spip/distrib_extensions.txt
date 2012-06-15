@@ -11,22 +11,22 @@ contact;svn://zone.spip.org/spip-zone/_plugins_/contact/branches/v0_7
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
-diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/branches/v1;diogene
+diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/branches/v1
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs
-doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1;doc2img
+doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1
 
 # E
-emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1;emballe_medias
-emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1;emballe_medias
+emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1
+emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1
 emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion
 
 # F
 facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/branches/v1
-fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/branches/v1;fonctions_images
+fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/branches/v1
 forum;svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum
 
 # G
-getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/branches/v1;getID3
+getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/branches/v1
 
 # H
 html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5
@@ -37,8 +37,8 @@ jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
 
 # M
 mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config
-mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/branches/v1;mediaspip_core
-mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/branches/v1;mediaspip_init
+mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/branches/v1
+mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/branches/v1
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
 
 # N
