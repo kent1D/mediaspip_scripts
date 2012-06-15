@@ -29,7 +29,7 @@ forum;svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum
 getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/branches/v1
 
 # H
-html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5
+html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5/branches/v1
 
 # J
 job_queue;svn://zone.spip.org/spip-zone/_plugins_/job_queue
