@@ -18,7 +18,7 @@ doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1
 # E
 emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1
 emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1
-emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion
+emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion/branches/v1
 
 # F
 facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/branches/v1
@@ -53,7 +53,7 @@ saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
 spip-bonux-2;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2
 spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion
 step;svn://zone.spip.org/spip-zone/_plugins_/step
-swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/branches/v1;swfupload
+swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/branches/v1
 
 # z
 zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99
