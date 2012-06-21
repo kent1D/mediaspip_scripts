@@ -1,7 +1,7 @@
 # A
 afficher_objets;svn://zone.spip.org/spip-zone/_plugins_/afficher_objets
 ajaxforms;svn://zone.spip.org/spip-zone/_plugins_/ajaxforms
-auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic
+auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/branches/v1
 
 # C
 cfg2_compat;svn://zone.spip.org/spip-zone/_plugins_/cfg/branches/v2/extensions/compat
