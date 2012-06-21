@@ -51,7 +51,7 @@ pcltar;svn://zone.spip.org/spip-zone/_plugins_/pcltar
 # S
 saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
 spip-bonux-2;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2
-spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion
+spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion/branches/v1
 step;svn://zone.spip.org/spip-zone/_plugins_/step
 swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/branches/v1
 
