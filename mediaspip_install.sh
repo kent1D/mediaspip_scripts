@@ -463,15 +463,15 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	
 	# Installation de ffmpeg2theora
 	# binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
-	eval_gettext "Titre ffmpeg2theora"
-	echo
-	echo
+	#eval_gettext "Titre ffmpeg2theora"
+	#echo
+	#echo
 	
-	"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
+	#"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
-	echo
-	echo_reussite "$(eval_gettext 'End ffmpeg2theora')"
-	echo
+	#echo
+	#echo_reussite "$(eval_gettext 'End ffmpeg2theora')"
+	#echo
 
 fi
 
