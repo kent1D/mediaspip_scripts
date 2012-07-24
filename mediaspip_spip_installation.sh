@@ -168,6 +168,56 @@ mediaspip_install()
 		echo $(eval_gettext "Info SPIP repertoire lib")
 		mkdir lib && chmod 755 lib/ 2>> $LOG >> $LOG
 	fi
+	
+	# On récupère les libs pour éviter d'avoir à la faire depuis SPIP
+	if [ ! -d lib/jquery-mousewheel-3.0.6 ];then
+		echo
+		cd lib/
+		wget https://github.com/downloads/brandonaaron/jquery-mousewheel/jquery-mousewheel-3.0.6.zip
+		unzip jquery-mousewheel-3.0.6.zip
+		rm jquery-mousewheel-3.0.6.zip
+		cd ..
+	fi
+	if [ ! -d lib/easyslider1.7 ];then
+		echo
+		cd lib/
+		wget http://cssglobe.com/lab/easyslider1.7/easyslider1.7.zip
+		unzip easyslider1.7.zip
+		rm easyslider1.7.zip
+		cd ..
+	fi
+	if [ ! -d lib/jquery.svg.package-1.4.4 ];then
+		echo
+		cd lib/
+		wget http://keith-wood.name/zip/jquery.svg.package-1.4.4.zip
+		unzip jquery.svg.package-1.4.4.zip -d jquery.svg.package-1.4.4
+		rm jquery.svg.package-1.4.4.zip
+		cd ..
+	fi
+	if [ ! -d lib/farbtastic_1_3_1 ];then
+		echo
+		cd lib/
+		wget http://files.spip.org/contribs/farbtastic_1_3_1.zip
+		unzip farbtastic_1_3_1.zip
+		rm farbtastic_1_3_1.zip
+		cd ..
+	fi
+	if [ ! -d lib/flot ];then
+		echo
+		cd lib/
+		wget http://flot.googlecode.com/files/flot-0.7.zip
+		unzip flot-0.7.zip
+		rm flot-0.7.zip
+		cd ..
+	fi
+	if [ ! -d "lib/SWFUpload v2.2.0.1 Core" ];then
+		echo
+		cd lib/
+		wget http://swfupload.googlecode.com/files/SWFUpload%20v2.2.0.1%20Core.zip
+		unzip 'SWFUpload v2.2.0.1 Core.zip'
+		rm 'SWFUpload v2.2.0.1 Core.zip'
+		cd ..
+	fi
 
 	if [ ! -d securite ];then
 		echo
