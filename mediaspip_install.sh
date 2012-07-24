@@ -235,9 +235,9 @@ while [ $# -gt 0 ]; do
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
-				en) export LANG="en_US.UTF-8"
+				en) export LC_MESSAGES=en_US.UTF8
 				shift 2;;
-				fr) export LANG="fr_FR.UTF-8"
+				fr) export LC_MESSAGES=fr_FR.UTF8
 				shift 2;;
 				"") echo_erreur "$(eval_gettext 'Erreur langue non set')"
 				ERROR=oui
@@ -313,6 +313,16 @@ while [ $# -gt 0 ]; do
 	esac
 done
 
+# Si LC_MESSAGES n'est pas en en ni fr, on le force en en
+LANGUES_COMPAT='en fr'
+LANGUE=`expr substr $LC_MESSAGES 1 2`
+case $LANGUE in
+	en|fr) ;;
+	*)
+		export LC_MESSAGES=en_US.UTF-8
+		;;
+esac 
+
 verif_internet_connexion || error "$(eval_gettext 'Erreur internet connexion')"
 
 if [ "$ERROR" = "oui" ]; then
@@ -330,14 +340,6 @@ else
 	FICHIER="distribs/$DISTRIB_$DISTRO_dev.sh"
 	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 fi
-
-LANGUES_COMPAT='en fr'
-LANGUE=$(expr substr $LANG 1 2)
-case $LANGUE in
-	en|fr) ;;
-	*)
-	export LANG="en_US.UTF-8";;
-esac 
 
 ###############################
 # Suite des fonctions du script
