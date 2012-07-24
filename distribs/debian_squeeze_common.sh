@@ -204,6 +204,7 @@ debian_squeeze_libvpx_install()
 			echo $(eval_gettext "End libvpx")
 			;;
 	esac
+	ldconfig
 	echo
 }
 

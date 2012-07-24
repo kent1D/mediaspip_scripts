@@ -200,6 +200,7 @@ ubuntu_lucid_libvpx_install()
 			echo $(eval_gettext "End libvpx")
 			;;
 	esac
+	ldconfig
 	echo
 }
 
