@@ -308,6 +308,12 @@ debian_squeeze_phpimagick_install()
 		echo $(eval_gettext "End php-imagick")
 		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
 	fi
+	# On crée la conf si inexistante
+	if [ ! -e /etc/php5/apache2/conf.d/imagick.ini ];then
+		echo "; configuration for php imagick module" > /etc/php5/apache2/conf.d/imagick.ini
+		echo "extension=imagick.so" >> /etc/php5/apache2/conf.d/imagick.ini
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	fi
 	echo
 }
 
