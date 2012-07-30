@@ -214,7 +214,7 @@ SPIP="/var/www/mediaspip"
 # Version de SPIP (svn ou stable)
 SPIP_VERSION="svn"
 SPIP_TYPE="ferme_full"
-SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-2.1"
+SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-3.0"
 
 if [ "$DISTRIB" = "centos" ];then
 	SPIP_USER="apache"
