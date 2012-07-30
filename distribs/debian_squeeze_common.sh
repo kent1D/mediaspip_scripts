@@ -368,7 +368,7 @@ debian_squeeze_dep_install()
 	
 	#debian_squeeze_rtmpdump_install || return 1
 	
-	debian_squeeze_flvtool_install || return 1
+	#debian_squeeze_flvtool_install || return 1
 	
 	debian_squeeze_flvtool_plus_install || return 1
 	

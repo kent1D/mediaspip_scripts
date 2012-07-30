@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.5.0
+# Version 0.6.0
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - php5-gd2;
@@ -17,7 +17,6 @@
 # - flvtool++;
 # - mediainfo;
 # - ffmpeg;
-# - ffmpeg2theora;
 #
 # Ce script installe également SPIP et l'ensemble des extensions et plugins nécessaires à MediaSPIP
 # Il installe également :
@@ -66,6 +65,9 @@
 # -* Passage de FFmpeg en version 0.7.12
 # -* Passage de MediaInfo en version 0.7.58
 # -* Téléchargement des libs de mediaSPIP
+# Version 0.6.0 :
+# -* On n'utilise plus ffmpeg2theora
+# -* Suppression des scripts dev
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -450,8 +452,6 @@ echo
 
 # Si on demande à ne pas installer FFMpeg, plusieurs autres logiciels ne seront pas installés :
 # - FFMpeg lui-même
-# - FFMpeg2theora
-# - FFMpeg-php
 
 if [ "$DISABLE_FFMPEG" != "yes" ];then
 
@@ -466,18 +466,6 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	echo
 	echo_reussite "$(eval_gettext 'End ffmpeg')"
 	echo
-	
-	# Installation de ffmpeg2theora
-	# binaire plus simple que ffmpeg pour creer des fichiers ogg/theora
-	#eval_gettext "Titre ffmpeg2theora"
-	#echo
-	#echo
-	
-	#"$DISTRIB"_"$DISTRO"_ffmpeg2theora_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	
-	#echo
-	#echo_reussite "$(eval_gettext 'End ffmpeg2theora')"
-	#echo
 
 fi
 
@@ -499,9 +487,6 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 		fi
 		if [ ! -h qt-faststart ];then
 			ln -s /usr/local/bin/qt-faststart 2>> $LOG >> $LOG
-		fi
-		if [ ! -h ffmpeg2theora ];then
-			ln -s /usr/local/bin/ffmpeg2theora 2>> $LOG >> $LOG
 		fi
 		if [ ! -h flvtool2 ];then
 			ln -s /usr/bin/flvtool2 2>> $LOG >> $LOG

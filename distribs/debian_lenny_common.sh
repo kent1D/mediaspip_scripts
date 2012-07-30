@@ -94,28 +94,6 @@ debian_lenny_flvtool_plus_install()
 	fi
 	echo
 }
-# Installation d'une version récente de scons
-# Utilisée pour ffmpeg2theora
-# http://www.scons.org/
-debian_lenny_scons_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	cd $SRC_INSTALL
-	VERSION="2.0.1"
-	if [ ! -e "$SRC_INSTALL"/scons-2.0.1.tar.gz ]; then
-		echo $(eval_gettext 'Info debut scons install $VERSION')
-		wget http://downloads.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz	2>> $LOG >> $LOG || return 1
-		tar xvf scons-2.0.1.tar.gz 2>> $LOG >> $LOG || return 1
-	else
-		echo $(eval_gettext 'Info debut scons update $VERSION')
-	fi
-	cd scons-2.0.1
-	python setup.py install 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "End scons")
-	echo
-}
 
 # Installation de Yasm en version récence
 # http://yasm.tortall.net
@@ -412,14 +390,6 @@ debian_lenny_dep_install()
 	echo 
 	
 	verif_svn_protocole || return 1
-	
-	if [ -x $(which scons) ];then
-		SCONS_VERSION=$(scons -v | awk '/script:/ { print $2 }' |awk -F 'v' '{print $2}')
-	fi
-	
-	if [[ "$SCONS_VERSION" < "1.2" ]]; then
-		debian_lenny_scons_install || return 1
-	fi 
 	
 	debian_lenny_yasm_install || return 1
 	
