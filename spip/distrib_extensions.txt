@@ -1,66 +1,56 @@
 # A
-afficher_objets;svn://zone.spip.org/spip-zone/_plugins_/afficher_objets
-ajaxforms;svn://zone.spip.org/spip-zone/_plugins_/ajaxforms
-auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/branches/v1
+#ajaxforms;svn://zone.spip.org/spip-zone/_plugins_/ajaxforms
+auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/trunk
 
 # C
-cfg2_compat;svn://zone.spip.org/spip-zone/_plugins_/cfg/branches/v2/extensions/compat
-cfg2_core;svn://zone.spip.org/spip-zone/_plugins_/cfg/branches/v2/core
-cfg2_interface;svn://zone.spip.org/spip-zone/_plugins_/cfg/branches/v2/extensions/interface
-contact;svn://zone.spip.org/spip-zone/_plugins_/contact/branches/v0_7
+contact;svn://zone.spip.org/spip-zone/_plugins_/contact/trunk
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
-diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/branches/v1
-diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/branches/v1
-diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/branches/v1
-diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/branches/v1
-doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1
+diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/trunk
+diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/trunk
+diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/trunk
+diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/trunk
+doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
 
 # E
-emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1
-emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1
-emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion/branches/v1
+emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/trunk
+emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/trunk
+emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion/trunk
 
 # F
-facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/branches/v1
-fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/branches/v1
-forum;svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum
+facd;svn://zone.spip.org/spip-zone/_plugins_/facd
+facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/trunk
+fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/trunk
 
 # G
-getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/branches/v1
+getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/trunk
 
 # H
-html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5/branches/v1
-
-# J
-job_queue;svn://zone.spip.org/spip-zone/_plugins_/job_queue
-jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
+mediaspip_player;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5/trunk
 
 # L
 licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 
 # M
-mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config/branches/v1
-mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/branches/v1
-mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/branches/v1
-menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
+mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config/trunk
+mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/trunk
+mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/trunk
+menus;svn://zone.spip.org/spip-zone/_plugins_/menus/trunk
 
 # N
 nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
 
 # P
-palette;svn://zone.spip.org/spip-zone/_plugins_/palette/branches/1_3
-pcltar;svn://zone.spip.org/spip-zone/_plugins_/pcltar
+palette;svn://zone.spip.org/spip-zone/_plugins_/palette/trunk
 
 # S
 saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
-selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique/branches/v1
-spip-bonux-2;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-2
-spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion/branches/v1
-spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/branches/v1
-step;svn://zone.spip.org/spip-zone/_plugins_/step
-swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/branches/v1
+selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique/trunk
+spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion/trunk
+spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trunk
+swfupload;http://svn.aires-de-confluxence.info/svn/plugins_spip/swfupload/trunk
 
 # z
-zpip;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/branches/zpip_v1_99
+z-core;svn://zone.spip.org/spip-zone/_plugins_/z-core
+zpip-dist;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/trunk
