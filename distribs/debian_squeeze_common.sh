@@ -324,7 +324,7 @@ debian_squeeze_dep_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	
-	DEBIANMULTIMEDIA=$(grep "debian-multimedia" /etc/apt/sources.list |grep squeeze) 2>> $LOG >> $LOG
+	DEBIANMULTIMEDIA=$(grep "deb-multimedia" /etc/apt/sources.list |grep squeeze) 2>> $LOG >> $LOG
 	if [ -z "$DEBIANMULTIMEDIA" ];then
 		echo $(eval_gettext 'Info apt debian-multimedia question auto')
 		echo -n "$QUESTION_VALID"
@@ -332,12 +332,10 @@ debian_squeeze_dep_install()
 		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
 			echo
 			echo $(eval_gettext 'Info apt debian-multimedia copie')
-			echo "deb http://www.debian-multimedia.org squeeze main non-free" >> /etc/apt/sources.list 2>> $LOG
+			echo "deb http://www.deb-multimedia.org squeeze main non-free" >> /etc/apt/sources.list 2>> $LOG
 			echo $(eval_gettext 'Info apt debian-multimedia installation cle')
-			cd $SRC_INSTALL
-			wget http://www.debian-multimedia.org/pool/main/d/debian-multimedia-keyring/debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
-			dpkg -i debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
-			rm debian-multimedia-keyring_2010.12.26_all.deb 2>> $LOG >> $LOG
+			apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
+			apt-get -y --force-yes install deb-multimedia-keyring 2>> $LOG >> $LOG || return 1
 			echo $(eval_gettext 'End debian-multimedia')
 			echo
 	fi
