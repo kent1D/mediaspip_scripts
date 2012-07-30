@@ -9,7 +9,6 @@ crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/trunk
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/trunk
 diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/trunk
-diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/trunk
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
 
 # E
