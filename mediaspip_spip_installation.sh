@@ -6,7 +6,7 @@
 #
 # Ce script installe MediaSPIP
 # - SPIP
-# - Les extensions obligatoires au bon fonctionnement
+# - Les plugins-dist obligatoires au bon fonctionnement
 # - Les plugins compatibles si configuré comme tel
 # - Les thèmes compatibles si configuré comme tel
 # - Le plugin de mutualisation si configuré comme tel
@@ -97,7 +97,7 @@ mediaspip_install()
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
 	
-	cd $SPIP/extensions/
+	cd $SPIP/plugins-dist/extensions/
 
 	FICHIER='spip/distrib_extensions.txt'
 	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
@@ -110,7 +110,7 @@ mediaspip_install()
 	
 	echo $(eval_gettext "Info SPIP extensions maj")
 	echo
-	svn up extensions/* 2>> $LOG >> $LOG
+	svn up plugins-dist/* 2>> $LOG >> $LOG
 	
 	# Si on est dans un type full on installe les plugins et thèmes dits compatibles
 	# par défaut

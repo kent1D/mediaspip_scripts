@@ -1,5 +1,4 @@
 # A
-#ajaxforms;svn://zone.spip.org/spip-zone/_plugins_/ajaxforms
 auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/trunk
 
 # C
