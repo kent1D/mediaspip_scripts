@@ -212,6 +212,13 @@ mediaspip_install()
 		rm 'SWFUpload v2.2.0.1 Core.zip' 2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
+	if [ ! -d "lib/leaflet-gis-4.0.7" ];then
+		cd lib/ 2>> $LOG >> $LOG
+		wget https://github.com/downloads/brunob/Leaflet/leaflet-gis-4.0.7.zip 2>> $LOG >> $LOG
+		unzip 'leaflet-gis-4.0.7.zip' 2>> $LOG >> $LOG
+		rm 'leaflet-gis-4.0.7.zip' 2>> $LOG >> $LOG
+		cd .. 2>> $LOG >> $LOG
+	fi
 
 	if [ ! -d securite ];then
 		echo
