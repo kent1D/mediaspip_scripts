@@ -97,7 +97,7 @@ mediaspip_install()
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
 	
-	cd $SPIP/plugins-dist/extensions/
+	cd $SPIP/plugins-dist/
 
 	FICHIER='spip/distrib_extensions.txt'
 	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
