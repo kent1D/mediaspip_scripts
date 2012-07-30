@@ -182,6 +182,7 @@ mediaspip_install()
 		wget http://cssglobe.com/lab/easyslider1.7/easyslider1.7.zip 2>> $LOG >> $LOG
 		unzip easyslider1.7.zip 2>> $LOG >> $LOG
 		rm easyslider1.7.zip 2>> $LOG >> $LOG
+		rm -Rvf '__MACOSX' 2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
 	if [ ! -d lib/jquery.svg.package-1.4.4 ];then
