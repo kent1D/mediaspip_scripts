@@ -61,6 +61,7 @@ socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
 skel_mediablog;http://svn.aires-de-confluxence.info/svn/squelettes_spip/skel_mediablog
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats
 spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0
+spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trunk
 
 # V
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
