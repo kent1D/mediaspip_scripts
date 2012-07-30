@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.14
+# Version 0.3.15
 #
 # Installation des dépendances de manière stable pour Ubuntu lucid
 #
@@ -23,8 +23,9 @@
 # Version 0.3.14 : 
 # -* upgrade de MediaInfo en 0.7.57
 # -* upgrade de libvpx en 1.1.0
+# Version 0.3.15 : upgrade de MediaInfo en 0.7.58
 
-VERSION_UBUNTU_COMMON=0.3.14
+VERSION_UBUNTU_COMMON=0.3.15
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -219,12 +220,12 @@ ubuntu_lucid_media_info_install()
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.58_GNU_FromSource.tar.bz2 ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.57_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.58_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			tar -xvjf MediaInfo_CLI_0.7.58_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG

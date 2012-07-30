@@ -2,7 +2,7 @@
 #
 # ubuntu_lucid_stable
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.11
+# Version 0.3.12
 #
 # Installation des dépendances de manière stable pour Ubuntu Lucid
 #
@@ -17,11 +17,12 @@
 # Version 0.3.9 - Upgrade de FFmpeg en 0.7.10
 # Version 0.3.10 - Upgrade de FFmpeg en 0.7.11
 # Version 0.3.11 - Upgrade de FFmpeg en 0.7.12
+# Version 0.3.12 - Upgrade de FFmpeg en 0.7.13
 
 # Installation de rtmpdump pour librtmp
 # http://rtmpdump.mplayerhq.hu/
 
-VERSION_UBUNTU_STABLE=0.3.11
+VERSION_UBUNTU_STABLE=0.3.12
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
@@ -116,22 +117,22 @@ ubuntu_lucid_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.12.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/ffmpeg-0.7.13.tar.bz2 ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-0.7.12.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-0.7.12.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-0.7.12 ];then
-		tar xvjf ffmpeg-0.7.12.tar.bz2 2>> $LOG >> $LOG
+		wget http://ffmpeg.org/releases/ffmpeg-0.7.13.tar.bz2 2>> $LOG >> $LOG
+		tar xvjf ffmpeg-0.7.13.tar.bz2 2>> $LOG >> $LOG
+	elif [ ! -d ffmpeg-0.7.13 ];then
+		tar xvjf ffmpeg-0.7.13.tar.bz2 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="0.7.12"
+	VERSION="0.7.13"
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-0.7.12
+	cd $SRC_INSTALL/ffmpeg-0.7.13
 	
 	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
