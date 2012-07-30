@@ -57,7 +57,7 @@ porte_plume_documents;http://svn.aires-de-confluxence.info/svn/plugins_spip/port
 recommander;svn://zone.spip.org/spip-zone/_plugins_/recommander
 
 # S
-saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/branches/
+saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/branches/2.1
 socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
 skel_mediablog;http://svn.aires-de-confluxence.info/svn/squelettes_spip/skel_mediablog
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats
