@@ -19,7 +19,7 @@ diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
 
 # G
-gis2;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
+gis;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
 google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
 googleplus1;svn://zone.spip.org/spip-zone/_plugins_/googleplus1
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
@@ -31,8 +31,6 @@ inscription3;http://svn.aires-de-confluxence.info/svn/plugins_spip/inscription3
 legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
 
 # M
-mediabox;svn://zone.spip.org/spip-zone/_plugins_/mediabox
-mediatheque;svn://zone.spip.org/spip-zone/_plugins_/mediatheque
 memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/trunk
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
