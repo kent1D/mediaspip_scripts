@@ -7,7 +7,7 @@ bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother
 # C
 calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/trunk
 cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/core/trunk
-cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/trunk
+cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interface/trunk
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
 # D
