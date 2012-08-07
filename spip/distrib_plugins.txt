@@ -65,6 +65,9 @@ spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trun
 # V
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
 
+# Y
+yaml;svn://zone.spip.org/spip-zone/_plugins_/yaml
+
 # Z
 zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/trunk
 zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard
