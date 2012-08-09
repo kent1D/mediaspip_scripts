@@ -12,6 +12,7 @@ criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suiv
 
 # D
 diogene_geo;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo/trunk
+diogene_mots;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_mots/trunk
 diogene_notation;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_notation/trunk
 diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/trunk
 
