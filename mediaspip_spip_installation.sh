@@ -292,10 +292,12 @@ mediaspip_install()
 		rm -Rvf $SPIP/local/cache-css/* 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info SPIP suppression cache js")
 		rm -Rvf $SPIP/local/cache-js/* 2>> $LOG >> $LOG
+		chmod 777 -Rvf $SPIP/local/ 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info SPIP suppression cache html")
 		rm -Rvf $SPIP/tmp/cache/meta_cache.php 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info SPIP suppression cache plugins")
 		rm -Rvf $SPIP/tmp/cache/* 2>> $LOG >> $LOG
+		chmod 777 -Rvf $SPIP/tmp/cache/ 2>> $LOG >> $LOG
 	fi
 	
 	echo
