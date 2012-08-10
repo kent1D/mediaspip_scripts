@@ -26,7 +26,7 @@ googleplus1;svn://zone.spip.org/spip-zone/_plugins_/googleplus1
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
 # I
-inscription3;http://svn.aires-de-confluxence.info/svn/plugins_spip/inscription3
+inscription3;http://svn.aires-de-confluxence.info/svn/plugins_spip/inscription3/trunk
 
 # L
 legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
