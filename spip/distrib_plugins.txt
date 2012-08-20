@@ -33,6 +33,7 @@ legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
 
 # M
 memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
+mesfavoris;svn://zone.spip.org/spip-zone/_plugins_/mesfavoris
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/trunk
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 minibando;svn://zone.spip.org/spip-zone/_plugins_/minibando/trunk
