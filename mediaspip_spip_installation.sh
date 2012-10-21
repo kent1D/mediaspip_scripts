@@ -2,7 +2,7 @@
 #
 # mediaspip_spip_installation.sh
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.8
+# Version 0.3.9
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -27,6 +27,7 @@
 # Version 0.3.6 - On change la source du plugin gis
 # Version 0.3.7 - On règle un problème dans le switch des dépots
 # Version 0.3.8 - LANG=C n'est pas disponible tout le temps ... on utilise LANG=en ... peut être plus fréquent
+# Version 0.3.9 - Télécharger deux librairies supplémentaires (jquery-validate pour inscription3 et oAuth pour le plugin éponyme)
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
@@ -175,6 +176,20 @@ mediaspip_install()
 		wget https://github.com/downloads/brandonaaron/jquery-mousewheel/jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
 		unzip jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
 		rm jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
+		cd .. 2>> $LOG >> $LOG
+	fi
+	if [ ! -d lib/jquery-validation-1.10.0.zip ];then
+		cd lib/ 2>> $LOG >> $LOG
+		wget https://github.com/downloads/jzaefferer/jquery-validation/jquery-validation-1.10.0.zip 2>> $LOG >> $LOG
+		unzip jquery-validation-1.10.0.zip -d jquery-validation-1.10.0  2>> $LOG >> $LOG
+		rm jquery-validation-1.10.0.zip  2>> $LOG >> $LOG
+		cd .. 2>> $LOG >> $LOG
+	fi
+	if [ ! -d lib/openid-php-openid-782224d ];then
+		cd lib/ 2>> $LOG >> $LOG
+		wget http://www.spip-contrib.net/IMG/zip/openid-php-openid-2.2.2-0-ga287b2d.zip 2>> $LOG >> $LOG
+		unzip openid-php-openid-2.2.2-0-ga287b2d.zip 2>> $LOG >> $LOG
+		rm openid-php-openid-2.2.2-0-ga287b2d.zip.zip  2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
 	if [ ! -d lib/easyslider1.7 ];then
