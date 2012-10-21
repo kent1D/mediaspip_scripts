@@ -2,7 +2,7 @@
 ancres_douces;svn://zone.spip.org/spip-zone/_plugins_/ancres_douces
 
 # B
-bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother
+bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother/branches/v0
 
 # C
 calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/branches/spip-1.9
