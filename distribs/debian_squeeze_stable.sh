@@ -40,38 +40,6 @@ Please have a look to mediaspip_install.sh\n\n"
 	shift;;
 esac
 
-debian_squeeze_rtmpdump_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	
-	VERSION="2.3"
-	if [ -x $(which rtmpdump) ];then
-		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
-	fi
-	if [ "$RTMPDUMPVERSION" = "v$VERSION" ];then
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION')
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
-			echo $(eval_gettext "Info debut rtmpdump install")
-			echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-			tar xvzf rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-		fi
-		cd rtmpdump-2.3
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End rtmpdump")
-	fi
-	echo
-}
-
 # Installation de FFMpeg
 # http://www.ffmpeg.org
 debian_squeeze_ffmpeg_install ()

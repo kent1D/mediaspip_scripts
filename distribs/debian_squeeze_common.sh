@@ -26,6 +26,11 @@
 # -* upgrade de MediaInfo en 0.7.57
 # -* upgrade de libvpx en 1.1.0
 # Version 0.3.15 : upgrade de MediaInfo en 0.7.58
+# Version 0.3.16 : 
+# -* On vire du code dont on n'a plus besoin
+# -* installation de libopus 1.0.1
+# -* installation de libmodplug
+
 
 VERSION_DEBIAN_COMMON=0.3.15
 
@@ -47,21 +52,6 @@ Please have a look to mediaspip_install.sh\n\n"
 	exit 1 
 	shift;;
 esac
-
-# Installation de flvtool2
-debian_squeeze_flvtool_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info debut flvtool2")
-	echo $(eval_gettext "Info debut flvtool2") 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG  || return 1
-	cd flvtool2
-	ruby setup.rb 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "End flvtool2")
-	echo
-}
 
 # Installation de flvtool++
 debian_squeeze_flvtool_plus_install()
@@ -209,36 +199,35 @@ debian_squeeze_libvpx_install()
 	echo
 }
 
-# Installation de libtheora
-# http://www.theora.org/downloads/
-debian_squeeze_libtheora_install()
+# Installation de libopus
+# http://www.opus-codec.org
+debian_squeeze_libopus_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	apt-get -y --force-yes install libogg-dev 2>> $LOG >> $LOG
-	LIBTHEORAVERSION=$(pkg-config --modversion theora 2>> $LOG)
+	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
 	cd $SRC_INSTALL
-	VERSION="1.1.1"
-	if [ "$LIBTHEORAVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour libtheora $VERSION')
-		echo $(eval_gettext 'Info a jour libtheora $VERSION') 2>> $LOG >> $LOG
+	VERSION="1.0.1"
+	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour libopus $VERSION')
+		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/libtheora-1.1.1.tar.gz ];then
-			echo $(eval_gettext 'Info debut libtheora install $VERSION')
-			echo $(eval_gettext 'Info debut libtheora install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
-			tar xzvf libtheora-1.1.1.tar.gz 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/opus-1.0.1.tar.gz ];then
+			echo $(eval_gettext 'Info debut libopus install $VERSION')
+			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz 2>> $LOG >> $LOG
+			tar xvzf opus-1.0.1.tar.gz  2>> $LOG >> $LOG
 		else
-			echo $(eval_gettext 'Info debut libtheora update $VERSION')
-			echo $(eval_gettext 'Info debut libtheora update $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut libopus update $VERSION')
+			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
 		fi
-		cd libtheora-1.1.1
+		cd opus-1.0.1
 		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG
+		./configure 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libtheora-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
 	fi
 	echo
@@ -349,7 +338,7 @@ debian_squeeze_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
-		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
+		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	echo
@@ -358,17 +347,9 @@ debian_squeeze_dep_install()
 	
 	debian_squeeze_yasm_install || return 1
 	
-	#debian_squeeze_lame_install || return 1
-	
-	#debian_squeeze_libopencore_amr_install || return 1
-	
-	#debian_squeeze_libtheora_install || return 1
+	debian_squeeze_libopus_install || return 1
 	
 	debian_squeeze_libvpx_install || return 1
-	
-	#debian_squeeze_rtmpdump_install || return 1
-	
-	#debian_squeeze_flvtool_install || return 1
 	
 	debian_squeeze_flvtool_plus_install || return 1
 	

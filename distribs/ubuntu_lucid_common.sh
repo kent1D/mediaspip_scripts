@@ -24,6 +24,10 @@
 # -* upgrade de MediaInfo en 0.7.57
 # -* upgrade de libvpx en 1.1.0
 # Version 0.3.15 : upgrade de MediaInfo en 0.7.58
+# Version 0.3.16 : 
+# -* on n'installe plus flvtool2
+# -* installation de libopus 1.0.1
+# -* installation de libmodplug
 
 VERSION_UBUNTU_COMMON=0.3.15
 
@@ -44,21 +48,6 @@ Please have a look to mediaspip_install.sh\n\n"
 	exit 1 
 	shift;;
 esac
-
-# Installation de flvtool2
-ubuntu_lucid_flvtool_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info debut flvtool2")
-	echo $(eval_gettext "Info debut flvtool2") 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	svn checkout svn://rubyforge.org/var/svn/flvtool2/trunk flvtool2 2>> $LOG >> $LOG  || return 1
-	cd flvtool2
-	ruby setup.rb 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "End flvtool2")
-	echo
-}
 
 # Installation de flvtool++
 ubuntu_lucid_flvtool_plus_install()
@@ -295,7 +284,7 @@ ubuntu_lucid_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2 php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
-		libfaac-dev libfaad-dev libdirac-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev \
+		libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	echo
@@ -306,13 +295,13 @@ ubuntu_lucid_dep_install()
 	
 	ubuntu_lucid_lame_install || return 1
 
+	ubuntu_lucid_libopus_install || return 1
+	
 	ubuntu_lucid_libopencore_amr_install || return 1
 
 	ubuntu_lucid_libvpx_install || return 1
 
 	ubuntu_lucid_rtmpdump_install || return 1
-
-	ubuntu_lucid_flvtool_install || return 1
 	
 	ubuntu_lucid_flvtool_plus_install || return 1
 
@@ -404,6 +393,40 @@ ubuntu_lucid_yasm_install ()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End yasm")
+	fi
+	echo
+}
+
+# Installation de libopus
+# http://www.opus-codec.org
+ubuntu_lucid_libopus_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
+	cd $SRC_INSTALL
+	VERSION="1.0.1"
+	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour libopus $VERSION')
+		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/opus-1.0.1.tar.gz ];then
+			echo $(eval_gettext 'Info debut libopus install $VERSION')
+			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz 2>> $LOG >> $LOG
+			tar xvzf opus-1.0.1.tar.gz  2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut libopus update $VERSION')
+			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd opus-1.0.1
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		echo $(eval_gettext "End libtheora")
 	fi
 	echo
 }
