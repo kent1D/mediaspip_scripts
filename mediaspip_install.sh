@@ -154,8 +154,6 @@ elif [ -r /etc/debian_version ]; then
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
 	if [ "$NUMBER" = '6' ]; then
 		DISTRO="squeeze"
-	else
-		DISTRO="lenny"
 	fi
 # Cas de redhat (?) et centos
 elif [ -r /etc/redhat-release ]; then
@@ -166,7 +164,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='lenny squeeze lucid 5_3';
+OKDISTRO='squeeze lucid 5_3';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
