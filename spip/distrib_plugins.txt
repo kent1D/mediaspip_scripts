@@ -50,6 +50,7 @@ opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
 # P
 pages;svn://zone.spip.org/spip-zone/_plugins_/pages/trunk
+piecon;http://svn.aires-de-confluxence.info/svn/plugins_spip/piecon/trunk
 podcast;http://svn.aires-de-confluxence.info/svn/plugins_spip/podcast
 polyhierarchie;svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie/trunk
 porte_plume_documents;http://svn.aires-de-confluxence.info/svn/plugins_spip/porte_plume_documents
