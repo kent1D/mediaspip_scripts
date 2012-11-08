@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# ubuntu_lucid_common
+# ubuntu_quantal_common
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
-# Installation des dépendances de manière stable pour Ubuntu lucid
+# Installation des dépendances de manière stable pour Ubuntu quantal
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
@@ -42,7 +42,7 @@ VERSION_UBUNTU_COMMON=0.4.0
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
-	*ubuntu_lucid_common.sh) 
+	*ubuntu_quantal_common.sh) 
 	printf "
 ########################################
 MediaSPIP Ubuntu common functions v$VERSION_UBUNTU_COMMON
@@ -58,7 +58,7 @@ Please have a look to mediaspip_install.sh\n\n"
 esac
 
 # Installation de flvtool++
-ubuntu_lucid_flvtool_plus_install()
+ubuntu_quantal_flvtool_plus_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -91,46 +91,11 @@ ubuntu_lucid_flvtool_plus_install()
 	echo
 }
 
-# Installation de Lame
-# http://lame.sourceforge.net/
-ubuntu_lucid_lame_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	LAME=$(which lame)
-	if [ ! -z "$LAME"  ];then
-		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
-	fi
-	cd $SRC_INSTALL
-	VERSION="3.98.4"
-	if [ "$LAMEVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour lame $VERSION')
-		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
-			echo $(eval_gettext 'Info debut lame install $VERSION')
-			echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut lame update $VERSION')
-			echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd lame-3.98.4
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End lame")
-	fi
-	echo
-}
+
 
 # Installation de libopencore-amr
 # http://opencore-amr.sourceforge.net/
-ubuntu_lucid_libopencore_amr_install()
+ubuntu_quantal_libopencore_amr_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -165,7 +130,7 @@ ubuntu_lucid_libopencore_amr_install()
 
 # Installation de libvpx
 # http://code.google.com/p/webm/
-ubuntu_lucid_libvpx_install()
+ubuntu_quantal_libvpx_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -204,7 +169,7 @@ ubuntu_lucid_libvpx_install()
 
 # Installation de mediainfo
 # http://mediainfo.sourceforge.net/fr
-ubuntu_lucid_media_info_install()
+ubuntu_quantal_media_info_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -242,7 +207,7 @@ ubuntu_lucid_media_info_install()
 # On n'utilise pas la version des dépots officiels car trop ancienne
 # et bugguée avec safe_mode php
 # http://pecl.php.net/package/imagick
-ubuntu_lucid_phpimagick_install()
+ubuntu_quantal_phpimagick_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -278,8 +243,8 @@ ubuntu_lucid_phpimagick_install()
 }
 
 # Installation de diverses dépendances
-# Pour Ubuntu Lucid
-ubuntu_lucid_dep_install()
+# Pour Ubuntu quantal
+ubuntu_quantal_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -292,37 +257,35 @@ ubuntu_lucid_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2 php5-dev php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
-		libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	echo
 
 	verif_svn_protocole || return 1
 	
-	ubuntu_lucid_yasm_install || return 1
+	ubuntu_quantal_yasm_install || return 1
+
+	ubuntu_quantal_libopus_install || return 1
 	
-	ubuntu_lucid_lame_install || return 1
+	ubuntu_quantal_libopencore_amr_install || return 1
 
-	ubuntu_lucid_libopus_install || return 1
+	ubuntu_quantal_libvpx_install || return 1
+
+	ubuntu_quantal_rtmpdump_install || return 1
 	
-	ubuntu_lucid_libopencore_amr_install || return 1
+	ubuntu_quantal_flvtool_plus_install || return 1
 
-	ubuntu_lucid_libvpx_install || return 1
+	ubuntu_quantal_media_info_install || return 1
 
-	ubuntu_lucid_rtmpdump_install || return 1
-	
-	ubuntu_lucid_flvtool_plus_install || return 1
-
-	ubuntu_lucid_media_info_install || return 1
-
-	ubuntu_lucid_phpimagick_install || return 1
+	ubuntu_quantal_phpimagick_install || return 1
 	
 	cd $CURRENT
 	return 0
 }
 
 # Préconfiguration basique d'Apache
-ubuntu_lucid_apache_install ()
+ubuntu_quantal_apache_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -373,7 +336,7 @@ ubuntu_lucid_apache_install ()
 
 # Installation de yasm
 # http://yasm.tortall.net/
-ubuntu_lucid_yasm_install ()
+ubuntu_quantal_yasm_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -407,7 +370,7 @@ ubuntu_lucid_yasm_install ()
 
 # Installation de libopus
 # http://www.opus-codec.org
-ubuntu_lucid_libopus_install()
+ubuntu_quantal_libopus_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -441,7 +404,7 @@ ubuntu_lucid_libopus_install()
 
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-ubuntu_lucid_x264_install ()
+ubuntu_quantal_x264_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -483,7 +446,7 @@ ubuntu_lucid_x264_install ()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-ubuntu_lucid_ffmpeg_install ()
+ubuntu_quantal_ffmpeg_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -534,7 +497,7 @@ ubuntu_lucid_ffmpeg_install ()
 }
 
 
-ubuntu_lucid_rtmpdump_install()
+ubuntu_quantal_rtmpdump_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip

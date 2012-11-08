@@ -68,6 +68,10 @@
 # Version 0.6.0 :
 # -* On n'utilise plus ffmpeg2theora
 # -* Suppression des scripts dev
+# Version 0.7.0 :
+# -* Installation de ffmpeg en 1.0
+# -* Suppression de fonctions inutilisées
+# -* Plus de support pour Debian Lenny
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -164,7 +168,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze lucid 5_3';
+OKDISTRO='squeeze lucid quantal 5_3';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -201,10 +205,6 @@ fi
 
 # Le upload_max_filesize de php
 PHP_UPLOAD_SIZE="150M"
-
-# Type d'installation des dépendances 
-# valeurs : stable|dev
-DEP_VERSION="stable"
 
 # Emplacement final de SPIP et MediaSPIP
 SPIP="/var/www/mediaspip"
@@ -277,8 +277,6 @@ while [ $# -gt 0 ]; do
 				ERROR="oui"
 			fi
 		shift 2;;
-		--dep-version) DEP_VERSION="${2}"
-		shift 2;;
 		--disable-alternc) DISABLE_ALTERNC="yes"
 		echo $(eval_gettext 'Info options disable_alternc')
 		shift;;
@@ -336,14 +334,6 @@ fi
 
 FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
-
-if [ "$DEP_VERSION" = "stable" ]; then
-	FICHIER="distribs/$DISTRIB_$DISTRO_stable.sh"
-	. ./distribs/"$DISTRIB"_"$DISTRO"_stable.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
-else
-	FICHIER="distribs/$DISTRIB_$DISTRO_dev.sh"
-	. ./distribs/"$DISTRIB"_"$DISTRO"_dev.sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
-fi
 
 ###############################
 # Suite des fonctions du script
