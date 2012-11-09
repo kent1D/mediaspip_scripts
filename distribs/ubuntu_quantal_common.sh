@@ -279,7 +279,7 @@ ubuntu_quantal_dep_install()
 
 	ubuntu_quantal_media_info_install || return 1
 
-	ubuntu_quantal_phpimagick_install || return 1
+	#ubuntu_quantal_phpimagick_install || return 1
 	
 	cd $CURRENT
 	return 0
