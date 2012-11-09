@@ -147,7 +147,7 @@ debian_squeeze_libopencore_amr_install()
 		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 			echo $(eval_gettext 'Info debut opencore install $VERSION')
 			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-			wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
 			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext 'Info debut opencore update $VERSION')
@@ -396,7 +396,7 @@ debian_squeeze_dep_install()
 	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev ruby yasm texi2html \
+		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev texi2html \
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
