@@ -178,7 +178,7 @@ mediaspip_install()
 		rm jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
-	if [ ! -d lib/jquery-validation-1.10.0.zip ];then
+	if [ ! -d lib/jquery-validation-1.10.0 ];then
 		cd lib/ 2>> $LOG >> $LOG
 		wget https://github.com/downloads/jzaefferer/jquery-validation/jquery-validation-1.10.0.zip 2>> $LOG >> $LOG
 		unzip jquery-validation-1.10.0.zip -d jquery-validation-1.10.0  2>> $LOG >> $LOG
