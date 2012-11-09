@@ -256,9 +256,9 @@ ubuntu_quantal_dep_install()
 	#apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2 php5-dev php-pear php5-curl php5-gd php5-imagick re2c  texi2html \
-		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc \
+		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
+		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev \
+		flac vorbis-tools xpdf poppler-utils catdoc rtmpdump \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
@@ -267,13 +267,13 @@ ubuntu_quantal_dep_install()
 	
 	ubuntu_quantal_yasm_install || return 1
 
-	ubuntu_quantal_libopus_install || return 1
+	#ubuntu_quantal_libopus_install || return 1
 	
-	ubuntu_quantal_libopencore_amr_install || return 1
+	#ubuntu_quantal_libopencore_amr_install || return 1
 
-	ubuntu_quantal_libvpx_install || return 1
+	#ubuntu_quantal_libvpx_install || return 1
 
-	ubuntu_quantal_rtmpdump_install || return 1
+	#ubuntu_quantal_rtmpdump_install || return 1
 	
 	ubuntu_quantal_flvtool_plus_install || return 1
 
