@@ -240,42 +240,6 @@ debian_squeeze_libopus_install()
 	echo
 }
 
-# Installation de mediainfo
-# http://mediainfo.sourceforge.net/fr
-debian_squeeze_media_info_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	MEDIAINFO=$(which mediainfo)
-	if [ ! -z "$MEDIAINFO" ]; then
-		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
-	fi
-	VERSION="0.7.61"
-	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 ];then
-			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
-			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
-			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-		else
-			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
-			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
-		echo $(eval_gettext 'Info mediainfo compil install')
-		echo $(eval_gettext 'Info mediainfo compil install') 2>> $LOG >> $LOG
-		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
-		cd MediaInfo/Project/GNU/CLI
-		make install 2>> $LOG >> $LOG ||return 1  
-		echo $(eval_gettext "End mediainfo")
-	fi
-	echo
-}
-
 # Installation de php-imagick via pecl
 # On n'utilise pas la version des dépots officiels car trop ancienne
 # et bugguée avec safe_mode php
@@ -411,7 +375,7 @@ debian_squeeze_dep_install()
 	
 	debian_squeeze_flvtool_plus_install || return 1
 	
-	debian_squeeze_media_info_install || return 1
+	media_info_install || return 1
 	
 	debian_squeeze_phpimagick_install || return 1
 	
