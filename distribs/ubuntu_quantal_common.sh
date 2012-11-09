@@ -197,10 +197,10 @@ ubuntu_quantal_apache_install ()
 	echo
 	
 	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
-	echo "file_uploads = On" > /etc/php5/conf.d/mediaspip_upload.ini
-	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
-	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
-	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
+	echo "file_uploads = On" > /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
 	echo
 	
 	echo $(eval_gettext "Info apache reload")
