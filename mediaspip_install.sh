@@ -72,6 +72,8 @@
 # -* Installation de ffmpeg en 1.0
 # -* Suppression de fonctions inutilisées
 # -* Plus de support pour Debian Lenny
+# -* Prise en compte de ubuntu precise 12.04 LTS
+# -* Prise en compte de ubuntu quantal 12.04 LTS 
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -168,7 +170,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze lucid quantal 5_3';
+OKDISTRO='squeeze lucid precise quantal 5_3';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
