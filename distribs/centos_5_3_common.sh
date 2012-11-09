@@ -173,7 +173,7 @@ centos_libopencore_amr_install()
 		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
 			echo $(eval_gettext 'Info debut opencore install $VERSION')
 			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-			wget http://transact.dl.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
+			wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
 			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext 'Info debut opencore update $VERSION')
