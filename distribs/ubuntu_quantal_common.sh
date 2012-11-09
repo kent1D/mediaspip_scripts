@@ -253,10 +253,10 @@ ubuntu_quantal_dep_install()
 	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
+	#apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2 php5-dev php-pear php5-curl php5-gd graphicsmagick-libmagick-dev-compat texi2html \
+		apache2 php5-dev php-pear php5-curl php5-gd php5-imagick re2c  texi2html \
 		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
@@ -481,7 +481,7 @@ ubuntu_quantal_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx  \
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --disable-encoder=vorbis --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264 \ 
-			--enable-libopus --enable-libmodplug --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --libtwolame \
+			--enable-libopus --enable-libmodplug --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame \
 			2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
