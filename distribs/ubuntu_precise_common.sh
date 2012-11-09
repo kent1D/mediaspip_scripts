@@ -369,17 +369,16 @@ ubuntu_precise_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-1.0.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-1.0 ];then
-		tar xvjf ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
+		wget $FFMPEG_URL 2>> $LOG >> $LOG
+		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+	elif [ ! -d $FFMPEG_PATH ];then
+		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	fi
-	
-	VERSION="1.0"
+
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
@@ -389,7 +388,7 @@ ubuntu_precise_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/ffmpeg-1.0
 	
-	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
+	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
 		echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
 	else
@@ -403,12 +402,12 @@ ubuntu_precise_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$FFMPEG_VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
-	echo $(eval_gettext 'Info ffmpeg version $VERSION')
+	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
 }

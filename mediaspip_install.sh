@@ -333,6 +333,10 @@ if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
+FFMPEG_VERSION="1.0"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-1.0.tar.bz2"
+FFMPEG_PATH="ffmpeg-1.0"
 
 FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
