@@ -94,78 +94,6 @@ debian_squeeze_flvtool_plus_install()
 	echo
 }
 
-# Installation de Lame
-# http://lame.sourceforge.net/
-debian_squeeze_lame_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	LAME=$(which lame)
-	if [ ! -z "$LAME"  ];then
-		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
-	fi
-	cd $SRC_INSTALL
-	VERSION="3.98.4"
-	if [ "$LAMEVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour lame $VERSION')
-		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
-			echo $(eval_gettext 'Info debut lame install $VERSION')
-			echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut lame update $VERSION')
-			echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd lame-3.98.4
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End lame")
-	fi
-	echo
-}
-
-# Installation de libopencore-amr
-# http://opencore-amr.sourceforge.net/
-debian_squeeze_libopencore_amr_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
-	cd $SRC_INSTALL
-	VERSION="0.1.2"
-	if [ "$LIBOPENCORE" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour opencore $VERSION')
-		echo $(eval_gettext 'Info a jour opencore $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
-			echo $(eval_gettext 'Info debut opencore install $VERSION')
-			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut opencore update $VERSION')
-			echo $(eval_gettext 'Info debut opencore update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd opencore-amr-0.1.2
-		echo $(eval_gettext "Info compilation configure")
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End opencore")
-	fi
-	echo
-}
-
 # Installation de libvpx
 # http://code.google.com/p/webm/
 debian_squeeze_libvpx_install()
@@ -358,7 +286,7 @@ debian_squeeze_dep_install()
 	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libapache2-php5 libmagick9-dev texi2html \
+		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libapache2-mod-php5 libmagick9-dev texi2html \
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
