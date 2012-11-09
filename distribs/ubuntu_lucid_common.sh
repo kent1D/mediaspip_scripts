@@ -212,7 +212,7 @@ ubuntu_lucid_media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.53"
+	VERSION="0.7.61"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
