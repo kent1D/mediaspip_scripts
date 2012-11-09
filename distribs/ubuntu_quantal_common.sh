@@ -91,82 +91,6 @@ ubuntu_quantal_flvtool_plus_install()
 	echo
 }
 
-
-
-# Installation de libopencore-amr
-# http://opencore-amr.sourceforge.net/
-ubuntu_quantal_libopencore_amr_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	LIBOPENCORE=$(pkg-config --modversion opencore-amrnb 2>> $LOG)
-	cd $SRC_INSTALL
-	VERSION="0.1.2"
-	if [ "$LIBOPENCORE" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour opencore $VERSION')
-		echo $(eval_gettext 'Info a jour opencore $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/opencore-amr-0.1.2.tar.gz ];then
-			echo $(eval_gettext 'Info debut opencore install $VERSION')
-			echo $(eval_gettext 'Info debut opencore install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/0.1.2/opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvf opencore-amr-0.1.2.tar.gz 2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut opencore update $VERSION')
-			echo $(eval_gettext 'Info debut opencore update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd opencore-amr-0.1.2
-		echo $(eval_gettext "Info compilation configure")
-		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-		./configure --enable-shared 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname="libopencore-amr" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End opencore")
-	fi
-	echo
-}
-
-# Installation de libvpx
-# http://code.google.com/p/webm/
-ubuntu_quantal_libvpx_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd $SRC_INSTALL
-	VERSION="1.1.0"
-	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	case "$LIBVPX" in
-		*$VERSION*)
-			echo $(eval_gettext 'Info a jour libvpx $VERSION')
-			echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
-			;;
-		*)
-			echo $(eval_gettext 'Info debut libvpx install $VERSION')
-			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v1.1.0.tar.bz2 ];then
-				wget http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
-				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.1.0 ]; then
-				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
-			fi
-			cd libvpx-v1.1.0
-			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation configure")
-			./configure --enable-shared 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation make")
-			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation install")
-			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
-			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-			echo $(eval_gettext "End libvpx")
-			;;
-	esac
-	ldconfig
-	echo
-}
-
 # Installation de mediainfo
 # http://mediainfo.sourceforge.net/fr
 ubuntu_quantal_media_info_install()
@@ -203,45 +127,6 @@ ubuntu_quantal_media_info_install()
 	echo
 }
 
-# Installation de php-imagick via pecl
-# On n'utilise pas la version des dépots officiels car trop ancienne
-# et bugguée avec safe_mode php
-# http://pecl.php.net/package/imagick
-ubuntu_quantal_phpimagick_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	pecl channel-update pecl.php.net 2>> $LOG >> $LOG
-	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
-	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
-	# Cas de l'installation
-	if [ "$ACTUEL" = "-" ]; then
-		echo $(eval_gettext "Info debut php-imagick install")
-		echo $(eval_gettext "Info debut php-imagick install") 2>> $LOG >> $LOG
-		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
-		echo $(eval_gettext "End php-imagick")
-		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
-	# Cas où on a déjà installé la dernière version
-	elif [ "$ACTUEL" = "$LATEST" ]; then
-		echo $(eval_gettext "Info a jour php-imagick")
-		echo $(eval_gettext "Info a jour php-imagick") 2>> $LOG >> $LOG
-	# Cas de la mise à jour
-	else
-		echo $(eval_gettext "Info debut php-imagick update")
-		echo $(eval_gettext "Info debut php-imagick update") 2>> $LOG >> $LOG
-		pecl upgrade imagick 2>> $LOG >> $LOG
-		echo $(eval_gettext "End php-imagick")
-		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
-	fi
-	# On crée la conf si inexistante
-	if [ ! -e /etc/php5/conf.d/imagick.ini ];then
-		echo "; configuration for php imagick module" > /etc/php5/conf.d/imagick.ini
-		echo "extension=imagick.so" >> /etc/php5/conf.d/imagick.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	fi
-	echo
-}
-
 # Installation de diverses dépendances
 # Pour Ubuntu quantal
 ubuntu_quantal_dep_install()
@@ -257,8 +142,8 @@ ubuntu_quantal_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
-		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc rtmpdump \
+		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
+		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
@@ -266,20 +151,10 @@ ubuntu_quantal_dep_install()
 	verif_svn_protocole || return 1
 	
 	ubuntu_quantal_yasm_install || return 1
-
-	#ubuntu_quantal_libopus_install || return 1
-	
-	#ubuntu_quantal_libopencore_amr_install || return 1
-
-	#ubuntu_quantal_libvpx_install || return 1
-
-	#ubuntu_quantal_rtmpdump_install || return 1
 	
 	ubuntu_quantal_flvtool_plus_install || return 1
 
 	ubuntu_quantal_media_info_install || return 1
-
-	#ubuntu_quantal_phpimagick_install || return 1
 	
 	cd $CURRENT
 	return 0
@@ -365,40 +240,6 @@ ubuntu_quantal_yasm_install ()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "End yasm")
-	fi
-	echo
-}
-
-# Installation de libopus
-# http://www.opus-codec.org
-ubuntu_quantal_libopus_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
-	cd $SRC_INSTALL
-	VERSION="1.0.1"
-	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour libopus $VERSION')
-		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/opus-1.0.1.tar.gz ];then
-			echo $(eval_gettext 'Info debut libopus install $VERSION')
-			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz 2>> $LOG >> $LOG
-			tar xvzf opus-1.0.1.tar.gz  2>> $LOG >> $LOG
-		else
-			echo $(eval_gettext 'Info debut libopus update $VERSION')
-			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
-		fi
-		cd opus-1.0.1
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libtheora")
 	fi
 	echo
 }
@@ -495,37 +336,4 @@ ubuntu_quantal_ffmpeg_install ()
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg version $VERSION')
-}
-
-
-ubuntu_quantal_rtmpdump_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	
-	VERSION="2.3"
-	if [ -x $(which rtmpdump) ];then
-		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
-	fi
-	if [ "$RTMPDUMPVERSION" = "v$VERSION" ];then
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION')
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION') 2>> $LOG >> $LOG
-	else
-		if [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
-			echo $(eval_gettext "Info debut rtmpdump install")
-			echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-			tar xvzf rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-		fi
-		cd rtmpdump-2.3
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End rtmpdump")
-	fi
-	echo
 }
