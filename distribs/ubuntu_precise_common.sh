@@ -151,7 +151,7 @@ ubuntu_precise_dep_install()
 	echo
 
 	verif_svn_protocole || return 1
-	
+
 	ubuntu_precise_yasm_install || return 1
 
 	ubuntu_precise_libopus_install || return 1

@@ -173,7 +173,6 @@ media_info_install()
 	fi
 	echo
 }
-
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [ "$0" = *mediaspip_functions.sh ]; then
