@@ -321,17 +321,16 @@ debian_squeeze_ffmpeg_install ()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/ffmpeg-1.0.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
-		tar xvjf ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
-	elif [ ! -d ffmpeg-1.0 ];then
-		tar xvjf ffmpeg-1.0.tar.bz2 2>> $LOG >> $LOG
+		wget $FFMPEG_URL 2>> $LOG >> $LOG
+		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+	elif [ ! -d $FFMPEG_PATH ];then
+		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	fi
-	
-	VERSION="1.0"
+
 	if [ -x $(which ffmpeg) ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $2}')
 	fi
@@ -339,9 +338,9 @@ debian_squeeze_ffmpeg_install ()
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $3}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-1.0
+	cd $SRC_INSTALL/$FFMPEG_PATH
 	
-	if [ "$VERSION" = "$VERSION_ACTUELLE" ];then
+	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
 		echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
 	else
@@ -350,20 +349,19 @@ debian_squeeze_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx\
 			--enable-libfaac --enable-libmp3lame --enable-libxvid --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264\
-			--enable-libopus --enable-libmodplug --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame\
-			2>> $LOG >> $LOG
+			--enable-libopus --enable-libmodplug --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "5:$VERSION+`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=ffmpeg --pkgversion "5:$FFMPEG_VERSION+`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || return 1
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
-	echo $(eval_gettext 'Info ffmpeg version $VERSION')
+	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
 }
 
 # Installation de diverses dépendances
@@ -396,7 +394,7 @@ debian_squeeze_dep_install()
 	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libmagick9-dev texi2html \
+		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libapache2-php5 libmagick9-dev texi2html \
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
