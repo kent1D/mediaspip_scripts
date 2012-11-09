@@ -400,6 +400,7 @@ debian_squeeze_dep_install()
 		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
+	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
 	
 	verif_svn_protocole || return 1

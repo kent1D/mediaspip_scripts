@@ -295,6 +295,7 @@ ubuntu_lucid_dep_install()
 		libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
+	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
 
 	verif_svn_protocole || return 1
