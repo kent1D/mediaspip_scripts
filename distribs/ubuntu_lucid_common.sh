@@ -91,6 +91,43 @@ ubuntu_lucid_flvtool_plus_install()
 	echo
 }
 
+# Installation de Lame
+# http://lame.sourceforge.net/
+ubuntu_lucid_lame_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	LAME=$(which lame)
+	if [ ! -z "$LAME"  ];then
+		LAMEVERSION=$(lame --version |awk '/^LAME/ { print $4 }')
+	fi
+	cd $SRC_INSTALL
+	VERSION="3.98.4"
+	if [ "$LAMEVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour lame $VERSION')
+		echo $(eval_gettext 'Info a jour lame $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/lame-3.98.4.tar.gz ]; then
+			echo $(eval_gettext 'Info debut lame install $VERSION')
+			echo $(eval_gettext 'Info debut lame install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvf lame-3.98.4.tar.gz 2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut lame update $VERSION')
+			echo $(eval_gettext 'Info debut lame update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd lame-3.98.4
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname="libmp3lame-dev" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End lame")
+	fi
+	echo
+}
+
 # Installation de libopencore-amr
 # http://opencore-amr.sourceforge.net/
 ubuntu_lucid_libopencore_amr_install()
@@ -228,6 +265,8 @@ ubuntu_lucid_dep_install()
 	verif_svn_protocole || return 1
 	
 	ubuntu_lucid_yasm_install || return 1
+	
+	ubuntu_lucid_lame_install || return 1
 
 	ubuntu_lucid_libopus_install || return 1
 	
@@ -418,7 +457,7 @@ ubuntu_lucid_ffmpeg_install ()
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
-		wget $FFMPEG_URLPATH 2>> $LOG >> $LOG
+		wget $FFMPEG_URL 2>> $LOG >> $LOG
 		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	elif [ ! -d $FFMPEG_PATH ];then
 		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
