@@ -37,15 +37,13 @@
 # -* libtwolame
 # -* upgrade de MediaInfo en 0.7.61
 
-VERSION_UBUNTU_COMMON=0.4.0
-
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
 	*ubuntu_precise.sh) 
 	printf "
 ########################################
-MediaSPIP Ubuntu functions v$VERSION_UBUNTU_COMMON
+MediaSPIP Ubuntu functions
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

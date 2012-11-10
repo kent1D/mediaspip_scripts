@@ -24,8 +24,6 @@
 # -* upgrade de libvpx en 1.1.0
 # Version 0.3.15 : upgrade de MediaInfo en 0.7.58
 
-VERSION_CENTOS_COMMON=0.3.15
-
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
 # Ce script lancé tout seul ne sert à rien
@@ -34,7 +32,7 @@ case "$0" in
 	*centos_5_3.sh) 
 	printf "
 ########################################
-MediaSPIP Centos functions v$VERSION_CENTOS_COMMON
+MediaSPIP Centos functions
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

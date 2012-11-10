@@ -39,8 +39,6 @@
 # -* libtwolame
 # -* upgrade de MediaInfo en 0.7.61
 
-VERSION_DEBIAN_COMMON=0.3.15
-
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 
@@ -48,7 +46,7 @@ case "$0" in
 	*debian_squeeze.sh) 
 	printf "
 ########################################
-MediaSPIP Debian functions v$VERSION_DEBIAN_COMMON
+MediaSPIP Debian functions
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;
