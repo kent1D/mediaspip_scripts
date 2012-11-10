@@ -161,7 +161,6 @@ elif [ -r /etc/debian_version ]; then
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
 	if [ "$NUMBER" = '6' ]; then
 		DISTRO="squeeze"
-	fi
 	elif [ "$DISTRIB_VERSION" = 'wheezy/sid' ]; then
 		DISTRO="wheezy"	
 	fi

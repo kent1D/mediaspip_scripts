@@ -207,8 +207,8 @@ debian_wheezy_dep_install()
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php5-imagick php-pear php5-curl php5-gd libapache2-mod-php5 libmagick9-dev texi2html \
-		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		apache2.2-common mysql-server php5-dev php5-mysql php5-imagick php-pear php5-curl php5-gd libapache2-mod-php5 texi2html \
+		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
