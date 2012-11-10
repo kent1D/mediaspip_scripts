@@ -173,6 +173,41 @@ media_info_install()
 	fi
 	echo
 }
+
+# Installation de flvtool++
+flvtool_plus_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	FLVTOOLPLUS=$(which flvtool++)
+	if [ ! -z "$FLVTOOLPLUS" ]; then
+		FLVTOOLPLUSVERSION=$(flvtool++ |awk '/^flvtool++/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	
+	VERSION="1.2.1"
+	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION')
+		echo $(eval_gettext 'Info a jour flvtool++ $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut flvtool++")
+		echo $(eval_gettext "Info debut flvtool++") 2>> $LOG >> $LOG
+		cd $SRC_INSTALL
+		if [ ! -d flvtool++-1.2.1 ];then
+			mkdir flvtool++-1.2.1 2>> $LOG >> $LOG
+		fi
+		cd flvtool++-1.2.1
+		if [ ! -e flvtool++-1.2.1.tar.gz ];then
+			wget http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+		fi
+		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
+		scons 2>> $LOG >> $LOG
+		cp flvtool++ /usr/local/bin
+		echo $(eval_gettext "End flvtool++")
+	fi
+	echo
+}
+
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [ "$0" = *mediaspip_functions.sh ]; then
