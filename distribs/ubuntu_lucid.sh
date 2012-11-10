@@ -342,21 +342,21 @@ ubuntu_lucid_libopus_install()
 	export TEXTDOMAIN=mediaspip
 	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
 	cd $SRC_INSTALL
-	VERSION="1.0.1"
+	VERSION="$LIBOPUS_VERSION"
 	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour libopus $VERSION')
 		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/opus-1.0.1.tar.gz ];then
+		if [ ! -e "$SRC_INSTALL"/$LIBOPUS_FICHIER ];then
 			echo $(eval_gettext 'Info debut libopus install $VERSION')
 			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
-			wget http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz 2>> $LOG >> $LOG
-			tar xvzf opus-1.0.1.tar.gz  2>> $LOG >> $LOG
+			wget $LIBOPUS_URL 2>> $LOG >> $LOG
+			tar xvzf $LIBOPUS_FICHIER  2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext 'Info debut libopus update $VERSION')
 			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
 		fi
-		cd opus-1.0.1
+		cd $LIBOPUS_PATH
 		echo $(eval_gettext "Info compilation configure")
 		./configure 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")

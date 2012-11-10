@@ -347,10 +347,15 @@ MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_G
 MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
-FLVTOOLPLUS_VERSION="1.2.21"
-FLVTOOLPLUS_URL="http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz2"
+FLVTOOLPLUS_VERSION="1.2.1"
+FLVTOOLPLUS_URL="http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz"
 FLVTOOLPLUS_FICHIER="flvtool++-1.2.1.tar.gz"
 FLVTOOLPLUS_PATH="flvtool++-1.2.1"
+
+LIBOPUS_VERSION="1.0.1"
+LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz"
+LIBOPUS_FICHIER="opus-1.0.1.tar.gz"
+LIBOPUS_PATH="opus-1.0.1"
 
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
