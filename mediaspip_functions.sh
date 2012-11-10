@@ -148,22 +148,22 @@ media_info_install()
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
-	VERSION="0.7.61"
+	VERSION="$MEDIAINFO_VERSION"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
 		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
 	else
-		if [ ! -e "$SRC_INSTALL"/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 ];then
+		if [ ! -e "$SRC_INSTALL"/$MEDIAINFO_FICHIER ];then
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
-			wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
-			tar -xvjf MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2 2>> $LOG >> $LOG || return 1
+			wget $MEDIAINFO_URL 2>> $LOG >> $LOG || return 1
+			tar -xvjf $MEDIAINFO_FICHIER 2>> $LOG >> $LOG || return 1
 		else
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
 		fi
-		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
+		cd "$SRC_INSTALL"/$MediaInfo_CLI_GNU_FromSource
 		echo $(eval_gettext 'Info mediainfo compil install')
 		echo $(eval_gettext 'Info mediainfo compil install') 2>> $LOG >> $LOG
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
@@ -185,7 +185,7 @@ flvtool_plus_install()
 		FLVTOOLPLUSVERSION=$(flvtool++ |awk '/^flvtool++/ { print $2 }') 2>> $LOG >> $LOG
 	fi
 	
-	VERSION="1.2.1"
+	VERSION="$FLVTOOLPLUS_VERSION"
 	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour flvtool++ $VERSION')
 		echo $(eval_gettext 'Info a jour flvtool++ $VERSION') 2>> $LOG >> $LOG
@@ -193,14 +193,14 @@ flvtool_plus_install()
 		echo $(eval_gettext "Info debut flvtool++")
 		echo $(eval_gettext "Info debut flvtool++") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL
-		if [ ! -d flvtool++-1.2.1 ];then
-			mkdir flvtool++-1.2.1 2>> $LOG >> $LOG
+		if [ ! -d $FLVTOOLPLUS_PATH ];then
+			mkdir $FLVTOOLPLUS_PATH 2>> $LOG >> $LOG
 		fi
-		cd flvtool++-1.2.1
-		if [ ! -e flvtool++-1.2.1.tar.gz ];then
-			wget http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG  || return 1
+		cd $FLVTOOLPLUS_PATH
+		if [ ! -e $FLVTOOLPLUS_FICHIER ];then
+			wget $FLVTOOLPLUS_URL 2>> $LOG >> $LOG  || return 1
 		fi
-		tar xvzf flvtool++-1.2.1.tar.gz 2>> $LOG >> $LOG
+		tar xvzf $FLVTOOLPLUS_FICHIER 2>> $LOG >> $LOG
 		scons 2>> $LOG >> $LOG
 		cp flvtool++ /usr/local/bin
 		echo $(eval_gettext "End flvtool++")

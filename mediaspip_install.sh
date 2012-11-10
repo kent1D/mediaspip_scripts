@@ -342,6 +342,16 @@ FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2"
 FFMPEG_FICHIER="ffmpeg-1.0.tar.bz2"
 FFMPEG_PATH="ffmpeg-1.0"
 
+MEDIAINFO_VERSION="0.7.61"
+MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
+MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
+
+FLVTOOLPLUS_VERSION="1.2.21"
+FLVTOOLPLUS_URL="http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz2"
+FLVTOOLPLUS_FICHIER="flvtool++-1.2.1.tar.gz"
+FLVTOOLPLUS_PATH="flvtool++-1.2.1"
+
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 
