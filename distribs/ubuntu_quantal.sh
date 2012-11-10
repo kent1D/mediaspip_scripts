@@ -68,7 +68,7 @@ ubuntu_quantal_dep_install()
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	#apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
-	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
+	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
 		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
 		flac vorbis-tools xpdf poppler-utils catdoc \
@@ -77,8 +77,6 @@ ubuntu_quantal_dep_install()
 	echo
 
 	verif_svn_protocole || return 1
-	
-	ubuntu_quantal_yasm_install || return 1
 	
 	flvtool_plus_install || return 1
 
@@ -134,41 +132,6 @@ ubuntu_quantal_apache_install ()
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	echo
-}
-
-
-# Installation de yasm
-# http://yasm.tortall.net/
-ubuntu_quantal_yasm_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"
-	
-	VERSION="1.2.0"
-	if [ -x $(which yasm) ];then
-		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
-	fi
-	if [ "$YASMVERSION" = "$VERSION" ];then
-		echo $(eval_gettext 'Info a jour yasm $VERSION')
-		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
-	else
-		echo $(eval_gettext "Info debut yasm install")
-		echo $(eval_gettext "Info debut yasm install") 2>> $LOG >> $LOG
-		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
-			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
-		fi
-		cd yasm-1.2.0
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End yasm")
-	fi
 	echo
 }
 
