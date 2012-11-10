@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# debian_squeeze_common
+# debian_squeeze
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
@@ -45,10 +45,10 @@ VERSION_DEBIAN_COMMON=0.3.15
 # On s'arrête dès son appel
 
 case "$0" in
-	*debian_squeeze_common.sh) 
+	*debian_squeeze.sh) 
 	printf "
 ########################################
-MediaSPIP Debian common functions v$VERSION_DEBIAN_COMMON
+MediaSPIP Debian functions v$VERSION_DEBIAN_COMMON
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

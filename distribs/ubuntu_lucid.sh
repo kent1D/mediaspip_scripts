@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ubuntu_lucid_common
+# ubuntu_lucid
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
@@ -42,10 +42,10 @@ VERSION_UBUNTU_COMMON=0.4.0
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
-	*ubuntu_lucid_common.sh) 
+	*ubuntu_lucid.sh) 
 	printf "
 ########################################
-MediaSPIP Ubuntu common functions v$VERSION_UBUNTU_COMMON
+MediaSPIP Ubuntu functions v$VERSION_UBUNTU_COMMON
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

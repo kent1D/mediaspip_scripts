@@ -5,6 +5,8 @@
 # Version 0.6.0
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
+# - Apache2
+# - Mysql
 # - php5-gd2;
 # - php5-curl;
 # - php5-imagick;
@@ -13,7 +15,6 @@
 # - libopencore-amr;
 # - libtheora;
 # - rtmpdump;
-# - flvtool2;
 # - flvtool++;
 # - mediainfo;
 # - ffmpeg;
@@ -96,7 +97,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.5.0"
+VERSION_INSTALL="0.6.0"
 
 LOGO="
 ######################################################################################
@@ -341,8 +342,8 @@ FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2"
 FFMPEG_FICHIER="ffmpeg-1.0.tar.bz2"
 FFMPEG_PATH="ffmpeg-1.0"
 
-FICHIER="distribs/$DISTRIB_$DISTRO_common.sh"
-. ./distribs/"$DISTRIB"_"$DISTRO"_common.sh	2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
+FICHIER="distribs/$DISTRIB_$DISTRO.sh"
+. ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 
 ###############################
 # Suite des fonctions du script

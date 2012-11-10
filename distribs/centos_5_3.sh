@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# centos_5_3_common
+# centos_5_3
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
@@ -31,10 +31,10 @@ export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
-	*centos_5_3_common.sh) 
+	*centos_5_3.sh) 
 	printf "
 ########################################
-MediaSPIP Centos common functions v$VERSION_CENTOS_COMMON
+MediaSPIP Centos functions v$VERSION_CENTOS_COMMON
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

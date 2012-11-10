@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# ubuntu_quantal_common
+# ubuntu_precise
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
-# Installation des dépendances de manière stable pour Ubuntu quantal
+# Installation des dépendances de manière stable pour Ubuntu precise
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
@@ -42,10 +42,10 @@ VERSION_UBUNTU_COMMON=0.4.0
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
-	*ubuntu_quantal_common.sh) 
+	*ubuntu_precise.sh) 
 	printf "
 ########################################
-MediaSPIP Ubuntu common functions v$VERSION_UBUNTU_COMMON
+MediaSPIP Ubuntu functions v$VERSION_UBUNTU_COMMON
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;
@@ -57,9 +57,48 @@ Please have a look to mediaspip_install.sh\n\n"
 	shift;;
 esac
 
+# Installation de libvpx
+# http://code.google.com/p/webm/
+ubuntu_precise_libvpx_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd $SRC_INSTALL
+	VERSION="1.1.0"
+	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
+	case "$LIBVPX" in
+		*$VERSION*)
+			echo $(eval_gettext 'Info a jour libvpx $VERSION')
+			echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
+			;;
+		*)
+			echo $(eval_gettext 'Info debut libvpx install $VERSION')
+			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v1.1.0.tar.bz2 ];then
+				wget http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.1.0 ]; then
+				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+			fi
+			cd libvpx-v1.1.0
+			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation configure")
+			./configure --enable-shared 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation make")
+			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+			echo $(eval_gettext "Info compilation install")
+			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
+			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+			echo $(eval_gettext "End libvpx")
+			;;
+	esac
+	ldconfig
+	echo
+}
+
 # Installation de diverses dépendances
-# Pour Ubuntu quantal
-ubuntu_quantal_dep_install()
+# Pour Ubuntu precise
+ubuntu_precise_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -68,19 +107,22 @@ ubuntu_quantal_dep_install()
 	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	#apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
-		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
+		libmp3lame-dev libopencore-amrwb-dev libopencore-amrnb-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev librtmp-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
 
 	verif_svn_protocole || return 1
-	
-	ubuntu_quantal_yasm_install || return 1
+
+	ubuntu_precise_yasm_install || return 1
+
+	ubuntu_precise_libopus_install || return 1
+
+	ubuntu_precise_libvpx_install || return 1
 	
 	flvtool_plus_install || return 1
 
@@ -91,7 +133,7 @@ ubuntu_quantal_dep_install()
 }
 
 # Préconfiguration basique d'Apache
-ubuntu_quantal_apache_install ()
+ubuntu_precise_apache_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -142,7 +184,7 @@ ubuntu_quantal_apache_install ()
 
 # Installation de yasm
 # http://yasm.tortall.net/
-ubuntu_quantal_yasm_install ()
+ubuntu_precise_yasm_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -174,9 +216,43 @@ ubuntu_quantal_yasm_install ()
 	echo
 }
 
+# Installation de libopus
+# http://www.opus-codec.org
+ubuntu_precise_libopus_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
+	cd $SRC_INSTALL
+	VERSION="1.0.1"
+	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour libopus $VERSION')
+		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/opus-1.0.1.tar.gz ];then
+			echo $(eval_gettext 'Info debut libopus install $VERSION')
+			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
+			wget http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz 2>> $LOG >> $LOG
+			tar xvzf opus-1.0.1.tar.gz  2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut libopus update $VERSION')
+			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd opus-1.0.1
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		echo $(eval_gettext "End libtheora")
+	fi
+	echo
+}
+
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-ubuntu_quantal_x264_install ()
+ubuntu_precise_x264_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -218,12 +294,12 @@ ubuntu_quantal_x264_install ()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-ubuntu_quantal_ffmpeg_install ()
+ubuntu_precise_ffmpeg_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIERffmpeg-1.0.tar.bz2 ];then
+	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
 		echo $(eval_gettext "Info debut ffmpeg install")
 		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
 		echo
@@ -240,7 +316,7 @@ ubuntu_quantal_ffmpeg_install ()
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $3}')
 	fi
 	
-	cd $SRC_INSTALL/$FFMPEG_PATH
+	cd $SRC_INSTALL/ffmpeg-1.0
 	
 	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext "Info a jour ffmpeg")
