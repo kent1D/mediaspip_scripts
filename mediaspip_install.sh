@@ -157,9 +157,13 @@ elif [ -r /etc/lsb-release ];then
 # Cas de debian
 elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
+	DISTRIB_VERSION=$(cat /etc/debian_version)
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
 	if [ "$NUMBER" = '6' ]; then
 		DISTRO="squeeze"
+	fi
+	elif [ "$DISTRIB_VERSION" = 'wheezy/sid' ]; then
+		DISTRO="wheezy"	
 	fi
 # Cas de redhat (?) et centos
 elif [ -r /etc/redhat-release ]; then
@@ -170,7 +174,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze lucid precise quantal 5_3';
+OKDISTRO='squeeze wheezy lucid precise quantal 5_3';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
