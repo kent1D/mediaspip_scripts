@@ -55,6 +55,40 @@ Please have a look to mediaspip_install.sh\n\n"
 	shift;;
 esac
 
+# Installation de diverses dépendances
+# Pour Ubuntu precise
+ubuntu_precise_dep_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	echo $(eval_gettext "Info apt maj base")
+	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
+	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apt maj paquets")
+	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
+	export DEBIAN_FRONTEND=noninteractive
+	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
+		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
+		libmp3lame-dev libopencore-amrwb-dev libopencore-amrnb-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev librtmp-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		flac vorbis-tools xpdf poppler-utils catdoc \
+		2>> $LOG >> $LOG || return 1
+	apt-get clean 2>> $LOG >> $LOG || return 1
+	echo
+
+	verif_svn_protocole || return 1
+
+	ubuntu_precise_libopus_install || return 1
+
+	ubuntu_precise_libvpx_install || return 1
+	
+	flvtool_plus_install || return 1
+
+	media_info_install || return 1
+	
+	cd $CURRENT
+	return 0
+}
+
 # Installation de libvpx
 # http://code.google.com/p/webm/
 ubuntu_precise_libvpx_install()
@@ -91,89 +125,6 @@ ubuntu_precise_libvpx_install()
 			;;
 	esac
 	ldconfig
-	echo
-}
-
-# Installation de diverses dépendances
-# Pour Ubuntu precise
-ubuntu_precise_dep_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info apt maj base")
-	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
-	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apt maj paquets")
-	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	export DEBIAN_FRONTEND=noninteractive
-	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
-		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
-		libmp3lame-dev libopencore-amrwb-dev libopencore-amrnb-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev librtmp-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc \
-		2>> $LOG >> $LOG || return 1
-	apt-get clean 2>> $LOG >> $LOG || return 1
-	echo
-
-	verif_svn_protocole || return 1
-
-	ubuntu_precise_libopus_install || return 1
-
-	ubuntu_precise_libvpx_install || return 1
-	
-	flvtool_plus_install || return 1
-
-	media_info_install || return 1
-	
-	cd $CURRENT
-	return 0
-}
-
-# Préconfiguration basique d'Apache
-ubuntu_precise_apache_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info apache mod headers")
-	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod rewrite")
-	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod deflate")
-	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod deflate fichier")
-	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod expires")
-	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod expires fichier")
-	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mime fichier")
-	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
-	echo "file_uploads = On" > /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo
-	
-	echo $(eval_gettext "Info apache reload")
-	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
 	echo
 }
 
@@ -301,4 +252,53 @@ ubuntu_precise_ffmpeg_install ()
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
+}
+
+# Préconfiguration basique d'Apache
+ubuntu_precise_apache_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	echo $(eval_gettext "Info apache mod headers")
+	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
+	a2enmod headers 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod rewrite")
+	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
+	a2enmod rewrite 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod deflate")
+	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
+	a2enmod deflate 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod deflate fichier")
+	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod expires")
+	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
+	a2enmod expires 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod expires fichier")
+	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mime fichier")
+	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
+	echo "file_uploads = On" > /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo
+	
+	echo $(eval_gettext "Info apache reload")
+	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	echo
 }

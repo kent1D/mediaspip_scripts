@@ -55,6 +55,85 @@ Please have a look to mediaspip_install.sh\n\n"
 	shift;;
 esac
 
+# Installation de diverses dépendances
+# Pour Ubuntu Lucid
+ubuntu_lucid_dep_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	echo $(eval_gettext "Info apt maj base")
+	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
+	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apt maj paquets")
+	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
+	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
+	export DEBIAN_FRONTEND=noninteractive
+	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
+		apache2 mysql-server php5-dev php-pear php5-curl php5-mysql php5-gd libapache2-mod-php5  libmagick9-dev texi2html \
+		libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		flac vorbis-tools xpdf poppler-utils catdoc \
+		2>> $LOG >> $LOG || return 1
+	apt-get clean 2>> $LOG >> $LOG || return 1
+	echo
+
+	verif_svn_protocole || return 1
+	
+	ubuntu_lucid_yasm_install || return 1
+	
+	ubuntu_lucid_lame_install || return 1
+
+	ubuntu_lucid_libopus_install || return 1
+	
+	ubuntu_lucid_libopencore_amr_install || return 1
+
+	ubuntu_lucid_libvpx_install || return 1
+
+	ubuntu_lucid_rtmpdump_install || return 1
+	
+	flvtool_plus_install || return 1
+
+	media_info_install || return 1
+
+	ubuntu_lucid_phpimagick_install || return 1
+	
+	cd $CURRENT
+	return 0
+}
+
+# Installation de yasm
+# http://yasm.tortall.net/
+ubuntu_lucid_yasm_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd "$SRC_INSTALL"
+	
+	VERSION="1.2.0"
+	if [ -x $(which yasm) ];then
+		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	if [ "$YASMVERSION" = "$VERSION" ];then
+		echo $(eval_gettext 'Info a jour yasm $VERSION')
+		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext "Info debut yasm install")
+		echo $(eval_gettext "Info debut yasm install") 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
+			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+		fi
+		cd yasm-1.2.0
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End yasm")
+	fi
+	echo
+}
+
 # Installation de Lame
 # http://lame.sourceforge.net/
 ubuntu_lucid_lame_install()
@@ -166,174 +245,6 @@ ubuntu_lucid_libvpx_install()
 	echo
 }
 
-# Installation de php-imagick via pecl
-# On n'utilise pas la version des dépots officiels car trop ancienne
-# et bugguée avec safe_mode php
-# http://pecl.php.net/package/imagick
-ubuntu_lucid_phpimagick_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	pecl channel-update pecl.php.net 2>> $LOG >> $LOG
-	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
-	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
-	# Cas de l'installation
-	if [ "$ACTUEL" = "-" ]; then
-		echo $(eval_gettext "Info debut php-imagick install")
-		echo $(eval_gettext "Info debut php-imagick install") 2>> $LOG >> $LOG
-		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
-		echo $(eval_gettext "End php-imagick")
-		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
-	# Cas où on a déjà installé la dernière version
-	elif [ "$ACTUEL" = "$LATEST" ]; then
-		echo $(eval_gettext "Info a jour php-imagick")
-		echo $(eval_gettext "Info a jour php-imagick") 2>> $LOG >> $LOG
-	# Cas de la mise à jour
-	else
-		echo $(eval_gettext "Info debut php-imagick update")
-		echo $(eval_gettext "Info debut php-imagick update") 2>> $LOG >> $LOG
-		pecl upgrade imagick 2>> $LOG >> $LOG
-		echo $(eval_gettext "End php-imagick")
-		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
-	fi
-	# On crée la conf si inexistante
-	if [ ! -e /etc/php5/apache2/conf.d/imagick.ini ];then
-		echo "; configuration for php imagick module" > /etc/php5/apache2/conf.d/imagick.ini
-		echo "extension=imagick.so" >> /etc/php5/apache2/conf.d/imagick.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	fi
-	echo
-}
-
-# Installation de diverses dépendances
-# Pour Ubuntu Lucid
-ubuntu_lucid_dep_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info apt maj base")
-	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
-	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apt maj paquets")
-	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
-	export DEBIAN_FRONTEND=noninteractive
-	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2 mysql-server php5-dev php-pear php5-curl php5-mysql php5-gd libapache2-mod-php5  libmagick9-dev texi2html \
-		libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc \
-		2>> $LOG >> $LOG || return 1
-	apt-get clean 2>> $LOG >> $LOG || return 1
-	echo
-
-	verif_svn_protocole || return 1
-	
-	ubuntu_lucid_yasm_install || return 1
-	
-	ubuntu_lucid_lame_install || return 1
-
-	ubuntu_lucid_libopus_install || return 1
-	
-	ubuntu_lucid_libopencore_amr_install || return 1
-
-	ubuntu_lucid_libvpx_install || return 1
-
-	ubuntu_lucid_rtmpdump_install || return 1
-	
-	flvtool_plus_install || return 1
-
-	media_info_install || return 1
-
-	ubuntu_lucid_phpimagick_install || return 1
-	
-	cd $CURRENT
-	return 0
-}
-
-# Préconfiguration basique d'Apache
-ubuntu_lucid_apache_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info apache mod headers")
-	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod rewrite")
-	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod deflate")
-	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod deflate fichier")
-	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod expires")
-	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod expires fichier")
-	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mime fichier")
-	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
-	echo "file_uploads = On" > /etc/php5/conf.d/mediaspip_upload.ini
-	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
-	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
-	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
-	echo
-	
-	echo $(eval_gettext "Info apache reload")
-	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	echo
-}
-
-
-# Installation de yasm
-# http://yasm.tortall.net/
-ubuntu_lucid_yasm_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"
-	
-	VERSION="1.2.0"
-	if [ -x $(which yasm) ];then
-		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
-	fi
-	if [ "$YASMVERSION" = "$VERSION" ];then
-		echo $(eval_gettext 'Info a jour yasm $VERSION')
-		echo $(eval_gettext 'Info a jour yasm $VERSION') 2>> $LOG >> $LOG
-	else
-		echo $(eval_gettext "Info debut yasm install")
-		echo $(eval_gettext "Info debut yasm install") 2>> $LOG >> $LOG
-		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
-			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
-			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
-		fi
-		cd yasm-1.2.0
-		echo $(eval_gettext "Info compilation configure")
-		./configure 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End yasm")
-	fi
-	echo
-}
-
 # Installation de libopus
 # http://www.opus-codec.org
 ubuntu_lucid_libopus_install()
@@ -364,6 +275,38 @@ ubuntu_lucid_libopus_install()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
 		echo $(eval_gettext "End libtheora")
+	fi
+	echo
+}
+
+ubuntu_lucid_rtmpdump_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG
+	cd $SRC_INSTALL
+	
+	VERSION="2.3"
+	if [ -x $(which rtmpdump) ];then
+		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
+	fi
+	if [ "$RTMPDUMPVERSION" = "v$VERSION" ];then
+		echo $(eval_gettext 'Info a jour rtmpdump $VERSION')
+		echo $(eval_gettext 'Info a jour rtmpdump $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
+			echo $(eval_gettext "Info debut rtmpdump install")
+			echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
+			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
+			tar xvzf rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
+		fi
+		cd rtmpdump-2.3
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "End rtmpdump")
 	fi
 	echo
 }
@@ -460,35 +403,90 @@ ubuntu_lucid_ffmpeg_install ()
 	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
 }
 
-
-ubuntu_lucid_rtmpdump_install()
+# Installation de php-imagick via pecl
+# On n'utilise pas la version des dépots officiels car trop ancienne
+# et bugguée avec safe_mode php
+# http://pecl.php.net/package/imagick
+ubuntu_lucid_phpimagick_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	
-	apt-get -y --force-yes install libssl-dev 2>> $LOG >> $LOG
-	cd $SRC_INSTALL
-	
-	VERSION="2.3"
-	if [ -x $(which rtmpdump) ];then
-		RTMPDUMPVERSION=$(pkg-config --modversion librtmp) 2>> $LOG >> $LOG
-	fi
-	if [ "$RTMPDUMPVERSION" = "v$VERSION" ];then
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION')
-		echo $(eval_gettext 'Info a jour rtmpdump $VERSION') 2>> $LOG >> $LOG
+	pecl channel-update pecl.php.net 2>> $LOG >> $LOG
+	LATEST=$(pecl remote-info imagick |awk '/^Latest/ { print $2 }') 2>> $LOG >> $LOG
+	ACTUEL=$(pecl remote-info imagick |awk '/^Installed/ { print $2 }') 2>> $LOG >> $LOG
+	# Cas de l'installation
+	if [ "$ACTUEL" = "-" ]; then
+		echo $(eval_gettext "Info debut php-imagick install")
+		echo $(eval_gettext "Info debut php-imagick install") 2>> $LOG >> $LOG
+		echo autodetect | pecl install imagick 2>> $LOG >> $LOG
+		echo $(eval_gettext "End php-imagick")
+		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
+	# Cas où on a déjà installé la dernière version
+	elif [ "$ACTUEL" = "$LATEST" ]; then
+		echo $(eval_gettext "Info a jour php-imagick")
+		echo $(eval_gettext "Info a jour php-imagick") 2>> $LOG >> $LOG
+	# Cas de la mise à jour
 	else
-		if [ ! -e "$SRC_INSTALL"/rtmpdump-2.3.tgz ];then
-			echo $(eval_gettext "Info debut rtmpdump install")
-			echo $(eval_gettext "Info debut rtmpdump install") 2>> $LOG >> $LOG
-			wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-			tar xvzf rtmpdump-2.3.tgz 2>> $LOG >> $LOG || return 1
-		fi
-		cd rtmpdump-2.3
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=rtmpdump --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "End rtmpdump")
+		echo $(eval_gettext "Info debut php-imagick update")
+		echo $(eval_gettext "Info debut php-imagick update") 2>> $LOG >> $LOG
+		pecl upgrade imagick 2>> $LOG >> $LOG
+		echo $(eval_gettext "End php-imagick")
+		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
 	fi
+	# On crée la conf si inexistante
+	if [ ! -e /etc/php5/apache2/conf.d/imagick.ini ];then
+		echo "; configuration for php imagick module" > /etc/php5/apache2/conf.d/imagick.ini
+		echo "extension=imagick.so" >> /etc/php5/apache2/conf.d/imagick.ini
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	fi
+	echo
+}
+
+# Préconfiguration basique d'Apache
+ubuntu_lucid_apache_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	echo $(eval_gettext "Info apache mod headers")
+	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
+	a2enmod headers 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod rewrite")
+	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
+	a2enmod rewrite 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod deflate")
+	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
+	a2enmod deflate 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod deflate fichier")
+	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod expires")
+	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
+	a2enmod expires 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod expires fichier")
+	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mime fichier")
+	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
+	echo "file_uploads = On" > /etc/php5/conf.d/mediaspip_upload.ini
+	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
+	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
+	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
+	echo
+	
+	echo $(eval_gettext "Info apache reload")
+	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
 	echo
 }

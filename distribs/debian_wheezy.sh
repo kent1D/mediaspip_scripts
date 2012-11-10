@@ -58,6 +58,54 @@ Please have a look to mediaspip_install.sh\n\n"
 	shift;;
 esac
 
+# Installation de diverses dépendances
+# Pour Debian wheezy
+debian_wheezy_dep_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	DEBIANMULTIMEDIA=$(grep "deb-multimedia" /etc/apt/sources.list |grep wheezy) 2>> $LOG >> $LOG
+	if [ -z "$DEBIANMULTIMEDIA" ];then
+		echo $(eval_gettext 'Info apt debian-multimedia question auto')
+		echo -n "$QUESTION_VALID"
+		read REPLY
+		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
+			echo
+			echo $(eval_gettext 'Info apt debian-multimedia copie')
+			echo "deb http://www.deb-multimedia.org wheezy main non-free" >> /etc/apt/sources.list 2>> $LOG
+			echo $(eval_gettext 'Info apt debian-multimedia installation cle')
+			apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
+			apt-get -y --force-yes install deb-multimedia-keyring 2>> $LOG >> $LOG || return 1
+			echo $(eval_gettext 'End debian-multimedia')
+			echo
+	fi
+	echo $(eval_gettext "Info apt maj base")
+	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
+	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apt maj paquets")
+	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
+	export DEBIAN_FRONTEND=noninteractive
+	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
+		apache2.2-common mysql-server php5-dev php5-mysql php5-imagick php-pear php5-curl php5-gd libapache2-mod-php5 texi2html \
+		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		flac vorbis-tools xpdf poppler-utils catdoc \
+		2>> $LOG >> $LOG || return 1
+	apt-get clean 2>> $LOG >> $LOG || return 1
+	echo
+	
+	verif_svn_protocole || return 1
+	
+	debian_wheezy_libopus_install || return 1
+	
+	flvtool_plus_install || return 1
+	
+	media_info_install || return 1
+	
+	cd $CURRENT
+	return 0
+}
+
 # Installation de libopus
 # http://www.opus-codec.org
 debian_wheezy_libopus_install()
@@ -90,6 +138,49 @@ debian_wheezy_libopus_install()
 		echo $(eval_gettext "End libtheora")
 	fi
 	echo
+}
+
+# Installation de x264
+# http://www.videolan.org/developers/x264.html
+debian_wheezy_x264_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd "$SRC_INSTALL"
+	
+	# Si on a déjà les sources, on ne fait que les mettre à jour
+	if [ -d $SRC_INSTALL/x264/.git ];then
+		echo $(eval_gettext "Info debut x264 update")
+		echo
+		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
+		cd $SRC_INSTALL/x264
+		git pull 2>> $LOG >> $LOG || return 1
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
+	# Sinon on les récupère
+	else
+		echo $(eval_gettext "Info debut x264 install")
+		echo
+		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
+		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
+		cd $SRC_INSTALL/x264
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
+	fi
+	
+	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
+	if [ "$REVISION" = "$NEWREVISION" ]; then
+		echo $(eval_gettext "Info a jour x264")
+		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
+	else
+		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation configure")
+		./configure --enable-shared 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		VERSION=$(sh version.sh | awk '/^#define X264_POINTVER/ { print $3 }' |awk -F '"' '{print $2}')
+		checkinstall --pkgname=x264 --pkgversion "3:$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+	fi
 }
 
 # Installation de FFMpeg
@@ -142,54 +233,6 @@ debian_wheezy_ffmpeg_install ()
 	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
 }
 
-# Installation de diverses dépendances
-# Pour Debian wheezy
-debian_wheezy_dep_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	DEBIANMULTIMEDIA=$(grep "deb-multimedia" /etc/apt/sources.list |grep wheezy) 2>> $LOG >> $LOG
-	if [ -z "$DEBIANMULTIMEDIA" ];then
-		echo $(eval_gettext 'Info apt debian-multimedia question auto')
-		echo -n "$QUESTION_VALID"
-		read REPLY
-		[ "$REPLY" = "y" ] || [ "$REPLY" = "o" ] || [ -z "$REPLY" ] || die $(eval_gettext 'Erreur apt debian-multimedia')
-			echo
-			echo $(eval_gettext 'Info apt debian-multimedia copie')
-			echo "deb http://www.deb-multimedia.org wheezy main non-free" >> /etc/apt/sources.list 2>> $LOG
-			echo $(eval_gettext 'Info apt debian-multimedia installation cle')
-			apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
-			apt-get -y --force-yes install deb-multimedia-keyring 2>> $LOG >> $LOG || return 1
-			echo $(eval_gettext 'End debian-multimedia')
-			echo
-	fi
-	echo $(eval_gettext "Info apt maj base")
-	echo $(eval_gettext "Info apt maj base") 2>> $LOG >> $LOG
-	apt-get -y --force-yes update 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apt maj paquets")
-	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
-	export DEBIAN_FRONTEND=noninteractive
-	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php5-imagick php-pear php5-curl php5-gd libapache2-mod-php5 texi2html \
-		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc \
-		2>> $LOG >> $LOG || return 1
-	apt-get clean 2>> $LOG >> $LOG || return 1
-	echo
-	
-	verif_svn_protocole || return 1
-	
-	debian_wheezy_libopus_install || return 1
-	
-	flvtool_plus_install || return 1
-	
-	media_info_install || return 1
-	
-	cd $CURRENT
-	return 0
-}
-
 # Préconfiguration basique d'Apache
 debian_wheezy_apache_install ()
 {
@@ -238,47 +281,4 @@ debian_wheezy_apache_install ()
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
 	
 	echo
-}
-
-# Installation de x264
-# http://www.videolan.org/developers/x264.html
-debian_wheezy_x264_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	cd "$SRC_INSTALL"
-	
-	# Si on a déjà les sources, on ne fait que les mettre à jour
-	if [ -d $SRC_INSTALL/x264/.git ];then
-		echo $(eval_gettext "Info debut x264 update")
-		echo
-		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
-		cd $SRC_INSTALL/x264
-		git pull 2>> $LOG >> $LOG || return 1
-		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
-	# Sinon on les récupère
-	else
-		echo $(eval_gettext "Info debut x264 install")
-		echo
-		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
-		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
-		cd $SRC_INSTALL/x264
-		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
-	fi
-	
-	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
-	if [ "$REVISION" = "$NEWREVISION" ]; then
-		echo $(eval_gettext "Info a jour x264")
-		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
-	else
-		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG || return 1
-		echo $(eval_gettext "Info compilation make")
-		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
-		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
-		echo $(eval_gettext "Info compilation install")
-		VERSION=$(sh version.sh | awk '/^#define X264_POINTVER/ { print $3 }' |awk -F '"' '{print $2}')
-		checkinstall --pkgname=x264 --pkgversion "3:$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
-	fi
 }

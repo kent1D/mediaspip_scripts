@@ -86,55 +86,6 @@ ubuntu_quantal_dep_install()
 	return 0
 }
 
-# Préconfiguration basique d'Apache
-ubuntu_quantal_apache_install ()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	echo $(eval_gettext "Info apache mod headers")
-	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
-	a2enmod headers 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod rewrite")
-	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
-	a2enmod rewrite 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod deflate")
-	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
-	a2enmod deflate 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod deflate fichier")
-	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mod expires")
-	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
-	a2enmod expires 2>> $LOG >> $LOG || return 1
-	echo $(eval_gettext "Info apache mod expires fichier")
-	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext "Info apache mime fichier")
-	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
-	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
-	echo
-	
-	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
-	echo "file_uploads = On" > /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
-	echo
-	
-	echo $(eval_gettext "Info apache reload")
-	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
-	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	echo
-}
-
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
 ubuntu_quantal_x264_install ()
@@ -225,4 +176,53 @@ ubuntu_quantal_ffmpeg_install ()
 	fi
 	echo
 	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
+}
+
+# Préconfiguration basique d'Apache
+ubuntu_quantal_apache_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	echo $(eval_gettext "Info apache mod headers")
+	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
+	a2enmod headers 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod rewrite")
+	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
+	a2enmod rewrite 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod deflate")
+	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
+	a2enmod deflate 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod deflate fichier")
+	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mod expires")
+	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
+	a2enmod expires 2>> $LOG >> $LOG || return 1
+	echo $(eval_gettext "Info apache mod expires fichier")
+	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext "Info apache mime fichier")
+	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
+	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
+	echo
+	
+	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
+	echo "file_uploads = On" > /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/apache2/conf.d/mediaspip_upload.ini
+	echo
+	
+	echo $(eval_gettext "Info apache reload")
+	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
+	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	echo
 }
