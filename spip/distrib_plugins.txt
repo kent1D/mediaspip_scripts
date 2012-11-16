@@ -45,6 +45,7 @@ notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/trunk
 nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
 # O
+oembed;svn://zone.spip.org/spip-zone/_plugins_/oembed
 openid;svn://zone.spip.org/spip-zone/_plugins_/openid
 opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
