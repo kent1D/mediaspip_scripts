@@ -68,4 +68,4 @@ verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
 
 # Z
 zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/branches/v1
-zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard
+zeroclipboard;svn://zone.spip.org/spip-zone/_plugins_/zeroclipboard/branches/v1
