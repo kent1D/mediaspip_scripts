@@ -2,6 +2,7 @@
 auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/trunk
 
 # C
+comments;svn://zone.spip.org/spip-zone/_plugins_/comments/trunk
 contact;svn://zone.spip.org/spip-zone/_plugins_/contact/trunk
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
