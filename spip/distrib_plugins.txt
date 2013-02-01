@@ -11,8 +11,8 @@ cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interfa
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
 # D
-diogene_geo;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo/branches/v1
-diogene_notation;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_notation/branches/v1
+diogene_geo;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_geo/branches/v1
+diogene_notation;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_notation/branches/v1
 
 # F
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
