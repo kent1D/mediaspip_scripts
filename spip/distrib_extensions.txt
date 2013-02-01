@@ -8,8 +8,8 @@ crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
 diogene;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene/trunk
-diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/trunk
-diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/trunk
+diogene_gerer_auteurs;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_gerer_auteurs/trunk
+diogene_licence;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_licence/trunk
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
 
 # E

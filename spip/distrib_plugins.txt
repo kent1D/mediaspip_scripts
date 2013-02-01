@@ -11,10 +11,10 @@ cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interfa
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
 # D
-diogene_geo;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_geo/trunk
-diogene_mots;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_mots/trunk
-diogene_notation;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_notation/trunk
-diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/trunk
+diogene_geo;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_geo/trunk
+diogene_mots;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_mots/trunk
+diogene_notation;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_notation/trunk
+diogene_spipicious;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_spipicious/trunk
 
 # F
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
