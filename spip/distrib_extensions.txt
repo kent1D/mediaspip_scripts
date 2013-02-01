@@ -7,7 +7,7 @@ contact;svn://zone.spip.org/spip-zone/_plugins_/contact/trunk
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
-diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/trunk
+diogene;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene/trunk
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/trunk
 diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/trunk
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
