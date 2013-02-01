@@ -30,9 +30,6 @@ forum;svn://zone.spip.org/spip-zone/_core_/branches/spip-2.1/plugins/forum
 # G
 getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/branches/v1
 
-# H
-html5;http://svn.aires-de-confluxence.info/svn/plugins_spip/html5/branches/v1
-
 # J
 job_queue;svn://zone.spip.org/spip-zone/_plugins_/job_queue
 jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
@@ -44,6 +41,7 @@ licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config/branches/v1
 mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/branches/v1
 mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/branches/v1
+mediaspip_player;svn://zone.spip.org/spip-zone/_plugins_/mediaspip_player/branches/v1
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
 
 # N
