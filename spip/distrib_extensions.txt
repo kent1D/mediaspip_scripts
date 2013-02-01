@@ -27,7 +27,7 @@ fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/trunk
 getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/trunk
 
 # J
-jquery_file_upload;http://svn.aires-de-confluxence.info/svn/plugins_spip/jquery_file_upload/trunk
+jquery_file_upload;svn://zone.spip.org/spip-zone/_plugins_/jquery_file_upload/trunk
 
 # L
 licence;svn://zone.spip.org/spip-zone/_plugins_/licence
