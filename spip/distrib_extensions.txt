@@ -11,7 +11,7 @@ contact;svn://zone.spip.org/spip-zone/_plugins_/contact/branches/v0_7
 crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
 
 # D
-diogene;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene/branches/v1
+diogene;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene/branches/v1
 diogene_gerer_auteurs;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_gerer_auteurs/branches/v1
 diogene_licence;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_licence/branches/v1
 diogene_spipicious;http://svn.aires-de-confluxence.info/svn/plugins_spip/diogene_complements/diogene_spipicious/branches/v1
