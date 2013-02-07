@@ -337,10 +337,10 @@ if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
-FFMPEG_VERSION="1.0"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.0.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-1.0.tar.bz2"
-FFMPEG_PATH="ffmpeg-1.0"
+FFMPEG_VERSION="1.1.2"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.1.2.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-1.1.2.tar.bz2"
+FFMPEG_PATH="ffmpeg-1.1.2"
 
 MEDIAINFO_VERSION="0.7.61"
 MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
@@ -352,10 +352,10 @@ FLVTOOLPLUS_URL="http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz"
 FLVTOOLPLUS_FICHIER="flvtool++-1.2.1.tar.gz"
 FLVTOOLPLUS_PATH="flvtool++-1.2.1"
 
-LIBOPUS_VERSION="1.0.1"
-LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.0.1.tar.gz"
-LIBOPUS_FICHIER="opus-1.0.1.tar.gz"
-LIBOPUS_PATH="opus-1.0.1"
+LIBOPUS_VERSION="1.0.2"
+LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.0.2.tar.gz"
+LIBOPUS_FICHIER="opus-1.0.2.tar.gz"
+LIBOPUS_PATH="opus-1.0.2"
 
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
