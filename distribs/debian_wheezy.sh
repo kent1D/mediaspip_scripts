@@ -276,6 +276,8 @@ debian_wheezy_apache_install ()
 	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo
 	
+	cp $CURRENT/configs/apache/vhosts/* /etc/apache2/sites-available/ 2>> $LOG >> $LOG
+	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
