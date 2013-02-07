@@ -13,7 +13,7 @@ diogene_licence;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_compleme
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
 
 # E
-emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/trunk
+emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1.3
 emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/trunk
 emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion/trunk
 embed_code;svn://zone.spip.org/spip-zone/_plugins_/embed_code/trunk
