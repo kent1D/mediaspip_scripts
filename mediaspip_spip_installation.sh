@@ -346,6 +346,8 @@ mediaspip_install()
 	echo
 	echo $(eval_gettext "Info SPIP copie htaccess")
 	cp htaccess.txt .htaccess
+	cp $CURRENT/configs/spip/mes_options.php config/
+	cp $CURRENT/configs/spip/mes_options_personnalisation.php.txt config/
 	
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
