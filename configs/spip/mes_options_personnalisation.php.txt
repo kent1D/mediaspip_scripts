@@ -1,0 +1,7 @@
+<?php
+
+$db_user = 'user_root_mysql';
+$db_pass = 'pass_root_mysql';
+$site_mutualisation = 'www.domaine.com';
+
+?>
