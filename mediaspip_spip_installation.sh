@@ -272,10 +272,12 @@ mediaspip_install()
 	
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
+	# - on récupère les plugins spécifique à la mutu 
 	# - crée le répertoire site si non existant
 	# - vide les caches de l'ensemble des sites
 	# par défaut
 	if [ $SPIP_TYPE = "ferme" ] || [ $SPIP_TYPE = "ferme_full" ];then
+		# Récupération et / ou update du plugin de mutualisation
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
@@ -285,6 +287,30 @@ mediaspip_install()
 			echo $(eval_gettext "Info SPIP maj mutualisation")
 			svn up mutualisation/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
 		fi
+		
+		# Récupération et / ou update des plugins liés à la mutualisation
+		if [ ! -d plugins-ferme ]; then
+			mkdir -p $SPIP/plugins-ferme
+		fi
+		
+		cd $SPIP/plugins-ferme
+		
+		echo $(eval_gettext "Info SPIP plugins ferme")
+		FICHIER='spip/distrib_ferme.txt'
+		if [ -r $CURRENT/$FICHIER ];then
+			recuperer_svn $CURRENT/$FICHIER theme
+		else
+			error $(eval_gettext 'Erreur fichier $FICHIER')
+		fi
+		
+		cd $SPIP
+		
+		echo $(eval_gettext "Info SPIP plugins ferme maj")
+		svn up plugins-ferme/* 2>> $LOG >> $LOG
+		
+		# Création du répertoire sites/ si non existant
+		# Suppression des caches CSS / JS / PHP 
+		# Suppression des vieux logs
 		if [ ! -d sites ];then
 			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
@@ -296,9 +322,11 @@ mediaspip_install()
 			echo $(eval_gettext "Info SPIP suppression cache js")
 			rm -Rvf $SPIP/sites/*/local/cache-js/* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache html")
-			rm -Rvf $SPIP/sites/*/tmp/cache/meta_cache.php 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites/*/tmp/meta_cache.php 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites/*/tmp/plugin_xml_cache.gz 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache plugins")
 			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites/*/tmp/log/*.log.* 2>> $LOG >> $LOG
 		fi
 	# Sinon on ne vide que le cache du site courant
 	else

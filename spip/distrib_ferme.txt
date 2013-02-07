@@ -1,0 +1,2 @@
+# G
+gestion_mutu;http://svn.aires-de-confluxence.info/svn/plugins_spip/gestion_mutu/trunk
