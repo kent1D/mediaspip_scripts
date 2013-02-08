@@ -12,8 +12,8 @@ $quota_cache = 50;
  * Si le répertoire mutualisation est là c'est que c'est bon
  */
 if (file_exists (_DIR_RACINE.'mutualisation/mutualiser.php')) {
-	if (file_exists (_DIR_RACINE.'mes_options_personnalisation.php'))
-		require 'mes_options_personnalisation.php';
+	if (file_exists (_DIR_RACINE.'config/mes_options_personnalisation.php'))
+		require _DIR_RACINE.'config/mes_options_personnalisation.php';
 	
 	require _DIR_RACINE.'mutualisation/mutualiser.php';
 	
@@ -24,9 +24,7 @@ if (file_exists (_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	 * Si le site maitre n'est pas dans sites/ mais a la racine, mettre ''
 	 * et ajouter 'mutualisation' dans $dossier_squelettes
 	 */
-	define ('_SITES_ADMIN_MUTUALISATION', $site_mutualisation);
-	
-	
+	define ('_SITES_ADMIN_MUTUALISATION', $site_maitre);
 
 	$site = $_SERVER['HTTP_HOST'];
 
@@ -39,6 +37,13 @@ if (file_exists (_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	if (strpos($site, ':')) {
 		if (preg_match('/:80$/', $site)) $site = substr($site,-3);
 		else $site = str_replace(':', '_', $site);
+	}
+	
+	/**
+	 * On active plugins-ferme pour le site maitre de la mutu
+	 */ 
+	if($site == $site_maitre){
+		define(_DIR_PLUGINS_SUPPL,_DIR_RACINE.'plugins-ferme/');
 	}
 	
 	/**
@@ -56,6 +61,7 @@ if (file_exists (_DIR_RACINE.'mutualisation/mutualiser.php')) {
 		define ('_INSTALL_NAME_DB', 'mu_'._INSTALL_SITE_PREF);
 	}else{
 		echo _L('User et pass de base de donnée non fournis');
+		exit;
 	}
 
 	/**
@@ -114,21 +120,22 @@ if (file_exists (_DIR_RACINE.'mutualisation/mutualiser.php')) {
 			'creer_site' => true,        	// Creer ou non le site s'il n'existe pas (defaut: false)
 			'creer_base' => true,        	// Creer ou non la base de donnee si elle n'existe pas (false)
 			'creer_user_base' => true,  	// Creer ou non un utilisateur pour la nouvelle base de donnee (false)
-			'mail' => 'email@mondomaine.org', // Adresse mail pour recevoir un mail lors d'une creation de site mutualise ('')
-			'code' => 'pass_mutu',			// Code d'activation de base
+			'mail' => $email_mutu, // Adresse mail pour recevoir un mail lors d'une creation de site mutualise ('')
+			'code' => $pass_mutu ? $pass_mutu : 'pass_mutu',			// Code d'activation de base
 			'table_prefix' => false,		// Definir automatiquement le prefixe de table (false) ... mettre true si tous les sites dans la meme base
 			'cookie_prefix' => true,		// Definir automatiquement le prefixe de cookie (false)
 			'repertoire' => 'sites',		// Nom du repertoire contenant les sites mutualises ('sites')
 			//'url_img_courtes' => true,		// Utiliser la redirection des URL d'images courtes dans la partie publique (false)
 											// /!\ il faut qu'apache ait le droit d'ecrire dans les dossiers IMG/ et local/ a la racine du site !
 											// C'est la que la mutualisation va ecrire les regles de redirection automatiques pour les images de chaque site
-			'utiliser_panel' => true, // Utiliser une table externe pour recuperer des identifiants ... (code, user, pass) permettant a un utilisateur d'installer le site (false)
-			'annonce' => '', // Texte a afficher en bas du formulaire d'activation de la mutualisation
+			'annonce' => $annonce_mutu // Texte a afficher en bas du formulaire d'activation de la mutualisation
 		);
 	if(defined(_SITES_ADMIN_MUTUALISATION) && strlen(_SITES_ADMIN_MUTUALISATION) > 1){
 		$conf_site['url_hebergeur'] = 'http://'._SITES_ADMIN_MUTUALISATION;
 		$conf_site['url_contact_hebergeur'] = 'http://'._SITES_ADMIN_MUTUALISATION.'/spip.php?page=contact';
 	}
+	if(defined(_DIR_PLUGIN_GESTION_MUTU))
+		$conf_site['utiliser_panel'] = true; // Utiliser une table externe pour recuperer des identifiants ... (code, user, pass) permettant a un utilisateur d'installer le site (false)
 	
 	demarrer_site($site,
 		$conf_site
