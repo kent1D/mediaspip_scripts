@@ -344,6 +344,10 @@ mediaspip_install()
 		chmod 777 -Rvf $SPIP/tmp/cache/ 2>> $LOG >> $LOG
 	fi
 	
+	
+	# Rendre exécutable spipmotion.sh
+	chmod +x plugins-dist/spipmotion/script_bash/*.sh
+	
 	echo
 	echo $(eval_gettext "Info SPIP copie htaccess")
 	cp htaccess.txt .htaccess
