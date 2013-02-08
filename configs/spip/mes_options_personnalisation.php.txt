@@ -1,25 +1,46 @@
 <?php
 /**
+ * MediaSPIP 
+ * http://www.mediaspip.net
+ * 
  * Variables de configuration du fichier mes_options dans le cas d'une ferme
  */
-if (!defined("_ECRIRE_INC_VERSION")) return;
+
+if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
- * Utilisateur et password de la base de donnée
+ * Identifiants de connection root à la base de donnée
  * Cet utilisateur doit avoir les droits de création de compte et de tables
+ * $db_user = nom d'utilisateur
+ * $db_pass = mot de passe de l'utilisateur
+ * $db_host = hôte du serveur de base de donnée
  */
 $db_user = 'user_root_mysql';
 $db_pass = 'pass_root_mysql';
+$db_host = 'localhost';
 
 /**
- * Adresse du site maître de la mutu
+ * Adresse du site maître de la ferme
  */
-$site_maitre = 'www.domaine.com';
+$site_mutualisation = 'www.domaine.com';
+
+/**
+ * Nom du répertoire où seront placés les fichiers des sites mutualisés
+ */
+$dir_sites = 'sites';
 
 /**
  * Email de l'admin de la mutualisation
  */
-$email_mutu = "admin@localhost";
+$email_mutu = "root@localhost";
+
+/**
+ * Pour activer le panel, mettre à true, mais attention :
+ * -* $site_mutualisation doit être correctement défini
+ * -* Le site indique dans $site_mutualisation doit avoir le plugin de gestion de mutualisation activé
+ */
+
+$utiliser_panel = false;
 
 /**
  * Pass par défaut si pas utilisation de la gestion de la mutu
