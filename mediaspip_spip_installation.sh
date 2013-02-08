@@ -226,6 +226,7 @@ mediaspip_install()
 		wget http://swfupload.googlecode.com/files/SWFUpload%20v2.2.0.1%20Core.zip 2>> $LOG >> $LOG
 		unzip 'SWFUpload v2.2.0.1 Core.zip' 2>> $LOG >> $LOG
 		rm 'SWFUpload v2.2.0.1 Core.zip' 2>> $LOG >> $LOG
+		cp -Rvf 'SWFUpload v2.2.0.1 Core/' SWFUpload/
 		cd .. 2>> $LOG >> $LOG
 	fi
 	if [ ! -d "lib/leaflet-gis-4.1.11" ];then
