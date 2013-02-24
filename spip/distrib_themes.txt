@@ -1,8 +1,8 @@
 # A
-arscenic;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/arscenic
+arscenic;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/arscenic3
 
 # B
-brazil;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/brazil
+brazil;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/brazil
 
 # S
-spipeo;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip/spipeo
+spipeo;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/spipeo
