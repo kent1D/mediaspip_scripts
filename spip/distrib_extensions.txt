@@ -38,9 +38,9 @@ jquery_ui;svn://zone.spip.org/spip-zone/_plugins_/jquery_ui
 licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 
 # M
-mediaspip_config;http://svn.aires-de-confluxence.info/svn/squelettes_spip/mediaspip_config/branches/v1
+mediaspip_config;svn co svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_config/branches/v1
 mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/branches/v1
-mediaspip_init;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_init/branches/v1
+mediaspip_init;svn co svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_init/branches/v1
 mediaspip_player;svn://zone.spip.org/spip-zone/_plugins_/mediaspip_player/branches/v1
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus/branches/v0_9
 
