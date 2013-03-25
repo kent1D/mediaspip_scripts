@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # mediaspip_install.sh
-# © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.6.0
+# © 2011-2013 - kent1 (kent1@arscenic.info)
+# Version 0.7.1
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - Apache2
@@ -75,6 +75,9 @@
 # -* Plus de support pour Debian Lenny
 # -* Prise en compte de ubuntu precise 12.04 LTS
 # -* Prise en compte de ubuntu quantal 12.04 LTS 
+# Version 0.7.1 :
+# -* Installation de ffmpeg en 1.2.0
+# -* Installation de MediaInfo en 0.7.62
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -337,14 +340,14 @@ if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
-FFMPEG_VERSION="1.1.2"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.1.2.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-1.1.2.tar.bz2"
-FFMPEG_PATH="ffmpeg-1.1.2"
+FFMPEG_VERSION="1.2.0"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.2.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-1.2.tar.bz2"
+FFMPEG_PATH="ffmpeg-1.2"
 
-MEDIAINFO_VERSION="0.7.61"
-MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.61_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.62"
+MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.62_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.62_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 FLVTOOLPLUS_VERSION="1.2.1"
