@@ -37,7 +37,7 @@ mesfavoris;svn://zone.spip.org/spip-zone/_plugins_/mesfavoris
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/trunk
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 minibando;svn://zone.spip.org/spip-zone/_plugins_/minibando/trunk
-multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
+multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang/trunk/
 
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation/trunk
