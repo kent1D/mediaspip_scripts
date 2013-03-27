@@ -36,7 +36,7 @@ memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
 mes_fichiers_2;svn://zone.spip.org/spip-zone/_plugins_/mes_fichiers/tags/1.0.2
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/branches/v1
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
-multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang
+multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang/branches/v0.7
 
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation/branches/v_0_9
