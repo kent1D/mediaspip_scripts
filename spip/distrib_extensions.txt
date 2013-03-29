@@ -18,9 +18,9 @@ diogene_spipicious;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_compl
 doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/branches/v1
 
 # E
-emballe_medias;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias/branches/v1
-emballe_medias_doc2img;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_doc2img/branches/v1
-emballe_medias_spipmotion;http://svn.aires-de-confluxence.info/svn/plugins_spip/import_video/emballe_medias_spipmotion/branches/v1
+emballe_medias;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias/branches/v1
+emballe_medias_doc2img;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias_doc2img/branches/v1
+emballe_medias_spipmotion;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/import_video/emballe_medias_spipmotion/branches/v1
 
 # F
 facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/branches/v1
