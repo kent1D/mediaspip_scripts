@@ -44,13 +44,17 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	 */ 
 	if($site == $site_maitre){
 		define('_DIR_PLUGINS_SUPPL',_DIR_RACINE.'plugins-ferme/');
+	}else{
+		/**
+		 * On n'autorise que le site maître à télécharger plugins et libs
+		 */
+		define('_AUTORISER_TELECHARGER_PLUGINS',false);
 	}
 	
 	/**
 	 * Ne pas autoriser les plugins auto
 	 */
 	define('_DIR_PLUGINS_AUTO', false);
-	define('_AUTORISER_TELECHARGER_PLUGINS',false);
 	
 	/**
 	 * On peut aller plus loin que si nous avons les identifiants de base de donnée
