@@ -34,7 +34,7 @@ licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 
 # M
 mediaspip_config;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_config/trunk
-mediaspip_core;http://svn.aires-de-confluxence.info/svn/MediaSPIP/plugins/mediaspip_core/trunk
+mediaspip_core;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_core/trunk
 svn co svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_init/trunk
 mediaspip_player;svn://zone.spip.org/spip-zone/_plugins_/mediaspip_player/trunk
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus/trunk
