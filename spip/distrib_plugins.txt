@@ -19,6 +19,9 @@ diogene_spipicious;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_compl
 # F
 fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
 
+# E
+epub_reader;svn://zone.spip.org/spip-zone/_plugins_/epub_reader/trunk
+
 # G
 gis;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
 google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
