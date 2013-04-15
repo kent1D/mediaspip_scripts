@@ -55,7 +55,7 @@ distrib_core()
 		echo "Récupération des sources"
 		svn co $SOURCE ./
 	else
-		DEPOT=$(env LANG=C svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		DEPOT=$(env LANG=en svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
 		if [ "$DEPOT" = "$SOURCE" ];then
 			echo "Mise à jour des sources"
@@ -93,7 +93,7 @@ read_line_svn(){
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d "$REP/$TYPE/$PLUGIN/.svn" ];then
-				DEPOT=$(env LANG=C svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT=$(env LANG=en svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT" != "$SVN" ];then
 					echo "Switch de dépot"
