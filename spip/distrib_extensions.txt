@@ -14,8 +14,8 @@ doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
 
 # E
 emballe_medias;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias/branches/v1.3
-emballe_medias_doc2img;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/import_video/emballe_medias_doc2img/trunk
-emballe_medias_spipmotion;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/import_video/emballe_medias_spipmotion/trunk
+emballe_medias_doc2img;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias_doc2img/trunk
+emballe_medias_spipmotion;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias_spipmotion/trunk
 embed_code;svn://zone.spip.org/spip-zone/_plugins_/embed_code/trunk
 
 # F
@@ -35,7 +35,7 @@ licence;svn://zone.spip.org/spip-zone/_plugins_/licence
 # M
 mediaspip_config;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_config/trunk
 mediaspip_core;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_core/trunk
-svn co svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_init/trunk
+mediaspip_init;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_init/trunk
 mediaspip_player;svn://zone.spip.org/spip-zone/_plugins_/mediaspip_player/trunk
 menus;svn://zone.spip.org/spip-zone/_plugins_/menus/trunk
 
