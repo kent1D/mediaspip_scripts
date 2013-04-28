@@ -66,6 +66,7 @@ recommander;svn://zone.spip.org/spip-zone/_plugins_/recommander
 saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/trunk
 signalement;svn://zone.spip.org/spip-zone/_plugins_/signalement/trunk
 socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
+smush;svn://zone.spip.org/spip-zone/_plugins_/smush_images/trunk
 skel_mediablog;http://svn.aires-de-confluxence.info/svn/squelettes_spip/skel_mediablog
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats
 spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0
