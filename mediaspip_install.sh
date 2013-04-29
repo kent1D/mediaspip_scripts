@@ -78,7 +78,8 @@
 # Version 0.7.1 :
 # -* Installation de ffmpeg en 1.2.0
 # -* Installation de MediaInfo en 0.7.62
-# -* suppression du support pour centos
+# -* Suppression du support pour centos
+# -* Ajout des dépendances logicielles pour le plugin smush
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
