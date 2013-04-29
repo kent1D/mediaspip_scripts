@@ -163,7 +163,7 @@ media_info_install()
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
 			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
 		fi
-		cd "$SRC_INSTALL"/$MediaInfo_CLI_GNU_FromSource
+		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		echo $(eval_gettext 'Info mediainfo compil install')
 		echo $(eval_gettext 'Info mediainfo compil install') 2>> $LOG >> $LOG
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
