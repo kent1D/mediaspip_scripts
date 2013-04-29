@@ -78,6 +78,7 @@
 # Version 0.7.1 :
 # -* Installation de ffmpeg en 1.2.0
 # -* Installation de MediaInfo en 0.7.62
+# -* suppression du support pour centos
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -100,7 +101,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.6.0"
+VERSION_INSTALL="0.7.1"
 
 LOGO="
 ######################################################################################
@@ -177,7 +178,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze wheezy lucid precise quantal 5_3';
+OKDISTRO='squeeze wheezy lucid precise quantal';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -223,13 +224,13 @@ SPIP_VERSION="svn"
 SPIP_TYPE="ferme_full"
 SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-3.0"
 
-if [ "$DISTRIB" = "centos" ];then
-	SPIP_USER="apache"
-	SPIP_GROUP="apache"
-else
+#if [ "$DISTRIB" = "centos" ];then
+#	SPIP_USER="apache"
+#	SPIP_GROUP="apache"
+#else
 	SPIP_USER="www-data"
 	SPIP_GROUP="www-data"
-fi
+#fi
 
 # On insère un fichier de modification de ces variables si présent
 if [ -r /etc/default/mediaspip ]; then
