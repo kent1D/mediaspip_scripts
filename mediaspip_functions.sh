@@ -212,11 +212,12 @@ mediaspip_munin_install()
 			ln -s "$SRC_INSTALL"/mediaspip_munin/plugins/mediaspip_media /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
 		fi
 		if [ -z $(grep  "\[mediaspip" /etc/munin/plugin-conf.d/munin-node) ]; then
-			echo -e "\n[mediaspip*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1	
+			echo -e "\n[mediaspip*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG || return 1	
 		fi
 		if [ -z $(grep "\[spip_mutu" /etc/munin/plugin-conf.d/munin-node) ]; then
-			echo -e "\n[spip_mutu*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1
+			echo -e "\n[spip_mutu*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG || return 1
 		fi
+		/etc/init.d/munin-node restart 2>> $LOG >> $LOG
 	fi
 	echo
 }
