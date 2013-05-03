@@ -348,7 +348,7 @@ if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
-FFMPEG_VERSION="1.2.0"
+FFMPEG_VERSION="1.2"
 FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.2.tar.bz2"
 FFMPEG_FICHIER="ffmpeg-1.2.tar.bz2"
 FFMPEG_PATH="ffmpeg-1.2"
