@@ -180,7 +180,7 @@ mediaspip_munin_install()
 	cd "$SRC_INSTALL"
 	
 	# Si on a déjà les sources, on ne fait que les mettre à jour
-	if [ -d cd $SRC_INSTALL/mediaspip_munin/.git ]; then
+	if [ -d $SRC_INSTALL/mediaspip_munin/.git ]; then
 		cd $SRC_INSTALL/mediaspip_munin
 		git pull 2>> $LOG >> $LOG || return 1
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
@@ -197,24 +197,24 @@ mediaspip_munin_install()
 	if [ -x $(which munin-node)  -a "$SPIP_TYPE" = "ferme" -o "$SPIP_TYPE" = "ferme_full" ]; then
 		chmod +x bin/spip_taille_instance.sh 
 		if [ ! -h /usr/local/bin/spip_taille_instance.sh ]; then
-			ln -s $SRC_INSTALL/mediaspip_munin/bin/spip_taille_instance.sh /usr/local/bin 2>> $LOG >> $LOG || return 1
+			ln -s "$SRC_INSTALL"/mediaspip_munin/bin/spip_taille_instance.sh /usr/local/bin 2>> $LOG >> $LOG || return 1
 		fi
 		if [ ! -h /etc/cron.d/spip_taille_instance ]; then
-			ln -s $SRC_INSTALL/mediaspip_munin/cron/spip_taille_instance /etc/cron.d 2>> $LOG >> $LOG || return 1
+			ln -s "$SRC_INSTALL"/mediaspip_munin/cron/spip_taille_instance /etc/cron.d 2>> $LOG >> $LOG || return 1
 		fi
 		if [ ! -h /etc/munin/plugins/spip_mutu_taille ]; then
-			ln -s $SRC_INSTALL/mediaspip_munin/plugins/spip_mutu_taille /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+			ln -s "$SRC_INSTALL"/mediaspip_munin/plugins/spip_mutu_taille /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
 		fi
 		if [ ! -h /etc/munin/plugins/spip_mutu_sites ]; then
-			ln -s $SRC_INSTALL/mediaspip_munin/plugins/spip_mutu_sites /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+			ln -s "$SRC_INSTALL"/mediaspip_munin/plugins/spip_mutu_sites /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
 		fi
 		if [ ! -h /etc/munin/plugins/mediaspip_media ]; then
-			ln -s $SRC_INSTALL/mediaspip_munin/plugins/mediaspip_media /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+			ln -s "$SRC_INSTALL"/mediaspip_munin/plugins/mediaspip_media /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
 		fi
-		if [ ! grep  "\[mediaspip" /etc/munin/plugin-conf.d/munin-node ]; then
+		if [ -z $(grep  "\[mediaspip" /etc/munin/plugin-conf.d/munin-node) ]; then
 			echo -e "\n[mediaspip*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1	
 		fi
-		if [ ! grep "\[spip_mutu" /etc/munin/plugin-conf.d/munin-node ]; then
+		if [ -z $(grep "\[spip_mutu" /etc/munin/plugin-conf.d/munin-node) ]; then
 			echo -e "\n[spip_mutu*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1
 		fi
 	fi
