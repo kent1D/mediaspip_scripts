@@ -1,13 +1,10 @@
 #!/bin/bash
 #
 # mediaspip_functions
-# © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.4
+# © 2011-2013 - kent1 (kent1@arscenic.info)
 #
 # Diverses fonctions permettant d'installer mediaSPIP
 #
-# Mises à jour
-# Version 0.3.4 - Ajout d'un sleep sur la vérification de la connexion internet
 
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
@@ -170,6 +167,56 @@ media_info_install()
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
 		echo $(eval_gettext "End mediainfo")
+	fi
+	echo
+}
+
+# Installation de mediaspip_munin
+# https://github.com/kent1D/mediaspip_munin
+mediaspip_munin_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	cd "$SRC_INSTALL"
+	
+	# Si on a déjà les sources, on ne fait que les mettre à jour
+	if [ -d cd $SRC_INSTALL/mediaspip_munin/.git ]; then
+		cd $SRC_INSTALL/mediaspip_munin
+		git pull 2>> $LOG >> $LOG || return 1
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
+	# Sinon on les récupère
+	else
+		git clone https://github.com/kent1D/mediaspip_munin.git 2>> $LOG >> $LOG || return 1
+		cd $SRC_INSTALL/mediaspip_munin
+		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
+	fi
+	
+	# On n'active les trucs munin que si :
+	# - munin-node est disponible (prouve l'installation de Munin)
+	# - SPIP_TYPE est soit ferme soit ferme_full car les scripts sont fait pour monitorer des fermes
+	if [ -x $(which munin-node)  -a "$SPIP_TYPE" = "ferme" -o "$SPIP_TYPE" = "ferme_full" ]; then
+		chmod +x bin/spip_taille_instance.sh 
+		if [ ! -h /usr/local/bin/spip_taille_instance.sh ]; then
+			ln -s $SRC_INSTALL/mediaspip_munin/bin/spip_taille_instance.sh /usr/local/bin 2>> $LOG >> $LOG || return 1
+		fi
+		if [ ! -h /etc/cron.d/spip_taille_instance ]; then
+			ln -s $SRC_INSTALL/mediaspip_munin/cron/spip_taille_instance /etc/cron.d 2>> $LOG >> $LOG || return 1
+		fi
+		if [ ! -h /etc/munin/plugins/spip_mutu_taille ]; then
+			ln -s $SRC_INSTALL/mediaspip_munin/plugins/spip_mutu_taille /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+		fi
+		if [ ! -h /etc/munin/plugins/spip_mutu_sites ]; then
+			ln -s $SRC_INSTALL/mediaspip_munin/plugins/spip_mutu_sites /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+		fi
+		if [ ! -h /etc/munin/plugins/mediaspip_media ]; then
+			ln -s $SRC_INSTALL/mediaspip_munin/plugins/mediaspip_media /etc/munin/plugins/ 2>> $LOG >> $LOG || return 1
+		fi
+		if [ ! grep  "\[mediaspip" /etc/munin/plugin-conf.d/munin-node ]; then
+			echo -e "\n[mediaspip*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1	
+		fi
+		if [ ! grep "\[spip_mutu" /etc/munin/plugin-conf.d/munin-node ]; then
+			echo -e "\n[spip_mutu*]\nuser root\n\n" >> /etc/munin/plugin-conf.d/munin-node 2>> $LOG >> $LOG || return 1
+		fi
 	fi
 	echo
 }

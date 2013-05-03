@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2013 - kent1 (kent1@arscenic.info)
-# Version 0.7.1
+# Version 0.7.2
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - Apache2
@@ -80,6 +80,9 @@
 # -* Installation de MediaInfo en 0.7.62
 # -* Suppression du support pour centos
 # -* Ajout des dépendances logicielles pour le plugin smush
+# Version 0.7.2 :
+# -* Installation de mediaspip_munin si possible et intéressant :
+# cf https://github.com/kent1D/mediaspip_munin/
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -102,7 +105,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.7.1"
+VERSION_INSTALL="0.7.2"
 
 LOGO="
 ######################################################################################
@@ -301,6 +304,9 @@ while [ $# -gt 0 ]; do
 		DISABLE_MEDIASPIP="yes"
 		SPIP_TYPE="none"
 		echo $(eval_gettext 'Info options disable_mediaspip')
+		shift;;
+		--disable-munin) DISABLE_MUNIN="yes"
+		echo $(eval_gettext 'Info options disable_munin')
 		shift;;
 		--spip|-s) SPIP="${2}"
 		shift 2;;
@@ -533,6 +539,13 @@ if [ "$DISABLE_MEDIASPIP" != "yes" ];then
 	echo
 	
 	mediaspip_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
+fi
+
+# Munin est présent
+# On installe mediaspip_munin
+# cf : mediaspip_functions.sh
+if [ "$DISABLE_MUNIN" != "yes" -a -x $(which munin-node) ]
+	mediaspip_munin_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 fi
 
 echo
