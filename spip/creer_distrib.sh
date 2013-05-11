@@ -81,6 +81,15 @@ distrib_core()
 		mkdir -p lib
 	fi
 	
+	if [ -d extensions];then
+		echo "Suppression de l'ancien répertoire des extensions"
+		rm - Rvf extensions	
+	fi
+	
+	if [ -h config/ecran_securite.php];then
+		echo "Suppression de l'ancien ecran_securite qui était un lien symbolique"
+		rm config/ecran_securite.php	
+	fi
 	cd $CURRENT
 }
 
