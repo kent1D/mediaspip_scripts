@@ -246,40 +246,6 @@ mediaspip_install()
 		rm 'leaflet-gis-4.8.0.zip' 2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
-
-	if [ ! -d securite ];then
-		echo
-		echo $(eval_gettext "Info SPIP install securite")
-		svn co svn://zone.spip.org/spip-zone/_core_/securite 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		if [ -e config/ecran_securite.php ];then
-			if [ ! -h config/ecran_securite.php ];then
-				rm config/ecran_securite.php 2>> $LOG >> $LOG
-				cd config
-				ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
-				cd ..
-			fi
-		else
-			cd config
-			ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
-			cd ..
-		fi
-	else
-		echo
-		echo $(eval_gettext "Info SPIP maj securite")
-		svn up securite/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
-		if [ -e config/ecran_securite.php ];then
-			if [ ! -h config/ecran_securite.php ];then
-				rm config/ecran_securite.php 2>> $LOG >> $LOG
-				cd config
-				ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
-				cd ..
-			fi
-		else
-			cd config
-			ln -s ../securite/ecran_securite.php ./ 2>> $LOG >> $LOG
-			cd ..
-		fi
-	fi
 	
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
