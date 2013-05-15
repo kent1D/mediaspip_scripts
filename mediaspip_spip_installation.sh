@@ -244,11 +244,11 @@ mediaspip_install()
 		cp -Rvf 'SWFUpload v2.2.0.1 Core/' SWFUpload/
 		cd .. 2>> $LOG >> $LOG
 	fi
-	if [ ! -d "lib/leaflet-gis-4.8.0" ];then
+	if [ ! -d "lib/leaflet-gis-4.8.6" ];then
 		cd lib/ 2>> $LOG >> $LOG
-		wget http://contrib.spip.net/IMG/zip/leaflet-gis-4.8.0.zip 2>> $LOG >> $LOG
-		unzip 'leaflet-gis-4.8.0.zip' 2>> $LOG >> $LOG
-		rm 'leaflet-gis-4.8.0.zip' 2>> $LOG >> $LOG
+		wget http://contrib.spip.net/IMG/zip/leaflet-gis-4.8.6.zip 2>> $LOG >> $LOG
+		unzip 'leaflet-gis-4.8.6.zip' 2>> $LOG >> $LOG
+		rm 'leaflet-gis-4.8.6.zip' 2>> $LOG >> $LOG
 		cd .. 2>> $LOG >> $LOG
 	fi
 	
