@@ -44,7 +44,6 @@ multilang;svn://zone.spip.org/spip-zone/_plugins_/multilang/trunk/
 
 # N
 notation;svn://zone.spip.org/spip-zone/_plugins_/notation/trunk
-notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/trunk
 nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
 # O

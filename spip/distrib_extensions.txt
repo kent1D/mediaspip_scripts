@@ -41,6 +41,7 @@ menus;svn://zone.spip.org/spip-zone/_plugins_/menus/trunk
 
 # N
 nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
+notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/trunk
 
 # P
 palette;svn://zone.spip.org/spip-zone/_plugins_/palette/trunk
