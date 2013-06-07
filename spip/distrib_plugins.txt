@@ -59,7 +59,7 @@ recommander;svn://zone.spip.org/spip-zone/_plugins_/recommander
 # S
 saveauto;svn://zone.spip.org/spip-zone/_plugins_/saveauto/branches/2.1
 socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
-skel_mediablog;http://svn.aires-de-confluxence.info/svn/squelettes_spip/skel_mediablog/branches/v1
+skel_mediablog;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/skel_mediablog/branches/v1
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats
 spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0
 
