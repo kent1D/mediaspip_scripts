@@ -37,7 +37,7 @@ ubuntu_precise_dep_install()
 	echo $(eval_gettext "Info apt maj paquets")
 	echo $(eval_gettext "Info apt maj paquets") 2>> $LOG >> $LOG
 	export DEBIAN_FRONTEND=noninteractive
-	apt-get -q -y --force-yes install build-essential subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
+	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
 		libmp3lame-dev libopencore-amrwb-dev libopencore-amrnb-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev librtmp-dev libtheora-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs \
