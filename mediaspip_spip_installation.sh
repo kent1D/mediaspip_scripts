@@ -64,29 +64,27 @@ verifier_librairie()
 {
 	ZIP=$(echo $1 | sed 's/.*lien=\"\([^"]*\)\".*/\1/g')
 	DIR=$(echo $1 | sed 's/.*nom=\"\([^"]*\)\".*/\1/g')
-	file=$(echo $ZIP | sed 's/.*\///g' | sed 's/%20/ /g'')
+	FILE=$(echo $ZIP | sed 's/.*\///g' | sed 's/%20/ /g')
 
 	if [ ! -d "lib/$DIR" ];then
 		cd lib/ 2>> $LOG >> $LOG
 
 		if [ ! -e "$FILE" ];then
-			echo "Le fichier $FILE n'existe pas"
 			wget "$ZIP" 2>> $LOG >> $LOG
 		fi
 
-		MIME=`file --mime-type "$file" |awk 'BEGIN { FS = ":" } ; {print $2}' {print $2}' | tr -d ' '`
-		if [ $MIME == 'application/zip' ]; then
-			echo "Extraction de $file ($MIME)"
-			first=`zipinfo -1 "$file" | head -1`
-			if [ "$first" = "$DIR"/ ];then
-				unzip "$file" 2>> $LOG >> $LOG		
-			elif [ ${first: -1} = "/" ];then 
-				unzip "$file" 2>> $LOG >> $LOG
-				mv "$first" "$DIR"
+		MIME=`file --mime-type "$FILE" |awk 'BEGIN { FS = ":" } ; {print $2}' | tr -d ' '`
+		if [ $MIME = 'application/zip' ]; then
+			FIRST=`zipinfo -1 "$FILE" | head -1`
+			if [ "$FIRST" = "$DIR"/ ];then
+				unzip "$FILE" 2>> $LOG >> $LOG		
+			elif [ ${FIRST: -1} = "/" ];then 
+				unzip "$FILE" 2>> $LOG >> $LOG
+				mv "$FIRST" "$DIR"
 			else
-				unzip "$file" -d "$DIR" 2>> $LOG >> $LOG
+				unzip "$FILE" -d "$DIR" 2>> $LOG >> $LOG
 			fi
-			rm "$file"
+			rm "$FILE"
 		else
 			echo "Le fichier $FILE n'a pu être extrait"
 		fi
