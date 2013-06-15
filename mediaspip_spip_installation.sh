@@ -29,6 +29,7 @@
 # Version 0.3.8 - LANG=C n'est pas disponible tout le temps ... on utilise LANG=en ... peut être plus fréquent
 # Version 0.3.9 - Télécharger deux librairies supplémentaires (jquery-validate pour inscription3 et oAuth pour le plugin éponyme)
 
+
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()
 {
@@ -60,41 +61,55 @@ recuperer_svn()
 	done < $1
 }
 
+# Fonction d'installation des librairies
 verifier_librairie()
 {
 	ZIP=$(echo $1 | sed 's/.*lien=\"\([^"]*\)\".*/\1/g')
 	DIR=$(echo $1 | sed 's/.*nom=\"\([^"]*\)\".*/\1/g')
 	FILE=$(echo $ZIP | sed 's/.*\///g' | sed 's/%20/ /g')
 
+	# Si le répertoire de la lib n'existe pas
+	# On va dans lib
 	if [ ! -d "lib/$DIR" ];then
 		cd lib/ 2>> $LOG >> $LOG
 
+		# Si le zip n'est pas là on le récupère
 		if [ ! -e "$FILE" ];then
 			wget "$ZIP" 2>> $LOG >> $LOG
 		fi
 
+		# On check quel est le mime-type du fichier
 		MIME=`file --mime-type "$FILE" |awk 'BEGIN { FS = ":" } ; {print $2}' | tr -d ' '`
+		# Si c'est un zip, on sait le dézipper
 		if [ $MIME = 'application/zip' ]; then
 			FIRST=`zipinfo -1 "$FILE" | head -1`
+			# Si le premier fichier listé dans le zip est le répetoire espéré
+			# On dézip simplement le fichier zip récupéré
 			if [ "$FIRST" = "$DIR"/ ];then
-				unzip "$FILE" 2>> $LOG >> $LOG		
+				unzip "$FILE" 2>> $LOG >> $LOG
+			# Si le premier fichier listé dans le zip est un répertoire mais pas celui espéré
+			# On dézip le fichier zip récupéré
+			# On renomme le répertoire
 			elif [ ${FIRST: -1} = "/" ];then 
 				unzip "$FILE" 2>> $LOG >> $LOG
 				mv "$FIRST" "$DIR"
+			# Sinon c'est que ce ne sont que des fichiers à la racine du zip
+			# On dézip donc le fichier dans le répertoire espéré
 			else
 				unzip "$FILE" -d "$DIR" 2>> $LOG >> $LOG
 			fi
 			rm "$FILE"
 		else
-			echo "Le fichier $FILE n'a pu être extrait"
+			echo $(eval_gettext "Info SPIP lib erreur fichier $FILE")
 		fi
-		
+
 		if [ ! -d "$DIR" ]; then
-			echo "Erreur dans la création du répertoire $DIR"
+			echo $(eval_gettext "Info SPIP lib erreur dezip $DIR")
 		fi
 		cd ..
 	fi
 }
+
 mediaspip_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -126,28 +141,28 @@ mediaspip_install()
 		cd $SPIP
 		svn up 2>> $LOG >> $LOG
 	fi
-	
+
 	REVISIONSPIP=$(env LANG=en svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo $(eval_gettext 'Info SPIP install revision $REVISIONSPIP')
-	
+
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
-	
+
 	if [ -d extensions ];then
-		echo "Suppression de l'ancien répertoire des extensions"
+		echo $(eval_gettext "Info SPIP supprimer ancien repertoire extensions")
 		rm -Rvf extensions	2>> $LOG >> $LOG
 	fi
 
 	if [ -h config/ecran_securite.php ];then
-		echo "Suppression de l'ancien ecran_securite qui était un lien symbolique"
+		echo $(eval_gettext "Info SPIP supprimer ecran_securite lien symbolique")
 		rm config/ecran_securite.php 2>> $LOG >> $LOG	
 	fi
-	
+
 	if [ -d securite ];then
-		echo "Suppression de l'ancien repertoire securite"
+		echo $(eval_gettext "Info SPIP supprimer repertoire securite")
 		rm -Rvf securite	2>> $LOG >> $LOG 	
 	fi
-	
+
 	cd $SPIP/plugins-dist/
 
 	FICHIER='spip/distrib_extensions.txt'
@@ -156,23 +171,23 @@ mediaspip_install()
 	else
 		error $(eval_gettext 'Erreur fichier $FICHIER')
 	fi
-	
+
 	cd $SPIP
-	
+
 	echo $(eval_gettext "Info SPIP extensions maj")
 	echo
 	svn up plugins-dist/* 2>> $LOG >> $LOG
-	
+
 	# Si on est dans un type full on installe les plugins et thèmes dits compatibles
 	# par défaut
 	if [ $SPIP_TYPE = "ferme_full" -o  $SPIP_TYPE = "full" ]; then
-		
+
 		if [ ! -d themes ]; then
 			mkdir -p $SPIP/themes
 		fi
-		
+
 		cd $SPIP/themes
-		
+
 		echo $(eval_gettext "Info SPIP themes")
 		FICHIER='spip/distrib_themes.txt'
 		if [ -r $CURRENT/$FICHIER ];then
@@ -180,12 +195,12 @@ mediaspip_install()
 		else
 			error $(eval_gettext 'Erreur fichier $FICHIER')
 		fi
-		
+
 		cd $SPIP
-		
+
 		echo $(eval_gettext "Info SPIP themes maj")
 		svn up themes/* 2>> $LOG >> $LOG
-		
+
 		echo 
 		echo $(eval_gettext "Info SPIP plugins")
 		if [ ! -d plugins ];then
@@ -207,12 +222,12 @@ mediaspip_install()
 
 		cd $SPIP
 	fi
-	
+
 	chmod 755 config/ 2>> $LOG >> $LOG
 	chmod 755 tmp/ 2>> $LOG >> $LOG
 	chmod 755 local/ 2>> $LOG >> $LOG
 	chmod 755 IMG/ 2>> $LOG >> $LOG
-	
+
 	# Création du répertoire lib/
 	if [ ! -d lib ];then
 		echo
@@ -222,12 +237,12 @@ mediaspip_install()
 
 IFS="
 "
-
-for line in ` grep -hr "<lib " plugins*/*/p*.xml 2> /dev/null`;do
-
-	verifier_librairie	$line
-
-done
+	# Récupération des librairies
+	echo
+	echo $(eval_gettext "Info SPIP librairies")
+	for line in ` grep -hr "<lib " plugins*/*/p*.xml 2> /dev/null`;do
+		verifier_librairie	$line
+	done
 
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
@@ -251,9 +266,9 @@ done
 		if [ ! -d plugins-ferme ]; then
 			mkdir -p $SPIP/plugins-ferme
 		fi
-		
+
 		cd $SPIP/plugins-ferme
-		
+
 		echo $(eval_gettext "Info SPIP plugins ferme")
 		FICHIER='spip/distrib_ferme.txt'
 		if [ -r $CURRENT/$FICHIER ];then
@@ -261,12 +276,12 @@ done
 		else
 			error $(eval_gettext 'Erreur fichier $FICHIER')
 		fi
-		
+
 		cd $SPIP
-		
+
 		echo $(eval_gettext "Info SPIP plugins ferme maj")
 		svn up plugins-ferme/* 2>> $LOG >> $LOG
-		
+
 		# Création du répertoire sites/ si non existant
 		# Suppression des caches CSS / JS / PHP 
 		# Suppression des vieux logs
@@ -304,18 +319,17 @@ done
 
 	# Rendre exécutable spipmotion.sh
 	chmod +x plugins-dist/spipmotion/script_bash/*.sh
-	
+
 	echo
 	echo $(eval_gettext "Info SPIP copie htaccess")
 	cp htaccess.txt .htaccess
 	cp $CURRENT/configs/spip/mes_options.php config/
 	cp $CURRENT/configs/spip/mes_options_personnalisation.php.txt config/
-	
+
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null || return 1
 
 	echo
 	echo_reussite "$(eval_gettext 'Info MediaSPIP installe')"
-
 }
