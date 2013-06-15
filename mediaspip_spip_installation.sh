@@ -98,17 +98,17 @@ mediaspip_install()
 	echo
 	echo $(eval_gettext "Info SPIP extensions")
 	
-	if [ -d extensions];then
+	if [ -d extensions ];then
 		echo "Suppression de l'ancien répertoire des extensions"
 		rm -Rvf extensions	2>> $LOG >> $LOG
 	fi
 
-	if [ -h config/ecran_securite.php];then
+	if [ -h config/ecran_securite.php ];then
 		echo "Suppression de l'ancien ecran_securite qui était un lien symbolique"
 		rm config/ecran_securite.php 2>> $LOG >> $LOG	
 	fi
 	
-	if [ -d securite];then
+	if [ -d securite ];then
 		echo "Suppression de l'ancien repertoire securite"
 		rm -Rvf securite	2>> $LOG >> $LOG 	
 	fi
