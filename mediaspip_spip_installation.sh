@@ -60,6 +60,43 @@ recuperer_svn()
 	done < $1
 }
 
+verifier_librairie()
+{
+	ZIP=$(echo $1 | sed 's/.*lien=\"\([^"]*\)\".*/\1/g')
+	DIR=$(echo $1 | sed 's/.*nom=\"\([^"]*\)\".*/\1/g')
+	file=$(echo $ZIP | sed 's/.*\///g' | sed 's/%20/ /g'')
+
+	if [ ! -d "lib/$DIR" ];then
+		cd lib/ 2>> $LOG >> $LOG
+
+		if [ ! -e "$FILE" ];then
+			echo "Le fichier $FILE n'existe pas"
+			wget "$ZIP" 2>> $LOG >> $LOG
+		fi
+
+		MIME=`file --mime-type "$file" |awk 'BEGIN { FS = ":" } ; {print $2}' {print $2}' | tr -d ' '`
+		if [ $MIME == 'application/zip' ]; then
+			echo "Extraction de $file ($MIME)"
+			first=`zipinfo -1 "$file" | head -1`
+			if [ "$first" = "$DIR"/ ];then
+				unzip "$file" 2>> $LOG >> $LOG		
+			elif [ ${first: -1} = "/" ];then 
+				unzip "$file" 2>> $LOG >> $LOG
+				mv "$first" "$DIR"
+			else
+				unzip "$file" -d "$DIR" 2>> $LOG >> $LOG
+			fi
+			rm "$file"
+		else
+			echo "Le fichier $FILE n'a pu être extrait"
+		fi
+		
+		if [ ! -d "$DIR" ]; then
+			echo "Erreur dans la création du répertoire $DIR"
+		fi
+		cd ..
+	fi
+}
 mediaspip_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
@@ -160,16 +197,16 @@ mediaspip_install()
 			echo $(eval_gettext "Info SPIP maj plugins")
 			svn up plugins/* 2>> $LOG >> $LOG
 		fi
-		
+
 		cd plugins
-		
+
 		FICHIER='spip/distrib_plugins.txt'
 		if [ -r $CURRENT/$FICHIER ];then
 			recuperer_svn $CURRENT/$FICHIER plugin
 		else
 			error $(eval_gettext 'Erreur fichier $FICHIER')
 		fi
-		
+
 		cd $SPIP
 	fi
 	
@@ -184,74 +221,16 @@ mediaspip_install()
 		echo $(eval_gettext "Info SPIP repertoire lib")
 		mkdir lib && chmod 755 lib/ 2>> $LOG >> $LOG
 	fi
-	
-	# On récupère les libs pour éviter d'avoir à la faire depuis SPIP
-	if [ ! -d lib/jquery-mousewheel-3.0.6 ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget https://github.com/downloads/brandonaaron/jquery-mousewheel/jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
-		unzip jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
-		rm jquery-mousewheel-3.0.6.zip 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/jquery-validation-1.10.0 ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget https://github.com/downloads/jzaefferer/jquery-validation/jquery-validation-1.10.0.zip 2>> $LOG >> $LOG
-		unzip jquery-validation-1.10.0.zip -d jquery-validation-1.10.0  2>> $LOG >> $LOG
-		rm jquery-validation-1.10.0.zip  2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/openid-php-openid-782224d ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://www.spip-contrib.net/IMG/zip/openid-php-openid-2.2.2-0-ga287b2d.zip 2>> $LOG >> $LOG
-		unzip openid-php-openid-2.2.2-0-ga287b2d.zip 2>> $LOG >> $LOG
-		rm openid-php-openid-2.2.2-0-ga287b2d.zip.zip  2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/easyslider1.7 ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://cssglobe.com/lab/easyslider1.7/easyslider1.7.zip 2>> $LOG >> $LOG
-		unzip easyslider1.7.zip 2>> $LOG >> $LOG
-		rm easyslider1.7.zip 2>> $LOG >> $LOG
-		rm -Rvf '__MACOSX' 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/jquery.svg.package-1.4.4 ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://keith-wood.name/zip/jquery.svg.package-1.4.4.zip 2>> $LOG >> $LOG
-		unzip jquery.svg.package-1.4.4.zip -d jquery.svg.package-1.4.4 2>> $LOG >> $LOG
-		rm jquery.svg.package-1.4.4.zip 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/farbtastic_1_3_1 ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://files.spip.org/contribs/farbtastic_1_3_1.zip 2>> $LOG >> $LOG
-		unzip farbtastic_1_3_1.zip 2>> $LOG >> $LOG
-		rm farbtastic_1_3_1.zip 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d lib/flot ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://flot.googlecode.com/files/flot-0.7.zip 2>> $LOG >> $LOG
-		unzip flot-0.7.zip 2>> $LOG >> $LOG
-		rm flot-0.7.zip 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d "lib/SWFUpload v2.2.0.1 Core" ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://swfupload.googlecode.com/files/SWFUpload%20v2.2.0.1%20Core.zip 2>> $LOG >> $LOG
-		unzip 'SWFUpload v2.2.0.1 Core.zip' 2>> $LOG >> $LOG
-		rm 'SWFUpload v2.2.0.1 Core.zip' 2>> $LOG >> $LOG
-		cp -Rvf 'SWFUpload v2.2.0.1 Core/' SWFUpload/
-		cd .. 2>> $LOG >> $LOG
-	fi
-	if [ ! -d "lib/leaflet-gis-4.8.6" ];then
-		cd lib/ 2>> $LOG >> $LOG
-		wget http://contrib.spip.net/IMG/zip/leaflet-gis-4.8.6.zip 2>> $LOG >> $LOG
-		unzip 'leaflet-gis-4.8.6.zip' 2>> $LOG >> $LOG
-		rm 'leaflet-gis-4.8.6.zip' 2>> $LOG >> $LOG
-		cd .. 2>> $LOG >> $LOG
-	fi
-	
+
+IFS="
+"
+
+for line in ` grep -hr "<lib " plugins*/*/p*.xml 2> /dev/null`;do
+
+	verifier_librairie	$line
+
+done
+
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
 	# - on récupère les plugins spécifique à la mutu 
@@ -269,7 +248,7 @@ mediaspip_install()
 			echo $(eval_gettext "Info SPIP maj mutualisation")
 			svn up mutualisation/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
 		fi
-		
+
 		# Récupération et / ou update des plugins liés à la mutualisation
 		if [ ! -d plugins-ferme ]; then
 			mkdir -p $SPIP/plugins-ferme
@@ -324,8 +303,7 @@ mediaspip_install()
 		rm -Rvf $SPIP/tmp/cache/* 2>> $LOG >> $LOG
 		chmod 777 -Rvf $SPIP/tmp/cache/ 2>> $LOG >> $LOG
 	fi
-	
-	
+
 	# Rendre exécutable spipmotion.sh
 	chmod +x plugins-dist/spipmotion/script_bash/*.sh
 	
@@ -338,8 +316,8 @@ mediaspip_install()
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
 	chown -Rvf $SPIP_USER:$SPIP_GROUP $SPIP 2>> $LOG >> /dev/null || return 1
-	
+
 	echo
 	echo_reussite "$(eval_gettext 'Info MediaSPIP installe')"
-	
+
 }
