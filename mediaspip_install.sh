@@ -490,6 +490,10 @@ SOFT="ffmpeg"
 	echo
 	echo
 	
+	# On a besoin de ce répertoire et checkinstall ne sait le créer
+	if [ ! -d "/usr/local/share/" ];then
+		mkdir -p /usr/local/share/
+	fi
 	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
 	echo
