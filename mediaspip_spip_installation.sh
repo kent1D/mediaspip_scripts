@@ -90,15 +90,15 @@ verifier_librairie()
 			# Si le premier fichier listé dans le zip est un répertoire mais pas celui espéré
 			# On dézip le fichier zip récupéré
 			# On renomme le répertoire
-			elif [ ${FIRST: -1} = "/" ];then 
+			elif [ "${FIRST:-1}" = "/" ];then 
 				unzip "$FILE" 2>> $LOG >> $LOG
-				mv "$FIRST" "$DIR"
+				mv "$FIRST" "$DIR" 2>> $LOG >> $LOG
 			# Sinon c'est que ce ne sont que des fichiers à la racine du zip
 			# On dézip donc le fichier dans le répertoire espéré
 			else
 				unzip "$FILE" -d "$DIR" 2>> $LOG >> $LOG
 			fi
-			rm "$FILE"
+			rm "$FILE" 2>> $LOG >> $LOG
 		else
 			echo $(eval_gettext "Info SPIP lib erreur fichier $FILE")
 		fi
