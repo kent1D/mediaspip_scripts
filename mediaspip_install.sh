@@ -170,8 +170,13 @@ elif [ -r /etc/debian_version ]; then
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
 	if [ "$NUMBER" = '6' ]; then
 		DISTRO="squeeze"
+	elif [ "$NUMBER" = '7' ]; then
+		DISTRO="wheezy"
 	elif [ "$DISTRIB_VERSION" = 'wheezy/sid' ]; then
-		DISTRO="wheezy"	
+		DISTRO="wheezy"
+	else
+		echo_erreur "$(eval_gettext 'Erreur script distro inconnue')"
+		exit 1
 	fi
 # Cas de redhat (?) et centos
 elif [ -r /etc/redhat-release ]; then
