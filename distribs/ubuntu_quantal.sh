@@ -97,17 +97,17 @@ ubuntu_quantal_x264_install ()
 	
 	# Si on a déjà les sources, on ne fait que les mettre à jour
 	if [ -d "$SRC_INSTALL"/x264/.git ];then
-		echo $(eval_gettext "Info debut $SOFT update")
+		echo $(eval_gettext 'Info debut $SOFT update')
 		echo
-		echo $(eval_gettext "Info debut $SOFT update") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT update') 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
 		git pull 2>> $LOG >> $LOG || return 1
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
-		echo $(eval_gettext "Info debut $SOFT install")
+		echo $(eval_gettext 'Info debut $SOFT install')
 		echo
-		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
 		cd $SRC_INSTALL/x264
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
@@ -115,8 +115,8 @@ ubuntu_quantal_x264_install ()
 	
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
 	if [ "$REVISION" = "$NEWREVISION" ]; then
-		echo $(eval_gettext "Info a jour $SOFT")
-		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
@@ -137,9 +137,9 @@ ubuntu_quantal_ffmpeg_install ()
 	export TEXTDOMAIN=mediaspip
 	SOFT="ffmpeg"
 	cd $SRC_INSTALL
-	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIERffmpeg-1.0.tar.bz2 ];then
-		echo $(eval_gettext "Info debut $SOFT install")
-		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
+	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
+		echo $(eval_gettext 'Info debut $SOFT install')
+		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		echo
 		wget $FFMPEG_URL 2>> $LOG >> $LOG
 		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
@@ -157,8 +157,8 @@ ubuntu_quantal_ffmpeg_install ()
 	cd $SRC_INSTALL/$FFMPEG_PATH
 	
 	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
-		echo $(eval_gettext "Info a jour $SOFT")
-		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG

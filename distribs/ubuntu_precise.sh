@@ -92,7 +92,7 @@ ubuntu_precise_libvpx_install()
 			echo $(eval_gettext "Info compilation install")
 			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
 			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-			echo $(eval_gettext "End $SOFT")
+			echo $(eval_gettext 'End $SOFT')
 			;;
 	esac
 	ldconfig
@@ -129,7 +129,7 @@ ubuntu_precise_libopus_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End $SOFT")
+		echo $(eval_gettext 'End $SOFT')
 	fi
 	echo
 }
@@ -145,17 +145,17 @@ ubuntu_precise_x264_install ()
 	
 	# Si on a déjà les sources, on ne fait que les mettre à jour
 	if [ -d "$SRC_INSTALL"/x264/.git ];then
-		echo $(eval_gettext "Info debut $SOFT update")
+		echo $(eval_gettext 'Info debut $SOFT update')
 		echo
-		echo $(eval_gettext "Info debut $SOFT update") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT update') 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
 		git pull 2>> $LOG >> $LOG || return 1
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
-		echo $(eval_gettext "Info debut $SOFT install")
+		echo $(eval_gettext 'Info debut $SOFT install')
 		echo
-		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
 		cd $SRC_INSTALL/x264
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
@@ -163,8 +163,8 @@ ubuntu_precise_x264_install ()
 	
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
 	if [ "$REVISION" = "$NEWREVISION" ]; then
-		echo $(eval_gettext "Info a jour $SOFT")
-		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
@@ -186,8 +186,8 @@ ubuntu_precise_ffmpeg_install ()
 	SOFT="ffmpeg"
 	cd $SRC_INSTALL
 	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
-		echo $(eval_gettext "Info debut $SOFT install")
-		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT install')
+		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		echo
 		wget $FFMPEG_URL 2>> $LOG >> $LOG
 		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
@@ -202,11 +202,11 @@ ubuntu_precise_ffmpeg_install ()
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $3}')
 	fi
 	
-	cd $SRC_INSTALL/ffmpeg-1.0
+	cd $SRC_INSTALL/$FFMPEG_PATH
 	
 	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
-		echo $(eval_gettext "Info a jour $SOFT")
-		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
