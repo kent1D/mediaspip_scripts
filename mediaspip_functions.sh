@@ -167,7 +167,7 @@ media_info_install()
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
-		echo $(eval_gettext "End $SOFT")
+		echo $(eval_gettext 'End $SOFT')
 	fi
 	echo
 }
@@ -237,11 +237,11 @@ flvtool_plus_install()
 	
 	VERSION="$FLVTOOLPLUS_VERSION"
 	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
-		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
+		echo "$(eval_gettext 'Info a jour $SOFT $VERSION')"
+		echo "$(eval_gettext 'Info a jour $SOFT $VERSION')" 2>> $LOG >> $LOG
 	else
-		echo $(eval_gettext "Info debut $SOFT")
-		echo $(eval_gettext "Info debut $SOFT") 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info debut $SOFT')
+		echo $(eval_gettext 'Info debut $SOFT') 2>> $LOG >> $LOG
 		cd $SRC_INSTALL
 		if [ ! -d $FLVTOOLPLUS_PATH ];then
 			mkdir $FLVTOOLPLUS_PATH 2>> $LOG >> $LOG
@@ -253,7 +253,7 @@ flvtool_plus_install()
 		tar xvzf $FLVTOOLPLUS_FICHIER 2>> $LOG >> $LOG
 		scons 2>> $LOG >> $LOG
 		cp flvtool++ /usr/local/bin
-		echo $(eval_gettext "End $SOFT")
+		echo $(eval_gettext 'End $SOFT')
 	fi
 	echo
 }
