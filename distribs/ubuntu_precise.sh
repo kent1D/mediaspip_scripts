@@ -65,17 +65,18 @@ ubuntu_precise_libvpx_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	SOFT="libvpx"
 	cd $SRC_INSTALL
 	VERSION="1.1.0"
 	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	case "$LIBVPX" in
 		*$VERSION*)
-			echo $(eval_gettext 'Info a jour libvpx $VERSION')
-			echo $(eval_gettext 'Info a jour libvpx $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+			echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
 			;;
 		*)
-			echo $(eval_gettext 'Info debut libvpx install $VERSION')
-			echo $(eval_gettext 'Info debut libvpx install $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
 			if [ ! -e "$SRC_INSTALL"/libvpx-v1.1.0.tar.bz2 ];then
 				wget http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
 				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
@@ -91,7 +92,7 @@ ubuntu_precise_libvpx_install()
 			echo $(eval_gettext "Info compilation install")
 			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
 			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-			echo $(eval_gettext "End libvpx")
+			echo $(eval_gettext "End $SOFT")
 			;;
 	esac
 	ldconfig
@@ -104,21 +105,22 @@ ubuntu_precise_libopus_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	SOFT="libopus"
 	LIBOPUSVERSION=$(pkg-config --modversion opus 2>> $LOG)
 	cd $SRC_INSTALL
 	VERSION="$LIBOPUS_VERSION"
 	if [ "$LIBOPUSVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour libopus $VERSION')
-		echo $(eval_gettext 'Info a jour libopus $VERSION') 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
 	else
 		if [ ! -e "$SRC_INSTALL"/$LIBOPUS_FICHIER ];then
-			echo $(eval_gettext 'Info debut libopus install $VERSION')
-			echo $(eval_gettext 'Info debut libopus install $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
 			wget $LIBOPUS_URL 2>> $LOG >> $LOG
 			tar xvzf $LIBOPUS_FICHIER  2>> $LOG >> $LOG
 		else
-			echo $(eval_gettext 'Info debut libopus update $VERSION')
-			echo $(eval_gettext 'Info debut libopus update $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION') 2>> $LOG >> $LOG
 		fi
 		cd $LIBOPUS_PATH
 		echo $(eval_gettext "Info compilation configure")
@@ -127,7 +129,7 @@ ubuntu_precise_libopus_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-		echo $(eval_gettext "End libtheora")
+		echo $(eval_gettext "End $SOFT")
 	fi
 	echo
 }
@@ -138,21 +140,22 @@ ubuntu_precise_x264_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	SOFT="libx264"
 	cd "$SRC_INSTALL"
 	
 	# Si on a déjà les sources, on ne fait que les mettre à jour
 	if [ -d "$SRC_INSTALL"/x264/.git ];then
-		echo $(eval_gettext "Info debut x264 update")
+		echo $(eval_gettext "Info debut $SOFT update")
 		echo
-		echo $(eval_gettext "Info debut x264 update") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info debut $SOFT update") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
 		git pull 2>> $LOG >> $LOG || return 1
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
-		echo $(eval_gettext "Info debut x264 install")
+		echo $(eval_gettext "Info debut $SOFT install")
 		echo
-		echo $(eval_gettext "Info debut x264 install") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
 		cd $SRC_INSTALL/x264
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
@@ -160,8 +163,8 @@ ubuntu_precise_x264_install ()
 	
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
 	if [ "$REVISION" = "$NEWREVISION" ]; then
-		echo $(eval_gettext "Info a jour x264")
-		echo $(eval_gettext "Info a jour x264") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info a jour $SOFT")
+		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
@@ -180,10 +183,11 @@ ubuntu_precise_ffmpeg_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
+	SOFT="ffmpeg"
 	cd $SRC_INSTALL
 	if [  ! -e "$SRC_INSTALL"/$FFMPEG_FICHIER ];then
-		echo $(eval_gettext "Info debut ffmpeg install")
-		echo $(eval_gettext "Info debut ffmpeg install") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info debut $SOFT install")
+		echo $(eval_gettext "Info debut $SOFT install") 2>> $LOG >> $LOG
 		echo
 		wget $FFMPEG_URL 2>> $LOG >> $LOG
 		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
@@ -201,8 +205,8 @@ ubuntu_precise_ffmpeg_install ()
 	cd $SRC_INSTALL/ffmpeg-1.0
 	
 	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
-		echo $(eval_gettext "Info a jour ffmpeg")
-		echo $(eval_gettext "Info a jour ffmpeg") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info a jour $SOFT")
+		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
 	else
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
@@ -221,7 +225,7 @@ ubuntu_precise_ffmpeg_install ()
 		cp qt-faststart /usr/local/bin
 	fi
 	echo
-	echo $(eval_gettext 'Info ffmpeg version $FFMPEG_VERSION')
+	echo $(eval_gettext 'Info $SOFT version $FFMPEG_VERSION')
 }
 
 # Préconfiguration basique d'Apache

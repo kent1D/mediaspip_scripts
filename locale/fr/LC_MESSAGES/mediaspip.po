@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaSPIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-15 19:01+0200\n"
+"POT-Creation-Date: 2013-06-16 11:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: kent1 <kent1@arscenic.info>\n"
 "Language-Team: kent1 <contact@mediaspip.net>\n"
@@ -12,6 +12,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.5\n"
+
+#: mediaspip_install.sh:474 mediaspip_install.sh:491
+#: distribs/debian_squeeze.sh:196 distribs/debian_squeeze.sh:235
+#, sh-format
+msgid "End $SOFT"
+msgstr "Installation de $SOFT terminée"
 
 #: mediaspip_install.sh:531
 #, sh-format
@@ -23,7 +29,7 @@ msgstr "Création des liens symboliques des binaires pour AlternC terminée"
 msgid "End apache"
 msgstr "Préconfiguration d'Apache terminée"
 
-#: distribs/debian_squeeze.sh:130 distribs/debian_wheezy.sh:80
+#: distribs/debian_squeeze.sh:131 distribs/debian_wheezy.sh:80
 #, sh-format
 msgid "End debian-multimedia"
 msgstr "Le dépôt Debian Multimédia a été correctement activé."
@@ -33,72 +39,20 @@ msgstr "Le dépôt Debian Multimédia a été correctement activé."
 msgid "End dependances"
 msgstr "Fin de l'installation des dépendances"
 
-#: mediaspip_install.sh:491
-#, sh-format
-msgid "End ffmpeg"
-msgstr "Installation de FFMpeg terminée"
-
-#: mediaspip_functions.sh:254
-#, sh-format
-msgid "End flvtool++"
-msgstr "Installation de Flvtool++ terminée"
-
 #: mediaspip_install.sh:552
 #, sh-format
 msgid "End installation generale"
 msgstr "L'installation est terminée."
 
-#: distribs/ubuntu_lucid.sh:169
-#, sh-format
-msgid "End lame"
-msgstr "Installation de lame terminée"
-
-#: distribs/debian_squeeze.sh:269 distribs/debian_wheezy.sh:138
-#: distribs/ubuntu_lucid.sh:277 distribs/ubuntu_precise.sh:130
-#, sh-format
-msgid "End libtheora"
-msgstr "Installation de libtheora terminée"
-
-#: distribs/debian_squeeze.sh:233 distribs/ubuntu_lucid.sh:241
-#: distribs/ubuntu_precise.sh:94
-#, sh-format
-msgid "End libvpx"
-msgstr "Installation de libvpx terminée"
-
-#: mediaspip_functions.sh:169
-#, sh-format
-msgid "End mediainfo"
-msgstr "Installation de MediaInfo terminée"
-
-#: distribs/ubuntu_lucid.sh:204
-#, sh-format
-msgid "End opencore"
-msgstr "Installation de opencore-amr terminée"
-
-#: distribs/debian_squeeze.sh:332 distribs/debian_squeeze.sh:333
-#: distribs/debian_squeeze.sh:343 distribs/debian_squeeze.sh:344
-#: distribs/ubuntu_lucid.sh:422 distribs/ubuntu_lucid.sh:423
-#: distribs/ubuntu_lucid.sh:433 distribs/ubuntu_lucid.sh:434
+#: distribs/debian_squeeze.sh:335 distribs/debian_squeeze.sh:336
+#: distribs/debian_squeeze.sh:346 distribs/debian_squeeze.sh:347
+#: distribs/ubuntu_lucid.sh:429 distribs/ubuntu_lucid.sh:430
+#: distribs/ubuntu_lucid.sh:440 distribs/ubuntu_lucid.sh:441
 #, sh-format
 msgid "End php-imagick"
 msgstr "Installation de php-imagick terminée"
 
-#: distribs/ubuntu_lucid.sh:309
-#, sh-format
-msgid "End rtmpdump"
-msgstr "Installation de rtmpdump terminée"
-
-#: mediaspip_install.sh:474
-#, sh-format
-msgid "End x264"
-msgstr "Installation de x264 terminée"
-
-#: distribs/debian_squeeze.sh:195 distribs/ubuntu_lucid.sh:132
-#, sh-format
-msgid "End yasm"
-msgstr "Installation de Yasm terminée"
-
-#: distribs/debian_squeeze.sh:123 distribs/debian_wheezy.sh:73
+#: distribs/debian_squeeze.sh:124 distribs/debian_wheezy.sh:73
 #, sh-format
 msgid "Erreur apt debian-multimedia"
 msgstr "Vous devez activer les dépôts Debian Multimedia pour APT."
@@ -284,12 +238,19 @@ msgstr ""
 #: mediaspip_spip_installation.sh:47
 #, sh-format
 msgid "Info $PLUGIN change depot $NEW_DEPOT"
-msgstr "Changement de dépot ($NEW_DEPOT) pour $PLUGIN"
+msgstr "Changement de dépôt ($NEW_DEPOT) pour $PLUGIN"
 
 #: mediaspip_spip_installation.sh:50
 #, sh-format
 msgid "Info $PLUGIN change serveur $NEW_DEPOT"
 msgstr "Le plugin $PLUGIN a changé de serveur ($NEW_DEPOT)."
+
+#: distribs/debian_squeeze.sh:109 distribs/debian_wheezy.sh:236
+#: distribs/ubuntu_lucid.sh:410 distribs/ubuntu_precise.sh:228
+#: distribs/ubuntu_quantal.sh:180
+#, sh-format
+msgid "Info $SOFT version $FFMPEG_VERSION"
+msgstr "$SOFT est installé à la version $FFMPEG_VERSION"
 
 #: mediaspip_spip_installation.sh:52 mediaspip_spip_installation.sh:57
 #, sh-format
@@ -448,167 +409,134 @@ msgstr "Installation des thèmes de MediaSPIP"
 msgid "Info SPIP themes maj"
 msgstr "Mise à jour des themes de MediaSPIP"
 
-#: distribs/debian_squeeze.sh:88 distribs/debian_squeeze.sh:89
-#: distribs/debian_wheezy.sh:213 distribs/debian_wheezy.sh:214
-#: distribs/ubuntu_lucid.sh:383 distribs/ubuntu_lucid.sh:384
-#: distribs/ubuntu_precise.sh:204 distribs/ubuntu_precise.sh:205
-#: distribs/ubuntu_quantal.sh:158 distribs/ubuntu_quantal.sh:159
+#: distribs/debian_squeeze.sh:89 distribs/debian_squeeze.sh:90
 #, sh-format
-msgid "Info a jour ffmpeg"
-msgstr "FFmpeg semble déjà à jour"
+msgid "Info a jour $SOFT"
+msgstr "$SOFT semble déjà à jour"
+
+#: distribs/debian_squeeze.sh:180 distribs/debian_squeeze.sh:181
+#: distribs/debian_squeeze.sh:214 distribs/debian_squeeze.sh:215
+#: distribs/debian_squeeze.sh:253 distribs/debian_squeeze.sh:254
+#: distribs/debian_wheezy.sh:120 distribs/debian_wheezy.sh:121
+#: distribs/ubuntu_lucid.sh:117 distribs/ubuntu_lucid.sh:118
+#: distribs/ubuntu_lucid.sh:152 distribs/ubuntu_lucid.sh:153
+#: distribs/ubuntu_lucid.sh:187 distribs/ubuntu_lucid.sh:188
+#: distribs/ubuntu_lucid.sh:224 distribs/ubuntu_lucid.sh:225
+#: distribs/ubuntu_lucid.sh:263 distribs/ubuntu_lucid.sh:264
+#: distribs/ubuntu_lucid.sh:300 distribs/ubuntu_lucid.sh:301
+#: distribs/ubuntu_precise.sh:74 distribs/ubuntu_precise.sh:75
+#: distribs/ubuntu_precise.sh:113 distribs/ubuntu_precise.sh:114
+#, sh-format
+msgid "Info a jour $SOFT $VERSION"
+msgstr "$SOFT semble déjà à jour à la version $VERSION"
 
 #: mediaspip_functions.sh:238 mediaspip_functions.sh:239
 #, sh-format
 msgid "Info a jour flvtool++ $VERSION"
 msgstr "FLVtool++ semble déjà à la version $VERSION"
 
-#: distribs/ubuntu_lucid.sh:150 distribs/ubuntu_lucid.sh:151
-#, sh-format
-msgid "Info a jour lame $VERSION"
-msgstr "LAME semble déjà à la version $VERSION"
-
-#: distribs/debian_squeeze.sh:250 distribs/debian_squeeze.sh:251
-#: distribs/debian_wheezy.sh:119 distribs/debian_wheezy.sh:120
-#: distribs/ubuntu_lucid.sh:258 distribs/ubuntu_lucid.sh:259
-#: distribs/ubuntu_precise.sh:111 distribs/ubuntu_precise.sh:112
-#, sh-format
-msgid "Info a jour libopus $VERSION"
-msgstr "libopus semble déjà à la version $VERSION"
-
-#: distribs/debian_squeeze.sh:212 distribs/debian_squeeze.sh:213
-#: distribs/ubuntu_lucid.sh:220 distribs/ubuntu_lucid.sh:221
-#: distribs/ubuntu_precise.sh:73 distribs/ubuntu_precise.sh:74
-#, sh-format
-msgid "Info a jour libvpx $VERSION"
-msgstr "Libvpx semble déjà à la version $VERSION"
-
 #: mediaspip_functions.sh:150 mediaspip_functions.sh:151
 #, sh-format
 msgid "Info a jour mediainfo $VERSION"
 msgstr "MediaInfo semble déjà à la version $VERSION"
 
-#: distribs/ubuntu_lucid.sh:184 distribs/ubuntu_lucid.sh:185
-#, sh-format
-msgid "Info a jour opencore $VERSION"
-msgstr "Libopencore-amr semble déjà à la version $VERSION"
-
-#: distribs/debian_squeeze.sh:336 distribs/debian_squeeze.sh:337
-#: distribs/ubuntu_lucid.sh:426 distribs/ubuntu_lucid.sh:427
+#: distribs/debian_squeeze.sh:339 distribs/debian_squeeze.sh:340
+#: distribs/ubuntu_lucid.sh:433 distribs/ubuntu_lucid.sh:434
 #, sh-format
 msgid "Info a jour php-imagick"
 msgstr "php-imagick semble déjà à jour"
 
-#: distribs/ubuntu_lucid.sh:295 distribs/ubuntu_lucid.sh:296
-#, sh-format
-msgid "Info a jour rtmpdump $VERSION"
-msgstr "rtmpdump semble déjà à la version $VERSION"
-
-#: distribs/debian_squeeze.sh:302 distribs/debian_squeeze.sh:303
-#: distribs/debian_wheezy.sh:171 distribs/debian_wheezy.sh:172
-#: distribs/ubuntu_lucid.sh:342 distribs/ubuntu_lucid.sh:343
-#: distribs/ubuntu_precise.sh:163 distribs/ubuntu_precise.sh:164
-#: distribs/ubuntu_quantal.sh:117 distribs/ubuntu_quantal.sh:118
-#, sh-format
-msgid "Info a jour x264"
-msgstr "x264 semble déjà à jour"
-
-#: distribs/debian_squeeze.sh:179 distribs/debian_squeeze.sh:180
-#: distribs/ubuntu_lucid.sh:116 distribs/ubuntu_lucid.sh:117
-#, sh-format
-msgid "Info a jour yasm $VERSION"
-msgstr "Yasm semble déjà à la version $VERSION"
-
-#: distribs/debian_squeeze.sh:386 distribs/debian_squeeze.sh:387
-#: distribs/debian_wheezy.sh:267 distribs/debian_wheezy.sh:268
-#: distribs/ubuntu_lucid.sh:476 distribs/ubuntu_lucid.sh:477
-#: distribs/ubuntu_precise.sh:258 distribs/ubuntu_precise.sh:259
-#: distribs/ubuntu_quantal.sh:212 distribs/ubuntu_quantal.sh:213
+#: distribs/debian_squeeze.sh:389 distribs/debian_squeeze.sh:390
+#: distribs/debian_wheezy.sh:270 distribs/debian_wheezy.sh:271
+#: distribs/ubuntu_lucid.sh:483 distribs/ubuntu_lucid.sh:484
+#: distribs/ubuntu_precise.sh:262 distribs/ubuntu_precise.sh:263
+#: distribs/ubuntu_quantal.sh:214 distribs/ubuntu_quantal.sh:215
 #, sh-format
 msgid "Info apache mime fichier"
 msgstr ""
 "Installation du fichier de configuration des types mime supplémentaires"
 
-#: distribs/debian_squeeze.sh:370 distribs/debian_squeeze.sh:371
-#: distribs/debian_wheezy.sh:251 distribs/debian_wheezy.sh:252
-#: distribs/ubuntu_lucid.sh:460 distribs/ubuntu_lucid.sh:461
-#: distribs/ubuntu_precise.sh:242 distribs/ubuntu_precise.sh:243
-#: distribs/ubuntu_quantal.sh:196 distribs/ubuntu_quantal.sh:197
+#: distribs/debian_squeeze.sh:373 distribs/debian_squeeze.sh:374
+#: distribs/debian_wheezy.sh:254 distribs/debian_wheezy.sh:255
+#: distribs/ubuntu_lucid.sh:467 distribs/ubuntu_lucid.sh:468
+#: distribs/ubuntu_precise.sh:246 distribs/ubuntu_precise.sh:247
+#: distribs/ubuntu_quantal.sh:198 distribs/ubuntu_quantal.sh:199
 #, sh-format
 msgid "Info apache mod deflate"
 msgstr "Activation du module mod_deflate"
 
-#: distribs/debian_squeeze.sh:373 distribs/debian_squeeze.sh:374
-#: distribs/debian_wheezy.sh:254 distribs/debian_wheezy.sh:255
-#: distribs/ubuntu_lucid.sh:463 distribs/ubuntu_lucid.sh:464
-#: distribs/ubuntu_precise.sh:245 distribs/ubuntu_precise.sh:246
-#: distribs/ubuntu_quantal.sh:199 distribs/ubuntu_quantal.sh:200
+#: distribs/debian_squeeze.sh:376 distribs/debian_squeeze.sh:377
+#: distribs/debian_wheezy.sh:257 distribs/debian_wheezy.sh:258
+#: distribs/ubuntu_lucid.sh:470 distribs/ubuntu_lucid.sh:471
+#: distribs/ubuntu_precise.sh:249 distribs/ubuntu_precise.sh:250
+#: distribs/ubuntu_quantal.sh:201 distribs/ubuntu_quantal.sh:202
 #, sh-format
 msgid "Info apache mod deflate fichier"
 msgstr "Installation du fichier de configuration du mod_deflate"
 
-#: distribs/debian_squeeze.sh:378 distribs/debian_squeeze.sh:379
-#: distribs/debian_wheezy.sh:259 distribs/debian_wheezy.sh:260
-#: distribs/ubuntu_lucid.sh:468 distribs/ubuntu_lucid.sh:469
-#: distribs/ubuntu_precise.sh:250 distribs/ubuntu_precise.sh:251
-#: distribs/ubuntu_quantal.sh:204 distribs/ubuntu_quantal.sh:205
+#: distribs/debian_squeeze.sh:381 distribs/debian_squeeze.sh:382
+#: distribs/debian_wheezy.sh:262 distribs/debian_wheezy.sh:263
+#: distribs/ubuntu_lucid.sh:475 distribs/ubuntu_lucid.sh:476
+#: distribs/ubuntu_precise.sh:254 distribs/ubuntu_precise.sh:255
+#: distribs/ubuntu_quantal.sh:206 distribs/ubuntu_quantal.sh:207
 #, sh-format
 msgid "Info apache mod expires"
 msgstr "Activation du module mod_expires"
 
-#: distribs/debian_squeeze.sh:381 distribs/debian_squeeze.sh:382
-#: distribs/debian_wheezy.sh:262 distribs/debian_wheezy.sh:263
-#: distribs/ubuntu_lucid.sh:471 distribs/ubuntu_lucid.sh:472
-#: distribs/ubuntu_precise.sh:253 distribs/ubuntu_precise.sh:254
-#: distribs/ubuntu_quantal.sh:207 distribs/ubuntu_quantal.sh:208
+#: distribs/debian_squeeze.sh:384 distribs/debian_squeeze.sh:385
+#: distribs/debian_wheezy.sh:265 distribs/debian_wheezy.sh:266
+#: distribs/ubuntu_lucid.sh:478 distribs/ubuntu_lucid.sh:479
+#: distribs/ubuntu_precise.sh:257 distribs/ubuntu_precise.sh:258
+#: distribs/ubuntu_quantal.sh:209 distribs/ubuntu_quantal.sh:210
 #, sh-format
 msgid "Info apache mod expires fichier"
 msgstr "Installation du fichier de configuration du mod_expires"
 
-#: distribs/debian_squeeze.sh:360 distribs/debian_squeeze.sh:361
-#: distribs/debian_wheezy.sh:241 distribs/debian_wheezy.sh:242
-#: distribs/ubuntu_lucid.sh:450 distribs/ubuntu_lucid.sh:451
-#: distribs/ubuntu_precise.sh:232 distribs/ubuntu_precise.sh:233
-#: distribs/ubuntu_quantal.sh:186 distribs/ubuntu_quantal.sh:187
+#: distribs/debian_squeeze.sh:363 distribs/debian_squeeze.sh:364
+#: distribs/debian_wheezy.sh:244 distribs/debian_wheezy.sh:245
+#: distribs/ubuntu_lucid.sh:457 distribs/ubuntu_lucid.sh:458
+#: distribs/ubuntu_precise.sh:236 distribs/ubuntu_precise.sh:237
+#: distribs/ubuntu_quantal.sh:188 distribs/ubuntu_quantal.sh:189
 #, sh-format
 msgid "Info apache mod headers"
 msgstr "Activation du module mod_headers"
 
-#: distribs/debian_squeeze.sh:365 distribs/debian_squeeze.sh:366
-#: distribs/debian_wheezy.sh:246 distribs/debian_wheezy.sh:247
-#: distribs/ubuntu_lucid.sh:455 distribs/ubuntu_lucid.sh:456
-#: distribs/ubuntu_precise.sh:237 distribs/ubuntu_precise.sh:238
-#: distribs/ubuntu_quantal.sh:191 distribs/ubuntu_quantal.sh:192
+#: distribs/debian_squeeze.sh:368 distribs/debian_squeeze.sh:369
+#: distribs/debian_wheezy.sh:249 distribs/debian_wheezy.sh:250
+#: distribs/ubuntu_lucid.sh:462 distribs/ubuntu_lucid.sh:463
+#: distribs/ubuntu_precise.sh:241 distribs/ubuntu_precise.sh:242
+#: distribs/ubuntu_quantal.sh:193 distribs/ubuntu_quantal.sh:194
 #, sh-format
 msgid "Info apache mod rewrite"
 msgstr "Activation du mod_rewrite"
 
-#: distribs/debian_squeeze.sh:400 distribs/debian_squeeze.sh:401
-#: distribs/debian_wheezy.sh:281 distribs/debian_wheezy.sh:282
-#: distribs/ubuntu_lucid.sh:490 distribs/ubuntu_lucid.sh:491
-#: distribs/ubuntu_precise.sh:272 distribs/ubuntu_precise.sh:273
-#: distribs/ubuntu_quantal.sh:226 distribs/ubuntu_quantal.sh:227
+#: distribs/debian_squeeze.sh:403 distribs/debian_squeeze.sh:404
+#: distribs/debian_wheezy.sh:284 distribs/debian_wheezy.sh:285
+#: distribs/ubuntu_lucid.sh:497 distribs/ubuntu_lucid.sh:498
+#: distribs/ubuntu_precise.sh:276 distribs/ubuntu_precise.sh:277
+#: distribs/ubuntu_quantal.sh:228 distribs/ubuntu_quantal.sh:229
 #, sh-format
 msgid "Info apache reload"
 msgstr "Rechargement d'Apache"
 
-#: distribs/debian_squeeze.sh:125 distribs/debian_wheezy.sh:75
+#: distribs/debian_squeeze.sh:126 distribs/debian_wheezy.sh:75
 #, sh-format
 msgid "Info apt debian-multimedia copie"
 msgstr "Insertion du dépôt dans le fichier /etc/apt/sources.list ."
 
-#: distribs/debian_squeeze.sh:127 distribs/debian_wheezy.sh:77
+#: distribs/debian_squeeze.sh:128 distribs/debian_wheezy.sh:77
 #, sh-format
 msgid "Info apt debian-multimedia installation cle"
 msgstr "Installation de la clé GPG du dépôt."
 
-#: distribs/debian_squeeze.sh:120 distribs/debian_wheezy.sh:70
+#: distribs/debian_squeeze.sh:121 distribs/debian_wheezy.sh:70
 #, sh-format
 msgid "Info apt debian-multimedia question auto"
 msgstr ""
 "Le dépôt APT Debian Multimédia est nécessaire pour continuer. Voulez-vous "
 "que le script l'active automatiquement ?"
 
-#: distribs/debian_squeeze.sh:133 distribs/debian_squeeze.sh:134
+#: distribs/debian_squeeze.sh:134 distribs/debian_squeeze.sh:135
 #: distribs/debian_wheezy.sh:83 distribs/debian_wheezy.sh:84
 #: distribs/ubuntu_lucid.sh:64 distribs/ubuntu_lucid.sh:65
 #: distribs/ubuntu_precise.sh:34 distribs/ubuntu_precise.sh:35
@@ -617,7 +545,7 @@ msgstr ""
 msgid "Info apt maj base"
 msgstr "Mise à jour de la base d'APT"
 
-#: distribs/debian_squeeze.sh:136 distribs/debian_squeeze.sh:137
+#: distribs/debian_squeeze.sh:137 distribs/debian_squeeze.sh:138
 #: distribs/debian_wheezy.sh:86 distribs/debian_wheezy.sh:87
 #: distribs/ubuntu_lucid.sh:67 distribs/ubuntu_lucid.sh:68
 #: distribs/ubuntu_precise.sh:37 distribs/ubuntu_precise.sh:38
@@ -626,173 +554,96 @@ msgstr "Mise à jour de la base d'APT"
 msgid "Info apt maj paquets"
 msgstr "Mise à jour et installation des paquets via APT"
 
-#: distribs/debian_squeeze.sh:93 distribs/debian_squeeze.sh:189
-#: distribs/debian_squeeze.sh:226 distribs/debian_squeeze.sh:263
-#: distribs/debian_squeeze.sh:306 distribs/debian_wheezy.sh:132
-#: distribs/debian_wheezy.sh:175 distribs/debian_wheezy.sh:218
-#: distribs/ubuntu_lucid.sh:126 distribs/ubuntu_lucid.sh:163
-#: distribs/ubuntu_lucid.sh:197 distribs/ubuntu_lucid.sh:234
-#: distribs/ubuntu_lucid.sh:271 distribs/ubuntu_lucid.sh:346
-#: distribs/ubuntu_lucid.sh:388 distribs/ubuntu_precise.sh:87
-#: distribs/ubuntu_precise.sh:124 distribs/ubuntu_precise.sh:167
-#: distribs/ubuntu_precise.sh:209 distribs/ubuntu_quantal.sh:121
-#: distribs/ubuntu_quantal.sh:163
+#: distribs/debian_squeeze.sh:94 distribs/debian_squeeze.sh:190
+#: distribs/debian_squeeze.sh:228 distribs/debian_squeeze.sh:266
+#: distribs/debian_squeeze.sh:309 distribs/debian_wheezy.sh:133
+#: distribs/debian_wheezy.sh:177 distribs/debian_wheezy.sh:221
+#: distribs/ubuntu_lucid.sh:127 distribs/ubuntu_lucid.sh:165
+#: distribs/ubuntu_lucid.sh:200 distribs/ubuntu_lucid.sh:238
+#: distribs/ubuntu_lucid.sh:276 distribs/ubuntu_lucid.sh:352
+#: distribs/ubuntu_lucid.sh:395 distribs/ubuntu_precise.sh:88
+#: distribs/ubuntu_precise.sh:126 distribs/ubuntu_precise.sh:170
+#: distribs/ubuntu_precise.sh:213 distribs/ubuntu_quantal.sh:122
+#: distribs/ubuntu_quantal.sh:165
 #, sh-format
 msgid "Info compilation configure"
 msgstr "Configuration"
 
-#: distribs/debian_squeeze.sh:100 distribs/debian_squeeze.sh:193
-#: distribs/debian_squeeze.sh:230 distribs/debian_squeeze.sh:267
-#: distribs/debian_squeeze.sh:311 distribs/debian_wheezy.sh:136
-#: distribs/debian_wheezy.sh:180 distribs/debian_wheezy.sh:225
-#: distribs/ubuntu_lucid.sh:130 distribs/ubuntu_lucid.sh:167
-#: distribs/ubuntu_lucid.sh:202 distribs/ubuntu_lucid.sh:238
-#: distribs/ubuntu_lucid.sh:275 distribs/ubuntu_lucid.sh:307
-#: distribs/ubuntu_lucid.sh:351 distribs/ubuntu_lucid.sh:395
-#: distribs/ubuntu_precise.sh:91 distribs/ubuntu_precise.sh:128
-#: distribs/ubuntu_precise.sh:172 distribs/ubuntu_precise.sh:216
-#: distribs/ubuntu_quantal.sh:126 distribs/ubuntu_quantal.sh:170
+#: distribs/debian_squeeze.sh:101 distribs/debian_squeeze.sh:194
+#: distribs/debian_squeeze.sh:232 distribs/debian_squeeze.sh:270
+#: distribs/debian_squeeze.sh:314 distribs/debian_wheezy.sh:137
+#: distribs/debian_wheezy.sh:182 distribs/debian_wheezy.sh:228
+#: distribs/ubuntu_lucid.sh:131 distribs/ubuntu_lucid.sh:169
+#: distribs/ubuntu_lucid.sh:205 distribs/ubuntu_lucid.sh:242
+#: distribs/ubuntu_lucid.sh:280 distribs/ubuntu_lucid.sh:312
+#: distribs/ubuntu_lucid.sh:357 distribs/ubuntu_lucid.sh:402
+#: distribs/ubuntu_precise.sh:92 distribs/ubuntu_precise.sh:130
+#: distribs/ubuntu_precise.sh:175 distribs/ubuntu_precise.sh:220
+#: distribs/ubuntu_quantal.sh:127 distribs/ubuntu_quantal.sh:172
 #, sh-format
 msgid "Info compilation install"
 msgstr "Installation"
 
-#: distribs/debian_squeeze.sh:97 distribs/debian_squeeze.sh:191
-#: distribs/debian_squeeze.sh:228 distribs/debian_squeeze.sh:265
-#: distribs/debian_squeeze.sh:308 distribs/debian_wheezy.sh:134
-#: distribs/debian_wheezy.sh:177 distribs/debian_wheezy.sh:222
-#: distribs/ubuntu_lucid.sh:128 distribs/ubuntu_lucid.sh:165
-#: distribs/ubuntu_lucid.sh:200 distribs/ubuntu_lucid.sh:236
-#: distribs/ubuntu_lucid.sh:273 distribs/ubuntu_lucid.sh:305
-#: distribs/ubuntu_lucid.sh:348 distribs/ubuntu_lucid.sh:392
-#: distribs/ubuntu_precise.sh:89 distribs/ubuntu_precise.sh:126
-#: distribs/ubuntu_precise.sh:169 distribs/ubuntu_precise.sh:213
-#: distribs/ubuntu_quantal.sh:123 distribs/ubuntu_quantal.sh:167
+#: distribs/debian_squeeze.sh:98 distribs/debian_squeeze.sh:192
+#: distribs/debian_squeeze.sh:230 distribs/debian_squeeze.sh:268
+#: distribs/debian_squeeze.sh:311 distribs/debian_wheezy.sh:135
+#: distribs/debian_wheezy.sh:179 distribs/debian_wheezy.sh:225
+#: distribs/ubuntu_lucid.sh:129 distribs/ubuntu_lucid.sh:167
+#: distribs/ubuntu_lucid.sh:203 distribs/ubuntu_lucid.sh:240
+#: distribs/ubuntu_lucid.sh:278 distribs/ubuntu_lucid.sh:310
+#: distribs/ubuntu_lucid.sh:354 distribs/ubuntu_lucid.sh:399
+#: distribs/ubuntu_precise.sh:90 distribs/ubuntu_precise.sh:128
+#: distribs/ubuntu_precise.sh:172 distribs/ubuntu_precise.sh:217
+#: distribs/ubuntu_quantal.sh:124 distribs/ubuntu_quantal.sh:169
 #, sh-format
 msgid "Info compilation make"
 msgstr "Compilation"
 
-#: distribs/debian_squeeze.sh:69 distribs/debian_squeeze.sh:70
-#: distribs/debian_wheezy.sh:194 distribs/debian_wheezy.sh:195
-#: distribs/ubuntu_lucid.sh:364 distribs/ubuntu_lucid.sh:365
-#: distribs/ubuntu_precise.sh:185 distribs/ubuntu_precise.sh:186
-#: distribs/ubuntu_quantal.sh:139 distribs/ubuntu_quantal.sh:140
+#: distribs/debian_squeeze.sh:70 distribs/debian_squeeze.sh:71
 #, sh-format
-msgid "Info debut ffmpeg install"
-msgstr "Téléchargement, compilation et installation de FFMpeg"
+msgid "Info debut $SOFT install"
+msgstr "Téléchargement, compilation et installation de $SOFT"
 
-#: mediaspip_functions.sh:241 mediaspip_functions.sh:242
-#, sh-format
-msgid "Info debut flvtool++"
-msgstr "Téléchargement, compilation et installation de flvtool++"
-
-#: distribs/ubuntu_lucid.sh:154 distribs/ubuntu_lucid.sh:155
-#, sh-format
-msgid "Info debut lame install $VERSION"
-msgstr "Téléchargement, compilation et installation de lame version $VERSION"
-
-#: distribs/ubuntu_lucid.sh:159 distribs/ubuntu_lucid.sh:160
-#, sh-format
-msgid "Info debut lame update $VERSION"
-msgstr "Recompilation et réinstallation de lame version $VERSION"
-
-#: distribs/debian_squeeze.sh:254 distribs/debian_squeeze.sh:255
-#: distribs/debian_wheezy.sh:123 distribs/debian_wheezy.sh:124
-#: distribs/ubuntu_lucid.sh:262 distribs/ubuntu_lucid.sh:263
-#: distribs/ubuntu_precise.sh:115 distribs/ubuntu_precise.sh:116
-#, sh-format
-msgid "Info debut libopus install $VERSION"
-msgstr ""
-"Téléchargement, compilation et installation de libopus version $VERSION"
-
-#: distribs/debian_squeeze.sh:259 distribs/debian_squeeze.sh:260
-#: distribs/debian_wheezy.sh:128 distribs/debian_wheezy.sh:129
+#: distribs/debian_squeeze.sh:218 distribs/debian_squeeze.sh:219
+#: distribs/debian_squeeze.sh:257 distribs/debian_squeeze.sh:258
+#: distribs/debian_wheezy.sh:124 distribs/debian_wheezy.sh:125
+#: distribs/ubuntu_lucid.sh:156 distribs/ubuntu_lucid.sh:157
+#: distribs/ubuntu_lucid.sh:191 distribs/ubuntu_lucid.sh:192
+#: distribs/ubuntu_lucid.sh:228 distribs/ubuntu_lucid.sh:229
 #: distribs/ubuntu_lucid.sh:267 distribs/ubuntu_lucid.sh:268
-#: distribs/ubuntu_precise.sh:120 distribs/ubuntu_precise.sh:121
+#: distribs/ubuntu_precise.sh:78 distribs/ubuntu_precise.sh:79
+#: distribs/ubuntu_precise.sh:117 distribs/ubuntu_precise.sh:118
 #, sh-format
-msgid "Info debut libopus update $VERSION"
-msgstr "Recompilation et réinstallation de libopus version $VERSION"
-
-#: distribs/debian_squeeze.sh:216 distribs/debian_squeeze.sh:217
-#: distribs/ubuntu_lucid.sh:224 distribs/ubuntu_lucid.sh:225
-#: distribs/ubuntu_precise.sh:77 distribs/ubuntu_precise.sh:78
-#, sh-format
-msgid "Info debut libvpx install $VERSION"
-msgstr "Compilation et installation de libvpx version $VERSION"
-
-#: mediaspip_functions.sh:154 mediaspip_functions.sh:155
-#, sh-format
-msgid "Info debut mediainfo install $VERSION"
+msgid "Info debut $SOFT install $VERSION"
 msgstr ""
-"Téléchargement, compilation et installation de mediainfo version $VERSION"
+"Téléchargement, compilation et installation de $SOFT à la version $VERSION"
 
-#: mediaspip_functions.sh:160 mediaspip_functions.sh:161
+#: distribs/debian_squeeze.sh:262 distribs/debian_squeeze.sh:263
+#: distribs/debian_wheezy.sh:129 distribs/debian_wheezy.sh:130
+#: distribs/ubuntu_lucid.sh:161 distribs/ubuntu_lucid.sh:162
+#: distribs/ubuntu_lucid.sh:196 distribs/ubuntu_lucid.sh:197
+#: distribs/ubuntu_lucid.sh:272 distribs/ubuntu_lucid.sh:273
+#: distribs/ubuntu_precise.sh:122 distribs/ubuntu_precise.sh:123
 #, sh-format
-msgid "Info debut mediainfo update $VERSION"
-msgstr "Recompilation et réinstallation de mediainfo version $VERSION"
+msgid "Info debut $SOFT update $VERSION"
+msgstr "Mise à jour de $SOFT à la version $VERSION"
 
-#: distribs/ubuntu_lucid.sh:188 distribs/ubuntu_lucid.sh:189
-#, sh-format
-msgid "Info debut opencore install $VERSION"
-msgstr ""
-"Téléchargement, compilation et installation de opencore-amr version $VERSION"
-
-#: distribs/ubuntu_lucid.sh:193 distribs/ubuntu_lucid.sh:194
-#, sh-format
-msgid "Info debut opencore update $VERSION"
-msgstr "Recompilation et réinstallation de opencore-amr version $VERSION"
-
-#: distribs/debian_squeeze.sh:329 distribs/debian_squeeze.sh:330
-#: distribs/ubuntu_lucid.sh:419 distribs/ubuntu_lucid.sh:420
+#: distribs/debian_squeeze.sh:332 distribs/debian_squeeze.sh:333
+#: distribs/ubuntu_lucid.sh:426 distribs/ubuntu_lucid.sh:427
 #, sh-format
 msgid "Info debut php-imagick install"
 msgstr "Installation de php-imagick"
 
-#: distribs/debian_squeeze.sh:340 distribs/debian_squeeze.sh:341
-#: distribs/ubuntu_lucid.sh:430 distribs/ubuntu_lucid.sh:431
+#: distribs/debian_squeeze.sh:343 distribs/debian_squeeze.sh:344
+#: distribs/ubuntu_lucid.sh:437 distribs/ubuntu_lucid.sh:438
 #, sh-format
 msgid "Info debut php-imagick update"
 msgstr "Mise à jour de php-imagick"
-
-#: distribs/ubuntu_lucid.sh:299 distribs/ubuntu_lucid.sh:300
-#, sh-format
-msgid "Info debut rtmpdump install"
-msgstr "Téléchargement, compilation et installation de rtmpdump"
-
-#: distribs/debian_squeeze.sh:292 distribs/debian_squeeze.sh:294
-#: distribs/debian_wheezy.sh:161 distribs/debian_wheezy.sh:163
-#: distribs/ubuntu_lucid.sh:332 distribs/ubuntu_lucid.sh:334
-#: distribs/ubuntu_precise.sh:153 distribs/ubuntu_precise.sh:155
-#: distribs/ubuntu_quantal.sh:107 distribs/ubuntu_quantal.sh:109
-#, sh-format
-msgid "Info debut x264 install"
-msgstr "Téléchargement, compilation et installation de x264"
-
-#: distribs/debian_squeeze.sh:284 distribs/debian_squeeze.sh:286
-#: distribs/debian_wheezy.sh:153 distribs/debian_wheezy.sh:155
-#: distribs/ubuntu_lucid.sh:324 distribs/ubuntu_lucid.sh:326
-#: distribs/ubuntu_precise.sh:145 distribs/ubuntu_precise.sh:147
-#: distribs/ubuntu_quantal.sh:99 distribs/ubuntu_quantal.sh:101
-#, sh-format
-msgid "Info debut x264 update"
-msgstr "Mise à jour, compilation et installation de x264"
-
-#: distribs/debian_squeeze.sh:182 distribs/debian_squeeze.sh:183
-#: distribs/ubuntu_lucid.sh:119 distribs/ubuntu_lucid.sh:120
-#, sh-format
-msgid "Info debut yasm install"
-msgstr "Téléchargement, compilation et installation de Yasm"
 
 #: mediaspip_install.sh:380
 #, sh-format
 msgid "Info distro version $DISTRIB $DISTRO"
 msgstr "Vous utilisez une distribution $DISTRIB $DISTRO"
-
-#: distribs/debian_squeeze.sh:108 distribs/debian_wheezy.sh:233
-#: distribs/ubuntu_lucid.sh:403 distribs/ubuntu_precise.sh:224
-#: distribs/ubuntu_quantal.sh:178
-#, sh-format
-msgid "Info ffmpeg version $FFMPEG_VERSION"
-msgstr "FFMpeg semble déjà à la version $FFMPEG_VERSION"
 
 #: mediaspip_install.sh:403
 #, sh-format
@@ -848,9 +699,9 @@ msgid "Info options no_question"
 msgstr ""
 "[INFO] Vous avez décidé de valider automatiquement toutes les questions"
 
-#: distribs/debian_squeeze.sh:391 distribs/debian_wheezy.sh:272
-#: distribs/ubuntu_lucid.sh:481 distribs/ubuntu_precise.sh:263
-#: distribs/ubuntu_quantal.sh:217
+#: distribs/debian_squeeze.sh:394 distribs/debian_wheezy.sh:275
+#: distribs/ubuntu_lucid.sh:488 distribs/ubuntu_precise.sh:267
+#: distribs/ubuntu_quantal.sh:219
 #, sh-format
 msgid "Info php max_upload $PHP_UPLOAD_SIZE"
 msgstr ""
@@ -916,6 +767,105 @@ msgstr ""
 "#     Installation de libx264 et x264      #\n"
 "############################################"
 
+#~ msgid "Erreur fichier fonctions"
+#~ msgstr ""
+#~ "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) "
+#~ "n'est pas disponible."
+
+#~ msgid "Info SPIP telecharge extension $i"
+#~ msgstr "Téléchargement de l'extension : $i"
+
+#~ msgid "Info SPIP telecharge plugin $i"
+#~ msgstr "Téléchargement du plugin $i"
+
+#~ msgid "Info SPIP telecharge theme $i"
+#~ msgstr "Téléchargement du thème : $i"
+
+#~ msgid "End flvtool++"
+#~ msgstr "Installation de Flvtool++ terminée"
+
+#~ msgid "End mediainfo"
+#~ msgstr "Installation de MediaInfo terminée"
+
+#~ msgid "Info debut flvtool++"
+#~ msgstr "Téléchargement, compilation et installation de flvtool++"
+
+#~ msgid "Info debut mediainfo install $VERSION"
+#~ msgstr ""
+#~ "Téléchargement, compilation et installation de mediainfo version $VERSION"
+
+#~ msgid "Info debut mediainfo update $VERSION"
+#~ msgstr "Recompilation et réinstallation de mediainfo version $VERSION"
+
+#~ msgid "End ffmpeg"
+#~ msgstr "Installation de FFMpeg terminée"
+
+#~ msgid "End x264"
+#~ msgstr "Installation de x264 terminée"
+
+#~ msgid "Info a jour ffmpeg"
+#~ msgstr "FFmpeg semble déjà à jour"
+
+#~ msgid "Info a jour x264"
+#~ msgstr "x264 semble déjà à jour"
+
+#~ msgid "Info debut ffmpeg install"
+#~ msgstr "Téléchargement, compilation et installation de FFMpeg"
+
+#~ msgid "Info debut x264 install"
+#~ msgstr "Téléchargement, compilation et installation de x264"
+
+#~ msgid "Info debut x264 update"
+#~ msgstr "Mise à jour, compilation et installation de x264"
+
+#~ msgid "End lame"
+#~ msgstr "Installation de lame terminée"
+
+#~ msgid "End libtheora"
+#~ msgstr "Installation de libtheora terminée"
+
+#~ msgid "End libvpx"
+#~ msgstr "Installation de libvpx terminée"
+
+#~ msgid "End opencore"
+#~ msgstr "Installation de opencore-amr terminée"
+
+#~ msgid "End rtmpdump"
+#~ msgstr "Installation de rtmpdump terminée"
+
+#~ msgid "Info a jour lame $VERSION"
+#~ msgstr "LAME semble déjà à la version $VERSION"
+
+#~ msgid "Info a jour libvpx $VERSION"
+#~ msgstr "Libvpx semble déjà à la version $VERSION"
+
+#~ msgid "Info a jour opencore $VERSION"
+#~ msgstr "Libopencore-amr semble déjà à la version $VERSION"
+
+#~ msgid "Info a jour rtmpdump $VERSION"
+#~ msgstr "rtmpdump semble déjà à la version $VERSION"
+
+#~ msgid "Info debut lame install $VERSION"
+#~ msgstr ""
+#~ "Téléchargement, compilation et installation de lame version $VERSION"
+
+#~ msgid "Info debut lame update $VERSION"
+#~ msgstr "Recompilation et réinstallation de lame version $VERSION"
+
+#~ msgid "Info debut libvpx install $VERSION"
+#~ msgstr "Compilation et installation de libvpx version $VERSION"
+
+#~ msgid "Info debut opencore install $VERSION"
+#~ msgstr ""
+#~ "Téléchargement, compilation et installation de opencore-amr version "
+#~ "$VERSION"
+
+#~ msgid "Info debut opencore update $VERSION"
+#~ msgstr "Recompilation et réinstallation de opencore-amr version $VERSION"
+
+#~ msgid "Info debut rtmpdump install"
+#~ msgstr "Téléchargement, compilation et installation de rtmpdump"
+
 #~ msgid "End ffmpeg2theora"
 #~ msgstr "Installation de ffmpeg2theora terminée"
 
@@ -980,19 +930,27 @@ msgstr ""
 #~ "#      Installation de FFMpeg2Theora       #\n"
 #~ "############################################"
 
-#~ msgid "Erreur fichier fonctions"
+#~ msgid "Info ffmpeg version $FFMPEG_VERSION"
+#~ msgstr "FFMpeg semble déjà à la version $FFMPEG_VERSION"
+
+#~ msgid "End yasm"
+#~ msgstr "Installation de Yasm terminée"
+
+#~ msgid "Info a jour libopus $VERSION"
+#~ msgstr "libopus semble déjà à la version $VERSION"
+
+#~ msgid "Info a jour yasm $VERSION"
+#~ msgstr "Yasm semble déjà à la version $VERSION"
+
+#~ msgid "Info debut libopus install $VERSION"
 #~ msgstr ""
-#~ "Erreur : le fichier de fonctions de ce script (mediaspip_functions.sh) "
-#~ "n'est pas disponible."
+#~ "Téléchargement, compilation et installation de libopus version $VERSION"
 
-#~ msgid "Info SPIP telecharge extension $i"
-#~ msgstr "Téléchargement de l'extension : $i"
+#~ msgid "Info debut libopus update $VERSION"
+#~ msgstr "Recompilation et réinstallation de libopus version $VERSION"
 
-#~ msgid "Info SPIP telecharge plugin $i"
-#~ msgstr "Téléchargement du plugin $i"
-
-#~ msgid "Info SPIP telecharge theme $i"
-#~ msgstr "Téléchargement du thème : $i"
+#~ msgid "Info debut yasm install"
+#~ msgstr "Téléchargement, compilation et installation de Yasm"
 
 #~ msgid "End faac"
 #~ msgstr "Installation de FAAC terminée"

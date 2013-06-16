@@ -469,16 +469,16 @@ echo
 echo
 
 "$DISTRIB"_"$DISTRO"_x264_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-
+SOFT="libx264"
 echo
-echo_reussite "$(eval_gettext 'End x264')"
+echo_reussite "$(eval_gettext 'End $SOFT')"
 echo
 
 # Si on demande à ne pas installer FFMpeg, plusieurs autres logiciels ne seront pas installés :
 # - FFMpeg lui-même
 
 if [ "$DISABLE_FFMPEG" != "yes" ];then
-
+SOFT="ffmpeg"
 	# Installation de ffmpeg
 	# binaire pour encoder videos et sons
 	eval_gettext "Titre ffmpeg"
@@ -488,7 +488,7 @@ if [ "$DISABLE_FFMPEG" != "yes" ];then
 	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 	
 	echo
-	echo_reussite "$(eval_gettext 'End ffmpeg')"
+	echo_reussite "$(eval_gettext 'End $SOFT')"
 	echo
 
 fi

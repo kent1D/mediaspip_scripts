@@ -142,31 +142,32 @@ media_info_install()
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
 	MEDIAINFO=$(which mediainfo)
+	SOFT="MediaInfo"
 	if [ ! -z "$MEDIAINFO" ]; then
 		MEDIAINFOVERSION=$(mediainfo --Version |awk '/^MediaInfoLib/ { print $3 }') 2>> $LOG >> $LOG
 	fi
 	VERSION="$MEDIAINFO_VERSION"
 	if [ "$MEDIAINFOVERSION" = "v$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION')
-		echo $(eval_gettext 'Info a jour mediainfo $VERSION') 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
 	else
 		if [ ! -e "$SRC_INSTALL"/$MEDIAINFO_FICHIER ];then
-			echo $(eval_gettext 'Info debut mediainfo install $VERSION')
-			echo $(eval_gettext 'Info debut mediainfo install $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
 			cd $SRC_INSTALL
 			wget $MEDIAINFO_URL 2>> $LOG >> $LOG || return 1
 			tar -xvjf $MEDIAINFO_FICHIER 2>> $LOG >> $LOG || return 1
 		else
-			echo $(eval_gettext 'Info debut mediainfo update $VERSION')
-			echo $(eval_gettext 'Info debut mediainfo update $VERSION') 2>> $LOG >> $LOG
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION') 2>> $LOG >> $LOG
 		fi
 		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
-		echo $(eval_gettext 'Info mediainfo compil install')
-		echo $(eval_gettext 'Info mediainfo compil install') 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info $SOFT compil install')
+		echo $(eval_gettext 'Info $SOFT compil install') 2>> $LOG >> $LOG
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
-		echo $(eval_gettext "End mediainfo")
+		echo $(eval_gettext "End $SOFT")
 	fi
 	echo
 }
@@ -229,17 +230,18 @@ flvtool_plus_install()
 	export TEXTDOMAIN=mediaspip
 	
 	FLVTOOLPLUS=$(which flvtool++)
+	SOFT="flvtool++"
 	if [ ! -z "$FLVTOOLPLUS" ]; then
 		FLVTOOLPLUSVERSION=$(flvtool++ |awk '/^flvtool++/ { print $2 }') 2>> $LOG >> $LOG
 	fi
 	
 	VERSION="$FLVTOOLPLUS_VERSION"
 	if [ "$FLVTOOLPLUSVERSION" = "$VERSION" ]; then
-		echo $(eval_gettext 'Info a jour flvtool++ $VERSION')
-		echo $(eval_gettext 'Info a jour flvtool++ $VERSION') 2>> $LOG >> $LOG
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
 	else
-		echo $(eval_gettext "Info debut flvtool++")
-		echo $(eval_gettext "Info debut flvtool++") 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info debut $SOFT")
+		echo $(eval_gettext "Info debut $SOFT") 2>> $LOG >> $LOG
 		cd $SRC_INSTALL
 		if [ ! -d $FLVTOOLPLUS_PATH ];then
 			mkdir $FLVTOOLPLUS_PATH 2>> $LOG >> $LOG
@@ -251,7 +253,7 @@ flvtool_plus_install()
 		tar xvzf $FLVTOOLPLUS_FICHIER 2>> $LOG >> $LOG
 		scons 2>> $LOG >> $LOG
 		cp flvtool++ /usr/local/bin
-		echo $(eval_gettext "End flvtool++")
+		echo $(eval_gettext "End $SOFT")
 	fi
 	echo
 }
