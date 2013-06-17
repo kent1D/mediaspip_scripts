@@ -27,7 +27,7 @@ $site_mutualisation = 'www.domaine.com';
 /**
  * Nom du répertoire où seront placés les fichiers des sites mutualisés
  */
-$dir_sites = 'sites';
+$dir_sites = 'sites_ms';
 
 /**
  * Email de l'admin de la mutualisation
