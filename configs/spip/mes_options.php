@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('_ECRIRE_INC_VERSION')) return;
-	
+
 /**
  * Autoriser un cache de 50Mo
  */
@@ -14,9 +14,9 @@ $quota_cache = 50;
 if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	if (file_exists(_DIR_RACINE.'config/mes_options_personnalisation.php'))
 		require _DIR_RACINE.'config/mes_options_personnalisation.php';
-	
+
 	require _DIR_RACINE.'mutualisation/mutualiser.php';
-	
+
 	/**
 	 * Inscrire ici le nom du site d'administration du tableau de bord
 	 * de la mutualisation (ou plusieurs, separes par des virgules)
@@ -38,24 +38,23 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 		if (preg_match('/:80$/', $site)) $site = substr($site,-3);
 		else $site = str_replace(':', '_', $site);
 	}
-	
+
 	/**
 	 * On active plugins-ferme pour le site maitre de la mutu
 	 */ 
-	if($site == $site_maitre){
-		define('_DIR_PLUGINS_SUPPL',_DIR_RACINE.'plugins-ferme/');
-	}else{
+	if($site == $site_maitre) define('_DIR_PLUGINS_SUPPL',_DIR_RACINE.'plugins-ferme/');
+	else{
 		/**
 		 * On n'autorise que le site maître à télécharger plugins et libs
 		 */
 		define('_AUTORISER_TELECHARGER_PLUGINS',false);
 	}
-	
+
 	/**
 	 * Ne pas autoriser les plugins auto
 	 */
 	define('_DIR_PLUGINS_AUTO', false);
-	
+
 	/**
 	 * On peut aller plus loin que si nous avons les identifiants de base de donnée
 	 */
@@ -63,17 +62,15 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 		define('_INSTALL_SITE_PREF', prefixe_mutualisation($site));
 		define('_INSTALL_SERVER_DB', 'mysql');
 		define('_INSTALL_HOST_DB', $db_host ? $db_host : 'localhost');
-		
+
 		/*
-		 * Creer automatiquement les users SQL (pg|mysql)
+		 * Creer automatiquement les users SQL MySQL
 		 *
 		 * Cela permet
 		 * - d'avoir un utilisateur root possedant les droits
-		 * de creation de bases (cet utilisateur possedant obligatoirement
-		 * une base a son nom en PG - PG ne se connecte pas sans donner un nom de bdd)
-		 * - de creer des utilisateurs sql automatiquement
-		 * ne possedant que les droits d'administation
-		 * de leur base de donnee qui sera creee
+		 * de creation de bases
+		 * - de creer des utilisateurs sql automatiquement ne possedant 
+		 * que les droits d'administation de leur base de donnee qui sera creee
 		 *
 		 * Il faut remplacer alors
 		 * _INSTALL_(USER|PASS)_DB par _INSTALL_(USER|PASS)_DB_ROOT
@@ -98,9 +95,9 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	define('_INSTALL_TABLE_PREFIX', 'spip');
 
 	include_spip('inc/acces');
-	if(!defined('_ACCESS_FILE_NAME')){
+	if(!defined('_ACCESS_FILE_NAME'))
 		define('_ACCESS_FILE_NAME', '.htaccess');
-	}
+
 	verifier_htaccess('config/');
 
 	$conf_site = array(
@@ -118,7 +115,7 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 			'utiliser_panel' => $utiliser_panel,
 			'annonce' => $annonce // Texte a afficher en bas du formulaire d'activation de la mutualisation
 		);
-		
+
 	/**
 	 * Si on a définit un site maitre, on affiche l'url de ce site comme url d'hébergeur
 	 */
@@ -126,10 +123,8 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 		$conf_site['url_hebergeur'] = 'http://'._SITES_ADMIN_MUTUALISATION;
 		$conf_site['url_contact_hebergeur'] = 'http://'._SITES_ADMIN_MUTUALISATION.'/spip.php?page=contact';
 	}
-	
-	demarrer_site($site,
-		$conf_site
-	);	
+
+	demarrer_site($site,$conf_site);	
 }
 
 ?>
