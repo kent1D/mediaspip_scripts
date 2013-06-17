@@ -530,12 +530,12 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 		if [ ! -h ps ];then
 			ln -s /bin/ps 2>> $LOG >> $LOG
 		fi
-		
+
 		cd $CURRENT
-		
+
 		cp configs/spipmotion/spipmotion.sh /var/alternc/exec.usr/ 2>> $LOG >> $LOG
 		chmod +x /var/alternc/exec.usr/spipmotion.sh
-		
+
 		echo
 		echo_reussite "$(eval_gettext 'End alternc')"
 	fi
