@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # mediaspip_spip_installation.sh
-# © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.9
+# © 2011-2013 - kent1 (kent1@arscenic.info)
+# Version 0.4.0
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -10,7 +10,7 @@
 # - Les plugins compatibles si configuré comme tel
 # - Les thèmes compatibles si configuré comme tel
 # - Le plugin de mutualisation si configuré comme tel
-# - Les répertoires sites/ (si dans un cas de mutu) et lib/
+# - Les répertoires sites_ms/ (si dans un cas de mutu) et lib/
 # - Le htaccess de SPIP
 # - Le repertoire securite/ comprenant l'écran de sécurité, on crée un lien symbolique de securite/ecran_securite.php dans config/
 #
@@ -247,7 +247,7 @@ IFS="
 	# Si on est dans un type mutu on :
 	# - installe le plugin de mutualisation
 	# - on récupère les plugins spécifique à la mutu 
-	# - crée le répertoire site si non existant
+	# - crée le répertoire site_ms si non existant (pas sites car peut poser problème avec la rubrique sites)
 	# - vide les caches de l'ensemble des sites
 	# par défaut
 	if [ $SPIP_TYPE = "ferme" ] || [ $SPIP_TYPE = "ferme_full" ];then
@@ -282,25 +282,25 @@ IFS="
 		echo $(eval_gettext "Info SPIP plugins ferme maj")
 		svn up plugins-ferme/* 2>> $LOG >> $LOG
 
-		# Création du répertoire sites/ si non existant
+		# Création du répertoire sites_ms/ si non existant
 		# Suppression des caches CSS / JS / PHP 
 		# Suppression des vieux logs
-		if [ ! -d sites ];then
+		if [ ! -d sites_ms ];then
 			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
-			mkdir sites && chmod 755 sites/ 2>> $LOG >> $LOG
+			mkdir sites_ms && chmod 755 sites_ms/ 2>> $LOG >> $LOG
 		else
 			echo 
 			echo $(eval_gettext "Info SPIP suppression cache css")
-			rm -Rvf $SPIP/sites/*/local/cache-css/* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/local/cache-css/* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache js")
-			rm -Rvf $SPIP/sites/*/local/cache-js/* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/local/cache-js/* 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache html")
-			rm -Rvf $SPIP/sites/*/tmp/meta_cache.php 2>> $LOG >> $LOG
-			rm -Rvf $SPIP/sites/*/tmp/plugin_xml_cache.gz 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/tmp/meta_cache.php 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/tmp/plugin_xml_cache.gz 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info SPIP suppression cache plugins")
-			rm -Rvf $SPIP/sites/*/tmp/cache/* 2>> $LOG >> $LOG
-			rm -Rvf $SPIP/sites/*/tmp/log/*.log.* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/tmp/cache/* 2>> $LOG >> $LOG
+			rm -Rvf $SPIP/sites_ms/*/tmp/log/*.log.* 2>> $LOG >> $LOG
 		fi
 	# Sinon on ne vide que le cache du site courant
 	else
