@@ -126,16 +126,18 @@ read_line_svn(){
 distrib_autres ()
 {
 	TYPE=$1
+	if [ "$TYPE" = "extensions" ];then
+		TYPE="plugins-dist"
+	fi
 	if [ -z "$TYPE" ];then
 		echo "Erreur"
 	fi
-	
+
 	if [ -r distrib_"$TYPE".txt ];then
-		read_line_svn	
+		read_line_svn
 	else
 		echo "Pas de $TYPE"
 	fi
-		
 }
 
 distrib_empaqueter ()
