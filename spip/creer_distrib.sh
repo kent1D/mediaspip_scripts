@@ -94,9 +94,6 @@ distrib_core()
 }
 
 read_line_svn(){
-	if [ "$TYPE" = "extensions" ];then
-		TYPE="plugins-dist"
-	fi
 	echo "Mise à jour des sources de $TYPE"
 	svn up $REP/$TYPE/*
 	while read line
@@ -152,7 +149,7 @@ creer_distrib ()
 	
 	echo
 	echo "RECUPERATION DES EXTENSIONS"
-	distrib_autres extensions
+	distrib_autres plugins-dist
 	echo
 	
 	echo

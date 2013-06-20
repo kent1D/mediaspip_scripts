@@ -1,0 +1,58 @@
+# A
+auteurs_syndic;svn://zone.spip.org/spip-zone/_plugins_/auteurs_syndic/trunk
+
+# C
+comments;svn://zone.spip.org/spip-zone/_plugins_/comments/trunk
+contact;svn://zone.spip.org/spip-zone/_plugins_/contact/trunk
+crayons;svn://zone.spip.org/spip-zone/_plugins_/crayons
+
+# D
+diogene;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene/trunk
+diogene_gerer_auteurs;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_gerer_auteurs/trunk
+diogene_licence;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_licence/trunk
+doc2img;svn://zone.spip.org/spip-zone/_plugins_/doc2img/trunk
+
+# E
+emballe_medias;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias/branches/v1.3
+emballe_medias_doc2img;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias_doc2img/trunk
+emballe_medias_spipmotion;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/emballe_medias_spipmotion/trunk
+embed_code;svn://zone.spip.org/spip-zone/_plugins_/embed_code/trunk
+
+# F
+facd;svn://zone.spip.org/spip-zone/_plugins_/facd
+facteur;svn://zone.spip.org/spip-zone/_plugins_/facteur/trunk
+fonctions_images;svn://zone.spip.org/spip-zone/_plugins_/fonctions_images/trunk
+
+# G
+getid3;svn://zone.spip.org/spip-zone/_plugins_/getID3/trunk
+
+# J
+jquery_file_upload;svn://zone.spip.org/spip-zone/_plugins_/jquery_file_upload/trunk
+
+# L
+licence;svn://zone.spip.org/spip-zone/_plugins_/licence
+
+# M
+mediaspip_config;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_config/trunk
+mediaspip_core;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_core/trunk
+mediaspip_init;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/mediaspip_init/trunk
+mediaspip_player;svn://zone.spip.org/spip-zone/_plugins_/mediaspip_player/trunk
+menus;svn://zone.spip.org/spip-zone/_plugins_/menus/trunk
+
+# N
+nospam;svn://zone.spip.org/spip-zone/_plugins_/nospam
+notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/trunk
+
+# P
+palette;svn://zone.spip.org/spip-zone/_plugins_/palette/trunk
+
+# S
+saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
+selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique/trunk
+spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion/trunk
+swfupload;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/swfupload/trunk
+
+# z
+z-core;svn://zone.spip.org/spip-zone/_plugins_/z-core
+zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/trunk
+zpip-dist;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/trunk
