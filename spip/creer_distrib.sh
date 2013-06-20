@@ -94,6 +94,9 @@ distrib_core()
 }
 
 read_line_svn(){
+	if [ "$TYPE" = "extensions" ];then
+		TYPE="plugins-dist"
+	fi
 	echo "Mise à jour des sources de $TYPE"
 	svn up $REP/$TYPE/*
 	while read line
@@ -126,9 +129,6 @@ read_line_svn(){
 distrib_autres ()
 {
 	TYPE=$1
-	if [ "$TYPE" = "extensions" ];then
-		TYPE="plugins-dist"
-	fi
 	if [ -z "$TYPE" ];then
 		echo "Erreur"
 	fi
