@@ -15,7 +15,7 @@
 # - Le repertoire securite/ comprenant l'écran de sécurité, on crée un lien symbolique de securite/ecran_securite.php dans config/
 #
 # Ce script se base sur les 3 fichiers du script de création de distribution (spip/creer_distrib.sh) :
-# -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
+# -* distrib_plugins-dist.txt : qui donne la liste des extensions SPIP obligatoires
 # -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
 #
@@ -165,7 +165,7 @@ mediaspip_install()
 
 	cd $SPIP/plugins-dist/
 
-	FICHIER='spip/distrib_extensions.txt'
+	FICHIER='spip/distrib_plugins-dist.txt'
 	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
 		recuperer_svn $CURRENT/$FICHIER extension
 	else
