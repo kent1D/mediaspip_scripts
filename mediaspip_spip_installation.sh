@@ -160,7 +160,7 @@ mediaspip_install()
 
 	if [ -d securite ];then
 		echo $(eval_gettext "Info SPIP supprimer repertoire securite")
-		rm -Rvf securite	2>> $LOG >> $LOG 	
+		rm -Rvf securite	2>> $LOG >> $LOG
 	fi
 
 	cd $SPIP/plugins-dist/

@@ -60,7 +60,7 @@ esac
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-debian_squeeze_ffmpeg_install ()
+debian_squeeze_ffmpeg_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -82,9 +82,9 @@ debian_squeeze_ffmpeg_install ()
 	if [ "$VERSION_ACTUELLE" = "version" ];then
 		VERSION_ACTUELLE=$(ffmpeg -version  2> /dev/null |grep ffmpeg -m 1 |awk '{print $3}')
 	fi
-	
+
 	cd $SRC_INSTALL/$FFMPEG_PATH
-	
+
 	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
@@ -115,7 +115,7 @@ debian_squeeze_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
-	
+
 	DEBIANMULTIMEDIA=$(grep "deb-multimedia" /etc/apt/sources.list |grep squeeze) 2>> $LOG >> $LOG
 	if [ -z "$DEBIANMULTIMEDIA" ];then
 		echo $(eval_gettext 'Info apt debian-multimedia question auto')
@@ -145,21 +145,21 @@ debian_squeeze_dep_install()
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	verif_svn_protocole || return 1
-	
+
 	debian_squeeze_yasm_install || return 1
-	
+
 	debian_squeeze_libopus_install || return 1
-	
+
 	debian_squeeze_libvpx_install || return 1
-	
+
 	flvtool_plus_install || return 1
-	
+
 	media_info_install || return 1
-	
+
 	debian_squeeze_phpimagick_install || return 1
-	
+
 	cd $CURRENT
 	return 0
 }
@@ -299,7 +299,7 @@ debian_squeeze_x264_install ()
 		cd $SRC_INSTALL/x264
 		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	fi
-	
+
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
 	if [ "$REVISION" = "$NEWREVISION" ]; then
 		echo $(eval_gettext 'Info a jour $SOFT')
@@ -364,12 +364,12 @@ debian_squeeze_apache_install ()
 	echo $(eval_gettext "Info apache mod headers") 2>> $LOG >> $LOG
 	a2enmod headers 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	echo $(eval_gettext "Info apache mod rewrite")
 	echo $(eval_gettext "Info apache mod rewrite") 2>> $LOG >> $LOG
 	a2enmod rewrite 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	echo $(eval_gettext "Info apache mod deflate")
 	echo $(eval_gettext "Info apache mod deflate") 2>> $LOG >> $LOG
 	a2enmod deflate 2>> $LOG >> $LOG || return 1
@@ -377,7 +377,7 @@ debian_squeeze_apache_install ()
 	echo $(eval_gettext "Info apache mod deflate fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/deflate.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	echo $(eval_gettext "Info apache mod expires")
 	echo $(eval_gettext "Info apache mod expires") 2>> $LOG >> $LOG
 	a2enmod expires 2>> $LOG >> $LOG || return 1
@@ -385,24 +385,24 @@ debian_squeeze_apache_install ()
 	echo $(eval_gettext "Info apache mod expires fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/expires.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	echo $(eval_gettext "Info apache mime fichier")
 	echo $(eval_gettext "Info apache mime fichier") 2>> $LOG >> $LOG
 	cp ./configs/apache/mediaspip_mime.conf /etc/apache2/conf.d/ 2>> $LOG >> $LOG || return 1
 	echo
-	
+
 	echo $(eval_gettext 'Info php max_upload $PHP_UPLOAD_SIZE')
 	echo "file_uploads = On" > /etc/php5/conf.d/mediaspip_upload.ini
 	echo "upload_max_filesize = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo "post_max_size = $PHP_UPLOAD_SIZE" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo
-	
+
 	cp $CURRENT/configs/apache/vhosts/* /etc/apache2/sites-available/ 2>> $LOG >> $LOG
-	
+
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
 	/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	
+
 	echo
 }
