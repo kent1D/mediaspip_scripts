@@ -4,12 +4,12 @@
 #
 # Ce script sert à créer une distribution SPIP spécifique basée sur 4 fichiers :
 # -* distrib_core.txt : qui donne le nom de la distribution, son répertoire temporaire, l'adresse svn du core à utiliser
-# -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
+# -* distrib_plugins-dist.txt : qui donne la liste des extensions SPIP obligatoires
 # -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
 # 
 # © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.2
+# Version 0.3-dev
 #
 # Mises à jour :
 # Version 0.2 - On fait marcher le script avec dash
@@ -19,7 +19,7 @@ if [ ! -r distrib_core.txt ];then
 	exit 1
 fi
 
-VERSION_SPIP_DISTRIB="0.2"
+VERSION_SPIP_DISTRIB="0.3-dev"
 
 CURRENT=$(pwd)
 
@@ -55,13 +55,13 @@ distrib_core()
 		echo "Récupération des sources"
 		svn co $SOURCE ./
 	else
-		DEPOT=$(env LANG=en svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		DEPOT=$(env LC_MESSAGES=en_US svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
 		if [ "$DEPOT" = "$SOURCE" ];then
 			echo "Mise à jour des sources"
 			svn up
 		else
-			echo "Switch de dépot"
+			echo "Switch de dépot ($DEPOT != $SOURCE)"
 			svn sw $SOURCE ./
 		fi
 	fi
@@ -81,12 +81,12 @@ distrib_core()
 		mkdir -p lib
 	fi
 	
-	if [ -d extensions];then
+	if [ -d extensions ];then
 		echo "Suppression de l'ancien répertoire des extensions"
 		rm - Rvf extensions	
 	fi
 	
-	if [ -h config/ecran_securite.php];then
+	if [ -h config/ecran_securite.php ];then
 		echo "Suppression de l'ancien ecran_securite qui était un lien symbolique"
 		rm config/ecran_securite.php	
 	fi
@@ -102,10 +102,10 @@ read_line_svn(){
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d "$REP/$TYPE/$PLUGIN/.svn" ];then
-				DEPOT=$(env LANG=en svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT=$(env LC_MESSAGES=en_US svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT" != "$SVN" ];then
-					echo "Switch de dépot"
+					echo "Switch de dépot ($DEPOT != $SVN)"
 					svn sw $SVN $REP/$TYPE/$PLUGIN > /dev/null
 					if [ $? -ne 0 ] ; then
 						echo "Le plugin a changé de serveur svn"
@@ -131,11 +131,10 @@ distrib_autres ()
 	fi
 	
 	if [ -r distrib_"$TYPE".txt ];then
-		read_line_svn	
+		read_line_svn
 	else
 		echo "Pas de $TYPE"
 	fi
-		
 }
 
 distrib_empaqueter ()
@@ -150,7 +149,7 @@ creer_distrib ()
 	
 	echo
 	echo "RECUPERATION DES EXTENSIONS"
-	distrib_autres extensions
+	distrib_autres plugins-dist
 	echo
 	
 	echo

@@ -165,8 +165,8 @@ mediaspip_install()
 
 	cd $SPIP/plugins-dist/
 
-	FICHIER='spip/distrib_extensions.txt'
-	if [ -r $CURRENT/spip/distrib_extensions.txt ];then
+	FICHIER='spip/distrib_plugins-dist.txt'
+	if [ -r $CURRENT/spip/distrib_plugins-dist.txt ];then
 		recuperer_svn $CURRENT/$FICHIER extension
 	else
 		error $(eval_gettext 'Erreur fichier $FICHIER')
