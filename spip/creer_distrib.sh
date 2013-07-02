@@ -4,7 +4,7 @@
 #
 # Ce script sert à créer une distribution SPIP spécifique basée sur 4 fichiers :
 # -* distrib_core.txt : qui donne le nom de la distribution, son répertoire temporaire, l'adresse svn du core à utiliser
-# -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
+# -* distrib_plugins-dist.txt : qui donne la liste des extensions SPIP obligatoires
 # -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
 # 
@@ -55,13 +55,13 @@ distrib_core()
 		echo "Récupération des sources"
 		svn co $SOURCE ./
 	else
-		DEPOT=$(env LANG=en svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		DEPOT=$(env LC_MESSAGES=en_US svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
 		if [ "$DEPOT" = "$SOURCE" ];then
 			echo "Mise à jour des sources"
 			svn up
 		else
-			echo "Switch de dépot"
+			echo "Switch de dépot ($DEPOT != $SOURCE)"
 			svn sw $SOURCE ./
 		fi
 	fi
@@ -102,10 +102,10 @@ read_line_svn(){
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d "$REP/$TYPE/$PLUGIN/.svn" ];then
-				DEPOT=$(env LANG=en svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT=$(env LC_MESSAGES=en_US svn info $REP/$TYPE/$PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT" != "$SVN" ];then
-					echo "Switch de dépot"
+					echo "Switch de dépot ($DEPOT != $SVN)"
 					svn sw $SVN $REP/$TYPE/$PLUGIN > /dev/null
 					if [ $? -ne 0 ] ; then
 						echo "Le plugin a changé de serveur svn"
