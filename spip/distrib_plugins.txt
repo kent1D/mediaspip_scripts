@@ -75,6 +75,9 @@ spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trun
 # V
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
 
+# X
+xmp_php;svn://zone.spip.org/spip-zone/_plugins_/xmp_php/trunk
+
 # Y
 yaml;svn://zone.spip.org/spip-zone/_plugins_/yaml
 
