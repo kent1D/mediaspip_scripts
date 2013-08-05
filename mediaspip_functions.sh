@@ -276,13 +276,14 @@ xmpphp_install(){
 		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
 		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
-			wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
+			#wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
+			svn co https://xmpphptoolkit.svn.sourceforge.net/svnroot/xmpphptoolkit/xmp_toolkit 2>> $LOG >> $LOG || return 1
 		fi
-		unrar x -y $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
+		#unrar x -y $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
 		cd $XMPPHP_PATH
 		
 		if [ "$PHP_VERSION" = "5.4" ];then
-			patch -Np1 < $CURRENT/patchs/xmp_toolkit_5.4.patch 2>> $LOG >> $LOG
+			svn patch --strip 1 $CURRENT/patchs/xmp_toolkit_5.4.patch 2>> $LOG >> $LOG
 		else
 			patch -Np1 < $CURRENT/patchs/xmp_toolkit.patch 2>> $LOG >> $LOG
 		fi
