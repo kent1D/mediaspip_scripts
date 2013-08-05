@@ -187,7 +187,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze wheezy lucid precise quantal';
+OKDISTRO='squeeze wheezy lucid precise quantal raring';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -462,7 +462,7 @@ if [ "$DISABLE_APACHE" != "yes" ];then
 	echo
 
 	"$DISTRIB"_"$DISTRO"_apache_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	
+
 	echo_reussite "$(eval_gettext 'End apache')"
 	echo
 fi
@@ -489,13 +489,13 @@ SOFT="ffmpeg"
 	eval_gettext "Titre ffmpeg"
 	echo
 	echo
-	
+
 	# On a besoin de ce répertoire et checkinstall ne sait le créer
 	if [ ! -d "/usr/local/share/" ];then
 		mkdir -p /usr/local/share/
 	fi
 	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	
+
 	echo
 	echo_reussite "$(eval_gettext 'End $SOFT')"
 	echo
