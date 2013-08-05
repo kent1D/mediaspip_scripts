@@ -274,8 +274,10 @@ xmpphp_install(){
 	else
 		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
 		cd $SRC_INSTALL
-		wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
-		unrar x $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
+		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
+			wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
+		fi
+		unrar x -y $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
 		cd $XMPPHP_PATH
 		phpize 2>> $LOG >> $LOG || return 1
 		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
