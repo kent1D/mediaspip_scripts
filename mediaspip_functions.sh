@@ -272,14 +272,15 @@ xmpphp_install(){
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
-		echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
 		cd $SRC_INSTALL
 		wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
 		unrar x $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
 		cd $XMPPHP_PATH
 		phpize 2>> $LOG >> $LOG || return 1
 		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
-		make && make install 2>> $LOG >> $LOG || return 1
+		make 2>> $LOG >> $LOG || return 1 
+		make install 2>> $LOG >> $LOG || return 1 
 	fi
 	if [ ! -e /etc/php5/apache2/conf.d/xmp_php.ini ];then
 		echo "; configuration for php xmpphptoolkit module" > /etc/php5/apache2/conf.d/xmp_php.ini
