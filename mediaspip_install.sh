@@ -373,6 +373,11 @@ LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.0.2.tar.gz"
 LIBOPUS_FICHIER="opus-1.0.2.tar.gz"
 LIBOPUS_PATH="opus-1.0.2"
 
+XMPPHP_VERSION="2.0"
+XMPPHP_URL="http://downloads.sourceforge.net/project/xmpphptoolkit/xmp_php_toolkit-2.0-rev14.rar"
+XMPPHP_FICHIER="xmp_php_toolkit-2.0-rev14.rar"
+XMPPHP_PATH="xmp_toolkit"
+
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 

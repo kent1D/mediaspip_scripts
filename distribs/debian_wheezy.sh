@@ -89,7 +89,7 @@ debian_wheezy_dep_install()
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
 		apache2.2-common mysql-server php5-dev php5-mysql php5-imagick php-pear php5-curl php5-gd libapache2-mod-php5 texi2html \
 		libmp3lame-dev libaacplus-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
-		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs \
+		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs unrar \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
@@ -234,6 +234,34 @@ debian_wheezy_ffmpeg_install ()
 	fi
 	echo
 	echo $(eval_gettext 'Info $SOFT version $FFMPEG_VERSION')
+}
+
+debian_wheezy_xmpphp_install(){
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	VERSION_ACTUELLE=$(php --ri xmpPHPToolkit |grep ^version |awk '{print $3}') 2>> $LOG >> $LOG
+	SOFT="XMP PHP"
+	
+	if [ "$XMPPHP_VERSION" = "$VERSION_ACTUELLE" ];then
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+		cd $SRC_INSTALL
+		wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
+		unrar x $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
+		cd $XMPPHP_PATH
+		phpize 2>> $LOG >> $LOG || return 1
+		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
+		make && make install 2>> $LOG >> $LOG || return 1
+	fi
+	if [ ! -e /etc/php5/apache2/conf.d/xmp_php.ini ];then
+		echo "; configuration for php xmpphptoolkit module" > /etc/php5/apache2/conf.d/xmp_php.ini
+		echo "extension=xmp_toolkit.so" >> /etc/php5/apache2/conf.d/xmp_php.ini
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	fi
+	echo $(eval_gettext 'End $SOFT')
 }
 
 # Préconfiguration basique d'Apache
