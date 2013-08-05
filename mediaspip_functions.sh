@@ -164,7 +164,7 @@ media_info_install()
 		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		echo $(eval_gettext 'Info $SOFT compil install')
 		echo $(eval_gettext 'Info $SOFT compil install') 2>> $LOG >> $LOG
-		patch CLI_Compile.sh < $CURRENT/patchs/mediainfo.patch
+		patch -Np1 CLI_Compile.sh < $CURRENT/patchs/mediainfo.patch 2>> $LOG >> $LOG
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
