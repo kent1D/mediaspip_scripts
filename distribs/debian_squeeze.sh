@@ -160,6 +160,8 @@ debian_squeeze_dep_install()
 
 	debian_squeeze_phpimagick_install || return 1
 
+	xmpphp_install || return 1
+	
 	cd $CURRENT
 	return 0
 }
@@ -353,34 +355,6 @@ debian_squeeze_phpimagick_install()
 		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
 	fi
 	echo
-}
-
-debian_squeeze_xmpphp_install(){
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	VERSION_ACTUELLE=$(php --ri xmpPHPToolkit |grep ^version |awk '{print $3}') 2>> $LOG >> $LOG
-	SOFT="XMP PHP"
-	
-	if [ "$XMPPHP_VERSION" = "$VERSION_ACTUELLE" ];then
-		echo $(eval_gettext 'Info a jour $SOFT')
-		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
-	else
-		echo $(eval_gettext 'Info debut $SOFT install $VERSION')
-		cd $SRC_INSTALL
-		wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
-		unrar x $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
-		cd $XMPPHP_PATH
-		phpize 2>> $LOG >> $LOG || return 1
-		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
-		make && make install 2>> $LOG >> $LOG || return 1
-	fi
-	if [ ! -e /etc/php5/apache2/conf.d/xmp_php.ini ];then
-		echo "; configuration for php xmpphptoolkit module" > /etc/php5/apache2/conf.d/xmp_php.ini
-		echo "extension=xmp_toolkit.so" >> /etc/php5/apache2/conf.d/xmp_php.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	fi
-	echo $(eval_gettext 'End $SOFT')
 }
 
 # Préconfiguration basique d'Apache
