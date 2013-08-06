@@ -96,7 +96,7 @@ ubuntu_raring_x264_install ()
 	export TEXTDOMAIN=mediaspip
 	SOFT="libx264"
 	cd "$SRC_INSTALL"
-	
+
 	# Si on a déjà les sources, on ne fait que les mettre à jour
 	if [ -d "$SRC_INSTALL"/x264/.git ];then
 		echo $(eval_gettext 'Info debut $SOFT update')
@@ -104,7 +104,6 @@ ubuntu_raring_x264_install ()
 		echo $(eval_gettext 'Info debut $SOFT update') 2>> $LOG >> $LOG
 		cd $SRC_INSTALL/x264
 		git pull 2>> $LOG >> $LOG || return 1
-		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	# Sinon on les récupère
 	else
 		echo $(eval_gettext 'Info debut $SOFT install')
@@ -112,14 +111,17 @@ ubuntu_raring_x264_install ()
 		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		git clone git://git.videolan.org/x264.git 2>> $LOG >> $LOG || return 1
 		cd $SRC_INSTALL/x264
-		NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	fi
-	
+
+	NEWREVISION=$(git_log ./ | awk '/^== Short Revision:/ { print $4 }') 2>> $LOG >> $LOG
 	REVISION=$(pkg-config --modversion x264  2>> $LOG | awk '{ print $2 }')
+
 	if [ "$REVISION" = "$NEWREVISION" ]; then
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
+		NEWVERSION=$(grep -r '#define X264_BUILD' x264.h |awk '{print $3}') 2>> $LOG >> $LOG
+		REVCOUNT=$(git log --pretty=oneline |wc -l) 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
 		./configure --enable-shared 2>> $LOG >> $LOG || return 1
@@ -127,7 +129,7 @@ ubuntu_raring_x264_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=x264 --pkgversion "2:0.$NEWVERSION.$REVCOUNT-git`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 	fi
 }
 
@@ -172,7 +174,7 @@ ubuntu_raring_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$FFMPEG_VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=ffmpeg --pkgversion "6:$FFMPEG_VERSION-`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 		cd tools
 		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
