@@ -1,0 +1,141 @@
+### Eclipse Workspace Patch 1.0
+#P PHP - xmpphptoolkit
+Index: xmp_toolkit/SXMPMeta_php.incl_cpp
+===================================================================
+--- xmp_toolkit/SXMPMeta_php.incl_cpp	(r'evision 14)
++++ xmp_toolkit/SXMPMeta_php.incl_cpp	(copie de travail)
+@@ -1939,8 +1939,13 @@
+ 
+ 	ALLOC_HASHTABLE(obj->std.properties);
+ 	zend_hash_init(obj->std.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
+-	zend_hash_copy(obj->std.properties, &type->default_properties, (copy_ctor_func_t)zval_add_ref, (void *)&tmp, sizeof(zval *));
+-
++	#if PHP_VERSION_ID < 50399
++		zend_hash_copy(obj->std.properties, &type->default_properties,
++			(copy_ctor_func_t)zval_add_ref, (void *)&tmp, sizeof(zval *));
++	#else
++		object_properties_init(&(obj->std), type);
++	#endif
++	
+ 	retval.handle = zend_objects_store_put(obj, NULL, sxmpmeta_free_storage, NULL TSRMLS_CC);
+ 	retval.handlers = &sxmpmeta_object_handlers;
+ 
+@@ -1950,7 +1955,7 @@
+ /*
+  * SXMPMeta Methods declaration
+  */
+-function_entry sxmpmeta_methods[]
++zend_function_entry sxmpmeta_methods[]
+ = {
+ 	PHP_ME(SXMPMeta, __construct, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+ 	PHP_ME(SXMPMeta, Initialize, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+Index: xmp_toolkit/common/XMP_LibUtils.hpp
+===================================================================
+--- xmp_toolkit/common/XMP_LibUtils.hpp	(r'evision 14)
++++ xmp_toolkit/common/XMP_LibUtils.hpp	(copie de travail)
+@@ -9,6 +9,7 @@
+ // of the Adobe license agreement accompanying it.
+ // =================================================================================================
+ 
++#include <stdio.h>
+ #include "XMP_Environment.h"	// ! Must be the first include.
+ #include "XMP_Const.h"
+ 
+Index: xmp_toolkit/SXMPIterator_php.incl_cpp
+===================================================================
+--- xmp_toolkit/SXMPIterator_php.incl_cpp	(r'evision 14)
++++ xmp_toolkit/SXMPIterator_php.incl_cpp	(copie de travail)
+@@ -208,9 +208,13 @@
+ 
+ 	ALLOC_HASHTABLE(obj->std.properties);
+ 	zend_hash_init(obj->std.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
+-	zend_hash_copy(obj->std.properties, &type->default_properties,
++	#if PHP_VERSION_ID < 50399
++		zend_hash_copy(obj->std.properties, &type->default_properties,
+ 			(copy_ctor_func_t)zval_add_ref, (void *)&tmp, sizeof(zval *));
+-
++	#else
++		object_properties_init(&(obj->std), type);
++	#endif
++	
+ 	retval.handle = zend_objects_store_put(obj, NULL,
+ 			sxmpiterator_free_storage, NULL TSRMLS_CC);
+ 	retval.handlers = &sxmpiterator_object_handlers;
+@@ -221,7 +225,7 @@
+ /*
+  * SXMPFilesMethods declaration
+  */
+-function_entry sxmpiterator_methods[]
++zend_function_entry sxmpiterator_methods[]
+ = {
+ 	PHP_ME(SXMPIterator, __construct, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+ 	PHP_ME(SXMPIterator, Next, NULL, ZEND_ACC_PUBLIC)
+Index: xmp_toolkit/SXMPFiles_php.incl_cpp
+===================================================================
+--- xmp_toolkit/SXMPFiles_php.incl_cpp	(r'evision 14)
++++ xmp_toolkit/SXMPFiles_php.incl_cpp	(copie de travail)
+@@ -413,9 +413,12 @@
+ 
+ 	ALLOC_HASHTABLE(obj->std.properties);
+ 	zend_hash_init(obj->std.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
+-	zend_hash_copy(obj->std.properties, &type->default_properties,
++	#if PHP_VERSION_ID < 50399
++		zend_hash_copy(obj->std.properties, &type->default_properties,
+ 			(copy_ctor_func_t)zval_add_ref, (void *)&tmp, sizeof(zval *));
+-
++	#else
++		object_properties_init(&(obj->std), type);
++	#endif
+ 	retval.handle = zend_objects_store_put(obj, NULL,
+ 			sxmpfiles_free_storage, NULL TSRMLS_CC);
+ 	retval.handlers = &sxmpfiles_object_handlers;
+@@ -426,7 +429,7 @@
+ /*
+  * SXMPFilesMethods declaration
+  */
+-function_entry sxmpfiles_methods[]
++zend_function_entry sxmpfiles_methods[]
+ = {
+ 	PHP_ME(SXMPFiles, __construct, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+ 	PHP_ME(SXMPFiles, Initialize, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+Index: xmp_toolkit/XMPFiles/FileHandlers/AVCHD_Handler.cpp
+===================================================================
+--- xmp_toolkit/XMPFiles/FileHandlers/AVCHD_Handler.cpp	(r'evision 14)
++++ xmp_toolkit/XMPFiles/FileHandlers/AVCHD_Handler.cpp	(copie de travail)
+@@ -7,6 +7,7 @@
+ // of the Adobe license agreement accompanying it.
+ // =================================================================================================
+ 
++#include <cstdio>
+ #include "AVCHD_Handler.hpp"
+ 
+ #include "MD5.h"
+Index: xmp_toolkit/SXMPUtils_php.incl_cpp
+===================================================================
+--- xmp_toolkit/SXMPUtils_php.incl_cpp	(r'evision 14)
++++ xmp_toolkit/SXMPUtils_php.incl_cpp	(copie de travail)
+@@ -455,9 +455,13 @@
+ 
+ 	ALLOC_HASHTABLE(obj->std.properties);
+ 	zend_hash_init(obj->std.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
+-	zend_hash_copy(obj->std.properties, &type->default_properties,
++	#if PHP_VERSION_ID < 50399
++		zend_hash_copy(obj->std.properties, &type->default_properties,
+ 			(copy_ctor_func_t)zval_add_ref, (void *)&tmp, sizeof(zval *));
+-
++	#else
++		object_properties_init(&(obj->std), type);
++	#endif
++	
+ 	retval.handle = zend_objects_store_put(obj, NULL,
+ 			sxmputils_free_storage, NULL TSRMLS_CC);
+ 	retval.handlers = &sxmputils_object_handlers;
+@@ -468,7 +472,7 @@
+ /*
+  * SXMPFilesMethods declaration
+  */
+-function_entry sxmputils_methods[]
++zend_function_entry sxmputils_methods[]
+ = {
+ 	PHP_ME(SXMPUtils, PackageForJPEG, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+ 	PHP_ME(SXMPUtils, MergeFromJPEG, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)

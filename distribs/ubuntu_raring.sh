@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ubuntu_quantal
+# ubuntu_raring
 # © 2011-2012 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
@@ -40,7 +40,7 @@
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel
 case "$0" in
-	*ubuntu_quantal.sh) 
+	*ubuntu_raring.sh) 
 	printf "
 ########################################
 MediaSPIP Ubuntu functions
@@ -57,7 +57,7 @@ esac
 
 # Installation de diverses dépendances
 # Pour Ubuntu quantal
-ubuntu_quantal_dep_install()
+ubuntu_raring_dep_install()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -71,7 +71,7 @@ ubuntu_quantal_dep_install()
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
 		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
-		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs \
+		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs unrar \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
@@ -90,7 +90,7 @@ ubuntu_quantal_dep_install()
 
 # Installation de x264
 # http://www.videolan.org/developers/x264.html
-ubuntu_quantal_x264_install ()
+ubuntu_raring_x264_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -133,7 +133,7 @@ ubuntu_quantal_x264_install ()
 
 # Installation de FFMpeg
 # http://www.ffmpeg.org
-ubuntu_quantal_ffmpeg_install ()
+ubuntu_raring_ffmpeg_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
@@ -183,7 +183,7 @@ ubuntu_quantal_ffmpeg_install ()
 }
 
 # Préconfiguration basique d'Apache
-ubuntu_quantal_apache_install ()
+ubuntu_raring_apache_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip

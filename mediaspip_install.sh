@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2013 - kent1 (kent1@arscenic.info)
-# Version 0.7.2
+# Version 0.8.0
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
 # - Apache2
@@ -105,7 +105,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.7.2"
+VERSION_INSTALL="0.8.0"
 
 LOGO="
 ######################################################################################
@@ -187,7 +187,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze wheezy lucid precise quantal';
+OKDISTRO='squeeze wheezy lucid precise quantal raging';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -358,9 +358,9 @@ FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.2.1.tar.bz2"
 FFMPEG_FICHIER="ffmpeg-1.2.1.tar.bz2"
 FFMPEG_PATH="ffmpeg-1.2.1"
 
-MEDIAINFO_VERSION="0.7.63"
-MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.63_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.63_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.64"
+MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.64_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.64_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 FLVTOOLPLUS_VERSION="1.2.1"
@@ -372,6 +372,11 @@ LIBOPUS_VERSION="1.0.2"
 LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.0.2.tar.gz"
 LIBOPUS_FICHIER="opus-1.0.2.tar.gz"
 LIBOPUS_PATH="opus-1.0.2"
+
+XMPPHP_VERSION="2.0"
+XMPPHP_URL="http://downloads.sourceforge.net/project/xmpphptoolkit/xmp_php_toolkit-2.0-rev14.rar"
+XMPPHP_FICHIER="xmp_php_toolkit-2.0-rev14.rar"
+XMPPHP_PATH="xmp_toolkit"
 
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"

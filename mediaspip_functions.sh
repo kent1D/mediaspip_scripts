@@ -164,6 +164,7 @@ media_info_install()
 		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
 		echo $(eval_gettext 'Info $SOFT compil install')
 		echo $(eval_gettext 'Info $SOFT compil install') 2>> $LOG >> $LOG
+		patch -Np1 CLI_Compile.sh < $CURRENT/patchs/mediainfo.patch 2>> $LOG >> $LOG 
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
@@ -257,6 +258,47 @@ flvtool_plus_install()
 		cp flvtool++ /usr/local/bin
 		echo $(eval_gettext 'End $SOFT')
 	fi
+	echo
+}
+
+xmpphp_install(){
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	
+	VERSION_ACTUELLE=$(php --ri xmpPHPToolkit |grep ^version |awk '{print $3}') 2>> $LOG >> $LOG
+	SOFT="XMP PHP"
+	
+	if [ "$XMPPHP_VERSION" = "$VERSION_ACTUELLE" ];then
+		echo $(eval_gettext 'Info a jour $SOFT')
+		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
+	else
+		PHP_VERSION=$(php -i | grep 'PHP Version' |awk '{print $4}' | head -c 3) 2>> $LOG >> $LOG 
+		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
+		cd $SRC_INSTALL
+		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
+			#wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
+			svn co https://xmpphptoolkit.svn.sourceforge.net/svnroot/xmpphptoolkit/xmp_toolkit 2>> $LOG >> $LOG || return 1
+		fi
+		#unrar x -y $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
+		cd $XMPPHP_PATH
+		
+		if [ "$PHP_VERSION" = "5.4" ];then
+			svn patch --strip 1 $CURRENT/patchs/xmp_toolkit_5.4.patch 2>> $LOG >> $LOG
+		else
+			patch -Np1 < $CURRENT/patchs/xmp_toolkit.patch 2>> $LOG >> $LOG
+		fi
+		
+		phpize 2>> $LOG >> $LOG || return 1
+		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
+		make 2>> $LOG >> $LOG || return 1 
+		make install 2>> $LOG >> $LOG || return 1 
+	fi
+	if [ ! -e /etc/php5/apache2/conf.d/xmp_php.ini ];then
+		echo "; configuration for php xmpphptoolkit module" > /etc/php5/apache2/conf.d/xmp_php.ini
+		echo "extension=xmp_toolkit.so" >> /etc/php5/apache2/conf.d/xmp_php.ini
+		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
+	fi
+	echo $(eval_gettext 'End $SOFT')
 	echo
 }
 

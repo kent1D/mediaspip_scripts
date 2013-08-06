@@ -96,6 +96,8 @@ ubuntu_lucid_dep_install()
 
 	ubuntu_lucid_phpimagick_install || return 1
 	
+	xmpphp_install || return 1
+	
 	cd $CURRENT
 	return 0
 }

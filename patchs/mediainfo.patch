@@ -1,0 +1,12 @@
+--- CLI_Compile.sh      2013-08-05 19:22:30.980314015 +0200
++++ CLI_Compile_tmp.sh  2013-08-05 19:22:13.544313670 +0200
+@@ -15,8 +15,7 @@
+   if [ "$numprocs" = "0" ]; then
+    numprocs=1
+   fi
+- fi
+- if type sysctl &> /dev/null; then
++ elif type sysctl &> /dev/null; then
+   numprocs=`sysctl -n hw.ncpu`
+   if [ "$numprocs" = "0" ]; then
+    numprocs=1

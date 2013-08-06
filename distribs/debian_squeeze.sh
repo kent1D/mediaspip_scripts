@@ -160,6 +160,8 @@ debian_squeeze_dep_install()
 	
 	debian_squeeze_phpimagick_install || return 1
 	
+	xmpphp_install || return 1
+	
 	cd $CURRENT
 	return 0
 }
