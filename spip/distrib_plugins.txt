@@ -53,6 +53,7 @@ opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
 # P
 pages;svn://zone.spip.org/spip-zone/_plugins_/pages/trunk
+pdfjs;svn://zone.spip.org/spip-zone/_plugins_/pdfjs
 piecon;svn://zone.spip.org/spip-zone/_plugins_/piecon/trunk
 podcast;svn://zone.spip.org/spip-zone/_plugins_/podcast/trunk
 polyhierarchie;svn://zone.spip.org/spip-zone/_plugins_/polyhierarchie/trunk
