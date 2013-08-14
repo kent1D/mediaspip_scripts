@@ -81,8 +81,8 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 		 * define('_INSTALL_USER_DB_ROOT', 'root');
 		 * define('_INSTALL_PASS_DB_ROOT', 'pass_root');
 		 */
-		define('_INSTALL_USER_DB_ROOT', $db_user);
-		define('_INSTALL_PASS_DB_ROOT', $db_pass);
+		define('_INSTALL_USER_DB', $db_user);
+		define('_INSTALL_PASS_DB', $db_pass);
 		define('_INSTALL_NAME_DB', 'mu_'._INSTALL_SITE_PREF);
 	}else{
 		echo _L('User et pass de base de donnée non fournis');
