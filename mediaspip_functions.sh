@@ -277,7 +277,7 @@ xmpphp_install(){
 		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
 			#wget $XMPPHP_URL 2>> $LOG >> $LOG || return 1
-			svn co https://xmpphptoolkit.svn.sourceforge.net/svnroot/xmpphptoolkit/xmp_toolkit 2>> $LOG >> $LOG || return 1
+			svn co svn://svn.code.sf.net/p/xmpphptoolkit/code/ xmp_toolkit 2>> $LOG >> $LOG || return 1
 		fi
 		#unrar x -y $XMPPHP_FICHIER 2>> $LOG >> $LOG || return 1
 		cd $XMPPHP_PATH
