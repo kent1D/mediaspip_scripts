@@ -400,7 +400,11 @@ debian_squeeze_apache_install ()
 	echo "suhosin.get.max_value_length = 1024" >> /etc/php5/conf.d/mediaspip_upload.ini
 	echo
 	
-	cp $CURRENT/configs/apache/vhosts/* /etc/apache2/sites-available/ 2>> $LOG >> $LOG
+	if [ $SPIP_TYPE = "ferme" ] || [ $SPIP_TYPE = "ferme_full" ];then
+		cp $CURRENT/configs/apache/vhosts/mediaspip_ferme_example.conf /etc/apache2/sites-available/ 2>> $LOG >> $LOG
+	else
+		cp $CURRENT/configs/apache/vhosts/mediaspip_simple_example.conf /etc/apache2/sites-available/ 2>> $LOG >> $LOG
+	fi
 	
 	echo $(eval_gettext "Info apache reload")
 	echo $(eval_gettext "Info apache reload") 2>> $LOG >> $LOG
