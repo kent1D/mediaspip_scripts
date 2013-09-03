@@ -302,6 +302,12 @@ IFS="
 			rm -Rvf $SPIP/sites_ms/*/tmp/cache/* 2>> $LOG >> $LOG
 			rm -Rvf $SPIP/sites_ms/*/tmp/log/*.log.* 2>> $LOG >> $LOG
 		fi
+
+		echo
+		echo $(eval_gettext "Info SPIP copie mes_options.php et mes_options_personnalisation.php.txt")
+		cp $CURRENT/configs/spip/mes_options.php config/
+		cp $CURRENT/configs/spip/mes_options_personnalisation.php.txt config/
+
 	# Sinon on ne vide que le cache du site courant
 	else
 		echo
@@ -322,9 +328,9 @@ IFS="
 
 	echo
 	echo $(eval_gettext "Info SPIP copie htaccess")
-	cp htaccess.txt .htaccess
-	cp $CURRENT/configs/spip/mes_options.php config/
-	cp $CURRENT/configs/spip/mes_options_personnalisation.php.txt config/
+	if [ ! -f .htaccess ]; then
+		cp htaccess.txt .htaccess
+	fi
 
 	echo
 	echo $(eval_gettext 'Info SPIP changement droits $SPIP_USER $SPIP_GROUP')
