@@ -139,7 +139,7 @@ debian_squeeze_dep_install()
 	apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
-		apache2.2-common mysql-server php5-dev php5-mysql php-pear php5-curl php5-gd libapache2-mod-php5 libmagick9-dev texi2html \
+		apache2.2-common mysql-server php5-dev php5-mysql php5-sqlite php-pear php5-curl php5-gd libapache2-mod-php5 libmagick9-dev texi2html \
 		libmp3lame-dev libaacplus-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs\
 		2>> $LOG >> $LOG || return 1
