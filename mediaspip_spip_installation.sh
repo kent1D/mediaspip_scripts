@@ -83,6 +83,7 @@ verifier_librairie()
 		# Si c'est un zip, on sait le dézipper
 		if [ $MIME = 'application/zip' ]; then
 			FIRST=`zipinfo -1 "$FILE" | head -1`
+			LASTCHAR=$(echo $FIRST | tail -c 2)
 			# Si le premier fichier listé dans le zip est le répetoire espéré
 			# On dézip simplement le fichier zip récupéré
 			if [ "$FIRST" = "$DIR"/ ];then
@@ -90,7 +91,7 @@ verifier_librairie()
 			# Si le premier fichier listé dans le zip est un répertoire mais pas celui espéré
 			# On dézip le fichier zip récupéré
 			# On renomme le répertoire
-			elif [ "${FIRST:-1}" = "/" ];then 
+			elif [ "$LASTCHAR" = "/" ];then
 				unzip "$FILE" 2>> $LOG >> $LOG
 				mv "$FIRST" "$DIR" 2>> $LOG >> $LOG
 			# Sinon c'est que ce ne sont que des fichiers à la racine du zip
