@@ -472,23 +472,22 @@ if [ "$DISABLE_APACHE" != "yes" ];then
 	echo
 fi
 
-# Installation de x264
-# librairie h.264 pour creer des videos compatibles html5 (Safari + iphone & co)
-eval_gettext "Titre x264"
-echo
-echo
-
-"$DISTRIB"_"$DISTRO"_x264_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-SOFT="libx264"
-echo
-echo_reussite "$(eval_gettext 'End $SOFT')"
-echo
-
 # Si on demande à ne pas installer FFMpeg, plusieurs autres logiciels ne seront pas installés :
 # - FFMpeg lui-même
 
 if [ "$DISABLE_FFMPEG" != "yes" ];then
-SOFT="ffmpeg"
+	# Installation de x264
+	# librairie h.264 pour creer des videos compatibles html5 (Safari + iphone & co)
+	eval_gettext "Titre x264"
+	echo
+	echo
+	
+	"$DISTRIB"_"$DISTRO"_x264_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
+	SOFT="libx264"
+	echo
+	echo_reussite "$(eval_gettext 'End $SOFT')"
+	echo
+
 	# Installation de ffmpeg
 	# binaire pour encoder videos et sons
 	eval_gettext "Titre ffmpeg"
@@ -500,7 +499,7 @@ SOFT="ffmpeg"
 		mkdir -p /usr/local/share/
 	fi
 	"$DISTRIB"_"$DISTRO"_ffmpeg_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
-	
+	SOFT="ffmpeg"
 	echo
 	echo_reussite "$(eval_gettext 'End $SOFT')"
 	echo
