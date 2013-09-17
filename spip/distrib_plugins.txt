@@ -31,6 +31,7 @@ gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
 # I
 inscription3;svn://zone.spip.org/spip-zone/_plugins_/inscription/trunk
+intranet;svn://zone.spip.org/spip-zone/_plugins_/intranet/trunk
 
 # L
 legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
