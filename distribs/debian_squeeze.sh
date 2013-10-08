@@ -220,9 +220,9 @@ debian_squeeze_libvpx_install()
 			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
 			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
 			if [ ! -e "$SRC_INSTALL"/libvpx-v1.2.0.tar.bz2 ];then
-				wget https://code.google.com/p/webm/downloads/detail?name=libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
+				wget https://webm.googlecode.com/files/libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
 				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.1.0 ]; then
+			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.2.0 ]; then
 				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
 			fi
 			cd libvpx-v1.2.0
