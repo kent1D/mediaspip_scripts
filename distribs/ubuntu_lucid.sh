@@ -285,6 +285,7 @@ ubuntu_lucid_libopus_install()
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --fstrans=no --install=yes --pkgname=libopus-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		FFMPEG_FORCE_INSTALL="oui"
 		echo $(eval_gettext 'End $SOFT')
 	fi
 	echo
