@@ -244,6 +244,7 @@ ubuntu_lucid_libvpx_install()
 			echo $(eval_gettext "Info compilation install")
 			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
 			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+			FFMPEG_FORCE_INSTALL="oui"
 			echo $(eval_gettext 'End $SOFT')
 			;;
 	esac
@@ -358,6 +359,7 @@ ubuntu_lucid_x264_install ()
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=x264 --pkgversion "1:0.svn`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		FFMPEG_FORCE_INSTALL="oui"
 	fi
 }
 
@@ -388,7 +390,7 @@ ubuntu_lucid_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/$FFMPEG_PATH
 	
-	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
+	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ] && [ "$FFMPEG_FORCE_INSTALL" = "non" ];then
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else

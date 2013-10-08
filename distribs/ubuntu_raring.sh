@@ -130,6 +130,7 @@ ubuntu_raring_x264_install ()
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=x264 --pkgversion "2:0.$NEWVERSION.$REVCOUNT-git`date +%Y%m%d`+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		FFMPEG_FORCE_INSTALL="oui"
 	fi
 }
 
@@ -160,7 +161,7 @@ ubuntu_raring_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/$FFMPEG_PATH
 	
-	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
+	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ] && [ "$FFMPEG_FORCE_INSTALL" = "non" ];then
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else

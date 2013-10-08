@@ -219,7 +219,7 @@ LOG="/var/log/mediaspip_install.log"
 NO_OF_CPUCORES=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
 if [ ! "$?" = "0" ]
 then
-    NO_OF_CPUCORES=2
+	NO_OF_CPUCORES=2
 fi
 
 # Le upload_max_filesize de php
@@ -240,6 +240,9 @@ SPIP_SVN="svn://trac.rezo.net/spip/branches/spip-3.0"
 	SPIP_USER="www-data"
 	SPIP_GROUP="www-data"
 #fi
+
+# Forcer ffmpeg à se réinstaller, cas où modif libvpx et x264
+FFMPEG_FORCE_INSTALL="non"
 
 # On insère un fichier de modification de ces variables si présent
 if [ -r /etc/default/mediaspip ]; then

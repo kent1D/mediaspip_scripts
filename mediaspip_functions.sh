@@ -91,26 +91,26 @@ git_log()
 	cd $@
 	# Show various information about this git directory
 	if [ -d .git ]; then
-	  printf "== Remote URL: `git remote -v`"
+		printf "== Remote URL: `git remote -v`"
 	
-	  printf "== Remote Branches: "
-	  git branch -r
-	  printf "\n"
+		printf "== Remote Branches: "
+		git branch -r
+		printf "\n"
 	
-	  printf "== Local Branches:"
-	  git branch
-	  printf "\n"
+		printf "== Local Branches:"
+		git branch
+		printf "\n"
 	
-	  printf "== Configuration (.git/config)"
-	  cat .git/config
-	  printf "\n"
+		printf "== Configuration (.git/config)"
+		cat .git/config
+		printf "\n"
 	
-	  printf "== Most Recent Commit"
-	  git --no-pager log --max-count=1
-	  printf "\n"
-	  printf "== Short Revision: `git describe --always`"
+		printf "== Most Recent Commit"
+		git --no-pager log --max-count=1
+		printf "\n"
+		printf "== Short Revision: `git describe --always`"
 	else
-	  printf "Not a git repository."
+		printf "Not a git repository."
 	fi
 }
 
@@ -280,7 +280,7 @@ xmpphp_install(){
 		fi
 
 		cd $XMPPHP_PATH
-		svn revert * && svn revert */* && svn revert */*/* && svn up 2>> $LOG >> $LOG
+		svn revert * 2>> $LOG >> $LOG && svn revert */* 2>> $LOG >> $LOG && svn revert */*/* 2>> $LOG >> $LOG && svn up 2>> $LOG >> $LOG
 
 		if [ "$PHP_VERSION" = "5.4" ];then
 			patch -p0 < $CURRENT/patchs/xmp_toolkit_5.4.patch 2>> $LOG >> $LOG

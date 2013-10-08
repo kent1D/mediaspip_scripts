@@ -184,6 +184,7 @@ debian_wheezy_x264_install ()
 		echo $(eval_gettext "Info compilation install")
 		VERSION=$(sh version.sh | awk '/^#define X264_POINTVER/ { print $3 }' |awk -F '"' '{print $2}')
 		checkinstall --pkgname=x264 --pkgversion "3:$VERSION+git$NEWREVISION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		FFMPEG_FORCE_INSTALL="oui"
 	fi
 }
 
@@ -214,7 +215,7 @@ debian_wheezy_ffmpeg_install ()
 	
 	cd $SRC_INSTALL/$FFMPEG_PATH
 	
-	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ];then
+	if [ "$FFMPEG_VERSION" = "$VERSION_ACTUELLE" ] && [ "$FFMPEG_FORCE_INSTALL" = "non" ];then
 		echo $(eval_gettext "Info a jour $SOFT")
 		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
 	else
