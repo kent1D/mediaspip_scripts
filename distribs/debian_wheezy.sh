@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # debian_wheezy
-# © 2011-2012 - kent1 (kent1@arscenic.info)
+# © 2011-2013 - kent1 (kent1@arscenic.info)
 # Version 0.3.15
 #
 # Installation des dépendances de manière stable pour debian
@@ -219,6 +219,9 @@ debian_wheezy_ffmpeg_install ()
 		echo $(eval_gettext "Info a jour $SOFT")
 		echo $(eval_gettext "Info a jour $SOFT") 2>> $LOG >> $LOG
 	else
+		if [ ! -d "/usr/local/share/ffmpeg" ];then
+			mkdir -p /usr/local/share/ffmpeg 2>> $LOG >> $LOG
+		fi
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")

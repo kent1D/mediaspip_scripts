@@ -89,6 +89,9 @@ debian_squeeze_ffmpeg_install ()
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
+		if [ ! -d "/usr/local/share/ffmpeg" ];then
+			mkdir -p /usr/local/share/ffmpeg 2>> $LOG >> $LOG
+		fi
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
