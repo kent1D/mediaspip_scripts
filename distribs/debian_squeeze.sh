@@ -208,7 +208,7 @@ debian_squeeze_libvpx_install()
 	export TEXTDOMAIN=mediaspip
 
 	cd $SRC_INSTALL
-	VERSION="1.1.0"
+	VERSION="1.2.0"
 	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
 	SOFT="libvpx"
 	case "$LIBVPX" in
@@ -219,13 +219,13 @@ debian_squeeze_libvpx_install()
 		*)
 			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
 			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v1.1.0.tar.bz2 ];then
-				wget http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
-				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+			if [ ! -e "$SRC_INSTALL"/libvpx-v1.2.0.tar.bz2 ];then
+				wget https://code.google.com/p/webm/downloads/detail?name=libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
 			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.1.0 ]; then
-				tar xvjf libvpx-v1.1.0.tar.bz2 2>> $LOG >> $LOG
+				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
 			fi
-			cd libvpx-v1.1.0
+			cd libvpx-v1.2.0
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation configure")
 			./configure --enable-shared 2>> $LOG >> $LOG
