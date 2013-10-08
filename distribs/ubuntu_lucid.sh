@@ -438,7 +438,7 @@ ubuntu_lucid_phpimagick_install()
 	else
 		echo $(eval_gettext "Info debut php-imagick update")
 		echo $(eval_gettext "Info debut php-imagick update") 2>> $LOG >> $LOG
-		pecl upgrade imagick 2>> $LOG >> $LOG
+		echo autodetect | pecl upgrade imagick 2>> $LOG >> $LOG
 		echo $(eval_gettext "End php-imagick")
 		echo $(eval_gettext "End php-imagick") 2>> $LOG >> $LOG
 	fi
