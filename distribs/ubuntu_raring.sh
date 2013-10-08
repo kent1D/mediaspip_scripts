@@ -69,9 +69,10 @@ ubuntu_raring_dep_install()
 	#apt-get -y --force-yes remove php5-imagick 2>> $LOG >> $LOG || return 1
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
-		apache2 mysql-server php5-dev php-pear php5-mysql php5-sqlite php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c texi2html \
+		apache2 mysql-server php5-dev php-pear php5-mysql php5-sqlite php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c \
 		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
-		flac vorbis-tools xpdf poppler-utils catdoc imagemagick pngnq optipng libjpeg-progs unrar \
+		flac vorbis-tools imagemagick pngnq optipng libjpeg-progs unrar \
+		tesseract* xpdf catdoc unoconv poppler-utils texi2html \
 		2>> $LOG >> $LOG || return 1
 	apt-get clean 2>> $LOG >> $LOG || return 1
 	echo
