@@ -40,7 +40,7 @@ recuperer_svn()
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d $PLUGIN/.svn ];then
-				DEPOT_FICHIER=$(env LANG=en svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT_FICHIER=$(env LANG=en_US.UTF-8 svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT_FICHIER" != "$SVN" ];then
 					NEW_DEPOT=$SVN
@@ -126,7 +126,7 @@ mediaspip_install()
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	elif [ -d $SPIP/.svn ];then
 		cd $SPIP
-		DEPOT=$(env LANG=en svn info --non-interactive | awk '/^URL:/ { print $2 }')
+		DEPOT=$(env LANG=en_US.UTF-8 svn info --non-interactive | awk '/^URL:/ { print $2 }')
 		# cas de changement de dépot
 		if [ "$DEPOT" = "$SPIP_SVN" ];then
 			echo $(eval_gettext "Info SPIP maj")
@@ -143,7 +143,7 @@ mediaspip_install()
 		svn up 2>> $LOG >> $LOG
 	fi
 
-	REVISIONSPIP=$(env LANG=en svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
+	REVISIONSPIP=$(env LANG=en_US.UTF-8 svn info --non-interactive | awk '/^Revision:/ { print $2 }') 2>> $LOG >> $LOG
 	echo $(eval_gettext 'Info SPIP install revision $REVISIONSPIP')
 
 	echo
