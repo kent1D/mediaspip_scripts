@@ -356,10 +356,10 @@ if [ "$ERROR" = "oui" ]; then
 	exit 1
 fi
 
-FFMPEG_VERSION="1.2.1"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.2.1.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-1.2.1.tar.bz2"
-FFMPEG_PATH="ffmpeg-1.2.1"
+FFMPEG_VERSION="1.2.4"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-1.2.4.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-1.2.4.tar.bz2"
+FFMPEG_PATH="ffmpeg-1.2.4"
 
 MEDIAINFO_VERSION="0.7.64"
 MEDIAINFO_URL="http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.64_GNU_FromSource.tar.bz2"
