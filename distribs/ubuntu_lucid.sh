@@ -237,6 +237,9 @@ ubuntu_lucid_libvpx_install()
 			fi
 			cd libvpx-v1.2.0
 			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+			g++ -I third_party/googletest/src/include -I third_party/googletest/src/ -c third_party/googletest/src/src/gtest-all.cc 2>> $LOG >> $LOG
+			ar -rv libgtest.a gtest-all.o 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation configure")
 			./configure --enable-shared 2>> $LOG >> $LOG
 			echo $(eval_gettext "Info compilation make")
