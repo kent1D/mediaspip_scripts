@@ -258,9 +258,9 @@ while [ $# -gt 0 ]; do
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
-				en) export LC_MESSAGES=en_US.UTF8
+				en) export LC_MESSAGES=en_US.UTF-8
 				shift 2;;
-				fr) export LC_MESSAGES=fr_FR.UTF8
+				fr) export LC_MESSAGES=fr_FR.UTF-8
 				shift 2;;
 				"") echo_erreur "$(eval_gettext 'Erreur langue non set')"
 				ERROR=oui
@@ -269,7 +269,7 @@ while [ $# -gt 0 ]; do
 				ERROR=oui
 				shift;;
 			esac
-		shift;;
+		;;
 		--allways-yes|-y) NO_QUESTION="yes"
 		echo $(eval_gettext 'Info options no_question')
 		shift;;
