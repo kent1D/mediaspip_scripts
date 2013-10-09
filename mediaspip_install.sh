@@ -567,7 +567,7 @@ fi
 # Munin est présent
 # On installe mediaspip_munin
 # cf : mediaspip_functions.sh
-if [ "$DISABLE_MUNIN" != "yes" -a -x $(which munin-node) ];then
+if [ -n "$DISABLE_MUNIN" ] && [ "$DISABLE_MUNIN" != "yes" -a -x $(which munin-node) ];then
 	mediaspip_munin_install || error "$(eval_gettext 'Erreur installation regarde log $LOG')"
 fi
 
