@@ -149,11 +149,6 @@ FICHIER='mediaspip_spip_installation.sh'
 # - doit être sur une distribution que l'on connait 
 #
 
-if [ "$(id -u)" != "0" ]; then
-	echo_erreur "$(eval_gettext 'Erreur script root')" 1>&2
-	exit 1
-fi
-
 LSB_RELEASE=$(which lsb_release)
 
 if [ "$LSB_RELEASE" ] && [ -x $LSB_RELEASE ]; then
@@ -358,6 +353,11 @@ case $LANGUE in
 esac 
 
 verif_internet_connexion || error "$(eval_gettext 'Erreur internet connexion')"
+
+if [ "$(id -u)" != "0" ]; then
+	echo_erreur "$(eval_gettext 'Erreur script root')" 1>&2
+	exit 1
+fi
 
 if [ "$ERROR" = "oui" ]; then
 	exit 1
