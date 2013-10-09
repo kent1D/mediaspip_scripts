@@ -40,7 +40,7 @@ recuperer_svn()
 		SVN=$(echo $line | awk 'BEGIN { FS = ";" }; { print $2 }')
 		if [ ! -z "$SVN" ];then
 			if [ -d $PLUGIN/.svn ];then
-				DEPOT_FICHIER=$(env LC_MESSAGES=en_US.UTF-8 svn info $PLUGIN/ --non-interactive | awk '/^URL:/ { print $2 }')
+				DEPOT_FICHIER=$(env LC_MESSAGES=en_US.UTF-8 svn info $PLUGIN/ --non-interactive | awk '/^URL/ { print $2 }')
 				# cas de changement de dépot
 				if [ "$DEPOT_FICHIER" != "$SVN" ];then
 					NEW_DEPOT=$SVN
