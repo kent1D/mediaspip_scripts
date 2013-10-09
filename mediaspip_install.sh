@@ -342,7 +342,14 @@ done
 
 # Si LC_MESSAGES n'est pas en en ni fr, on le force en en
 LANGUES_COMPAT='en fr'
-LANGUE=`expr substr $LC_MESSAGES 1 2`
+if [ -n "${LC_MESSAGES}" ]; then
+	LANGUE=`expr substr $LC_MESSAGES 1 2`
+elif [ -n "${LANG}" ]; then
+	LANGUE=`expr substr $LANG 1 2`
+	export LC_MESSAGES=$LANG
+else
+	LANGUE=''
+fi
 case $LANGUE in
 	en|fr) ;;
 	*)
