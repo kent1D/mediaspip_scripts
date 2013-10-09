@@ -23,7 +23,9 @@ Si vous souhaitez que ce script soit adapté pour une autre distribution, vous p
 
 * Pour obtenir de l'aide lancez le script mediaspip_install.sh avec l'option --help :
 
-    bash mediaspip_install.sh --help
+  ```
+  bash mediaspip_install.sh --help
+  ```
 
 * Vous pouvez lire la documentation du script à l'adresse : http://www.mediaspip.net/technical-documentation/administrator-s-documentation/installation/mediaspip_install-sh-full/
 
