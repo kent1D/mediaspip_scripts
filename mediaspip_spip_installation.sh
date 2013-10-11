@@ -256,11 +256,27 @@ IFS="
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
-			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
-		else
+			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+		else if [ -d mutualisation/.svn ];then
 			echo
-			echo $(eval_gettext "Info SPIP maj mutualisation")
-			svn up mutualisation/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
+			DEPOT_FICHIER=$(env LC_MESSAGES=en_US.UTF-8 svn info mutualisation/ --non-interactive | awk '/^URL/ { print $2 }')
+			# cas de changement de dépot
+			if [ "$DEPOT_FICHIER" != "svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk" ];then
+				NEW_DEPOT="svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk"
+				$PLUGIN="mutualisation"
+				echo $(eval_gettext 'Info $PLUGIN change depot $NEW_DEPOT')
+				svn sw $NEW_DEPOT $PLUGIN 2>> $LOG >> $LOG
+				if [ $? -ne 0 ];then
+					echo $(eval_gettext 'Info $PLUGIN change serveur $NEW_DEPOT')
+					rm -Rvf $PLUGIN 2>> $LOG >> $LOG
+					echo $(eval_gettext 'Info $TYPE telecharge $PLUGIN')
+					svn co $PLUGIN 2>> $LOG >> $LOG
+				fi
+			fi
+			else
+				echo $(eval_gettext "Info SPIP maj mutualisation")
+				svn up mutualisation/  2>> $LOG >> /dev/null || error $(eval_gettext "Erreur installation regarde log")
+			fi
 		fi
 
 		# Récupération et / ou update des plugins liés à la mutualisation
