@@ -22,7 +22,7 @@ $db_host = 'localhost';
 /**
  * Adresse du site maître de la ferme
  */
-$site_maitre = 'www.domaine.com';
+$site_maitre = 'www.exemple.com';
 
 /**
  * Nom du répertoire où seront placés les fichiers des sites mutualisés
