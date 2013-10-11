@@ -10,7 +10,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
  * Identifiants de connection root à la base de donnée
- * Cet utilisateur doit avoir les droits de création de compte et de tables
+ * Cet utilisateur doit avoir les droits de création de bases de données
  * $db_user = nom d'utilisateur
  * $db_pass = mot de passe de l'utilisateur
  * $db_host = hôte du serveur de base de donnée
@@ -18,6 +18,15 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $db_user = 'user_root_mysql';
 $db_pass = 'pass_root_mysql';
 $db_host = 'localhost';
+
+/**
+ * Si vous souhaitez créer un utilisateur pour chaque site, décommentez les lignes suivantes
+ * et mettez $creer_user_base à true
+ * Un nouvel utilisateur SQL sera créé pour chaque site
+ */
+//define('_INSTALL_USER_DB_ROOT', 'root');
+//define('_INSTALL_PASS_DB_ROOT', 'pass_root');
+$creer_user_base = false;
 
 /**
  * Adresse du site maître de la ferme

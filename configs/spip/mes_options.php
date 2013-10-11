@@ -106,7 +106,7 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	$conf_site = array(
 			'creer_site' => true,        	// Creer ou non le site s'il n'existe pas (defaut: false)
 			'creer_base' => true,        	// Creer ou non la base de donnee si elle n'existe pas (false)
-			'creer_user_base' => true,  	// Creer ou non un utilisateur pour la nouvelle base de donnee (false)
+			'creer_user_base' => $creer_user_base ? $creer_user_base : false,  	// Creer ou non un utilisateur pour la nouvelle base de donnee (false)
 			'mail' => $email_mutu, // Adresse mail pour recevoir un mail lors d'une creation de site mutualise ('')
 			'code' => $pass_mutu ? $pass_mutu : 'pass_mutu',			// Code d'activation de base
 			'table_prefix' => false,		// Definir automatiquement le prefixe de table (false) ... mettre true si tous les sites dans la meme base
