@@ -305,7 +305,7 @@ IFS="
 		if [ ! -d sites_ms ];then
 			echo
 			echo $(eval_gettext "Info SPIP repertoire sites")
-			mkdir sites_ms && chmod 755 sites_ms/ 2>> $LOG >> $LOG
+			mkdir sites_ms && chmod 777 sites_ms/ 2>> $LOG >> $LOG
 		else
 			echo 
 			echo $(eval_gettext "Info SPIP suppression cache css")
