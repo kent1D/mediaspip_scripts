@@ -263,7 +263,7 @@ IFS="
 			# cas de changement de dépot
 			if [ "$DEPOT_FICHIER" != "svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk" ];then
 				NEW_DEPOT="svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk"
-				$PLUGIN="mutualisation"
+				PLUGIN="mutualisation"
 				echo $(eval_gettext 'Info $PLUGIN change depot $NEW_DEPOT')
 				svn sw $NEW_DEPOT $PLUGIN 2>> $LOG >> $LOG
 				if [ $? -ne 0 ];then
