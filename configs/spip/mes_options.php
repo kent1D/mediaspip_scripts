@@ -42,7 +42,10 @@ if (file_exists(_DIR_RACINE.'mutualisation/mutualiser.php')) {
 	/**
 	 * On active plugins-ferme pour le site maitre de la mutu
 	 */ 
-	if($site == $site_maitre) define('_DIR_PLUGINS_SUPPL',_DIR_RACINE.'plugins-ferme/');
+	if($site == $site_maitre){
+		$utiliser_panel = false;
+		define('_DIR_PLUGINS_SUPPL',_DIR_RACINE.'plugins-ferme/');
+	}
 	else{
 		/**
 		 * On n'autorise que le site maître à télécharger plugins et libs
