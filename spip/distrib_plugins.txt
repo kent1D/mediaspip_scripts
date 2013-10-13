@@ -30,6 +30,7 @@ googleplus1;svn://zone.spip.org/spip-zone/_plugins_/googleplus1
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
 # I
+importateur_contacts;svn://zone.spip.org/spip-zone/_plugins_/importateur_contacts;
 inscription3;svn://zone.spip.org/spip-zone/_plugins_/inscription/trunk
 intranet;svn://zone.spip.org/spip-zone/_plugins_/intranet/trunk
 
@@ -51,10 +52,12 @@ nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 # O
 oembed;svn://zone.spip.org/spip-zone/_plugins_/oembed
 openid;svn://zone.spip.org/spip-zone/_plugins_/openid
+openinviter;svn://zone.spip.org/spip-zone/_plugins_/openinviter
 opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
 # P
 pages;svn://zone.spip.org/spip-zone/_plugins_/pages/trunk
+parrainage;svn://zone.spip.org/spip-zone/_plugins_/parrainage/trunk;
 pdfjs;svn://zone.spip.org/spip-zone/_plugins_/pdfjs
 piecon;svn://zone.spip.org/spip-zone/_plugins_/piecon/trunk
 podcast;svn://zone.spip.org/spip-zone/_plugins_/podcast/trunk
