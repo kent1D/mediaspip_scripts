@@ -4,5 +4,8 @@ arscenic;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/arscenic3
 # B
 brazil;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/brazil
 
+# M
+mediaspip_simple;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/mediaspip_simple
+
 # S
 spipeo;http://svn.aires-de-confluxence.info/svn/themes_spip/zpip2/spipeo
