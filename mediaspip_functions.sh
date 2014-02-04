@@ -276,7 +276,7 @@ xmpphp_install(){
 		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
 		cd $SRC_INSTALL
 		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
-			svn co svn://svn.code.sf.net/p/xmpphptoolkit/code/xmp_toolkit 2>> $LOG >> $LOG || return 1
+			svn co https://svn.code.sf.net/p/xmpphptoolkit/code/xmp_toolkit 2>> $LOG >> $LOG || return 1
 		fi
 
 		cd $XMPPHP_PATH
