@@ -47,6 +47,8 @@ ubuntu_precise_dep_install()
 	echo
 
 	verif_svn_protocole || return 1
+	
+	ubuntu_precise_yasm_install || return 1
 
 	ubuntu_precise_libopus_install || return 1
 
@@ -60,6 +62,41 @@ ubuntu_precise_dep_install()
 	
 	cd $CURRENT
 	return 0
+}
+
+# Installation de yasm
+# http://yasm.tortall.net/
+ubuntu_lucid_yasm_install ()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	SOFT="yasm"
+	cd "$SRC_INSTALL"
+	
+	VERSION="1.2.0"
+	if [ -x $(which yasm) ];then
+		YASMVERSION=$($(which yasm) --version |awk '/^yasm/ { print $2 }') 2>> $LOG >> $LOG
+	fi
+	if [ "$YASMVERSION" = "$VERSION" ];then
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
+	else
+		echo $(eval_gettext 'Info debut $SOFT install')
+		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
+		if [ ! -e "$SRC_INSTALL"/yasm-1.2.0.tar.gz ];then
+			wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+			tar xvzf yasm-1.2.0.tar.gz 2>> $LOG >> $LOG || return 1
+		fi
+		cd yasm-1.2.0
+		echo $(eval_gettext "Info compilation configure")
+		./configure 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		echo $(eval_gettext 'End $SOFT')
+	fi
+	echo
 }
 
 # Installation de libvpx
