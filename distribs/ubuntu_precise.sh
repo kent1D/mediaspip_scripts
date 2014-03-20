@@ -66,7 +66,7 @@ ubuntu_precise_dep_install()
 
 # Installation de yasm
 # http://yasm.tortall.net/
-ubuntu_lucid_yasm_install ()
+ubuntu_precise_yasm_install ()
 {
 	export TEXTDOMAINDIR=$CURRENT/locale
 	export TEXTDOMAIN=mediaspip
