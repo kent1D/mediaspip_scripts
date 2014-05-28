@@ -116,7 +116,7 @@ git_log()
 
 verif_internet_connexion()
 {
-	wget -q --tries=10 --timeout=5 http://www.google.com -O /tmp/index.google &> /dev/null
+	wget -q --tries=10 --timeout=15 http://www.google.com -O /tmp/index.google &> /dev/null
 	sleep 1
 	if [ ! -s /tmp/index.google ];then
 		rm /tmp/index.google
