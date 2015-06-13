@@ -265,9 +265,6 @@ ubuntu_precise_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=ffmpeg --pkgversion "3:`date +%Y%m%d`-$FFMPEG_VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
-		cd tools
-		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG
-		cp qt-faststart /usr/local/bin
 	fi
 	echo
 	echo $(eval_gettext 'Info $SOFT version $FFMPEG_VERSION')

@@ -236,9 +236,6 @@ debian_wheezy_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=ffmpeg --pkgversion "5:$FFMPEG_VERSION+`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
-		cd tools
-		cc qt-faststart.c -o qt-faststart 2>> $LOG >> $LOG || return 1
-		cp qt-faststart /usr/local/bin
 	fi
 	echo
 	echo $(eval_gettext 'Info $SOFT version $FFMPEG_VERSION')
