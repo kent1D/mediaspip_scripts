@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: mediaspip_install.sh:474 mediaspip_install.sh:491
 #: distribs/debian_squeeze.sh:196 distribs/debian_squeeze.sh:235
@@ -652,7 +652,7 @@ msgstr "Ce script enregistrera ses logs dans :"
 
 #: mediaspip_functions.sh:164 mediaspip_functions.sh:165
 #, sh-format
-msgid "Info mediainfo compil install"
+msgid "Info Mediainfo compil install"
 msgstr "Compilation et installation"
 
 #: mediaspip_install.sh:247 mediaspip_install.sh:251

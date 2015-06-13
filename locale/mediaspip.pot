@@ -638,7 +638,7 @@ msgstr "Ce script enregistrera ses logs dans :"
 
 #: mediaspip_functions.sh:164 mediaspip_functions.sh:165
 #, sh-format
-msgid "Info mediainfo compil install"
+msgid "Info Mediainfo compil install"
 msgstr "Compilation et installation"
 
 #: mediaspip_install.sh:247 mediaspip_install.sh:251
