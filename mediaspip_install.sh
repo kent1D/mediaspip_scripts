@@ -185,7 +185,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze wheezy lucid precise quantal raring trusty';
+OKDISTRO='squeeze wheezy lucid precise quantal raring trusty jessie';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
