@@ -18,16 +18,16 @@ isNumeric()
 
 in_array()
 {
-    local i
-    needle=$1
-    shift 1
-    # array() undefined
-    [ -z "$1" ] && return 1
-    for i in $*
-    do
-	    [ "$i" = "$needle" ] && return 0
-    done
-    return 1
+	local i
+	needle=$1
+	shift 1
+	# array() undefined
+	[ -z "$1" ] && return 1
+	for i in $*
+	do
+		[ "$i" = "$needle" ] && return 0
+	done
+	return 1
 }
 
 # Fonction d'affichage des erreurs
@@ -116,7 +116,7 @@ git_log()
 
 verif_internet_connexion()
 {
-	wget -q --tries=10 --timeout=15 http://www.google.com -O /tmp/index.google &> /dev/null
+	wget -q --tries=10 --timeout=5 http://www.google.com -O /tmp/index.google &> /dev/null
 	sleep 1
 	if [ ! -s /tmp/index.google ];then
 		rm /tmp/index.google
