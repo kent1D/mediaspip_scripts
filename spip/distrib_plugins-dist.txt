@@ -55,4 +55,3 @@ swfupload;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/swfupload/trunk
 # z
 z-core;svn://zone.spip.org/spip-zone/_plugins_/z-core
 zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/trunk
-zpip-dist;svn://zone.spip.org/spip-zone/_squelettes_/zpip-dist/trunk
