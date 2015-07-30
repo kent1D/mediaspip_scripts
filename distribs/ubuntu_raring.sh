@@ -166,9 +166,6 @@ ubuntu_raring_ffmpeg_install ()
 		echo $(eval_gettext 'Info a jour $SOFT')
 		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
 	else
-		if [ ! -d "/usr/local/share/ffmpeg" ];then
-			mkdir -p /usr/local/share/ffmpeg 2>> $LOG >> $LOG
-		fi
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
@@ -178,6 +175,9 @@ ubuntu_raring_ffmpeg_install ()
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove ffmpeg  2>> $LOG >> $LOG
+		if [ ! -d "/usr/local/share/ffmpeg" ];then
+			mkdir -p /usr/local/share/ffmpeg 2>> $LOG >> $LOG
+		fi
 		echo $(eval_gettext "Info compilation install")
 		checkinstall --pkgname=ffmpeg --pkgversion "6:$FFMPEG_VERSION-`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
