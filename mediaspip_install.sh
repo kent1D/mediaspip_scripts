@@ -369,10 +369,10 @@ fi
 ##
 # FFmpeg : http://ffmpeg.org/download.html
 ##
-FFMPEG_VERSION="2.7"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-2.7.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-2.7.tar.bz2"
-FFMPEG_PATH="ffmpeg-2.7"
+FFMPEG_VERSION="2.7.2"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-2.7.2.tar.bz2"
+FFMPEG_PATH="ffmpeg-2.7.2"
 
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
