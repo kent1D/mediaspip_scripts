@@ -166,7 +166,7 @@ debian_jessie_ffmpeg_install ()
 			mkdir -p /usr/local/share/ffmpeg 2>> $LOG >> $LOG
 		fi
 		echo $(eval_gettext "Info compilation install")
-		checkinstall --pkgname=ffmpeg --pkgversion "6:$FFMPEG_VERSION-`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
+		checkinstall --pkgname=ffmpeg --pkgversion "10:$FFMPEG_VERSION-`date +%Y%m%d`-mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		ldconfig
 	fi
 	echo
