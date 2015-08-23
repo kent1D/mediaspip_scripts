@@ -377,9 +377,9 @@ FFMPEG_PATH="ffmpeg-2.7.2"
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
 ##
-MEDIAINFO_VERSION="0.7.75"
-MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.75/MediaInfo_CLI_0.7.75_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.75_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.76"
+MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.76/MediaInfo_CLI_0.7.76_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.76_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 FLVTOOLPLUS_VERSION="1.2.1"
