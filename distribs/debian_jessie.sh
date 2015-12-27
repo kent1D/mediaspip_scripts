@@ -4,7 +4,7 @@
 # © 2011-2015 - kent1 (kent1@arscenic.info)
 # Version 0.5.0
 #
-# Installation des dépendances pour Ubuntu ptrusty
+# Installation des dépendances pour Debian Jessie
 #
 
 # Ce script lancé tout seul ne sert à rien
@@ -13,7 +13,7 @@ case "$0" in
 	*debian_jessie.sh) 
 	printf "
 ########################################
-MediaSPIP Ubuntu functions
+MediaSPIP Debian functions
 ########################################\n\n"
 	printf "This file is only usefull for its functions"
 	tput setaf 1;

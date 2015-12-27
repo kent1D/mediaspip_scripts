@@ -2,9 +2,9 @@
 #
 # debian_squeeze
 # © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.15
+# Version 0.4.0
 #
-# Installation des dépendances de manière stable pour debian
+# Installation des dépendances de manière stable pour debian Squeeze
 #
 # Mise à jour 
 # Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
