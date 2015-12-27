@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # mediaspip_spip_installation.sh
-# © 2011-2013 - kent1 (kent1@arscenic.info)
+# © 2011-2015 - kent1 (kent1@arscenic.info)
 # Version 0.4.0
 #
 # Ce script installe MediaSPIP
@@ -28,7 +28,8 @@
 # Version 0.3.7 - On règle un problème dans le switch des dépots
 # Version 0.3.8 - LANG=C n'est pas disponible tout le temps ... on utilise LANG=en ... peut être plus fréquent
 # Version 0.3.9 - Télécharger deux librairies supplémentaires (jquery-validate pour inscription3 et oAuth pour le plugin éponyme)
-
+#
+# Voir CHANGELOG.md
 
 # Fonction d'installation de SPIP et des extensions obligatoires de MediaSPIP au minimum
 recuperer_svn()

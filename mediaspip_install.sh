@@ -1,10 +1,10 @@
 #!/bin/bash
 #
 # mediaspip_install.sh
-# © 2011-2013 - kent1 (kent1@arscenic.info)
-# Version 0.8.0
+# © 2011-2015 - kent1 (kent1@arscenic.info)
+# Version 0.9.1
 # 
-# Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de mediaSPIP :
+# Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de MediaSPIP :
 # - Apache2
 # - Mysql
 # - php5-gd2;
@@ -18,12 +18,12 @@
 # - flvtool++;
 # - mediainfo;
 # - ffmpeg;
+# - ...
 #
-# Ce script installe également SPIP et l'ensemble des extensions et plugins nécessaires à MediaSPIP
+# Ce script installe également SPIP et l'ensemble des extensions nécessaires, plugins optionnels et thèmes pour MediaSPIP
 # Il installe également :
 # - le nécessaire pour réaliser une mutualisation (ferme) de SPIP;
 # - l'écran de sécurité de SPIP;
-# - des thèmes Zpip compatibles avec MediaSPIP;
 # 
 # Mises à jour :
 # Version 0.3.2 - Meilleure détection des distribs avec lsb_release
@@ -83,6 +83,8 @@
 # Version 0.7.2 :
 # -* Installation de mediaspip_munin si possible et intéressant :
 # cf https://github.com/kent1D/mediaspip_munin/
+#
+# Voir CHANGELOG.md 
 
 # On pose une variable sur le répertoire courant permettant de savoir 
 # d'où le script est lancé
@@ -105,7 +107,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.9.0"
+VERSION_INSTALL="0.9.1"
 
 LOGO="
 ######################################################################################

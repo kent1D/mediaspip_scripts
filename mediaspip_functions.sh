@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # mediaspip_functions
-# © 2011-2013 - kent1 (kent1@arscenic.info)
+# © 2011-2015 - kent1 (kent1@arscenic.info)
 #
-# Diverses fonctions permettant d'installer mediaSPIP
+# Diverses fonctions permettant d'installer MediaSPIP
 #
 
 export TEXTDOMAINDIR=./locale
