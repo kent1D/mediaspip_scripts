@@ -17,11 +17,11 @@ diogene_mots;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements
 diogene_notation;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_notation/trunk
 diogene_spipicious;svn://zone.spip.org/spip-zone/_plugins_/diogene/diogene_complements/diogene_spipicious/trunk
 
-# F
-fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext
-
 # E
 epub_reader;svn://zone.spip.org/spip-zone/_plugins_/epub_reader/trunk
+
+# F
+fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext/trunk
 
 # G
 gis;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
@@ -38,8 +38,8 @@ intranet;svn://zone.spip.org/spip-zone/_plugins_/intranet/trunk
 legendes;svn://zone.spip.org/spip-zone/_plugins_/legendes
 
 # M
-memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization
-mesfavoris;svn://zone.spip.org/spip-zone/_plugins_/mesfavoris
+memoization;svn://zone.spip.org/spip-zone/_plugins_/memoization/trunk
+mesfavoris;svn://zone.spip.org/spip-zone/_plugins_/mesfavoris/trunk
 metadonnees_photo;svn://zone.spip.org/spip-zone/_plugins_/metadonnees_photo/trunk
 microblog;svn://zone.spip.org/spip-zone/_plugins_/microblog
 minibando;svn://zone.spip.org/spip-zone/_plugins_/minibando/trunk

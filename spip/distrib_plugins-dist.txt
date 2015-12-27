@@ -47,11 +47,11 @@ notifications;svn://zone.spip.org/spip-zone/_plugins_/notifications/trunk
 palette;svn://zone.spip.org/spip-zone/_plugins_/palette/trunk
 
 # S
-saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies
+saisies;svn://zone.spip.org/spip-zone/_plugins_/saisies/trunk
 selecteur_generique;svn://zone.spip.org/spip-zone/_plugins_/selecteur_generique/trunk
 spipmotion;svn://zone.spip.org/spip-zone/_plugins_/spipmotion/trunk
 swfupload;svn://zone.spip.org/spip-zone/_plugins_/emballe_medias/swfupload/trunk
 
 # z
-z-core;svn://zone.spip.org/spip-zone/_plugins_/z-core
+z-core;svn://zone.spip.org/spip-zone/_plugins_/z-core/trunk
 zen-garden;svn://zone.spip.org/spip-zone/_plugins_/zen-garden/trunk

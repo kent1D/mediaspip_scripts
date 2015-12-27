@@ -256,7 +256,7 @@ IFS="
 		if [ ! -d mutualisation ];then
 			echo
 			echo $(eval_gettext "Info SPIP install mutualisation")
-			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
+			svn co svn://zone.spip.org/spip-zone/_plugins_/mutualisation/trunk mutualisation 2>> $LOG >> $LOG || error $(eval_gettext "Erreur installation regarde log")
 		else if [ -d mutualisation/.svn ];then
 			echo
 			DEPOT_FICHIER=$(env LC_MESSAGES=en_US.UTF-8 svn info mutualisation/ --non-interactive | awk '/^URL/ { print $2 }')
