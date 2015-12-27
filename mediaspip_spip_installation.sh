@@ -124,6 +124,10 @@ mediaspip_install()
 		mkdir -p $SPIP
 		cd $SPIP
 		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
+	elif [ ! -d $SPIP/.svn ];then
+		echo $(eval_gettext "Info SPIP telechargement")
+		cd $SPIP
+		svn co $SPIP_SVN ./ 2>> $LOG >> $LOG
 	elif [ -d $SPIP/.svn ];then
 		cd $SPIP
 		DEPOT=$(env LC_MESSAGES=en_US.UTF-8 svn info --non-interactive | awk '/^URL:/ { print $2 }')
