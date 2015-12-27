@@ -369,17 +369,17 @@ fi
 ##
 # FFmpeg : http://ffmpeg.org/download.html
 ##
-FFMPEG_VERSION="2.7.2"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-2.7.2.tar.bz2"
-FFMPEG_PATH="ffmpeg-2.7.2"
+FFMPEG_VERSION="2.8.4"
+FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-2.8.4.tar.bz2"
+FFMPEG_FICHIER="ffmpeg-2.8.4.tar.bz2"
+FFMPEG_PATH="ffmpeg-2.8.4"
 
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
 ##
-MEDIAINFO_VERSION="0.7.76"
-MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.76/MediaInfo_CLI_0.7.76_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.76_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.80"
+MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.80/MediaInfo_CLI_0.7.80_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.80_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 FLVTOOLPLUS_VERSION="1.2.1"
@@ -390,10 +390,10 @@ FLVTOOLPLUS_PATH="flvtool++-1.2.1"
 ##
 # LibOpus : http://www.opus-codec.org/downloads/
 ##
-LIBOPUS_VERSION="1.1.0"
-LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz"
-LIBOPUS_FICHIER="opus-1.1.tar.gz"
-LIBOPUS_PATH="opus-1.1"
+LIBOPUS_VERSION="1.1.1"
+LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.1.tar.gz"
+LIBOPUS_FICHIER="opus-1.1.1.tar.gz"
+LIBOPUS_PATH="opus-1.1.1"
 
 XMPPHP_VERSION="2.0"
 XMPPHP_URL="http://downloads.sourceforge.net/project/xmpphptoolkit/xmp_php_toolkit-2.0-rev14.rar"
@@ -586,4 +586,4 @@ fi
 echo
 echo_reussite "$(eval_gettext 'End installation generale')"
 echo
-exit 
+exit
