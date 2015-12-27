@@ -1,15 +1,14 @@
 #MediaSPIP Installation README
 
-Script d'installation de MediaSPIP.
-CF : http://www.mediaspip.net/
+Script d'installation de [MediaSPIP](http://www.mediaspip.net/).
 
 Ce script automatise l'installation des dépendances logicielles, de SPIP et des extensions/plugins/thèmes compatibles avec MediaSPIP
 
 Il est compatible avec les Distributions Linux suivantes :
 
-* Debian Squeeze (6.0.X)
-* Debian Wheezy (7.0.X)
-* Debian Jessie (7.0.X)
+* [Debian Squeeze (6.x.x)](https://www.debian.org/releases/squeeze/)
+* [Debian Wheezy (7.x.x)](https://www.debian.org/releases/wheezy/)
+* [Debian Jessie (8.x.x)](https://www.debian.org/releases/jessie/)
 * Ubuntu Lucid LTS (10.04)
 * Ubuntu Precise LTS (12.04)
 * Ubuntu Quantal (12.10)
