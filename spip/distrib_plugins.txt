@@ -75,7 +75,7 @@ smush;svn://zone.spip.org/spip-zone/_plugins_/smush_images/trunk
 skel_mediablog;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/skel_mediablog/trunk
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats/trunk
 spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/trunk
-spip-bonux;svn://zone.spip.org/swpip-zone/_plugins_/spip-bonux-3
+spip-bonux;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-3
 spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trunk
 
 # V
