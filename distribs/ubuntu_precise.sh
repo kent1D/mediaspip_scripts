@@ -57,9 +57,7 @@ ubuntu_precise_dep_install()
 	flvtool_plus_install || return 1
 
 	media_info_install || return 1
-	
-	#xmpphp_install || return 1
-	
+
 	cd $CURRENT
 	return 0
 }

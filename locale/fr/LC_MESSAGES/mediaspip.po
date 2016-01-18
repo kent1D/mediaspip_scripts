@@ -716,10 +716,6 @@ msgid "Info debut $SOFT install $VERSION"
 msgstr ""
 "Téléchargement, compilation et installation de $SOFT à la version $VERSION"
 
-#: mediaspip_functions.sh:276
-#, sh-format
-msgid "Info debut $SOFT install $XMPPHP_VERSION"
-msgstr "Installation de $SOFT à la version $XMPPHP_VERSION"
 
 #: distribs/debian_jessie.sh:90 distribs/debian_jessie.sh:92
 #: distribs/debian_squeeze.sh:295 distribs/debian_squeeze.sh:297

@@ -261,47 +261,6 @@ flvtool_plus_install()
 	echo
 }
 
-xmpphp_install(){
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-	
-	VERSION_ACTUELLE=$(php --ri xmpPHPToolkit |grep ^version |awk '{print $3}') 2>> $LOG >> $LOG
-	SOFT="XMP PHP"
-	
-	if [ "$XMPPHP_VERSION" = "$VERSION_ACTUELLE" ];then
-		echo $(eval_gettext 'Info a jour $SOFT')
-		echo $(eval_gettext 'Info a jour $SOFT') 2>> $LOG >> $LOG
-	else
-		PHP_VERSION=$(php -i | grep 'PHP Version' |awk '{print $4}' | head -c 3) 2>> $LOG >> $LOG 
-		echo $(eval_gettext 'Info debut $SOFT install $XMPPHP_VERSION')
-		cd $SRC_INSTALL
-		if [ ! -e "$SRC_INSTALL"/$XMPPHP_FICHIER ];then
-			svn co https://svn.code.sf.net/p/xmpphptoolkit/code/xmp_toolkit 2>> $LOG >> $LOG || return 1
-		fi
-
-		cd $XMPPHP_PATH
-		svn revert * 2>> $LOG >> $LOG && svn revert */* 2>> $LOG >> $LOG && svn revert */*/* 2>> $LOG >> $LOG && svn up 2>> $LOG >> $LOG
-
-		if [ "$PHP_VERSION" = "5.4" ];then
-			patch -p0 < $CURRENT/patchs/xmp_toolkit_5.4.patch 2>> $LOG >> $LOG
-		else
-			patch -p1 < $CURRENT/patchs/xmp_toolkit.patch 2>> $LOG >> $LOG
-		fi
-
-		phpize 2>> $LOG >> $LOG || return 1
-		./configure --enable-xmp_toolkit 2>> $LOG >> $LOG || return 1
-		make 2>> $LOG >> $LOG || return 1 
-		make install 2>> $LOG >> $LOG || return 1 
-	fi
-	if [ ! -e /etc/php5/apache2/conf.d/xmp_php.ini ];then
-		echo "; configuration for php xmpphptoolkit module" > /etc/php5/apache2/conf.d/xmp_php.ini
-		echo "extension=xmp_toolkit.so" >> /etc/php5/apache2/conf.d/xmp_php.ini
-		/etc/init.d/apache2 force-reload 2>> $LOG >> $LOG || return 1
-	fi
-	echo $(eval_gettext 'End $SOFT')
-	echo
-}
-
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [ "$0" = *mediaspip_functions.sh ]; then

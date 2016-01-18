@@ -65,13 +65,11 @@ debian_jessie_dep_install()
 	echo
 
 	verif_svn_protocole || return 1
-	
+
 	flvtool_plus_install || return 1
 
 	media_info_install || return 1
-	
-	#xmpphp_install || return 1
-	
+
 	cd $CURRENT
 	return 0
 }
