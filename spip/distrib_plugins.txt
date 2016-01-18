@@ -6,8 +6,8 @@ bigbrother;svn://zone.spip.org/spip-zone/_plugins_/bigbrother/trunk
 
 # C
 calendrier_mini;svn://zone.spip.org/spip-zone/_plugins_/calendrier_mini/trunk
-cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/core/trunk
-cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras/interface/trunk
+cextras2;svn://zone.spip.org/spip-zone/_plugins_/champs_extras_core/trunk
+cextras2_interface;svn://zone.spip.org/spip-zone/_plugins_/champs_extras_interface/trunk
 chosen;svn://zone.spip.org/spip-zone/_plugins_/chosen/trunk
 criteres_suivant_precedent;svn://zone.spip.org/spip-zone/_plugins_/criteres_suivant_precedent
 
@@ -57,7 +57,7 @@ opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
 # P
 pages;svn://zone.spip.org/spip-zone/_plugins_/pages/trunk
-parrainage;svn://zone.spip.org/spip-zone/_plugins_/parrainage/trunk;
+parrainage;svn://zone.spip.org/spip-zone/_plugins_/parrainage/trunk
 pdfjs;svn://zone.spip.org/spip-zone/_plugins_/pdfjs
 piecon;svn://zone.spip.org/spip-zone/_plugins_/piecon/trunk
 podcast;svn://zone.spip.org/spip-zone/_plugins_/podcast/trunk
@@ -74,15 +74,12 @@ socialtags;svn://zone.spip.org/spip-zone/_plugins_/socialtags
 smush;svn://zone.spip.org/spip-zone/_plugins_/smush_images/trunk
 skel_mediablog;svn://zone.spip.org/spip-zone/_squelettes_/mediaspip/skel_mediablog/trunk
 sparkstats;svn://zone.spip.org/spip-zone/_plugins_/sparkstats/trunk
-spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/spip_piwik_2_0
-spip-bonux;svn://zone.spip.org/spip-zone/_plugins_/spip-bonux-3
+spip_piwik_2_0;svn://zone.spip.org/spip-zone/_plugins_/spip_piwik/trunk
+spip-bonux;svn://zone.spip.org/swpip-zone/_plugins_/spip-bonux-3
 spipicious_jquery;svn://zone.spip.org/spip-zone/_plugins_/spipicious_jquery/trunk
 
 # V
 verifier;svn://zone.spip.org/spip-zone/_plugins_/verifier
-
-# X
-xmp_php;svn://zone.spip.org/spip-zone/_plugins_/xmp_php/trunk
 
 # Y
 yaml;svn://zone.spip.org/spip-zone/_plugins_/yaml
