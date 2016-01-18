@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # mediaspip_install.sh
-# © 2011-2015 - kent1 (kent1@arscenic.info)
-# Version 0.9.1
+# © 2011-2016 - kent1 (kent1@arscenic.info)
+# Version 0.9.2
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de MediaSPIP :
 # - Apache2
@@ -24,65 +24,6 @@
 # Il installe également :
 # - le nécessaire pour réaliser une mutualisation (ferme) de SPIP;
 # - l'écran de sécurité de SPIP;
-# 
-# Mises à jour :
-# Version 0.3.2 - Meilleure détection des distribs avec lsb_release
-# Version 0.3.3 - On fait marcher le script avec dash
-# Version 0.3.4 - Installation de l'écran de sécurité dans mediaspip_spip_installation.sh
-# Version 0.3.5 - Mise à jour de libvpx en 0.9.7-p1 "Cayuga"
-# Version 0.3.6 - Mise à jour de MediaInfo en 
-# Version 0.3.7 - Installation de flvtool++ en version 1.2.1
-# Version 0.3.8 - Mise à jour de ffmpeg2theora en version 0.28
-# Version 0.3.9 - On force la branche 0.7 de FFmpeg en version de développement pour faire fonctionner ffmpeg2theora
-# Version 0.3.91 - On change la source du plugin zen-garden
-# Version 0.3.92 - On change la source du plugin gis
-# Version 0.4.0 :
-# -* Passage de FFmpeg en stable en version 0.7.4
-# -* Passage de MediaInfo en version 0.7.49
-# -* On règle un soucis de changement de dépot SVN sur les installations de SPIP et plugins
-# -* Ajout de certains paquets dans les logiciels automatiquement installés (poppler-utils et catdoc)
-# Version 0.4.1 - Passage de FFmpeg en stable en version 0.7.5
-# Version 0.4.2 - Passage de FFmpeg en stable en version 0.7.6 et ajout de --disable-doc à sa configuration
-# Version 0.4.3 : 
-# -* Passage de MediaInfo en version 0.7.50
-# -* Ajout d'un sleep sur la vérification de la connexion internet
-# Version 0.4.4 : 
-# -* Passage de MediaInfo en version 0.7.51
-# -* Passage de FFMpeg en version 0.7.8
-# -* Installation de yasm en Debian Squeeze en version 1.2.0 car < 1.0.0 empêche x264 de se compiler
-# -* changement d'environnement de lang en "en" et plus "C" pour tester les dépots de SPIP
-# Version 0.4.5 : changement de l'URL de flvtool++ sur les scripts
-# Version 0.4.6 :
-# -* Passage de MediaInfo en version 0.7.52
-# Version 0.4.7 :
-# -* Passage de FFmpeg en version 0.7.11
-# -* Passage de MediaInfo en version 0.7.53
-# Version 0.4.8 : suppression de ffmpeg-php
-# Version 0.4.9 : 
-# -* Passage de FFmpeg en version 0.7.12
-# -* Passage de MediaInfo en version 0.7.57
-# -* Passage de libvpx en version 1.1.0
-# Version 0.5.0 : 
-# -* Passage de FFmpeg en version 0.7.12
-# -* Passage de MediaInfo en version 0.7.58
-# -* Téléchargement des libs de mediaSPIP
-# Version 0.6.0 :
-# -* On n'utilise plus ffmpeg2theora
-# -* Suppression des scripts dev
-# Version 0.7.0 :
-# -* Installation de ffmpeg en 1.0
-# -* Suppression de fonctions inutilisées
-# -* Plus de support pour Debian Lenny
-# -* Prise en compte de ubuntu precise 12.04 LTS
-# -* Prise en compte de ubuntu quantal 12.04 LTS 
-# Version 0.7.1 :
-# -* Installation de ffmpeg en 1.2.0
-# -* Installation de MediaInfo en 0.7.62
-# -* Suppression du support pour centos
-# -* Ajout des dépendances logicielles pour le plugin smush
-# Version 0.7.2 :
-# -* Installation de mediaspip_munin si possible et intéressant :
-# cf https://github.com/kent1D/mediaspip_munin/
 #
 # Voir CHANGELOG.md 
 
@@ -107,7 +48,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.9.1"
+VERSION_INSTALL="0.9.2"
 
 LOGO="
 ######################################################################################

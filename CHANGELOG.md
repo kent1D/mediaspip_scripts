@@ -2,6 +2,20 @@
 
 ## Version 0.9.x
 
+### Version 0.9.2
+
+#### Bugs and updates
+
+* Change some SPIP plugins svn paths
+* Remove unnecessary comments in files
+
+#### Softwares and libraries
+
+* Update FFmpeg at version 2.8.5
+* Update MediaInfo at version 0.7.81
+
+Delete XMPPHP (not stable)
+
 ### Version 0.9.1
 
 Add this changelog
