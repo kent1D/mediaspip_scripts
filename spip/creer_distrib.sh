@@ -15,7 +15,7 @@ if [ ! -r distrib_core.txt ];then
 	exit 1
 fi
 
-VERSION_SPIP_DISTRIB="0.3-dev"
+VERSION_SPIP_DISTRIB="0.9.2"
 
 CURRENT=$(pwd)
 
