@@ -7,6 +7,7 @@
 #### Bugs and updates
 
 * Remove support for unsupported Ubuntu versions
+* Update language files for reference of deleted files
 
 ### Version 0.9.2 (17/01/2016)
 
