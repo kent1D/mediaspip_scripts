@@ -1,9 +1,7 @@
 #!/bin/bash
 #
 # debian_jessie
-# © 2011-2015 - kent1 (kent1@arscenic.info)
-# Version 0.5.0
-#
+# 
 # Installation des dépendances pour Debian Jessie
 #
 

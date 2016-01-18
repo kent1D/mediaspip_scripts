@@ -1,9 +1,7 @@
 #!/bin/bash
 #
 # ubuntu_precise
-# © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.3.15
-#
+# 
 # Installation des dépendances pour Ubuntu precise
 #
 

@@ -1,43 +1,9 @@
 #!/bin/bash
 #
 # debian_squeeze
-# © 2011-2012 - kent1 (kent1@arscenic.info)
-# Version 0.4.0
 #
 # Installation des dépendances de manière stable pour debian Squeeze
 #
-# Mise à jour 
-# Version 0.3.3 : upgrade de libvpx en 0.9.7-p1
-# Version 0.3.4 : upgrade de MediaInfo en 0.7.48
-# Version 0.3.5 : 
-# -* retrait de mediainfo d'apt-get car on l'installe manuellement
-# -* ajout de libboost-dev à apt-get pour installer flvtool++ 
-# -* installation de flvtool++ en version 1.2.1
-# Version 0.3.6 : upgrade de MediaInfo en 0.7.49
-# Version 0.3.7 : upgrade de MediaInfo en 0.7.50
-# Version 0.3.8 : 
-# -* upgrade de MediaInfo en 0.7.51
-# -* installation de Yasm en 1.2.0 pour installer la dernière version de x264
-# Version 0.3.9 : changement de l'URL de flvtool++
-# Version 0.3.10 : upgrade de MediaInfo en 0.7.52
-# Version 0.3.11 : upgrade de MediaInfo en 0.7.53
-# Version 0.3.12 : suppression de ffmpeg-php
-# Version 0.3.14 : 
-# -* upgrade de MediaInfo en 0.7.57
-# -* upgrade de libvpx en 1.1.0
-# Version 0.3.15 : upgrade de MediaInfo en 0.7.58
-# Version 0.4.0 : 
-# -* On vire du code dont on n'a plus besoin
-# -* installation de libopus 1.0.1
-# -* installation de libmodplug
-# -* installation de libtwolame
-# -* on merge le fichier _stable : on installe ffmpeg depuis ce fichier
-# - on compile FFmpeg en version 1.0 avec :
-# -* libass
-# -* libopus
-# -* libmodplug
-# -* libtwolame
-# -* upgrade de MediaInfo en 0.7.61
 
 # Ce script lancé tout seul ne sert à rien
 # On s'arrête dès son appel

@@ -1,10 +1,8 @@
 #!/bin/bash
 #
 # ubuntu_trusty
-# © 2011-2015 - kent1 (kent1@arscenic.info)
-# Version 0.5.0
-#
-# Installation des dépendances pour Ubuntu ptrusty
+# 
+# Installation des dépendances pour Ubuntu trusty
 #
 
 # Ce script lancé tout seul ne sert à rien
