@@ -7,12 +7,8 @@
 # -* distrib_plugins-dist.txt : qui donne la liste des extensions SPIP obligatoires
 # -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
-# 
-# © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3-dev
 #
-# Mises à jour :
-# Version 0.2 - On fait marcher le script avec dash
+# cf : CHANGELOG.md
 
 if [ ! -r distrib_core.txt ];then
 	echo "Erreur, pas de fichier distrib_core.txt"

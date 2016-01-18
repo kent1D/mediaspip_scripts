@@ -1,8 +1,6 @@
 #!/bin/bash
 #
 # isometric1.sh
-# © 2011 - kent1 (kent1@arscenic.info)
-# Version 0.3.3
 #
 # Some fun
 

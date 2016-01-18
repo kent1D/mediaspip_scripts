@@ -1,8 +1,6 @@
 #!/bin/bash
 #
 # mediaspip_spip_installation.sh
-# © 2011-2015 - kent1 (kent1@arscenic.info)
-# Version 0.4.0
 #
 # Ce script installe MediaSPIP
 # - SPIP
@@ -18,16 +16,6 @@
 # -* distrib_extensions.txt : qui donne la liste des extensions SPIP obligatoires
 # -* distrib_plugins.txt : qui donne la liste des plugins SPIP facultatifs
 # -* distrib_themes.txt : qui donne la liste des thèmes SPIP
-#
-# Mises à jour :
-# Version 0.3.2 - On utilise les mêmes fichiers txt de spip/creer_distrib.sh pour télécharger les plugins, extensions et thèmes
-# Version 0.3.3 - On fait marcher le script avec dash
-# Version 0.3.4 - On ajoute l'écran de sécurité
-# Version 0.3.5 - On change la source du plugin zen-garden
-# Version 0.3.6 - On change la source du plugin gis
-# Version 0.3.7 - On règle un problème dans le switch des dépots
-# Version 0.3.8 - LANG=C n'est pas disponible tout le temps ... on utilise LANG=en ... peut être plus fréquent
-# Version 0.3.9 - Télécharger deux librairies supplémentaires (jquery-validate pour inscription3 et oAuth pour le plugin éponyme)
 #
 # Voir CHANGELOG.md
 
