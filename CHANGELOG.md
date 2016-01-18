@@ -2,7 +2,13 @@
 
 ## Version 0.9.x
 
-### Version 0.9.2
+### Version 0.9.3 (Current trunk)
+
+#### Bugs and updates
+
+* Remove support for unsupported Ubuntu versions
+
+### Version 0.9.2 (17/01/2016)
 
 #### Bugs and updates
 
