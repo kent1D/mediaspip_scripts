@@ -59,7 +59,7 @@ debian_squeeze_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-			--enable-libfaac --enable-libmp3lame --enable-libaacplus --enable-libspeex --enable-libopus --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libxvid --enable-libtheora --enable-libx264\
+			--enable-libfaac --enable-libfdk-aac --enable-libmp3lame --enable-libaacplus --enable-libspeex --enable-libopus --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libxvid --enable-libtheora --enable-libx264\
 			--enable-libmodplug --enable-librtmp --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
@@ -118,6 +118,8 @@ debian_squeeze_dep_install()
 	debian_squeeze_yasm_install || return 1
 	
 	debian_squeeze_libopus_install || return 1
+	
+	libfdk_aac_install || return 1
 	
 	debian_squeeze_libvpx_install || return 1
 	

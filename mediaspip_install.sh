@@ -18,6 +18,8 @@
 # - flvtool++;
 # - mediainfo;
 # - ffmpeg;
+#   - libvpx
+#   - libfdk_aac
 # - ...
 #
 # Ce script installe également SPIP et l'ensemble des extensions nécessaires, plugins optionnels et thèmes pour MediaSPIP
@@ -325,6 +327,9 @@ MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.81/MediaInfo_C
 MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.81_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
+##
+# FLVtool++
+##
 FLVTOOLPLUS_VERSION="1.2.1"
 FLVTOOLPLUS_URL="http://files.mediaspip.net/binaires/flvtool++-1.2.1.tar.gz"
 FLVTOOLPLUS_FICHIER="flvtool++-1.2.1.tar.gz"
@@ -337,6 +342,14 @@ LIBOPUS_VERSION="1.1.1"
 LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.1.tar.gz"
 LIBOPUS_FICHIER="opus-1.1.1.tar.gz"
 LIBOPUS_PATH="opus-1.1.1"
+
+##
+# LibFDK-aac : https://github.com/mstorsjo/fdk-aac/releases
+##
+LIBFDKAAC_VERSION="0.1.4"
+LIBFDKAAC_URL="https://github.com/mstorsjo/fdk-aac/archive/v0.1.4.tar.gz"
+LIBFDKAAC_FICHIER="v0.1.4.tar.gz"
+LIBFDKAAC_PATH="fdk-aac-0.1.4"
 
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"

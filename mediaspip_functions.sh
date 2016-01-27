@@ -260,6 +260,42 @@ flvtool_plus_install()
 	echo
 }
 
+# Installation de libfdk_aac
+# https://github.com/mstorsjo/fdk-aac/releases
+libfdk_aac_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	LIBFDKVERSION=$(pkg-config --modversion fdk-aac 2>> $LOG)
+	cd $SRC_INSTALL
+	SOFT="libfdk-aac"
+	VERSION="$LIBFDKAAC_VERSION"
+	if [ "$LIBFDKVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/$LIBFDKAAC_FICHIER ];then
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
+			wget $LIBFDKAAC_URL 2>> $LOG >> $LOG
+			tar xvzf $LIBFDKAAC_FICHIER  2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd $LIBFDKAAC_PATH
+		echo $(eval_gettext "Info compilation configure")
+		./autogen.sh 2>> $LOG >> $LOG
+		./configure 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname=libfdk-aac-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		FFMPEG_FORCE_INSTALL="oui"
+		echo $(eval_gettext 'End $SOFT')
+	fi
+	echo
+}
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [ "$0" = *mediaspip_functions.sh ]; then

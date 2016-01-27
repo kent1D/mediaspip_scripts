@@ -9,6 +9,11 @@
 * Remove support for unsupported Ubuntu versions
 * Update language files for reference of deleted files
 
+#### Softwares and libraries
+
+* Compile libfdk-aac manually for all platforms
+* Compile FFMpeg with libfdk-aac enabled
+
 ### Version 0.9.2 (17/01/2016)
 
 #### Bugs and updates
