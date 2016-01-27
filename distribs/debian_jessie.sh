@@ -55,7 +55,7 @@ debian_jessie_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev yasm scons libboost-dev zlib1g-dev unzip \
 		apache2 mysql-server php5-dev php-pear php5-mysql php5-sqlite php5-curl php5-gd php5-imagick libapache2-mod-php5 re2c \
-		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvpx-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
+		libmp3lame-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore-dev libtheora-dev libschroedinger-dev libspeex-dev libopencore-amrnb-dev libopencore-amrwb-dev libvorbis-dev libass-dev libtwolame-dev libopus-dev librtmp-dev\
 		flac vorbis-tools imagemagick pngnq optipng libjpeg-progs unrar-free \
 		tesseract* xpdf catdoc unoconv poppler-utils texi2html \
 		2>> $LOG >> $LOG || return 1
@@ -67,6 +67,8 @@ debian_jessie_dep_install()
 	flvtool_plus_install || return 1
 
 	libfdk_aac_install || return 1
+	
+	libvpx_install || return 1
 
 	media_info_install || return 1
 

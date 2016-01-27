@@ -296,6 +296,45 @@ libfdk_aac_install()
 	fi
 	echo
 }
+
+# Installation de libvpx
+# http://code.google.com/p/webm/
+libvpx_install()
+{
+	export TEXTDOMAINDIR=$CURRENT/locale
+	export TEXTDOMAIN=mediaspip
+	LIBVPXVERSION=$(pkg-config --modversion vpx 2>> $LOG)
+	cd $SRC_INSTALL
+	SOFT="libvpx"
+	VERSION="$LIBVPX_VERSION"
+	
+	if [ "$LIBFDKVERSION" = "$VERSION" ]; then
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
+		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
+	else
+		if [ ! -e "$SRC_INSTALL"/$LIBVPX_FICHIER ];then
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
+			wget $LIBVPX_URL 2>> $LOG >> $LOG
+			tar xvzf $LIBVPX_FICHIER  2>> $LOG >> $LOG
+		else
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION')
+			echo $(eval_gettext 'Info debut $SOFT update $VERSION') 2>> $LOG >> $LOG
+		fi
+		cd $LIBVPX_PATH
+		echo $(eval_gettext "Info compilation configure")
+		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
+		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
+		./configure --enable-shared --enable-vp8 --enable-vp9 --disable-examples --disable-unit-tests 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation make")
+		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
+		echo $(eval_gettext "Info compilation install")
+		checkinstall --fstrans=no --install=yes --pkgname=libvpx-dev --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
+		FFMPEG_FORCE_INSTALL="oui"
+		echo $(eval_gettext 'End $SOFT')
+	fi
+	echo
+}
 # Planter l'appel si on appelle ce script directement
 # On explique que c'est uniquement un fichier de fonctions
 if [ "$0" = *mediaspip_functions.sh ]; then

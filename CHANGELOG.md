@@ -11,7 +11,8 @@
 
 #### Softwares and libraries
 
-* Compile libfdk-aac manually for all platforms
+* Compile libfdk-aac (v0.1.4) manually for all platforms
+* Compile libvpx (v1.5.0) manually for all platforms
 * Compile FFMpeg with libfdk-aac enabled
 
 ### Version 0.9.2 (17/01/2016)

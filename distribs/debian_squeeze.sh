@@ -121,7 +121,7 @@ debian_squeeze_dep_install()
 	
 	libfdk_aac_install || return 1
 	
-	debian_squeeze_libvpx_install || return 1
+	libvpx_install || return 1
 	
 	flvtool_plus_install || return 1
 	
@@ -164,51 +164,6 @@ debian_squeeze_yasm_install ()
 		checkinstall --pkgname=yasm --pkgversion "$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext 'End $SOFT')
 	fi
-	echo
-}
-
-# Installation de libvpx
-# http://code.google.com/p/webm/
-debian_squeeze_libvpx_install()
-{
-	export TEXTDOMAINDIR=$CURRENT/locale
-	export TEXTDOMAIN=mediaspip
-
-	cd $SRC_INSTALL
-	VERSION="1.2.0"
-	LIBVPX=$(dpkg --status libvpx 2>> $LOG |awk '/^Version/ { print $2 }') 2>> $LOG >> $LOG
-	SOFT="libvpx"
-	case "$LIBVPX" in
-		*$VERSION*) 
-			echo $(eval_gettext 'Info a jour $SOFT $VERSION')
-			echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
-			;;
-		*)
-			echo $(eval_gettext 'Info debut $SOFT install $VERSION')
-			echo $(eval_gettext 'Info debut $SOFT install $VERSION') 2>> $LOG >> $LOG
-			if [ ! -e "$SRC_INSTALL"/libvpx-v1.2.0.tar.bz2 ];then
-				wget https://webm.googlecode.com/files/libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
-				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
-			elif [ ! -d "$SRC_INSTALL"/libvpx-v1.2.0 ]; then
-				tar xvjf libvpx-v1.2.0.tar.bz2 2>> $LOG >> $LOG
-			fi
-			cd libvpx-v1.2.0
-			make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
-			make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-			g++ -I third_party/googletest/src/include -I third_party/googletest/src/ -c third_party/googletest/src/src/gtest-all.cc 2>> $LOG >> $LOG
-			ar -rv libgtest.a gtest-all.o 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation configure")
-			./configure --enable-shared 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation make")
-			make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
-			echo $(eval_gettext "Info compilation install")
-			apt-get -y --force-yes remove libvpx 2>> $LOG >> $LOG
-			checkinstall --fstrans=no --install=yes --pkgname="libvpx" --pkgversion="$VERSION+mediaspip" --backup=no --default 2>> $LOG >> $LOG
-			FFMPEG_FORCE_INSTALL="oui"
-			echo $(eval_gettext 'End $SOFT')
-			;;
-	esac
-	ldconfig
 	echo
 }
 

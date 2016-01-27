@@ -351,6 +351,14 @@ LIBFDKAAC_URL="https://github.com/mstorsjo/fdk-aac/archive/v0.1.4.tar.gz"
 LIBFDKAAC_FICHIER="v0.1.4.tar.gz"
 LIBFDKAAC_PATH="fdk-aac-0.1.4"
 
+##
+# Libvpx : https://github.com/webmproject/libvpx/releases
+##
+LIBVPX_VERSION="1.5.0"
+LIBVPX_URL="https://github.com/webmproject/libvpx/archive/v1.5.0.tar.gz"
+LIBVPX_FICHIER="v1.5.0.tar.gz"
+LIBVPX_PATH="libvpx-1.5.0"
+
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
 
