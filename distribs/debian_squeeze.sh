@@ -59,7 +59,7 @@ debian_squeeze_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads \
-			--enable-libfaac --enable-libfdk-aac --enable-libmp3lame --enable-libaacplus --enable-libspeex --enable-libopus --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libxvid --enable-libtheora --enable-libx264\
+			--enable-libfaac --enable-libfdk-aac --enable-libmp3lame --enable-libspeex --enable-libopus --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libxvid --enable-libtheora --enable-libx264\
 			--enable-libmodplug --enable-librtmp --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
@@ -106,7 +106,7 @@ debian_squeeze_dep_install()
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get -q -y --force-yes install build-essential curl subversion git-core checkinstall libcxxtools-dev scons libboost-dev zlib1g-dev unzip \
 		apache2.2-common mysql-server php5-dev php5-mysql php5-sqlite php-pear php5-curl php5-gd libapache2-mod-php5 libmagick9-dev \
-		libmp3lame-dev libaacplus-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
+		libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev librtmp-dev libfaac-dev libfaad-dev libmodplug-dev libgsm1-dev libopenjpeg-dev libxvidcore4-dev libschroedinger-dev libspeex-dev libvorbis-dev libass-dev libtwolame-dev \
 		flac vorbis-tools imagemagick pngnq optipng libjpeg-progs \
 		tesseract* xpdf catdoc unoconv poppler-utils texi2html \
 		2>> $LOG >> $LOG || return 1

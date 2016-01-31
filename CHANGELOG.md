@@ -2,7 +2,7 @@
 
 ## Version 0.9.x
 
-### Version 0.9.3 (Current trunk)
+### Version 0.9.3 (31/01/2016)
 
 #### Bugs and updates
 
@@ -13,6 +13,7 @@
 
 * Compile libfdk-aac (v0.1.4) manually for all platforms
 * Compile libvpx (v1.5.0) manually for all platforms
+* Remove support for libaacplus (due to [future FFMpeg version](http://ffmpeg.org/#removing_external_aac_encoders)) 
 * Compile FFMpeg with libfdk-aac enabled
 
 ### Version 0.9.2 (17/01/2016)
