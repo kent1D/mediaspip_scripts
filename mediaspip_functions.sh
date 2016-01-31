@@ -8,7 +8,7 @@
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
 
-VERSION_FUNCTIONS=0.9.2
+VERSION_FUNCTIONS=0.9.3
 
 isNumeric()
 {

@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2016 - kent1 (kent1@arscenic.info)
-# Version 0.9.2
+# Version 0.9.3
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de MediaSPIP :
 # - Apache2
@@ -50,7 +50,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.9.2"
+VERSION_INSTALL="0.9.3"
 
 LOGO="
 ######################################################################################
