@@ -25,7 +25,7 @@ fulltext;svn://zone.spip.org/spip-zone/_plugins_/fulltext/trunk
 
 # G
 gis;svn://zone.spip.org/spip-zone/_plugins_/gis/trunk
-google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics
+google_analytics;svn://zone.spip.org/spip-zone/_plugins_/google_analytics/trunk
 googleplus1;svn://zone.spip.org/spip-zone/_plugins_/googleplus1
 gravatar;svn://zone.spip.org/spip-zone/_plugins_/gravatar
 
@@ -51,7 +51,7 @@ nuage;svn://zone.spip.org/spip-zone/_plugins_/nuage/trunk
 
 # O
 oembed;svn://zone.spip.org/spip-zone/_plugins_/oembed
-openid;svn://zone.spip.org/spip-zone/_plugins_/openid
+openid;svn://zone.spip.org/spip-zone/_plugins_/openid/trunk
 openinviter;svn://zone.spip.org/spip-zone/_plugins_/openinviter
 opensearch;svn://zone.spip.org/spip-zone/_plugins_/opensearch
 
