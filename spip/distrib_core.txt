@@ -1,4 +1,4 @@
-NOM=mediaspip_0_9_3
-REP=mediaspip_0_9_3
+NOM=mediaspip_0_9_4
+REP=mediaspip_0_9_4
 SOURCE=svn://trac.rezo.net/spip/branches/spip-3.0
 LIB=oui

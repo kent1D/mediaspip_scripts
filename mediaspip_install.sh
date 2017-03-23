@@ -2,7 +2,7 @@
 #
 # mediaspip_install.sh
 # © 2011-2016 - kent1 (kent1@arscenic.info)
-# Version 0.9.3
+# Version 0.9.4
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de MediaSPIP :
 # - Apache2
@@ -50,7 +50,7 @@ else
 	exit 1
 fi
 
-VERSION_INSTALL="0.9.3"
+VERSION_INSTALL="0.9.4"
 
 LOGO="
 ######################################################################################
@@ -108,9 +108,7 @@ elif [ -r /etc/debian_version ]; then
 	DISTRIB="debian"
 	DISTRIB_VERSION=$(cat /etc/debian_version)
 	NUMBER=$(cat /etc/debian_version | cut -c 1)
-	if [ "$NUMBER" = '6' ]; then
-		DISTRO="squeeze"
-	elif [ "$NUMBER" = '7' ]; then
+	if [ "$NUMBER" = '7' ]; then
 		DISTRO="wheezy"
 	elif [ "$DISTRIB_VERSION" = 'wheezy/sid' ]; then
 		DISTRO="wheezy"
@@ -130,7 +128,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='squeeze wheezy precise trusty jessie';
+OKDISTRO='wheezy precise trusty jessie';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -314,17 +312,17 @@ fi
 ##
 # FFmpeg : http://ffmpeg.org/download.html
 ##
-FFMPEG_VERSION="2.8.5"
-FFMPEG_URL="http://ffmpeg.org/releases/ffmpeg-2.8.5.tar.bz2"
-FFMPEG_FICHIER="ffmpeg-2.8.5.tar.bz2"
-FFMPEG_PATH="ffmpeg-2.8.5"
+FFMPEG_VERSION="3.2.3"
+FFMPEG_URL="https://github.com/FFmpeg/FFmpeg/archive/n3.2.3.tar.gz"
+FFMPEG_FICHIER="n3.2.3.tar.gz"
+FFMPEG_PATH="FFmpeg-n3.2.3"
 
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
 ##
-MEDIAINFO_VERSION="0.7.81"
-MEDIAINFO_URL="http://mediaarea.net/download/binary/mediainfo/0.7.81/MediaInfo_CLI_0.7.81_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.81_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.93"
+MEDIAINFO_URL="https://mediaarea.net/download/binary/mediainfo/0.7.93/MediaInfo_CLI_0.7.93_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.93_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 ##
@@ -338,26 +336,26 @@ FLVTOOLPLUS_PATH="flvtool++-1.2.1"
 ##
 # LibOpus : http://www.opus-codec.org/downloads/
 ##
-LIBOPUS_VERSION="1.1.1"
-LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.1.tar.gz"
-LIBOPUS_FICHIER="opus-1.1.1.tar.gz"
-LIBOPUS_PATH="opus-1.1.1"
+LIBOPUS_VERSION="1.1.4"
+LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz"
+LIBOPUS_FICHIER="opus-1.1.4.tar.gz"
+LIBOPUS_PATH="opus-1.1.4"
 
 ##
 # LibFDK-aac : https://github.com/mstorsjo/fdk-aac/releases
 ##
-LIBFDKAAC_VERSION="0.1.4"
-LIBFDKAAC_URL="https://github.com/mstorsjo/fdk-aac/archive/v0.1.4.tar.gz"
-LIBFDKAAC_FICHIER="v0.1.4.tar.gz"
-LIBFDKAAC_PATH="fdk-aac-0.1.4"
+LIBFDKAAC_VERSION="0.1.5"
+LIBFDKAAC_URL="https://github.com/mstorsjo/fdk-aac/archive/v0.1.5.tar.gz"
+LIBFDKAAC_FICHIER="v0.1.5.tar.gz"
+LIBFDKAAC_PATH="fdk-aac-0.1.5"
 
 ##
 # Libvpx : https://github.com/webmproject/libvpx/releases
 ##
-LIBVPX_VERSION="1.5.0"
-LIBVPX_URL="https://github.com/webmproject/libvpx/archive/v1.5.0.tar.gz"
-LIBVPX_FICHIER="v1.5.0.tar.gz"
-LIBVPX_PATH="libvpx-1.5.0"
+LIBVPX_VERSION="1.6.1"
+LIBVPX_URL="https://github.com/webmproject/libvpx/archive/v1.6.1.tar.gz"
+LIBVPX_FICHIER="v1.6.1.tar.gz"
+LIBVPX_PATH="libvpx-1.6.1"
 
 FICHIER="distribs/$DISTRIB_$DISTRO.sh"
 . ./distribs/"$DISTRIB"_"$DISTRO".sh 2>> $LOG >> $LOG || error "$(eval_gettext 'Erreur fichier $FICHIER')"
@@ -404,7 +402,7 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	# - y
 	# - o
 	# - return (vide)
-	if [ "$SPIP_TYPE" != "none" ];then
+	if [ $DISABLE_MEDIASPIP != "yes" ] && [ $SPIP_TYPE != "none" ];then
 		eval_gettext "Info SPIP installation"
 		echo " $SPIP"
 		echo -n "$QUESTION_VALID"
@@ -413,6 +411,8 @@ if [ "$NO_QUESTION" != "yes" ]; then
 		echo
 	else
 		eval_gettext "Info MediaSPIP non installe"
+		echo
+		echo
 	fi
 	
 	# ok, already, last check before proceeding
@@ -442,7 +442,7 @@ echo
 # (différents modules)
 
 # Si on demande en option de ne pas configurer Apache, on ne le fait pas
-if [ "$DISABLE_APACHE" != "yes" ];then
+if [ $DISABLE_APACHE != "yes" ];then
 	eval_gettext "Titre apache"
 	echo
 	echo
@@ -526,7 +526,7 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 	fi
 fi
 
-if [ "$DISABLE_MEDIASPIP" != "yes" ];then
+if [ $DISABLE_MEDIASPIP != "yes" ] && [ $SPIP_TYPE != "none" ];then
 	echo
 	eval_gettext "Titre spip mediaspip"
 	echo

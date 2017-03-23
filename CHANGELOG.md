@@ -2,6 +2,21 @@
 
 ## Version 0.9.x
 
+### Version 0.9.4 (23/03/2017)
+
+#### Bugs and updates
+
+* Take properly into account the `DISABLE_MEDIASPIP` option
+* Delete Debian Squeeze compatibility
+
+#### Softwares and libraries
+
+* Update FFmpeg at version 3.2.3 (and retrieve it from GitHub)
+* Update MediaInfo at version 0.7.93
+* Update LibOpus at version 1.1.4
+* Update LibFdk-aac at version 0.1.5
+* Update LibVPX at version 1.6.1
+
 ### Version 0.9.3 (31/01/2016)
 
 #### Bugs and updates

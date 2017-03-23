@@ -171,9 +171,9 @@ debian_wheezy_ffmpeg_install ()
 		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		echo
 		wget $FFMPEG_URL 2>> $LOG >> $LOG
-		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+		tar xvzf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	elif [ ! -d $FFMPEG_PATH ];then
-		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+		tar xvzf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	fi
 
 	if [ -x $(which ffmpeg) ];then
@@ -193,7 +193,7 @@ debian_wheezy_ffmpeg_install ()
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
 		./configure --disable-doc --disable-ffplay --disable-ffserver --enable-gpl --enable-version3 --enable-nonfree --enable-shared --enable-postproc --enable-pthreads --enable-libvpx\
-			--enable-libfaac --enable-libfdk-aac --enable-libmp3lame --enable-libxvid --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264\
+			--enable-libfdk-aac --enable-libmp3lame --enable-libxvid --disable-encoder=vorbis  --enable-libvorbis --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libx264\
 			--enable-libopus --enable-libmodplug --enable-librtmp --enable-libspeex --enable-libopenjpeg --enable-libgsm --enable-avfilter --enable-zlib --enable-libass --enable-libtwolame 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1

@@ -8,7 +8,7 @@
 export TEXTDOMAINDIR=./locale
 export TEXTDOMAIN=mediaspip
 
-VERSION_FUNCTIONS=0.9.3
+VERSION_FUNCTIONS=0.9.4
 
 isNumeric()
 {
@@ -160,10 +160,10 @@ media_info_install()
 			echo $(eval_gettext 'Info debut $SOFT update $VERSION')
 			echo $(eval_gettext 'Info debut $SOFT update $VERSION') 2>> $LOG >> $LOG
 		fi
-		cd "$SRC_INSTALL"/MediaInfo_CLI_GNU_FromSource
+		cd $SRC_INSTALL/$MEDIAINFO_PATH
 		echo $(eval_gettext 'Info $SOFT compil install')
 		echo $(eval_gettext 'Info $SOFT compil install') 2>> $LOG >> $LOG
-		patch -Np1 CLI_Compile.sh < $CURRENT/patchs/mediainfo.patch 2>> $LOG >> $LOG 
+		#patch -Np1 CLI_Compile.sh < $CURRENT/patchs/mediainfo.patch 2>> $LOG >> $LOG 
 		sh CLI_Compile.sh 2>> $LOG >> $LOG || return 1
 		cd MediaInfo/Project/GNU/CLI
 		make install 2>> $LOG >> $LOG ||return 1  
@@ -308,7 +308,7 @@ libvpx_install()
 	SOFT="libvpx"
 	VERSION="$LIBVPX_VERSION"
 	
-	if [ "$LIBFDKVERSION" = "$VERSION" ]; then
+	if [ "$LIBVPXVERSION" = "$VERSION" ]; then
 		echo $(eval_gettext 'Info a jour $SOFT $VERSION')
 		echo $(eval_gettext 'Info a jour $SOFT $VERSION') 2>> $LOG >> $LOG
 	else
@@ -325,7 +325,7 @@ libvpx_install()
 		echo $(eval_gettext "Info compilation configure")
 		make -j $NO_OF_CPUCORES clean 2>> $LOG >> $LOG
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
-		./configure --enable-shared --enable-vp8 --enable-vp9 --disable-examples --disable-unit-tests 2>> $LOG >> $LOG
+		./configure --enable-shared 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation install")

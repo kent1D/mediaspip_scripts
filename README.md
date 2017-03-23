@@ -6,7 +6,6 @@ Ce script automatise l'installation des dépendances logicielles, de SPIP et des
 
 Il est compatible avec les Distributions Linux suivantes :
 
-* [Debian Squeeze (6.x.x)](https://www.debian.org/releases/squeeze/)
 * [Debian Wheezy (7.x.x)](https://www.debian.org/releases/wheezy/)
 * [Debian Jessie (8.x.x)](https://www.debian.org/releases/jessie/)
 * Ubuntu Precise LTS (12.04)

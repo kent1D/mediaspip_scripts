@@ -135,9 +135,9 @@ debian_jessie_ffmpeg_install ()
 		echo $(eval_gettext 'Info debut $SOFT install') 2>> $LOG >> $LOG
 		echo
 		wget $FFMPEG_URL 2>> $LOG >> $LOG
-		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+		tar xvzf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	elif [ ! -d $FFMPEG_PATH ];then
-		tar xvjf $FFMPEG_FICHIER 2>> $LOG >> $LOG
+		tar xvzf $FFMPEG_FICHIER 2>> $LOG >> $LOG
 	fi
 
 	if [ -x $(which ffmpeg) ];then
