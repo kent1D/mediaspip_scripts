@@ -332,17 +332,17 @@ fi
 ##
 # FFmpeg : http://ffmpeg.org/download.html
 ##
-FFMPEG_VERSION="3.2.3"
-FFMPEG_URL="https://github.com/FFmpeg/FFmpeg/archive/n3.2.3.tar.gz"
-FFMPEG_FICHIER="n3.2.3.tar.gz"
-FFMPEG_PATH="FFmpeg-n3.2.3"
+FFMPEG_VERSION="3.3.2"
+FFMPEG_URL="https://github.com/FFmpeg/FFmpeg/archive/n3.3.2.tar.gz"
+FFMPEG_FICHIER="n3.3.2.tar.gz"
+FFMPEG_PATH="FFmpeg-n3.3.2"
 
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
 ##
-MEDIAINFO_VERSION="0.7.93"
-MEDIAINFO_URL="https://mediaarea.net/download/binary/mediainfo/0.7.93/MediaInfo_CLI_0.7.93_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.93_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.97"
+MEDIAINFO_URL="https://mediaarea.net/download/binary/mediainfo/0.7.97/MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 ##
@@ -356,10 +356,10 @@ FLVTOOLPLUS_PATH="flvtool++-1.2.1"
 ##
 # LibOpus : http://www.opus-codec.org/downloads/
 ##
-LIBOPUS_VERSION="1.1.4"
-LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz"
-LIBOPUS_FICHIER="opus-1.1.4.tar.gz"
-LIBOPUS_PATH="opus-1.1.4"
+LIBOPUS_VERSION="1.2.1"
+LIBOPUS_URL="http://downloads.xiph.org/releases/opus/opus-1.2.1.tar.gz"
+LIBOPUS_FICHIER="opus-1.2.1.tar.gz"
+LIBOPUS_PATH="opus-1.2.1"
 
 ##
 # LibFDK-aac : https://github.com/mstorsjo/fdk-aac/releases
