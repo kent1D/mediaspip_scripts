@@ -147,7 +147,7 @@ debian_wheezy_x264_install ()
 	else
 		make -j $NO_OF_CPUCORES distclean 2>> $LOG >> $LOG
 		echo $(eval_gettext "Info compilation configure")
-		./configure --enable-shared 2>> $LOG >> $LOG || return 1
+		./configure --disable-asm --enable-shared 2>> $LOG >> $LOG || return 1
 		echo $(eval_gettext "Info compilation make")
 		make -j $NO_OF_CPUCORES 2>> $LOG >> $LOG || return 1
 		apt-get -y --force-yes remove x264 2>> $LOG >> $LOG
