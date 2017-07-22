@@ -112,6 +112,8 @@ elif [ -r /etc/debian_version ]; then
 		DISTRO="wheezy"
 	elif [ "$DISTRIB_VERSION" = 'wheezy/sid' ]; then
 		DISTRO="wheezy"
+	elif [ "$NUMBER" = '8' ]; then
+		DISTRO="jessie"
 	else
 		echo_erreur "$(eval_gettext 'Erreur script distro inconnue')"
 		exit 1
