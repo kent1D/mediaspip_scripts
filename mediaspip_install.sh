@@ -200,13 +200,25 @@ while [ $# -gt 0 ]; do
 		echo "$HELP"
 		exit 0;;
 		--version|-v) VERSION_AFFICHER=$(eval_gettext 'Info mediaspip installation $VERSION_INSTALL')
-		echo "$VERSION_AFFICHER"  
+		echo "$VERSION_AFFICHER"
 		exit 0;;
 		--lang|-lang) 
 			case "${2}" in
-				en) export LC_MESSAGES=en_US.UTF-8
+				en)
+					if [ ! -z $(locale -a |grep en_US.utf) ]; then
+						export LC_MESSAGES=en_US.UTF-8
+					else
+						echo_erreur "$(eval_gettext 'Impossible to choose english language')"
+						exit 1
+					fi
 				shift 2;;
-				fr) export LC_MESSAGES=fr_FR.UTF-8
+				fr) 
+					if [ ! -z $(locale -a |grep fr_FR.utf) ]; then
+						export LC_MESSAGES=fr_FR.UTF-8
+					else
+						echo_erreur "$(eval_gettext 'Impossible to choose french language')"
+						exit 1
+					fi
 				shift 2;;
 				"") echo_erreur "$(eval_gettext 'Erreur langue non set')"
 				ERROR=oui
@@ -296,9 +308,15 @@ fi
 case $LANGUE in
 	en|fr) ;;
 	*)
-		export LC_MESSAGES=en_US.UTF-8
+		if [ ! -z $(locale -a |grep en_US.utf) ]; then
+			export LC_MESSAGES=en_US.UTF-8
+		else
+			echo_erreur "$(eval_gettext 'Impossible de changer la langue en en_US.UTF-8')"
+			$ERROR="oui";
+		fi
 		;;
-esac 
+esac
+
 
 verif_internet_connexion || error "$(eval_gettext 'Erreur internet connexion')"
 
@@ -404,7 +422,7 @@ if [ "$NO_QUESTION" != "yes" ]; then
 	# - y
 	# - o
 	# - return (vide)
-	if [ $DISABLE_MEDIASPIP != "yes" ] && [ $SPIP_TYPE != "none" ];then
+	if [ "$DISABLE_MEDIASPIP" != "yes" ] && [ "$SPIP_TYPE" != "none" ];then
 		eval_gettext "Info SPIP installation"
 		echo " $SPIP"
 		echo -n "$QUESTION_VALID"
@@ -528,7 +546,7 @@ if [ -d /var/alternc/exec.usr ] && [ "$DISABLE_ALTERNC" != "yes" ]; then
 	fi
 fi
 
-if [ $DISABLE_MEDIASPIP != "yes" ] && [ $SPIP_TYPE != "none" ];then
+if [ "$DISABLE_MEDIASPIP" != "yes" ] && [ "$SPIP_TYPE" != "none" ];then
 	echo
 	eval_gettext "Titre spip mediaspip"
 	echo
