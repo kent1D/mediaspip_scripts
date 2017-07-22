@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # mediaspip_install.sh
-# © 2011-2016 - kent1 (kent1@arscenic.info)
+# © 2011-2017 - kent1 (kent1@arscenic.info)
 # Version 0.9.4
 # 
 # Ce script installe toutes les dépendances logicielles nécessaires au bon fonctionnement de MediaSPIP :
