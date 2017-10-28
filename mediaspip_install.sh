@@ -130,7 +130,7 @@ else
 	exit 1
 fi
 
-OKDISTRO='wheezy precise trusty jessie';
+OKDISTRO='wheezy precise trusty jessie stretch';
 case "$OKDISTRO" in 
 	*$DISTRO*);;
 	*)
@@ -264,9 +264,9 @@ while [ $# -gt 0 ]; do
 		echo $(eval_gettext 'Info options disable_ffmpeg')
 		shift;;
 		--disable-mediaspip) 
-		DISABLE_MEDIASPIP="yes"
-		SPIP_TYPE="none"
-		echo $(eval_gettext 'Info options disable_mediaspip')
+			DISABLE_MEDIASPIP="yes"
+			SPIP_TYPE="none"
+			echo $(eval_gettext 'Info options disable_mediaspip')
 		shift;;
 		--disable-munin) DISABLE_MUNIN="yes"
 		echo $(eval_gettext 'Info options disable_munin')
@@ -332,17 +332,17 @@ fi
 ##
 # FFmpeg : http://ffmpeg.org/download.html
 ##
-FFMPEG_VERSION="3.3.2"
-FFMPEG_URL="https://github.com/FFmpeg/FFmpeg/archive/n3.3.2.tar.gz"
-FFMPEG_FICHIER="n3.3.2.tar.gz"
-FFMPEG_PATH="FFmpeg-n3.3.2"
+FFMPEG_VERSION="3.3.3"
+FFMPEG_URL="https://github.com/FFmpeg/FFmpeg/archive/n3.3.3.tar.gz"
+FFMPEG_FICHIER="n3.3.3.tar.gz"
+FFMPEG_PATH="FFmpeg-n3.3.3"
 
 ##
 # MediaInfo : https://mediaarea.net/fr/MediaInfo/Download/Source
 ##
-MEDIAINFO_VERSION="0.7.97"
-MEDIAINFO_URL="https://mediaarea.net/download/binary/mediainfo/0.7.97/MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2"
-MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2"
+MEDIAINFO_VERSION="0.7.98"
+MEDIAINFO_URL="https://mediaarea.net/download/binary/mediainfo/0.7.98/MediaInfo_CLI_0.7.98_GNU_FromSource.tar.bz2"
+MEDIAINFO_FICHIER="MediaInfo_CLI_0.7.98_GNU_FromSource.tar.bz2"
 MEDIAINFO_PATH="MediaInfo_CLI_GNU_FromSource"
 
 ##
